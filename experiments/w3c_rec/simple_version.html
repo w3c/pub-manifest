@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>Model for Tabular Data and Metadata on the Web</title>
+    <link href="#wpm" rel="publication" />
+    ...
+    <script id="wpm" type="application/ld+json">
+    {
+        "@context"        : ["https://schema.org", "https://www.w3.org/ns/wp-context"],
+        "type"            : "TechArticle",
+        "id"              : "http://www.w3.org/TR/tabular-data-model/",
+        "url"             : "http://www.w3.org/TR/2015/REC-tabular-data-model-20151217/",
+        "copyrightYear"   : "2015",
+        "copyrightHolder" : "World Wide Web Consortium",    
+        "creator"         : ["Jeni Tennison", "Gregg Kellogg", "Ivan Herman"],
+        "publisher" : {
+            "type" : "Organization",
+            "name" : "World Wide Web Consortium",
+            "id"   : "https://www.w3.org/"
+        },
+        "datePublished"         : "2015-12-17",
+        "resources"             : [
+            "datatypes.html",
+            "datatypes.svg",
+            "datatypes.png",
+            "diff.html",
+            {
+                "type"           : "LinkedResource",
+                "url"            : "test-utf8.csv",
+                "encodingFormat" : "text/csv"
+
+            },
+            {
+                "type"           : "LinkedResource",
+                "url"            : "test.xlsx",
+                "encodingFormat" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            }
+        ],
+    }
+    </script>
+</head>
+<body>
+    ....
+
+    <section id="toc" role="doc-toc">
+        <h2 resource="#h-toc" id="h-toc" class="introductory">Table of Contents</h2>
+        <ul class="toc">
+            <li class="tocline"><a class="tocxref" href="#intro">
+                <span class="secno">1. </span>Introduction</a>
+            </li>
+            ...
+        </ul>
+    </section>
+    ...
+
+</body>
+</html>

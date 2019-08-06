@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://w3c.github.io/wpub/schema/contributor-object.schema.json",
+  "title": "Contributor Object",
+  "type": "object",
+  "properties": {
+    "name": {
+      "$ref": "localizable.schema.json"
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": ["Person", "Organization"]    
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": ["Person", "Organization"]
+          } 
+        }
+      ]
+      
+    }
+  },
+  "required": ["name"]
+}
