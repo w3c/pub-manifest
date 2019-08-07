@@ -125,14 +125,6 @@
 							or property whose text content or value consists of one or more characters after whitespace
 							normalization, where whitespace normalization rules are defined per the host format.</p>
 					</dd>
-
-					<dt>
-						<dfn>Publication Entry Page</dfn>
-					</dt>
-					<dd>
-						<p>The publication entry page is the resource in a <a>digital publication</a> from which the
-								<a>manifest</a> was reached.</p>
-					</dd>
 				</dl>
 			</section>
 
@@ -563,16 +555,16 @@ enum ProgressionDirection {
 
 						<ul>
 							<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, the base URL is the
-									<a data-cite="!html#the-base-element">document base URL</a>&#160;[[!html]] of the
-									<a>publication entry page</a> of the publication;</li>
+									<a data-cite="!html#the-base-element">document base URL</a>&#160;[[!html]] of the of
+								the document that references the manifest;</li>
 							<li>In the case of a <a href="#manifest-link">linked manifest</a>, the base URL is URL of
 								the manifest resource.</li>
 						</ul>
 
 						<p>By consequence, relative-URL strings in embedded manifests are resolved against the URL of
-							the publication entry page <em>unless</em> the page declares a base URL (i.e., in a <a
-								data-cite="!html#the-base-element"><code>&lt;base&gt;</code> element</a> in its
-							header).</p>
+							the document that references the manifest <em>unless</em> the document declares a base URL
+							(i.e., in a <a data-cite="!html#the-base-element"><code>&lt;base&gt;</code> element</a> in
+							its header).</p>
 
 						<p class="note">URLs allow for the usage of characters from Unicode following&#160;[[rfc3987]].
 							See <a href="https://www.w3.org/TR/html/references.html#biblio-url">the note in the HTML5
@@ -2540,7 +2532,7 @@ enum ProgressionDirection {
 					<li><var>text</var>: a UTF-8 string containing the manifest;</li>
 					<li><var>base</var>: a URL string that represents the base URL for the manifest.</li>
 					<li><var>document</var>: the <a data-cite="!html#the-document-object">HTML Document (DOM) Node</a>
-						of the <a>publication entry page</a>.</li>
+						of the document that references the manifest.</li>
 				</ul>
 
 				<ol>
@@ -2585,7 +2577,7 @@ enum ProgressionDirection {
 					<li><var>manifest</var>: a JSON object that represent the <a>manifest</a></li>
 					<li><var>base</var>: a URL string that represents the base URL for the manifest</li>
 					<li><var>document</var>: the <a data-cite="!html#the-document-object">HTML Document (DOM) Node</a>
-						of the <a>publication entry page</a>. </li>
+						of the document that references the manifest. </li>
 				</ul>
 
 				<p>The steps of the algorithm are described below. The algorithm varies from strict JavaScript notation
