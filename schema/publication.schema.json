@@ -1,0 +1,198 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://w3c.github.io/wpub/schema/publication.schema.json",
+  "title": "Web Publication Manifest",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "const": "https://schema.org"
+          }
+        },
+        {
+          "contains": {
+            "const": "https://www.w3.org/ns/wp-context"
+          }
+        }
+      ],
+      "uniqueItems": true
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "name": {
+      "$ref": "localizable.schema.json"
+    },
+    "artist": {
+      "$ref": "contributor.schema.json"
+    },
+    "author": {
+      "$ref": "contributor.schema.json"
+    },
+    "colorist": {
+      "$ref": "contributor.schema.json"
+    },
+    "contributor": {
+      "$ref": "contributor.schema.json"
+    },
+    "creator": {
+      "$ref": "contributor.schema.json"
+    },
+    "editor": {
+      "$ref": "contributor.schema.json"
+    },
+    "illustrator": {
+      "$ref": "contributor.schema.json"
+    },
+    "inker": {
+      "$ref": "contributor.schema.json"
+    },
+    "letterer": {
+      "$ref": "contributor.schema.json"
+    },
+    "penciler": {
+      "$ref": "contributor.schema.json"
+    },
+    "publisher": {
+      "$ref": "contributor.schema.json"
+    },
+    "readBy": {
+      "$ref": "contributor.schema.json"
+    },
+    "translator": {
+      "$ref": "contributor.schema.json"
+    },
+    "dateModified": {
+      "type": "string",
+      "anyOf": [
+        {"format": "date"},
+        {"format": "date-time"}
+      ]
+    },
+    "datePublished": {
+      "type": "string",
+      "anyOf": [
+        {"format": "date"},
+        {"format": "date-time"}
+      ]
+    },
+    "duration": {
+    	"type": "string",
+    	"pattern": "^P(?!$)((\\d+Y)|(\\d+\\.\\d+Y$))?((\\d+M)|(\\d+\\.\\d+M$))?((\\d+W)|(\\d+\\.\\d+W$))?((\\d+D)|(\\d+\\.\\d+D$))?(T(?=\\d)((\\d+H)|(\\d+\\.\\d+H$))?((\\d+M)|(\\d+\\.\\d+M$))?(\\d+(\\.\\d+)?S)?)??$"
+    },
+    "readingProgression": {
+      "type": "string",
+      "enum": ["rtl", "ltr"],
+      "default": "ltr"
+    },
+    "inDirection": {
+      "type": "string",
+      "enum": ["rtl", "ltr", "auto"]
+    },
+    "inLanguage": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string",
+        "pattern": "^((?:(en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((?:([A-Za-z]{2,3}(-(?:[A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-(?:[A-Za-z]{4}))?(-(?:[A-Za-z]{2}|[0-9]{3}))?(-(?:[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-(?:[0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(?:x(-[A-Za-z0-9]{1,8})+))?)|(?:x(-[A-Za-z0-9]{1,8})+))$"
+      },
+      "uniqueItems": true,
+      "pattern": "^((?:(en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((?:([A-Za-z]{2,3}(-(?:[A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-(?:[A-Za-z]{4}))?(-(?:[A-Za-z]{2}|[0-9]{3}))?(-(?:[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-(?:[0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(?:x(-[A-Za-z0-9]{1,8})+))?)|(?:x(-[A-Za-z0-9]{1,8})+))$"
+    },
+    "accessMode": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "accessModeSufficient": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "accessibilityFeature": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "accessibilityHazard": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "accessibilitySummary": {
+      "$ref": "https://w3c.github.io/wpub/schema/localizable.schema.json"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "uri-reference" 
+          },
+          {
+            "$ref": "link.schema.json"
+          }
+        ]
+      },
+      "uniqueItems": true
+    },
+    "readingOrder": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "uri-reference"
+          },
+          {
+            "$ref": "link.schema.json"
+          }
+        ]
+      },
+      "uniqueItems": true
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "uri-reference"
+          },
+          {
+            "$ref": "link.schema.json"
+          }
+        ]
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": ["@context", "url", "type"]
+}
