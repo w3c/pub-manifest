@@ -69,7 +69,7 @@ function create_manifest(config) {
     // Create the manifest static content as a Javascript object
     // =====================================================================
     let manifest = {
-        "@context"             : ["https://schema.org", "https://www.w3.org/ns/wp-context"],
+        "@context"             : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
         "type"                : "TechArticle",
         "accessMode"           : ["textual", "diagramOnVisual"],
         "accessModeSufficient" : ["textual"],
