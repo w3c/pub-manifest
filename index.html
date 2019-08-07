@@ -1396,30 +1396,7 @@ enum ProgressionDirection {
 									href="https://www.w3.org/TR/html/dom.html#the-dir-attribute"><code>dir</code></a>
 								attributes in&#160;[[!html]]).</p>
 
-							<div class="issue" id="issue-container-number-438">
-								<div role="heading" class="issue-title marker" id="h-issue" aria-level="7">
-									<a href="https://github.com/w3c/wpub/issues/438"><span class="issue-number">Issue
-											438</span></a>
-									<!---0.236924%-->
-									<span class="issue-label">: Inheriting (or not) the language tag of a &lt;script&gt;
-										element<!---0.236924%--><!---0.236924%--></span>
-								</div>
-								<p>(This issue has been noted in the WPUB spec for a while, and was never recorded.)</p>
-								<p>The current editors' draft says:</p>
-								<blockquote>
-									<p>If the manifest is embedded in the primary entry page via a script element, and
-										the manifest does not set the global language and/or the base direction (see §
-										2.6.3.4.1 Global Language and Direction), the lang and the dir attributes of the
-										script element are used as the global language and base direction,
-										respectively.</p>
-								</blockquote>
-								<p>It must be noted that the <a
-										href="https://w3c.github.io/json-ld-syntax/#embedding-json-ld-in-html-documents"
-										rel="nofollow">JSON-LD 1.1 draft</a> does not have this behavior, and the
-										<code>lang</code> and <code>dir</code> attributes of the
-										<code>&lt;script&gt;</code> element are ignored. We may want to remove this
-									behavior from WPUB as well, to stay in sync.</p>
-							</div>
+							<p class="issue" data-number="7"></p>
 
 							<p class="note">If authors intend to use a manifest, or a manifest template, both as
 								embedded manifest and as a separate resource, they are strongly encouraged to set these
@@ -2500,18 +2477,8 @@ enum ProgressionDirection {
 	&lt;/script&gt;
 </pre>
 
-				<div class="issue" id="issue-container-number-132">
-					<div role="heading" class="issue-title marker" id="h-issue-0" aria-level="5">
-						<a href="https://github.com/w3c/wpub/issues/132"><span class="issue-number">Issue 132</span></a>
-						<!---0.236924%-->
-						<span class="issue-label" aria-label="This issue is labelled as topic:manifest.">: Using rel="publication"<!---0.236924%-->
-							<a class="respec-gh-label respec-label-dark" style="background-color: rgb(29, 118, 219);"
-								href="https://github.com/w3c/wpub/issues/?q=is%3Aissue+is%3Aopen+label%3A%22topic%3Amanifest%22"
-								>topic:manifest<!---0.236924%--></a><!---0.236924%--></span>
-					</div>
-					<p class="">The exact value of <code>rel</code> is still to be agreed upon and should be registered
-						by IANA.</p>
-				</div>
+				<p class="issue" data-number="8">The exact value of <code>rel</code> is still to be agreed upon and
+					should be registered by IANA.</p>
 			</section>
 
 			<section id="manifest-embed">
@@ -2955,38 +2922,13 @@ enum ProgressionDirection {
 						<p>Return the (transformed) <code>manifest</code>.</p>
 					</li>
 				</ol>
+
 				<p class="note">See the <a href="#canonicalize-manifest-diagram">diagram in the appendix</a> for a
 					visual representation of the algorithm. Also, to help understanding the result of the algorithm,
 					there is a link to the corresponding canonical manifests for all the examples in <a
 						href="#app-manifest-examples"></a>.</p>
-				
-				<div class="issue" id="issue-container-number-430">
-					<div role="heading" class="issue-title marker" id="h-issue-1" aria-level="5">
-						<a href="https://github.com/w3c/wpub/issues/430"><span class="issue-number">Issue 430</span></a>
-						<!---0.236924%-->
-						<span class="issue-label"
-							aria-label="This issue is labelled as priority:high, topic:manifest, and topic:metadata.">:
-							Should canonicalization include 'absolutization'?<!---0.236924%-->
-							<a class="respec-gh-label respec-label-light" style="background-color: rgb(249, 208, 196);"
-								href="https://github.com/w3c/wpub/issues/?q=is%3Aissue+is%3Aopen+label%3A%22priority%3Ahigh%22"
-								>priority:high<!---0.236924%--></a><a class="respec-gh-label respec-label-dark"
-								style="background-color: rgb(29, 118, 219);"
-								href="https://github.com/w3c/wpub/issues/?q=is%3Aissue+is%3Aopen+label%3A%22topic%3Amanifest%22"
-								>topic:manifest<!---0.236924%--></a><a class="respec-gh-label respec-label-light"
-								style="background-color: rgb(212, 197, 249);"
-								href="https://github.com/w3c/wpub/issues/?q=is%3Aissue+is%3Aopen+label%3A%22topic%3Ametadata%22"
-								>topic:metadata<!---0.236924%--></a><!---0.236924%--></span>
-					</div>
-					<p>At the moment, step 11. of the <a href="https://w3c.github.io/wpub/#canonical-manifest"
-							rel="nofollow">manifest canonicalization</a> means all relative URI-s are resolved at this
-						step using <code>base</code>. This may be a problem in relation with the value of
-							<code>base</code> in the case of packaged publications, see <a
-							class="issue-link js-issue-link" data-error-text="Failed to load issue title"
-							data-id="438708103" data-permission-text="Issue title is private"
-							data-url="https://github.com/w3c/pwpub/issues/45" data-hovercard-type="issue"
-							data-hovercard-url="/w3c/pwpub/issues/45/hovercard"
-							href="https://github.com/w3c/pwpub/issues/45">w3c/pwpub#45</a>.</p>
-				</div>
+
+				<p class="issue" data-number="9"></p>
 			</section>
 
 			<section id="post-processed-manifest">
