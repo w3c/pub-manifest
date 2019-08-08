@@ -287,12 +287,12 @@ enum ProgressionDirection {
 
 				<ul>
 					<li>the [[!schema.org]] context: <code>https://schema.org</code></li>
-					<li>the publication context: <code>https://www.w3.org/ns/wp-context</code></li>
+					<li>the publication context: <code>https://www.w3.org/ns/pub-context</code></li>
 				</ul>
 
 				<pre class="example" title="The context declaration.">
 {
-    "@context" : ["https://schema.org", "https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
     &#8230;
 }
 </pre>
@@ -321,7 +321,7 @@ enum ProgressionDirection {
 
 				<pre class="example" title="Setting a publication's type to CreativeWork.">
 {
-    "@context" : ["https://schema.org", "https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
     "type"     : "CreativeWork",
     &#8230;
 }
@@ -335,7 +335,7 @@ enum ProgressionDirection {
 
 				<pre class="example" title="Setting a publication's type to Book.">
 {
-    "@context" : ["https://schema.org", "https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
 }
@@ -350,7 +350,7 @@ enum ProgressionDirection {
 
 				<pre class="example" title="A publication that combines properties from both Book and VisualArtwork.">
 {
-    "@context" : ["https://schema.org", "https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
     "type"     : ["Book", "VisualArtwork"],
     &#8230;
 }
@@ -746,7 +746,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Example accessiblity metadata for a document with text and images. The publication provides alternative text and long descriptions appropriate for each image, so can also be read in purely textual form.">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "CreativeWork",
     &#8230;
     "accessMode"            : ["textual", "visual"],
@@ -808,7 +808,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Setting the address of the publication">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
     "url"      : "https://publisher.example.org/mobydick",
@@ -873,7 +873,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Example of setting the canonical identifier and the address as URLs">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "TechArticle",
     &#8230;
     "id"       : "http://www.w3.org/TR/tabular-data-model/",
@@ -884,7 +884,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Example of a URN for the canonical identifier">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
     "id"       : "urn:isbn:9780123456789",
@@ -1171,7 +1171,7 @@ enum ProgressionDirection {
 						<pre class="example" title="Author of a book">
 {
     "type"     : "Book",
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     &#8230;
     "url"      : "https://publisher.example.org/mobydick",
     "author"   : {
@@ -1182,7 +1182,7 @@ enum ProgressionDirection {
 </pre>
 						<pre class="example" title="Separate listing of editors, authors, and publisher, with some persons expressed as simple strings">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "TechArticle",
     &#8230;
     "id"         : "http://www.w3.org/TR/tabular-data-model/",
@@ -1253,7 +1253,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Global duration provided in the manifest (in seconds)">
 {
-    "@context"       : ["https://schema.org", "https://www.w3.org/ns/wp-context"],
+    "@context"       : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
     "type"           : "Audiobook",
     "id"             : "https://example.org/flatland-a-romance-of-many-dimensions/",
     "url"            : "https://w3c.github.io/pub-manifest/experiments/audiobook/",
@@ -1417,7 +1417,7 @@ enum ProgressionDirection {
 
 							<pre class="example" title="Setting the author name to French using a localizable string">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
     "author" : {
@@ -1441,7 +1441,7 @@ enum ProgressionDirection {
 
 							<pre class="example" title="Setting the default language of an author name to French">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     "inLanguage" : "fr",
     &#8230;
@@ -1529,7 +1529,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Last modification date of the publication">
 {
-    "@context"     : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"     : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"         : "TechArticle",
     &#8230;
     "id"           : "http://www.w3.org/TR/tabular-data-model/",
@@ -1585,7 +1585,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Creation and modification date of the publication">
 {
-    "@context"      : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"      : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"          : "TechArticle",
     &#8230;
     "id"            : "http://www.w3.org/TR/tabular-data-model/",
@@ -1652,7 +1652,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Reading progression set explicitl to ltr">
 {
-    "@context"           : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"           : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"               : "Book",
     &#8230;
     "url"                : "https://publisher.example.org/mobydick",
@@ -1708,7 +1708,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Title of the book set explicitly">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
     "url"      : "https://publisher.example.org/mobydick",
@@ -1784,7 +1784,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Reading order expressed as a simple list of URLs">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
     "url"      : "https://publisher.example.org/mobydick",
@@ -1801,7 +1801,7 @@ enum ProgressionDirection {
 </pre>
 						<pre class="example" title="Reading order expressed as objects providing more information on items">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
     "url"      : "https://publisher.example.org/mobydick",
@@ -1879,7 +1879,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Listing resources, some via a simple URL, some with more details">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "TechArticle",
     &#8230;
     "id"         : "http://www.w3.org/TR/tabular-data-model/",
@@ -2027,7 +2027,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Link to external ONIX for Books Metadata file">
 {
-"@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+"@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 &#8230;
 "url"        : "https://publisher.example.org/mobydick",
@@ -2060,7 +2060,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Usage of the schema.org 'copyrightYear' and 'copyrightHolder' terms, as an extension to the basic data">
 {
-"@context"        : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+"@context"        : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"            : "TechArticle",
 &#8230;
 "id"              : "http://www.w3.org/TR/tabular-data-model/",
@@ -2073,7 +2073,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Usage of the Dublin Core 'subject' with the 2012 ACM Classification terms, as an extension to the basic data">
 {
-"@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+"@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "CreativeWork",
 &#8230;
 "id"         : "http://www.w3.org/TR/tabular-data-model/",
@@ -2156,7 +2156,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Link to an accessibility report">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
     "url"        : "https://publisher.example.org/mobydick",
@@ -2186,7 +2186,7 @@ enum ProgressionDirection {
 						<p>Previews MAY be located externally or included as resources of digital publications.</p>
 
 						<pre class="example" title="A preview is identified as an audio resource of a digital publication">
-"@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+"@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 …
 "url"        : "https://publisher.example.org/mobydick",
@@ -2204,7 +2204,7 @@ enum ProgressionDirection {
 </pre>
 
 						<pre class="example" title="A preview is expressed as an external link">
-"@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+"@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 …
 "url"        : "https://publisher.example.org/mobydick",
@@ -2240,7 +2240,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Privacy policy expressed as an external link">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "TechArticle",
     &#8230;
     "id"         : "http://www.w3.org/TR/tabular-data-model/",
@@ -2288,7 +2288,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Cover HTML page">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
     "url"        : "https://publisher.example.org/donquixote",
@@ -2307,7 +2307,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Cover image with title and description">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
     "url"        : "https://publisher.example.org/mobydick",
@@ -2328,7 +2328,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Cover image in JPEG and SVG formats">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
     "url"        : "https://publisher.example.org/donquixote",
@@ -2370,7 +2370,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Page list identified in another resource of the publication">
 {
-"@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+"@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 &#8230;
 "url"        : "https://publisher.example.org/mobydick",
@@ -2406,7 +2406,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Resource containing the table of contents identified by its rel attribute value">
 {
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
     "url"        : "https://publisher.example.org/mobydick",
@@ -2471,7 +2471,7 @@ enum ProgressionDirection {
 	&#8230;
 	&lt;script id="example_manifest" type="application/ld+json"&gt;
 	{
-        "@context" : ["https://schema.org", "https://www.w3.org/ns/wp-context"],
+        "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
         &#8230;
 	}
 	&lt;/script&gt;
@@ -2648,13 +2648,13 @@ enum ProgressionDirection {
     &#8230;
     &lt;script type="application/ld+json"&gt;
     {
-        "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+        "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
         &#8230;
     }
     &lt;/script&gt;</pre>
 							<p>yields:</p>
 							<pre class="example">{
-    "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"     : ["Moby Dick"],
     &#8230;
 }</pre>
@@ -2675,13 +2675,13 @@ enum ProgressionDirection {
     &#8230;
     &lt;script type="application/ld+json" lang=ur&gt;
     {
-        "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+        "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
         &#8230;
     }
     &lt;/script&gt;</pre>
 							<p>yields (unless the language and the direction are set explicitly in the manifest): </p>
 							<pre class="example">{
-    "@context"    : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"    : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "inLanguage"  : "ur",
     &#8230;
 }</pre>
@@ -2702,14 +2702,14 @@ enum ProgressionDirection {
     &#8230;
     &lt;script type="application/ld+json" dir=rtl lang=ur&gt;
     {
-        "@context" : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+        "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
         "inLanguage"  : "ur",
         &#8230;
     }
     &lt;/script&gt;</pre>
 							<p>yields (unless the language and the direction are set explicitly in the manifest):</p>
 							<pre class="example">{
-    "@context"    : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"    : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "inLanguage"  : "ur",
     "inDirection" : "rtl"
     &#8230;
@@ -2742,7 +2742,7 @@ enum ProgressionDirection {
 								authors are allowed to use a single value instead of a one element array. For
 								example,</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"      : "Moby Dick",
     "author"    : "Herman Melville",
     "resources" : [{
@@ -2757,7 +2757,7 @@ enum ProgressionDirection {
 }</pre>
 							<p>yields:</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"      : ["Moby Dick"],
     "author"    : ["Herman Melville"],
     "resources" : [{
@@ -2784,14 +2784,14 @@ enum ProgressionDirection {
 									<code>Person</code> but, for the sake of convenience, authors are allowed to just
 								give their name. For example,</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"      : ["Moby Dick"],
     "author"    : ["Herman Melville"],
     &#8230;
 }</pre>
 							<p>yields:</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"      : ["Moby Dick"],
     "author"    : [{
         "type" : ["Person"],
@@ -2814,7 +2814,7 @@ enum ProgressionDirection {
 									<code>LinkedResource</code> but, for the sake of convenience, authors are allowed to
 								just give their absolute or relative URL. For example,</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     &#8230;
     "resources" : [
         "css/mobydick.css",
@@ -2824,7 +2824,7 @@ enum ProgressionDirection {
 }</pre>
 							<p>yields:</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     &#8230;
     "resources" : [{
         "type" : ["LinkedResource"],
@@ -2856,14 +2856,14 @@ enum ProgressionDirection {
 								if no language information has been provided (via <code>inLanguage</code>) in the
 								manifest then, for example,</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"      : ["Moby Dick"],
     "author"    : ["Herman Melville"],
     &#8230;
 }</pre>
 							<p>yields:</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"      : [{
         "value" : "Moby Dick"
     }],
@@ -2875,7 +2875,7 @@ enum ProgressionDirection {
 							<p>If an explicit language has also been provided in the manifest, that language is also
 								added to the localizable string object. For example,</p>
 							<pre class="example">{
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "inLanguage" : "en",
     "name"       : ["Moby Dick"],
     "author"     : ["Herman Melville"],
@@ -2883,7 +2883,7 @@ enum ProgressionDirection {
 }</pre>
 							<p>yields:</p>
 							<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/wp-context"],
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "inLanguage": "en",
     "name"      : [{
         "value"    : "Moby Dick",
