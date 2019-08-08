@@ -1406,19 +1406,6 @@ enum ProgressionDirection {
 							<p>The global language information MAY be overridden by <a
 									href="#manifest-specific-language-and-dir">individual values</a>.</p>
 
-							<p>If the manifest is <a href="#manifest-embed">embedded</a> in a document via a
-									<code>script</code> element, and the manifest does not set the global language
-								and/or the base direction (see <a href="#manifest-default-language-and-dir"></a>), the
-									<code>lang</code> and the <code>dir</code> attributes of the <code>script</code>
-								element are used as the global <a>language</a> and <a>base direction</a>, respectively
-								(see the details on handling the <a
-									href="https://www.w3.org/TR/html/dom.html#the-lang-and-xmllang-attributes"
-										><code>lang</code></a> and <a
-									href="https://www.w3.org/TR/html/dom.html#the-dir-attribute"><code>dir</code></a>
-								attributes in&#160;[[!html]]).</p>
-
-							<p class="issue" data-number="7"></p>
-
 							<p class="note">If authors intend to use a manifest, or a manifest template, both as
 								embedded manifest and as a separate resource, they are strongly encouraged to set these
 								properties explicitly to avoid interference of the containing <code>script</code>
@@ -2618,33 +2605,6 @@ enum ProgressionDirection {
 
 				<ol>
 					<li>
-						<p>let <var>lang</var> string represent the default language, set to:</p>
-						<ul>
-							<li>the value of the <a data-cite="!html#the-lang-and-xml:lang-attributes"><code>lang</code>
-									value</a> for the <code>script</code> element in <code>document</code> (when set);
-								or </li>
-							<li><code>undefined</code> otherwise</li>
-						</ul>
-						<details>
-							<summary> Explanation </summary>
-							<p>This value is used in <a href="#can-set-lang">the step on language</a> below.</p>
-						</details>
-					</li>
-
-					<li>
-						<p>let <var>dir</var> string represents the base direction, set to:</p>
-						<ul>
-							<li>the value of the <a data-cite="!html#the-dir-attribute"><code>dir</code> value</a> for
-								the <code>script</code> element in <code>document</code> (when set); or </li>
-							<li><code>undefined</code> otherwise</li>
-						</ul>
-						<details>
-							<summary> Explanation </summary>
-							<p>This value is used in <a href="#can-set-dir">the step on base direction</a> below.</p>
-						</details>
-					</li>
-
-					<li>
 						<p>(<a href="#pub-title"></a>) if <var>manifest["name"]</var> is <code>undefined</code>, locate
 							the <a data-cite="!html#the-title-element"><code>title</code></a> element [[!html]] using
 								<var>document</var> (when set). If that element exists and is non-empty, let
@@ -2677,62 +2637,6 @@ enum ProgressionDirection {
 							<pre class="example">{
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"     : ["Moby Dick"],
-    &#8230;
-}</pre>
-						</details>
-					</li>
-
-					<li id="can-set-lang">
-						<p>(<a href="#language-and-dir"></a>) if <var>manifest["inLanguage"]</var> is
-								<code>undefined</code> and the value of <var>lang</var> is <em>not</em>
-							<code>undefined</code>, add<br />
-							<code class="json">"inLanguage": lang</code><br /> to <var>manifest</var></p>
-						<details>
-							<summary>Explanation</summary>
-							<p>This step ensures that a language explicitly set in <var>document</var> is valid. For
-								example,</p>
-							<pre class="example">&lt;html&gt;
-&lt;head&gt;
-    &#8230;
-    &lt;script type="application/ld+json" lang=ur&gt;
-    {
-        "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-        &#8230;
-    }
-    &lt;/script&gt;</pre>
-							<p>yields (unless the language and the direction are set explicitly in the manifest): </p>
-							<pre class="example">{
-    "@context"    : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "inLanguage"  : "ur",
-    &#8230;
-}</pre>
-						</details>
-					</li>
-
-					<li id="can-set-dir">
-						<p>(<a href="#language-and-dir"></a>) if <var>manifest["inDirection"]</var> is
-								<code>undefined</code> and the value of <var>dir</var> is <em>not</em>
-							<code>undefined</code>, add<br />
-							<code class="json">"inDirection": dir</code><br /> to <var>manifest</var></p>
-						<details>
-							<summary>Explanation</summary>
-							<p> This step ensures that the base direction explicitly set in the embedding document is
-								valid. For example, </p>
-							<pre class="example">&lt;html&gt;
-&lt;head&gt;
-    &#8230;
-    &lt;script type="application/ld+json" dir=rtl lang=ur&gt;
-    {
-        "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-        "inLanguage"  : "ur",
-        &#8230;
-    }
-    &lt;/script&gt;</pre>
-							<p>yields (unless the language and the direction are set explicitly in the manifest):</p>
-							<pre class="example">{
-    "@context"    : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "inLanguage"  : "ur",
-    "inDirection" : "rtl"
     &#8230;
 }</pre>
 						</details>
