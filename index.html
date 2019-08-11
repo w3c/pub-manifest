@@ -583,11 +583,14 @@ enum ProgressionDirection {
 						<p>The base URL for relative-URL strings is determined as follows:</p>
 
 						<ul>
-							<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, the base URL is the
-									<a data-cite="!html#the-base-element">document base URL</a>&#160;[[!html]] of the
-								document that references the manifest;</li>
-							<li>In the case of a <a href="#manifest-link">linked manifest</a>, the base URL is URL of
-								the manifest resource.</li>
+							<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, it is the <a
+									href="https://www.w3.org/TR/json-ld11/#inheriting-base-iri-from-html-s-base-element"
+									>document base URL of the embedding document</a> [[!json-ld]];</li>
+							<li>In the case of a <a href="#manifest-link">linked manifest</a>, it is the URL of the
+								manifest resource.</li>
+							<li>In the case of a digital publication format that uses <a
+									href="#manifest-other-discovery">another means of discovering the manifest</a>, it
+								is defined by the format.</li>
 						</ul>
 
 						<p>By consequence, relative-URL strings in embedded manifests are resolved against the URL of
@@ -2462,13 +2465,14 @@ enum ProgressionDirection {
 				</section>
 			</section>
 		</section>
-		<section id="manifest-association">
-			<h2>Manifest Association</h2>
+		<section id="manifest-discovery">
+			<h2>Manifest Discovery</h2>
 
 			<section id="manifest-link">
 				<h3>Linking</h3>
 
-				<p>Links to a manifest MUST take one or both of the following forms:</p>
+				<p>If a <a>digital publication</a> format uses links to discover a manifest, the links MUST take one or
+					both of the following forms:</p>
 
 				<ul>
 					<li>
@@ -2505,22 +2509,29 @@ enum ProgressionDirection {
 			<section id="manifest-embed">
 				<h3>Embedding</h3>
 
-				<p>When a manifest is embedded within an HTML document, it MUST be included in a <a
+				<p>When a <a>digital publication</a> format allows manifests to be embedded within an HTML document, the
+					manifest MUST be included in a <a
 						href="https://www.w3.org/TR/html5/semantics-scripting.html#the-script-element"
-							><code>script</code> element</a>&#160;[[!html]] whose <code>type</code> attribute is set to
-						<code>application/ld+json</code>.</p>
-
-				<p>Additionally, the <code>script</code> element MUST include a unique identifier in an <code>id</code>
-					attribute&#160;[[!html]]. This identifier ensures that the manifest <a href="#manifest-link">can be
-						referenced</a>.</p>
+							><code>script</code> element</a>&#160;[[!html]] whose <a
+						href="https://www.w3.org/TR/json-ld11/#embedding-json-ld-in-html-documents"><code>type</code>
+						attribute is set to <code>application/ld+json</code></a> [[!json-ld]].</p>
 
 				<pre class="example" title="A Publication Manifest included in an HTML document">
-&lt;script id="example_manifest" type="application/ld+json"&gt;
+&lt;script type="application/ld+json"&gt;
    {
       &#8230;
    }
 &lt;/script&gt;
 </pre>
+			</section>
+
+			<section id="manifest-other-discovery">
+				<h3>Other Discovery Methods</h3>
+
+				<p><a>Digital publication</a> formats MAY define alternative methods of discovering a manifest that do
+					no involve linking to, or embedding, a manifest (e.g., that manifest could be discovered through the
+					use of a restricted name and/or location). This specification does not add any restrictions on such
+					methods.</p>
 			</section>
 		</section>
 		<section id="manifest-lifecycle">
@@ -2561,7 +2572,7 @@ enum ProgressionDirection {
 					<li><var>text</var>: a UTF-8 string containing the manifest;</li>
 					<li><var>base</var>: a URL string that represents the base URL for the manifest.</li>
 					<li><var>document</var>: the <a data-cite="!html#the-document-object">HTML Document (DOM) Node</a>
-						of the document that references the manifest.</li>
+						of the document that references the manifest, when available.</li>
 				</ul>
 
 				<ol>
@@ -2605,7 +2616,7 @@ enum ProgressionDirection {
 					<li><var>manifest</var>: a JSON object that represent the <a>manifest</a></li>
 					<li><var>base</var>: a URL string that represents the base URL for the manifest</li>
 					<li><var>document</var>: the <a data-cite="!html#the-document-object">HTML Document (DOM) Node</a>
-						of the document that references the manifest. </li>
+						of the document that references the manifest, when available.</li>
 				</ul>
 
 				<p>The steps of the algorithm are described below. The algorithm varies from strict JavaScript notation
