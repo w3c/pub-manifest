@@ -133,55 +133,74 @@
 		<section id="manifest">
 			<h2>Publication Manifest</h2>
 
-			<section id="manifest-intro" class="informative">
+			<section id="manifest-intro">
 				<h3>Introduction</h3>
 
-				<p>A <a>digital publication</a> is described by its <a>manifest</a>, which provides a set of properties
-					expressed using the JSON-LD&#160;[[json-ld]] format (a variant of JSON&#160;[[ecma-404]] for linked
-					data).</p>
+				<section id="manifest-format" class="informative">
+					<h4>Manifest Format</h4>
 
-				<p>The manifest includes both descriptive properties about the publication, such as its title and
-					author, as well as information about the nature and structure of the publication.</p>
+					<p>A <a>digital publication</a> is described by its <a>manifest</a>, which provides a set of
+						properties expressed using a subset of the JSON-LD&#160;[[json-ld]] format (a variant of
+						JSON&#160;[[ecma-404]] for linked data).</p>
 
-				<p>This section describes the construction requirements for manifests, and outlines the general set of
-					properties for use with them.</p>
-			</section>
+					<p>The manifest includes both descriptive properties about the publication, such as its title and
+						author, as well as information about the nature and structure of the publication.</p>
 
-			<section id="manifest-authored-canonical" class="informative">
-				<h3>Authored and Canonical Manifests</h3>
+					<p>This section describes the construction requirements for manifests, and outlines the general set
+						of properties for use with them.</p>
+				</section>
 
-				<p>Depending on the state of a <a>digital publication</a>, its manifest exists in one of two forms:</p>
+				<section id="manifest-authored-canonical" class="informative">
+					<h4>Authored and Canonical Manifests</h4>
 
-				<dl>
-					<dt>
-						<dfn data-lt="authored publication manifest">Authored Manifest</dfn>
-					</dt>
-					<dd>
-						<p>The Authored Publication Manifest is the serialization of the manifest that the author
-							provides with the digital publication (i.e., prior to be digital publication being processed
-							by a user agent). Note that the author does not have to be human; a machine could
-							automatically produce authored manifests for digital publications.</p>
-					</dd>
+					<p>Depending on the state of a <a>digital publication</a>, its manifest exists in one of two
+						forms:</p>
 
-					<dt>
-						<dfn data-lt="canonical manifest|canonical publication manifest">Canonical Manifest</dfn>
-					</dt>
-					<dd>
-						<p>The Canonical Publication Manifest is a version of the manifest created by user agents when
-							they <a href="#processing-manifest">process the authored manifest</a> and remove all
-							possible ambiguities and incorporate any missing values that can be inferred from another
-							source.</p>
-					</dd>
-				</dl>
+					<dl>
+						<dt>
+							<dfn data-lt="authored publication manifest">Authored Manifest</dfn>
+						</dt>
+						<dd>
+							<p>The Authored Publication Manifest is the serialization of the manifest that the author
+								provides with the digital publication (i.e., prior to be digital publication being
+								processed by a user agent). Note that the author does not have to be human; a machine
+								could automatically produce authored manifests for digital publications.</p>
+						</dd>
 
-				<p>It is possible that an authored manifest is the equivalent of the canonical manifest if there are no
-					ambiguities or missing information, but a canonical manifest only exists after a user agent has
-					inspected the authored manifest as part of the process of obtaining it.</p>
+						<dt>
+							<dfn data-lt="canonical manifest|canonical publication manifest">Canonical Manifest</dfn>
+						</dt>
+						<dd>
+							<p>The Canonical Publication Manifest is a version of the manifest created by user agents
+								when they <a href="#processing-manifest">process the authored manifest</a> and remove
+								all possible ambiguities and incorporate any missing values that can be inferred from
+								another source.</p>
+						</dd>
+					</dl>
 
-				<p>This part of the specification describes the requirements for creating an authored manifest,
-					regardless of the format of the digital publication. Rules for constructing a canonical manifest
-					from the authored manifest are defined for each specific implementation.</p>
+					<p>It is possible that an authored manifest is the equivalent of the canonical manifest if there are
+						no ambiguities or missing information, but a canonical manifest only exists after a user agent
+						has inspected the authored manifest as part of the process of obtaining it.</p>
+				</section>
 
+				<section id="manifest-jsonld">
+					<h4>JSON-LD Authoring and Processing</h4>
+
+					<p>The manifest format enables a number of shorthands to the [[!json-ld]] syntax to simplify
+						authoring manifests. It is not always required that object types be explicitly authored, for
+						example, as these are automatically generated during canonicalization when missing (see <a
+							href="#properties-value-categories"></a> for more information).</p>
+
+					<p>As a result, the graph generated from an authored manifest might not always be the same as the
+						graph generated from the canonical manifest. If consistency is desired, it is RECOMMENDED to
+						avoid these shorthands in the authored manifest.</p>
+
+					<p>Similarly, it is OPTIONAL for a user agent to be a full JSON-LD processor. User agents only need
+						to be able to read the manifest and internalize the data following the processing steps defined
+						in this specification. As a result, use of [[!json-ld]] features not described in this
+						specification (e.g., <code>@base</code>, JSON literals) is not advised, as user agents might
+						ignore such featuers or process them incorrectly.</p>
+				</section>
 			</section>
 
 			<section id="manifest-requirements">
