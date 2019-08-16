@@ -35,8 +35,7 @@
             "uniqueItems": true
         },
         "id": {
-            "type": "string",
-            "format": "uri"
+            "type": "string"
         },
         "accessMode": {
             "type": [
