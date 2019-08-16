@@ -38,7 +38,8 @@
             "type": "string"
         },
         "length": {
-            "type": "number"
+            "type": "number",
+            "exclusiveMinimum": 0
         }
     },
     "required": [
