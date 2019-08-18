@@ -9,7 +9,7 @@
         },
         "id": {
             "type": "string",
-            "format": "uri"
+            "format": "iri"
         },
         "type": {
             "anyOf": [
