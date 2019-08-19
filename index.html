@@ -172,9 +172,9 @@
 						</dt>
 						<dd>
 							<p>The canonical representation of the manifest is the internal data structure created by
-								user agents when they <a href="#app-manifest-processing">process the authored
-									manifest</a> and remove all possible ambiguities and incorporate any missing values
-								that can be inferred from another source.</p>
+								user agents when they <a href="#manifest-processing">process the authored manifest</a>
+								and remove all possible ambiguities and incorporate any missing values that can be
+								inferred from another source.</p>
 						</dd>
 					</dl>
 
@@ -196,7 +196,7 @@
 
 					<p>Similarly, it is OPTIONAL for a user agent to be a full JSON-LD processor. User agents only need
 						to be able to read the manifest as JSON and internalize the data as specified in <a
-							href="#app-manifest-processing"></a>.</p>
+							href="#manifest-processing"></a>.</p>
 				</section>
 			</section>
 
@@ -468,7 +468,7 @@ enum ProgressionDirection {
 							their value &#8212; one that is not language-dependent, such as a code value or date. These
 							values are expressed as [[!json]] strings.</p>
 
-						<p>Literal values are not changed <a href="#app-manifest-processing">during processing of the
+						<p>Literal values are not changed <a href="#manifest-processing">during processing of the
 								manifest</a>, unlike other values which might be, for example, converted to objects.</p>
 					</section>
 
@@ -1330,7 +1330,7 @@ enum ProgressionDirection {
 
 						<p>If a user agent requires the language and one is not available in the authored manifest
 							(either globally or specifically for that property), or the obtained value is invalid, the
-							user agent MAY attempt to determine the language when <a href="#app-manifest-processing"
+							user agent MAY attempt to determine the language when <a href="#manifest-processing"
 								>generating its canonical representation</a>. This specification does not mandate how
 							such a language tag is created. The user agent might:</p>
 
@@ -2547,9 +2547,9 @@ enum ProgressionDirection {
 
 				<ul>
 					<li>It MUST adhere to the manifest format requirements defined in this specification.</li>
-					<li>The generic processing steps described in <a href="#app-manifest-processing"></a> MUST remain
-						valid for the extended manifest. To achieve this, and if new terms are added to the general
-						manifest, then: <ul>
+					<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid
+						for the extended manifest. To achieve this, and if new terms are added to the general manifest,
+						then: <ul>
 							<li>The term SHOULD be categorized, if applicable, to one or more of the general term
 								categories used in the algorithm (e.g., <a href="#value-array">array</a> or <a
 									href="#value-localizable-string">localizable string</a>). This means the relevant
@@ -2557,19 +2557,19 @@ enum ProgressionDirection {
 							<li>If necessary, the profile MAY define its own canonicalization step, to be executed as
 								the <a href="#canonicalization-extension-point">last step of the general
 									canonicalization algorithm</a>. Such an extra step MUST NOT invalidate the results
-								of any of the steps defined for the <a href="#app-manifest-processing">processing
+								of any of the steps defined for the <a href="#manifest-processing">processing
 									algorithm</a> in general. </li>
 						</ul>
 					</li>
 					<li>If necessary, the profile MAY define its own manifest processing step, to be executed as part of
-						the steps described in <a href="#app-manifest-processing"></a>
+						the steps described in <a href="#manifest-processing"></a>
 					</li>
 				</ul>
 				<p class="ednote"> Adding an example of a term added by, e.g., the audiobook profile would be a good
 					idea, when available. </p>
 			</section>
 		</section>
-		<section id="app-manifest-processing" class="appendix informative">
+		<section id="manifest-processing" class="informative">
 			<h2>Processing a Manifest</h2>
 
 			<p>The <dfn data-lt="processing the manifest|processing a manifest|process a manifest">steps for processing
@@ -2799,19 +2799,18 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>If <code>term</code> equals "<code>type</code>" and <var>processed["type"]</var> is
-								empty, set <var>processed["type"]</var> to "<code>CreativeWork</code>" and issue a
-								warning.</p>
+							<p>If <var>term</var> equals "<code>type</code>" and <var>processed["type"]</var> is empty,
+								set <var>processed["type"]</var> to "<code>CreativeWork</code>" and issue a warning.</p>
 						</li>
 
 						<li>
-							<p>If <code>term</code> equals "<code>datePublished</code>" and
+							<p>If <var>term</var> equals "<code>datePublished</code>" and
 									<var>processed["datePublished"]</var> is not a valid date or date-time,
 								per&#160;[[!iso8601]], issue a warning.</p>
 						</li>
 
 						<li>
-							<p>If <code>term</code> equals "<code>dateModified</code>" and
+							<p>If <var>term</var> equals "<code>dateModified</code>" and
 									<var>processed["dateModified"]</var> is not a valid date or date-time,
 								per&#160;[[!iso8601]], issue a warning.</p>
 						</li>
