@@ -187,8 +187,8 @@
 
 					<p>The <a>authored manifest</a> enables information to be compactly expressed to simplify authoring.
 						It is not always required that object types be explicitly authored, for example, as these are
-						automatically generated during canonicalization when missing (see <a
-							href="#value-objects"></a> for more information).</p>
+						automatically generated during canonicalization when missing (see <a href="#value-objects"></a>
+						for more information).</p>
 
 					<p>As a result, the information represented by the authored manifest might be less complete than the
 						information defined in the <a>canonical representation</a> of it. If consistency between the two
@@ -2581,8 +2581,8 @@ enum ProgressionDirection {
 			<ul>
 				<li><var>text</var>: a UTF-8 string containing the manifest;</li>
 				<li><var>base</var>: a URL string that represents the base URL for the manifest.</li>
-				<li><var>document</var>: the <a data-cite="!html#the-document-object">HTML Document (DOM) Node</a> of
-					the document that references the manifest, when available.</li>
+				<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM) Node</a>
+					[[html]] of the document that references the manifest, when available.</li>
 			</ul>
 
 			<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
@@ -2594,13 +2594,13 @@ enum ProgressionDirection {
 				</li>
 
 				<li>
-					<p>Let <var>manifest</var> be the result of <a data-cite="!ecmascript#sec-json.parse">parsing</a>
-						<var>text</var>. If <a data-cite="!ecmascript#sec-json.parse">parsing</a> throws an error,
-						terminate this algorithm.</p>
+					<p>Let <var>manifest</var> be the result of <a data-cite="ecmascript#sec-json.parse">parsing</a>
+						<var>text</var> [[ecmascript]]. If parsing throws an error, terminate this algorithm.</p>
 				</li>
 
 				<li>
-					<p>If Type(<var>manifest</var>) is not <code>Object</code>, terminate this algorithm.</p>
+					<p>If typeof(<var>manifest</var>) is not <code>Object</code> [[ecmascript]], terminate this
+						algorithm.</p>
 				</li>
 
 				<li>
@@ -2610,21 +2610,19 @@ enum ProgressionDirection {
 				</li>
 
 				<li>
-					<p>(<a href="#pub-title"></a>) Create the new property <var>processed["name"]</var> and set its
-						value to an object. Set the properties <var>value</var> and <var>language</var> of
-							<var>processed["title"]</var> as follows:</p>
+					<p>(<a href="#pub-title"></a>) Create the property <var>processed["name"]</var> and set its value to
+						an empty object. Set the <var>value</var> and <var>language</var> properties of
+							<var>processed["name"]</var> as follows:</p>
 					<ul>
-						<li>If <var>manifest["name"]</var> is defined, set <var>processed["name"]</var>'s
-								<code>value</code> property to the value of <var>manifest["name"]</var>. Set
-								<var>processed["name"]</var>'s <var>language</var> property to
+						<li>If <var>manifest["name"]</var> is defined, set <var>value</var> to the value of
+								<var>manifest["name"]</var>. Set <var>language</var> to
 								<var>manifest["inLanguage"]</var>.</li>
-						<li>Otherwise, if the <a data-cite="!html#the-title-element"><code>title</code></a> element
-							[[!html]] of <var>document</var> is set, set <var>processed["name"]</var>'s
-								<code>value</code> property to the text content of the <code>title</code> element. Set
-								<var>processed["name"]</var>'s <var>language</var> property to the <a
-								data-cite="!html#the-lang-and-xml:lang-attributes">language</a>.</li>
+						<li>Otherwise, if the <a data-cite="html#the-title-element"><code>title</code></a> element
+							[[html]] of <var>document</var> is set, set <var>value</var> to the text content of the
+								<code>title</code> element. Set <var>language</var> to the <a
+								data-cite="html#the-lang-and-xml:lang-attributes">language</a> [[html]].</li>
 					</ul>
-					<p>If <var>processed["name"]</var> is empty generate a value (see the <a href="#generate_title"
+					<p>If <var>processed["name"]</var> is empty, generate a value (see the <a href="#generate_title"
 							>separate note for details</a>) and issue a warning.</p>
 					<details>
 						<summary>Explanation</summary>
@@ -2664,15 +2662,16 @@ enum ProgressionDirection {
 								<li>
 									<ul>
 										<li>
-											<p>If <code>Type(item)</code> is <code>Object</code>:</p>
+											<p>If <code>typeof(<var>item</var>)</code> is <code>Object</code>
+												[[ecmascript]]:</p>
 											<ul>
 												<li>if <var>item["url"]</var> is not defined, discard <var>item</var>
-													and <var>resource</var> and continue with the next item in
+													and <var>resource</var> and continue with the next entry in
 														<var>manifest["readingOrder"]</var>.</li>
 												<li>otherwise, set <var>resource["url"]</var> to
 													<var>item["url"]</var></li>
 											</ul>
-											<p>Clone each additional property in <var>item</var> in
+											<p>Copy each additional property of <var>item</var> into
 												<var>resource</var>.</p>
 										</li>
 										<li>
@@ -2700,13 +2699,14 @@ enum ProgressionDirection {
 				<li>
 					<p>Iterate over each additional property <var>term</var> in <var>manifest</var> and create a
 						corresponding property <var>processed[term]</var>. Set the value of <var>processed[term]</var>
-						as follows (more than one step might apply):</p>
+						to <var>manifest[term]</var> and process the value as follows (more than one step might
+						apply):</p>
 					<ul>
 						<li>
 							<p>(<a href="#value-array"></a>) If <var>term</var> expects an <a href="#value-array"
-									>array</a>, but the value of <var>manifest[term]</var> is a single string or an
-								object, set <var>processed[term]</var> to an array and push the value of
-									<var>manifest[term]</var> onto the array.</p>
+									>array</a>, but the value of <var>processed[term]</var> is a single string or an
+								object, create an empty array and push the value of <var>processed[term]</var> onto it.
+								Set <var>processed[term]</var> to the resulting arrary.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>A number of terms require their values to be arrays but, for the sake of convenience,
@@ -2746,11 +2746,11 @@ enum ProgressionDirection {
 
 						<li>
 							<p>(<a href="#creators"></a>) If <var>term</var> expects an <a href="#value-object-entity"
-									>entity</a>, but the value of <var>manifest[term]</var> is a simple string, a
+									>entity</a>, but the value of <var>processed[term]</var> is a simple string, a
 									<a>localizable string</a>, or an array with one or more of these kinds of string
 								values, convert each value to an anonymous object with a <var>type</var> property set to
 								the value "<code>Person</code>" and a <var>name</var> property whose <var>value</var>
-								property is the string. If <var>manifest["inLanguage"]</var> is set, set
+								property is the string. If <var>processed["inLanguage"]</var> is set, set
 									<var>name["language"]</var> to this value. Set <var>processed[term]</var> to the
 								resulting object or array of objects.</p>
 							<p>If any values of <var>processed[term]</var> do not have a <var>name</var> property, pop
@@ -2784,8 +2784,7 @@ enum ProgressionDirection {
 									href="#resource-categorization-properties">resource categorization property</a> and
 								any value in its array is a simple string, convert the value(s) to an anonymous object
 								with a <var>type</var> property set to the value "<code>LinkedResource</code>" and a
-									<var>url</var> property whose value is the string. Set <var>processed[term]</var> to
-								the resulting array.</p>
+									<var>url</var> property whose value is the string.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>Resource links should be explicitly designed as an object of type
@@ -2820,7 +2819,7 @@ enum ProgressionDirection {
 									href="#value-localizable-string">localizable string</a>, but its value is a simple
 								string, or any array with one or more simple strings, convert each string to an
 								anonymous object whose <var>value</var> property is the string value. If
-									<var>manifest["inLanguage"]</var> is specified, set a <var>language</var> property
+									<var>processed["inLanguage"]</var> is specified, set a <var>language</var> property
 								to this value.</p>
 							<details>
 								<summary>Explanation</summary>
@@ -2891,7 +2890,7 @@ enum ProgressionDirection {
 
 				<li>
 					<p>Perform the following specific data cleanup operations on <var>processed</var>:</p>
-					<ol>
+					<ul>
 						<li>
 							<p>Check whether the value of <var>processed["type"]</var> is empty. If it is, set the value
 								to "<code>CreativeWork</code>" and issue a warning.</p>
@@ -2917,7 +2916,7 @@ enum ProgressionDirection {
 							<p>Extension point: process any proprietary, <a>profile</a> specific, and/or other supported
 								members at this point in the algorithm.</p>
 						</li>
-					</ol>
+					</ul>
 				</li>
 				<li>If any extension requirements are not set, as defined in their respective specification, terminate
 					the algorithm.</li>
