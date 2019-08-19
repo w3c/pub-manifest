@@ -14,7 +14,6 @@
                         "type": "string"
                     },
                     {
-                        "type": "object",
                         "$ref": "localizable-object.schema.json"
                     }
                 ]
@@ -22,7 +21,6 @@
             "uniqueItems": true
         },
         {
-            "type": "object",
             "$ref": "localizable-object.schema.json"
         }
     ]
