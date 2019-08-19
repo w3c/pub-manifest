@@ -2794,20 +2794,55 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>(<a href="#pub-title"></a>) Create the property <var>processed["name"]</var> and set its
-								value to an empty object. Set the <var>value</var> and <var>language</var> properties of
-									<var>processed["name"]</var> as follows:</p>
+							<p>If <var>term</var> is type <a>LinkedResource</a> and the value of <var>length</var> is
+								set, check whether this value is a valid number and issue a warning if not.</p>
+						</li>
+
+						<li>
+							<p>If <code>term</code> equals "<code>type</code>" and <var>processed["type"]</var> is
+								empty, set <var>processed["type"]</var> to "<code>CreativeWork</code>" and issue a
+								warning.</p>
+						</li>
+
+						<li>
+							<p>If <code>term</code> equals "<code>datePublished</code>" and
+									<var>processed["datePublished"]</var> is not a valid date or date-time,
+								per&#160;[[!iso8601]], issue a warning.</p>
+						</li>
+
+						<li>
+							<p>If <code>term</code> equals "<code>dateModified</code>" and
+									<var>processed["dateModified"]</var> is not a valid date or date-time,
+								per&#160;[[!iso8601]], issue a warning.</p>
+						</li>
+
+						<li>
+							<p>If <code>term</code> equals "<code>duration</code>" and <var>processed["duration"]</var>
+								is not a valid duration value, per&#160;[[!iso8601]], issue a warning.</p>
+						</li>
+
+						<li id="canonicalization-extension-point">
+							<p>(<a href="#mod-compat"></a>, extension point) if a <a>profile</a> defines processing
+								steps for profile specific terms, those steps are executed at this point.</p>
+						</li>
+					</ul>
+				</li>
+
+				<li>
+					<p>Add defaults from <var>document</var> for the following properties when applicable:</p>
+					<ul>
+						<li>
+							<p>(<a href="#pub-title"></a>) If <var>processed["name"]</var> is not set, or its value is
+								an empty string or object:</p>
 							<ul>
-								<li>If <var>manifest["name"]</var> is defined, set <var>value</var> to the value of
-										<var>manifest["name"]</var>. Set <var>language</var> to
-										<var>manifest["inLanguage"]</var>.</li>
-								<li>Otherwise, if the <a data-cite="html#the-title-element"><code>title</code></a>
-									element [[html]] of <var>document</var> is set, set <var>value</var> to the text
-									content of the <code>title</code> element. Set <var>language</var> to the <a
-										data-cite="html#the-lang-and-xml:lang-attributes">language</a> [[html]].</li>
+								<li>If the <a data-cite="html#the-title-element"><code>title</code></a> element [[html]]
+									of <var>document</var> is set and contains a non-empty value, set <var>value</var>
+									to the text content of the <code>title</code> element, and set <var>language</var>
+									to the <a data-cite="html#the-lang-and-xml:lang-attributes">language</a>
+									[[html]].</li>
+								<li>Otherwise generate a value for <var>processed["name"]</var> (see the <a
+										href="#generate_title">separate note for details</a>) and issue a warning.</li>
 							</ul>
-							<p>If <var>processed["name"]</var> is empty, generate a value (see the <a
-									href="#generate_title">separate note for details</a>) and issue a warning.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>This step adds the content of the <code>title</code> element of <var>document</var>
@@ -2833,47 +2868,17 @@ enum ProgressionDirection {
 						</li>
 
 						<li id="reading-order">
-							<p>(<a href="#default-reading-order"></a>) Create the property
-									<var>processed["readingOrder"]</var> and initialize it to an empty array.</p>
+							<p>(<a href="#default-reading-order"></a>) If <var>processed["readingOrder"]</var> is not
+								set or its value is an empty string or array, create an anonymous object:</p>
 							<ul>
-								<li>
-									<p>If <var>manifest["readingOrder"]</var> is defined, for each value <var>item</var>
-										in <var>manifest["readingOrder"]</var>:</p>
-									<ul>
-										<li>
-											<p>Create the object <var>resource</var> and initialize its <code>url</code>
-												value to an empty string.</p>
-										</li>
-										<li>
-											<ul>
-												<li>
-													<p>If <code>typeof(<var>item</var>)</code> is <code>Object</code>
-														[[ecmascript]]:</p>
-													<ul>
-														<li>if <var>item["url"]</var> is not defined, discard
-															<var>item</var> and <var>resource</var> and continue with
-															the next entry in <var>manifest["readingOrder"]</var>.</li>
-														<li>otherwise, set <var>resource["url"]</var> to
-															<var>item["url"]</var></li>
-													</ul>
-													<p>Copy each additional property of <var>item</var> into
-															<var>resource</var>.</p>
-												</li>
-												<li>
-													<p>Otherwise, set <var>resource["url"]</var> to the value of
-															<var>item</var>.</p>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<p>Otherwise, set <var>resource["url"]</var> to the value of <a
-											data-cite="!dom#concept-document-url">document.URL</a>.</p>
+								<li>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, issue an
+									error and terminate this algorithm.</li>
+								<li>otherwise, create an anonymous object and set its <var>url</var> property to the
+									value of <a data-cite="!dom#concept-document-url">document.URL</a>. Set
+										<var>processed["readingOrder"] to an empty array and push the anonymous object
+										onto it. </var>
 								</li>
 							</ul>
-							<p>If <var>resource["url"]</var> is not an empty string, push <var>resource</var> onto
-									<var>processed["readingOrder"]</var>. Otherwise, discard <code>resource</code>.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p> If the Digital Publication consists only of the referencing document, the default
@@ -2881,45 +2886,7 @@ enum ProgressionDirection {
 									resource. </p>
 							</details>
 						</li>
-						
-						<li>
-							<p>For every object <var>P</var> of type <a>LinkedResource</a>, if the value of
-								<var>P["length"]</var> is set, check whether this value is a valid number. If the
-								check fails, issue a warning.</p>
-						</li>
-						
-						<li>
-							<p>If <code>term</code> equals "<code>type</code>" and <var>processed["type"]</var> is
-								empty, set <var>processed["type"]</var> to "<code>CreativeWork</code>" and issue a
-								warning.</p>
-						</li>
 
-						<li>
-							<p>If <code>term</code> equals "<code>datePublished</code>" and
-									<var>processed["datePublished"]</var> is not a valid date or date-time,
-								per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
-						<li>
-							<p>If <code>term</code> equals "<code>dateModified</code>" and
-									<var>processed["dateModified"]</var> is not a valid date or date-time,
-								per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
-						<li>
-							<p>If <code>term</code> equals "<code>duration</code>" and <var>processed["duration"]</var>
-								is not a valid duration value, per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
-						<li>
-							<p>Extension point: process any proprietary, <a>profile</a> specific, and/or other supported
-								members at this point in the algorithm.</p>
-						</li>
-
-						<li id="canonicalization-extension-point">
-							<p>(<a href="#mod-compat"></a>, extension point) if a <a>profile</a> defines processing
-								steps for profile specific terms, those steps are executed at this point.</p>
-						</li>
 					</ul>
 				</li>
 
