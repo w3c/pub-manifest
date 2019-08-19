@@ -6,23 +6,7 @@
     "properties": {
         "@context": {
             "type": "array",
-            "items": {
-                "type": "string",
-                "format": "uri"
-            },
-            "allOf": [
-                {
-                    "contains": {
-                        "const": "https://schema.org"
-                    }
-                },
-                {
-                    "contains": {
-                        "const": "https://www.w3.org/ns/pub-context"
-                    }
-                }
-            ],
-            "uniqueItems": true
+            "const" : ["https://schema.org", "https://www.w3.org/ns/pub-context"]
         },
         "type": {
             "type": [
