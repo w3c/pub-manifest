@@ -192,9 +192,10 @@
 					<p>The shape of the expected data is restricted by a combination of:</p>
 
 					<ol>
-						<li>a JSON schema that defines the lexical constraints on the authored manifest; and</li>
-						<li>the WebIDL definition and processing algorithm that describe how the authored data is
-							internalized.</li>
+						<li>a <a href="#app-json-schema">JSON schema</a> that defines the lexical constraints on the
+							authored manifest; and</li>
+						<li>the <a href="#webidl">WebIDL definition</a> and <a href="#manifest-processing">processing
+								algorithm</a> that describe how the authored data is internalized.</li>
 					</ol>
 
 					<p>The reason for this approach is to account for the authoring flexibility built into [[!json-ld]]
@@ -3729,6 +3730,13 @@ dictionary LinkedResource {
 					</li>
 				</ol>
 			</section>
+		</section>
+		<section id="app-json-schema" class="appendix informative">
+			<h2>Manifest Schema</h2>
+
+			<p>A schema for authored manifests is available at <a
+					href="https://github.com/w3c/pub-manifest/tree/master/schema"
+					>https://github.com/w3c/pub-manifest/tree/master/schema</a>.</p>
 		</section>
 		<section id="app-manifest-examples" class="appendix informative">
 			<h2>Manifest Examples</h2>
