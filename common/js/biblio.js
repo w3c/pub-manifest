@@ -118,5 +118,12 @@ var biblio = {
     "webschemas-a11y": {
     	"title": "WebSchemas Accessibility",
     	"href": "http://www.w3.org/wiki/WebSchemas/Accessibility"
+    },
+    "json-schema" : {
+      "title" : "JSON Schema Validation: A Vocabulary for Structural Validation of JSON",
+      "href" : "https://json-schema.org/latest/json-schema-validation.html",
+      "authors" : [
+        "H. Andrew"
+      ]
     }
 }
