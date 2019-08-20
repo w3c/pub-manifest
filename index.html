@@ -185,18 +185,26 @@
 				<section id="manifest-jsonld">
 					<h4>JSON-LD Authoring and Processing</h4>
 
-					<p>The <a>authored manifest</a> enables information to be compactly expressed to simplify authoring.
-						It is not always required that object types be explicitly authored, for example, as these are
-						automatically generated during canonicalization when missing (see <a href="#value-objects"></a>
-						for more information).</p>
+					<p>This specification defines a way to shape the [[!json-ld]] data that is expressed in the
+							<a>authored manifest</a> such that user agents can process a manifest into a consistent
+						internal representation.</p>
 
-					<p>As a result, the information represented by the authored manifest might be less complete than the
-						information defined in the <a>canonical representation</a> of it. If consistency between the two
-						states is desired, it is RECOMMENDED to avoid the compact forms in the authored manifest.</p>
+					<p>The shape of the expected data is restricted by a combination of:</p>
 
-					<p>Similarly, it is OPTIONAL for a user agent to be a full JSON-LD processor. User agents only need
-						to be able to read the manifest as JSON and internalize the data as specified in <a
-							href="#manifest-processing"></a>.</p>
+					<ol>
+						<li>a JSON schema that defines the lexical constraints on the authored manifest; and</li>
+						<li>the WebIDL definition and processing algorithm that describe how the authored data is
+							internalized.</li>
+					</ol>
+
+					<p>The reason for this approach is to account for the authoring flexibility built into [[!json-ld]]
+						plus the compact authoring expressions this specification defines. It is not always required
+						that object types be explicitly authored, for example, as these are automatically generated
+						during canonicalization when missing (see <a href="#value-objects"></a> for more
+						information).</p>
+
+					<p>A consequence of these constraints a user agent does not have to be a full JSON-LD processor.
+						User agents only need to be able to read the manifest and internalize the data.</p>
 				</section>
 			</section>
 
