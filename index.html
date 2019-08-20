@@ -241,14 +241,13 @@
 			<section id="webidl">
 				<h3>Web IDL</h3>
 
-				<p>Although a <a>digital publication</a>'s manifest is authored as [[json-ld]], a user agent processes
-					this information into an internal data structure, which can be in any language, in order to utilize
-					the properties. The exact manner in which this processing occurs, and how the data is used
-					internally, is user agent-dependent and not defined in this specification.</p>
+				<p>Although a <a>digital publication</a>'s manifest is authored as [[!json-ld]], a user agent <a
+						href="#manifest-processing">processes this information</a> into the <a>canonical
+						representation</a>, which can be in any language, in order to utilize the properties.</p>
 
 				<p>To simplify the understanding of the manifest format for developers, this specification defines an
 					abstract representation of the data structures employed by the manifest using the Web Interface
-					Definition Language (Web IDL) [[webidl-1]] — <a href="#webidl-wpm">the
+					Definition Language (Web IDL) [[!webidl-1]] — <a href="#webidl-wpm">the
 							<code>PublicationManifest</code> dictionary</a>.</p>
 
 				<p>This definition expresses the expected names, datatypes, and possible restrictions for each member of
