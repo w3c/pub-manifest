@@ -100,6 +100,18 @@
 
 				<dl>
 					<dt>
+						<dfn>Canonical Representation</dfn>
+					</dt>
+					<dd>
+						<p>The canonical representation of a manifest is the internal data structure created by user
+							agents when they <a href="#manifest-processing">process the manifest</a> and remove all
+							possible ambiguities and incorporate any missing values that can be inferred from another
+							source.</p>
+						<p>It is possible for the information expressed in the manifest to be the equivalent of the
+							canonical representation created by user agents if there are no ambiguities or missing
+							information.</p>
+					</dd>
+					<dt>
 						<dfn data-lt="digital publications|digital publication's">Digital Publication</dfn>
 					</dt>
 					<dd>
@@ -131,6 +143,7 @@
 			<section id="conformance"></section>
 		</section>
 		<section id="manifest">
+
 			<h2>Publication Manifest</h2>
 
 			<section id="manifest-intro">
@@ -150,61 +163,25 @@
 						of properties for use with them.</p>
 				</section>
 
-				<section id="manifest-authored-canonical" class="informative">
-					<h4>Authored and Canonicalized Forms</h4>
-
-					<p>Depending on the state of a <a>digital publication</a>, its manifest exists in one of two
-						forms:</p>
-
-					<dl>
-						<dt>
-							<dfn data-lt="authored publication manifest">Authored Manifest</dfn>
-						</dt>
-						<dd>
-							<p>The Authored Publication Manifest is the serialization of the manifest that the author
-								provides with the digital publication (i.e., prior to be digital publication being
-								processed by a user agent). Note that the author does not have to be human; a machine
-								could automatically produce authored manifests for digital publications.</p>
-						</dd>
-
-						<dt>
-							<dfn>Canonical Representation</dfn>
-						</dt>
-						<dd>
-							<p>The canonical representation of the manifest is the internal data structure created by
-								user agents when they <a href="#manifest-processing">process the authored manifest</a>
-								and remove all possible ambiguities and incorporate any missing values that can be
-								inferred from another source.</p>
-						</dd>
-					</dl>
-
-					<p>It is possible for the authored manifest to be the equivalent of the canonical representation if
-						there are no ambiguities or missing information.</p>
-				</section>
-
 				<section id="manifest-jsonld">
 					<h4>JSON-LD Authoring and Processing</h4>
 
-					<p>
-						This specification defines the <a>authored manifest</a> as a specific "shape" of [[!json-ld]]. 
-						This means that the manifest SHOULD be expressed using only the syntactical constructions as defined in this specification, as opposed to all the possibilities offered by the JSON-LD syntax. 
-					</p> 
+					<p>This specification defines the publication manifest as a specific "shape" of [[!json-ld]]. This
+						means that the manifest SHOULD be expressed using only the syntactical constructions as defined
+						in this specification, as opposed to all the possibilities offered by the JSON-LD syntax.</p>
 
-					<p class=note>
-						Beyond this specification itself, this "shape" is also defined, informally, through a <a href="#app-json-schema">JSON schema</a>&nbsp;[[json-schema]].
-					</p>
+					<p class="note">Beyond this specification itself, this "shape" is also defined, informally, through
+						a <a href="#app-json-schema">JSON schema</a>&#160;[[json-schema]].</p>
 
-					<p>
-						The <a>authored manifest</a> also has a number of authoring flexibilities and compact authoring expressions.
-						For example, it is not always required that object types be explicitly authored, as these are automatically generated
-						during canonicalization when missing (see <a href="#value-objects"></a> for more information).
-						A <a>canonical representation</a> of the manifest data is defined separately; see the separate section on <a href="#webidl"></a> for further details.
-					</p>
+					<p>The publication manifest also has a number of authoring flexibilities and compact authoring
+						expressions. For example, it is not always required that object types be explicitly authored, as
+						these are automatically generated during canonicalization when missing (see <a
+							href="#value-objects"></a> for more information). A <a>canonical representation</a> of the
+						manifest data is defined separately; see the separate section on <a href="#webidl"></a> for
+						further details.</p>
 
-					<p>
-						As a consequence, a user agent does not have to be a full JSON-LD processor. 
-						User agents only need to be able to read the manifest's specific shape and internalize the data.
-					</p>
+					<p>As a consequence, a user agent does not have to be a full JSON-LD processor. User agents only
+						need to be able to read the manifest's specific shape and internalize the data.</p>
 				</section>
 			</section>
 
@@ -228,8 +205,8 @@
 					</li>
 				</ul>
 
-				<p class="note">Not all of these properties have to be serialized in the <a>authored manifest</a>. Refer
-					to each property's definition to determine whether, and how, it is compiled into the <a>canonical
+				<p class="note">Not all of these properties have to be serialized in the manifest. Refer to each
+					property's definition to determine whether, and how, it is compiled into the <a>canonical
 						representation</a> from other information.</p>
 
 				<p>The priority of all other <a href="#manifest-properties">properties</a> and <a href="#manifest-rel"
@@ -466,7 +443,7 @@ enum ProgressionDirection {
 					<h4>Value Categories</h4>
 
 					<p>This section describes the categories of values that can be used with properties of the
-						Publication Manifest.</p>
+						publication manifest.</p>
 
 					<section id="value-literal">
 						<h5>Literals</h5>
@@ -515,7 +492,7 @@ enum ProgressionDirection {
 						<section id="value-object-entity">
 							<h6>Entities</h6>
 
-							<p>A common case of implied objects in the Publication Manifest properties set is for <a
+							<p>A common case of implied objects in the publication manifest properties set is for <a
 									href="#creators">creators</a>. The entities responsible for the various aspects of
 								creation are expressed as [[!schema.org]] <a href="https://schema.org/Person">Person</a>
 								and/or <a href="https://schema.org/Organization">Organization</a> objects. To simplify
@@ -1335,11 +1312,11 @@ enum ProgressionDirection {
 								href="#manifest-specific-language-and-dir">natural language properties values</a> of the
 							manifest.</p>
 
-						<p>If a user agent requires the language and one is not available in the authored manifest
-							(either globally or specifically for that property), or the obtained value is invalid, the
-							user agent MAY attempt to determine the language when <a href="#manifest-processing"
-								>generating its canonical representation</a>. This specification does not mandate how
-							such a language tag is created. The user agent might:</p>
+						<p>If a user agent requires the language and one is not available in the manifest (either
+							globally or specifically for that property), or the obtained value is invalid, the user
+							agent MAY attempt to determine the language when <a href="#manifest-processing">generating
+								its canonical representation</a>. This specification does not mandate how such a
+							language tag is created. The user agent might:</p>
 
 						<ul>
 							<li>use the <a>non-empty</a> language declaration of the manifest;</li>
@@ -1721,10 +1698,10 @@ enum ProgressionDirection {
 							</tbody>
 						</table>
 
-						<p id="generate_title">If a title is not included in the <a>authored manifest</a>, and a
-								<a>digital publication</a> does not define alternative rules for obtaining one, the user
-							agent MUST create one. This specification does not specify what heuristics to use to
-							generate such a title.</p>
+						<p id="generate_title">If a title is not included in the manifest, and a <a>digital
+								publication</a> does not define alternative rules for obtaining one, the user agent MUST
+							create one. This specification does not specify what heuristics to use to generate such a
+							title.</p>
 
 						<p class="note">A user agent is not expected to produce a <a
 								data-cite="WCAG20#navigation-mechanisms-title">meaningful title</a>&#160;[[wcag20]] for
@@ -2516,7 +2493,7 @@ enum ProgressionDirection {
 						href="https://www.w3.org/TR/json-ld11/#embedding-json-ld-in-html-documents"><code>type</code>
 						attribute is set to <code>application/ld+json</code></a> [[!json-ld]].</p>
 
-				<pre class="example" title="A Publication Manifest included in an HTML document">
+				<pre class="example" title="A publication manifest included in an HTML document">
 &lt;script type="application/ld+json"&gt;
    {
       &#8230;
@@ -2787,7 +2764,7 @@ enum ProgressionDirection {
 									URL string</a>: resolve the value using the value of <var>base</var>.</p>
 							<details>
 								<summary>Explanation</summary>
-								<p>All relative URLs in the Publication Manifest must be resolved against the base value
+								<p>All relative URLs in the publication manifest must be resolved against the base value
 									to yield absolute URLs.</p>
 							</details>
 						</li>
@@ -3732,7 +3709,7 @@ dictionary LinkedResource {
 		<section id="app-json-schema" class="appendix informative">
 			<h2>Manifest Schema</h2>
 
-			<p>A schema for authored manifests is available at <a
+			<p>A schema for manifests is available at <a
 					href="https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json"
 					>https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json</a>.</p>
 		</section>
