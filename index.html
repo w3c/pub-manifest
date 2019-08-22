@@ -135,7 +135,6 @@
 			<section id="conformance"></section>
 		</section>
 		<section id="manifest">
-
 			<h2>Publication Manifest</h2>
 
 			<section id="manifest-intro">
@@ -265,22 +264,10 @@ dictionary PublicationManifest {
 };
 					
 
-dictionary CreatorInfo {
-             sequence&lt;DOMString>         type;
-    required sequence&lt;LocalizableString> name;
-             DOMString                   id;
-             DOMString                   url;
-};
-
 enum TextDirection {
     "ltr",
     "rtl",
     "auto"
-};
-
-dictionary LocalizableString {
-    required DOMString                   value;
-             DOMString                   language;
 };
 
 enum ProgressionDirection {
@@ -1143,34 +1130,11 @@ enum ProgressionDirection {
 								<code>Person</code> whose <code>name</code> property is set to that string value. (See
 							also <a href="#value-object-entity"></a>.)</p>
 
-						<p>When compiling each set of <dfn data-lt="CreatorInfo">creator information</dfn> from a
-							[[!schema.org]] <a href="https://schema.org/Person"><code>Person</code></a> or <a
+						<p>When compiling each set of creator information from a [[!schema.org]] <a
+								href="https://schema.org/Person"><code>Person</code></a> or <a
 								href="https://schema.org/Organization"><code>Organization</code></a> type, user agents
-							MUST retain the following information when available:</p>
-
-						<dl data-dfn-for="CreatorInfo">
-							<dt>
-								<dfn>type</dfn>
-							</dt>
-							<dd>One or more strings that identifies the type of creator. This sequence SHOULD include
-								"Person" or "Organization".</dd>
-							<dt>
-								<dfn>name</dfn>
-							</dt>
-							<dd>One or more localizable strings for the name of the creator.</dd>
-							<dt>
-								<dfn>id</dfn>
-							</dt>
-							<dd>A canonical identifier of the creator as an <a>Identifier</a>.</dd>
-
-							<dt>
-								<dfn>url</dfn>
-							</dt>
-							<dd>An address for the creator in the form of a <a>URL</a>.</dd>
-						</dl>
-
-						<p>Note that user agents MAY interpret a wider range of creator properties defined by Schema.org
-							than the ones in the preceding list.</p>
+							MUST retain the properties defined for the <a href="#CreatorInfo">CreatorInfo type</a>, when
+							available.</p>
 
 						<p>The manifest MAY include more than one of each type of creator.</p>
 
@@ -1345,7 +1309,7 @@ enum ProgressionDirection {
 										</td>
 										<td>Default <a>language</a> for the publication as well as the textual manifest
 											values</td>
-										<td>language code as defined in&#160;[[!bcp47]]</td>
+										<td>A language code as defined in&#160;[[!bcp47]]</td>
 										<td>
 											<a href="#value-literal">Literal</a>
 										</td>
@@ -1402,8 +1366,8 @@ enum ProgressionDirection {
 							<h6>Item-specific Language</h6>
 
 							<p>It is possible to set the language for any textual value in the manifest. This
-								information MUST be set as a <dfn data-lt="LocalizableString">localizable string</dfn>,
-								i.e., using the <a
+								information MUST be set as a <a href="#LocalizableString">localizable string</a>, i.e.,
+								using the <a
 									href="https://www.w3.org/TR/2014/REC-json-ld-20140116/#string-internationalization"
 										><code>value</code> and <code>language</code> terms</a> (instead of a simple
 								string)&#160;[[!json-ld]]:</p>
@@ -1422,15 +1386,14 @@ enum ProgressionDirection {
     }
 }
 </pre>
-							<p>The value of the <code data-dfn-for="LocalizableString"><dfn>language</dfn></code> MUST
-								be set to a language code as defined in [[!bcp47]].</p>
+							<p>The value of the <code>language</code> MUST be set to a language code as defined in
+								[[!bcp47]].</p>
 
 							<p>When used in a context of localizable texts, a simple string value is a shorthand for a
-									<a>localizable string</a>, with the <code data-dfn-for="LocalizableString"
-										><dfn>value</dfn></code> set to the string value, and the language set to the
-								value of the <a href="#manifest-default-language-and-dir"><code>inLanguage</code></a>
-								property, if applicable, and unset otherwise. In other words, the previous example is
-								equivalent to:</p>
+									<a>localizable string</a>, with the <code>value</code> set to the string value, and
+								the language set to the value of the <a href="#manifest-default-language-and-dir"
+										><code>inLanguage</code></a> property, if applicable, and unset otherwise. In
+								other words, the previous example is equivalent to:</p>
 
 							<pre class="example" title="Setting the default language of an author name to French">
 {
@@ -2093,10 +2056,9 @@ enum ProgressionDirection {
 
 					<p>The <a>manifest</a> identifies key resources of a <a>digital publication</a> through the use of
 						link relations. These relations are applied to the <a href="#dom-linkedresource-rel"
-								><code>rel</code> property</a> of <a href="#app-linkedResource"
-								><code>LinkedResource</code> objects</a> (e.g., the links found in the <a
-							href="#pub-table-of-contents">table of contents</a> and <a href="#resource-list">resource
-							list</a>).</p>
+								><code>rel</code> property</a> of <a href="#LinkedResource"><code>LinkedResource</code>
+							objects</a> (e.g., the links found in the <a href="#pub-table-of-contents">table of
+							contents</a> and <a href="#resource-list">resource list</a>).</p>
 
 					<p>The types of resources these relations identify are categorized as follows:</p>
 
@@ -2545,12 +2507,12 @@ enum ProgressionDirection {
 					idea, when available. </p>
 			</section>
 		</section>
-		<section id="manifest-processing" class="informative">
+		<section id="manifest-processing">
 			<h2>Processing a Manifest</h2>
 
 			<p>The <dfn data-lt="processing the manifest|processing a manifest|process a manifest">steps for processing
-					a manifest</dfn> are given by the following algorithm. If the algorithm terminates early, the
-				manifest does not represent a valid digital publication.</p>
+					a manifest</dfn> into its <a>canonical representation</a> are given by the following algorithm. If
+				the algorithm terminates early, the manifest is not valid.</p>
 
 			<p>The algorithm takes the following arguments:</p>
 
@@ -2564,18 +2526,23 @@ enum ProgressionDirection {
 			<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
 				which to do so are defined by each <a>digital publication</a> format.</p>
 
+			<p class="note">For illustrative purposes, the examples in this section show the structure of the table of
+				contents as JavaScript objects. User agents can process and internalize the resulting structure in
+				whatever language and form is appropriate.</p>
+
 			<ol>
 				<li>
-					<p>Let <var>processed</var> be an object that represents the processed manifest.</p>
+					<p>Let <var>processed</var> be an object containing the <a>canonical representation</a> of the
+						manifest.</p>
 				</li>
 
 				<li>
 					<p>Let <var>manifest</var> be the result of <a data-cite="ecmascript#sec-json.parse">parsing</a>
-						<var>text</var> [[ecmascript]]. If parsing throws an error, terminate this algorithm.</p>
+						<var>text</var> [[!ecmascript]]. If parsing throws an error, terminate this algorithm.</p>
 				</li>
 
 				<li>
-					<p>If typeof(<var>manifest</var>) is not <code>Object</code> [[ecmascript]], terminate this
+					<p>If typeof(<var>manifest</var>) is not <code>Object</code> [[!ecmascript]], terminate this
 						algorithm.</p>
 				</li>
 
@@ -2588,8 +2555,8 @@ enum ProgressionDirection {
 				<li>
 					<p>Iterate over each property <var>term</var> in <var>manifest</var> and create a corresponding
 						property <var>processed[term]</var>. Set the value of <var>processed[term]</var> to
-							<var>manifest[term]</var> and process the value as follows (more than one step might
-						apply):</p>
+							<var>manifest[term]</var> and process the value as follows, where more than one step MAY
+						apply:</p>
 					<ul>
 						<li>
 							<p>(<a href="#value-array"></a>) If <var>term</var> expects an <a href="#value-array"
@@ -2636,29 +2603,29 @@ enum ProgressionDirection {
 						<li>
 							<p>(<a href="#creators"></a>) If <var>term</var> expects an <a href="#value-object-entity"
 									>entity</a>, but the value of <var>processed[term]</var> is a simple string, a
-									<a>localizable string</a>, or an array with one or more of these kinds of string
-								values, convert each value to an anonymous object with a <var>type</var> property set to
-								the value "<code>Person</code>" and a <var>name</var> property whose <var>value</var>
-								property is the string. If <var>processed["inLanguage"]</var> is set, set
-									<var>name["language"]</var> to this value. Set <var>processed[term]</var> to the
-								resulting object or array of objects.</p>
-							<p>If any values of <var>processed[term]</var> do not have a <var>name</var> property, pop
-								the value from the <var>processed[term]</var> array and issue a warning.</p>
+									<a>localizable string</a>, or an array with one or more of these string types,
+								convert each string to an anonymous object with a <var>type</var> property set to an
+								array with the value "<code>Person</code>" and a <var>name</var> property whose
+									<var>value</var> property is the string.</p>
+							<p>If <var>processed["inLanguage"]</var> is set, set <var>name["language"]</var> to this
+								value.</p>
+							<p>Set <var>processed[term]</var> to the resulting object or array of objects.</p>
+							<p>If any of the objects in <var>processed[term]</var> do not have a <var>name</var>
+								property, pop the objects from the array and issue a warning.</p>
 							<details>
 								<summary>Explanation</summary>
-								<p>An author, editor, etc., should be explicitly designed as an object of type
-										<code>Person</code> but, for the sake of convenience, authors are allowed to
-									just give their name. For example,</p>
+								<p>Authors, editors, etc., are expected to be explicitly designed as an object of type
+										<code>Person</code> but, for the sake of convenience, only their name can be
+									specified. For example:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "name"      : ["Moby Dick"],
     "author"    : ["Herman Melville"],
     &#8230;
 }</pre>
-								<p>yields:</p>
+								<p>This rule converts the string values to objects, yielding the following for the
+									preceding example:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "name"      : ["Moby Dick"],
     "author"    : [{
         "type" : ["Person"],
         "name" : "Herman Melville"
@@ -2672,13 +2639,14 @@ enum ProgressionDirection {
 							<p>(<a href="#value-link"></a>) If <var>term</var> is a <a
 									href="#resource-categorization-properties">resource categorization property</a> and
 								any value in its array is a simple string, convert the value(s) to an anonymous object
-								with a <var>type</var> property set to the value "<code>LinkedResource</code>" and a
-									<var>url</var> property whose value is the string.</p>
+								with a <var>type</var> property set to an array containing the value
+									"<code>LinkedResource</code>" and a <var>url</var> property whose value is the
+								string.</p>
 							<details>
 								<summary>Explanation</summary>
-								<p>Resource links should be explicitly designed as an object of type
-										<code>LinkedResource</code> but, for the sake of convenience, authors are
-									allowed to just give their absolute or relative URL. For example,</p>
+								<p>Resource links are expected to be explicitly designed as an object of type
+										<code>LinkedResource</code> but, for the sake of convenience, only their
+									absolute or relative URL has to be specified. For example,</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     &#8230;
@@ -2688,7 +2656,8 @@ enum ProgressionDirection {
     ],
     &#8230;
 }</pre>
-								<p>yields:</p>
+								<p>This step converts the string values to objects, yielding the following for the
+									preceding example:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     &#8230;
@@ -2707,15 +2676,15 @@ enum ProgressionDirection {
 							<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects a <a
 									href="#value-localizable-string">localizable string</a>, but its value is a simple
 								string, or any array with one or more simple strings, convert each string to an
-								anonymous object whose <var>value</var> property is the string value. If
-									<var>processed["inLanguage"]</var> is specified, set a <var>language</var> property
-								to this value.</p>
+								anonymous object whose <var>value</var> property is the string value.</p>
+							<p>If <var>processed["inLanguage"]</var> is specified, set a <var>language</var> property to
+								this value.</p>
 							<details>
 								<summary>Explanation</summary>
-								<p>Natural language text values should be explicitly designed as localizable string
-									objects but, for the sake of convenience, authors are allowed to just use a simple
-									string. I.e., if no language information has been provided (via
-										<code>inLanguage</code>) in the manifest then, for example,</p>
+								<p>Natural language text values are expected to be explicitly designed as localizable
+									string objects but, for the sake of convenience, can be simple strings For example,
+									if no language information has been provided via <code>inLanguage</code> in the
+									manifest then:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"      : ["Moby Dick"],
@@ -2751,9 +2720,9 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>(<a href="#value-url"></a>) If <var>term</var>, or any property within <var>term</var>,
-								expects a URL, and its value is not an <a data-cite="!url/#absolute-url-string">absolute
-									URL string</a>: resolve the value using the value of <var>base</var>.</p>
+							<p>(<a href="#value-url"></a>) If <var>term</var>, or any descendant property of it, expects
+								a URL, and its value is not an <a data-cite="!url/#absolute-url-string">absolute URL
+									string</a>, resolve the value using the value of <var>base</var>.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>All relative URLs in the publication manifest must be resolved against the base value
@@ -2763,7 +2732,7 @@ enum ProgressionDirection {
 
 						<li>
 							<p>If <var>term</var> is a <a href="#resource-categorization-properties"></a>, check whether
-								every object <var>P</var> in <var>processed[term]</var> has <var>P["url"]</var> set. If
+								each object <var>P</var> in <var>processed[term]</var> has <var>P["url"]</var> set. If
 								not, remove <var>P</var> from <var>processed[term]</var> array and issue a warning. If
 								yes, check whether <var>P["url"]</var> is a valid URL&#160;[[!url]] and, if not, issue a
 								warning.</p>
@@ -2804,7 +2773,7 @@ enum ProgressionDirection {
 				</li>
 
 				<li>
-					<p>Add defaults from <var>document</var> for the following properties when applicable:</p>
+					<p>Add defaults from <var>document</var> for the following properties, when applicable:</p>
 					<ul>
 						<li>
 							<p>(<a href="#pub-title"></a>) If <var>processed["name"]</var> is not set, or its value is
@@ -2875,161 +2844,166 @@ enum ProgressionDirection {
 
 			<p class="note"> How error and warning messages are reported is user agent dependent.</p>
 		</section>
-		<section id="app-linkedResource" class="appendix">
-			<h5><code>LinkedResource</code> Definition</h5>
+		<section id="app-custom-types" class="appendix">
+			<h2>Custom Type Definition</h2>
 
-			<p id="publication-link-def">This specification defines a new type for links called
-						<code><dfn>LinkedResource</dfn></code>. It consists of the following properties:</p>
+			<section id="LinkedResource">
+				<h3><code>LinkedResource</code> Definition</h3>
 
-			<table class="zebra" data-dfn-for="LinkedResource">
-				<thead>
-					<tr>
-						<th>Term</th>
-						<th>Description</th>
-						<th>Required Value</th>
-						<th>Value Type</th>
-						<th>[[!schema.org]] Mapping</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<code>
-								<dfn>url</dfn>
-							</code>
-						</td>
-						<td>Location of the resource. REQUIRED.</td>
-						<td>A valid URL string&#160;[[!url]]. Refer to the property definitions that accept this type
-							for additional restrictions.</td>
-						<td>
-							<a href="#value-url">URL</a>
-						</td>
-						<td>
-							<a href="https://schema.org/url">
-								<code>url</code>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>
-								<dfn>encodingFormat</dfn>
-							</code>
-						</td>
-						<td>Media type of the resource (e.g., <code>text/html</code>). OPTIONAL.</td>
-						<td>MIME Media Type&#160;[[!rfc2046]].</td>
-						<td>
-							<a href="#value-literal">Literal</a>
-						</td>
-						<td>
-							<a href="https://schema.org/encodingFormat">
-								<code>encodingFormat</code>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>
-								<dfn>name</dfn>
-							</code>
-						</td>
-						<td>Name of the item. OPTIONAL.</td>
-						<td>One or more Text items.</td>
-						<td>
-							<a href="#value-array">Array</a> of <a href="#value-localizable-string">Localizable
-								Strings</a>
-						</td>
-						<td>
-							<a href="https://schema.org/name">
-								<code>name</code>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>
-								<dfn>description</dfn>
-							</code>
-						</td>
-						<td>Description of the item. OPTIONAL.</td>
-						<td>Text.</td>
-						<td>
-							<a href="#value-localizable-string">Localizable String</a>
-						</td>
-						<td>
-							<a href="https://schema.org/description">
-								<code>description</code>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>
-								<dfn>rel</dfn>
-							</code>
-						</td>
-						<td>The relation of the resource to the publication. OPTIONAL.</td>
-						<td>
-							<p>One or more <a href="#manifest-rel">relations</a>. The values are either the relevant
-								relation terms of the IANA link registry&#160;[[!iana-link-relations]], or
-								specially-defined URLs if no suitable link registry item exists.</p>
-						</td>
-						<td>
-							<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
-						</td>
-						<td>(None)</td>
-					</tr>
-					<tr>
-						<td>
-							<code><dfn>integrity</dfn></code>
-						</td>
-						<td>A cryptographic hashing of the resource that allows its integrity to be verified.
-							OPTIONAL.</td>
-						<td><p>One or more whitespace-separated sets of <a
-									href="https://www.w3.org/TR/SRI/#dfn-integrity-metadata">integrity metadata</a>
-								[[!sri]]. The value MUST conform to the <a
-									href="https://www.w3.org/TR/SRI/#the-integrity-attribute">metadata definition</a>
-								[[!sri]].</p>
-							<p>Refer to [[!sri]] for the <a
-									href="https://www.w3.org/TR/SRI/#cryptographic-hash-functions">list of cryptographic
-									hashing functions</a> that user agents are expected to support.</p>
-						</td>
-						<td>
-							<a href="#value-literal">Literal</a>
-						</td>
-						<td>(None)</td>
-					</tr>
-					<tr>
-						<td>
-							<code>
-								<dfn>length</dfn>
-							</code>
-						</td>
-						<td>The total length of a time-based media resource in (possibly fractional) seconds.
-							OPTIONAL</td>
-						<td> Number </td>
-						<td>
-							<a href="#value-number">Number</a>
-						</td>
-						<td>(None)</td>
-					</tr>
-				</tbody>
-			</table>
+				<p id="publication-link-def">This specification defines a new type for links called
+							<code><dfn>LinkedResource</dfn></code>. It consists of the following properties:</p>
 
-			<p>Although user agent support for the <code>integrity</code> property is OPTIONAL, user agents that support
-				cryptographic hashing comparisons using this property MUST do so in accordance with [[!sri]].</p>
+				<table class="zebra" data-dfn-for="LinkedResource">
+					<thead>
+						<tr>
+							<th>Term</th>
+							<th>Description</th>
+							<th>Required Value</th>
+							<th>Value Type</th>
+							<th>[[!schema.org]] Mapping</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<code>
+									<dfn>url</dfn>
+								</code>
+							</td>
+							<td>Location of the resource. REQUIRED.</td>
+							<td>A valid URL string&#160;[[!url]]. Refer to the property definitions that accept this
+								type for additional restrictions.</td>
+							<td>
+								<a href="#value-url">URL</a>
+							</td>
+							<td>
+								<a href="https://schema.org/url">
+									<code>url</code>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>encodingFormat</dfn>
+								</code>
+							</td>
+							<td>Media type of the resource (e.g., <code>text/html</code>). OPTIONAL.</td>
+							<td>MIME Media Type&#160;[[!rfc2046]].</td>
+							<td>
+								<a href="#value-literal">Literal</a>
+							</td>
+							<td>
+								<a href="https://schema.org/encodingFormat">
+									<code>encodingFormat</code>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>name</dfn>
+								</code>
+							</td>
+							<td>Name of the item. OPTIONAL.</td>
+							<td>One or more Text items.</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-localizable-string">Localizable
+									Strings</a>
+							</td>
+							<td>
+								<a href="https://schema.org/name">
+									<code>name</code>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>description</dfn>
+								</code>
+							</td>
+							<td>Description of the item. OPTIONAL.</td>
+							<td>Text.</td>
+							<td>
+								<a href="#value-localizable-string">Localizable String</a>
+							</td>
+							<td>
+								<a href="https://schema.org/description">
+									<code>description</code>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>rel</dfn>
+								</code>
+							</td>
+							<td>The relation of the resource to the publication. OPTIONAL.</td>
+							<td>
+								<p>One or more <a href="#manifest-rel">relations</a>. The values are either the relevant
+									relation terms of the IANA link registry&#160;[[!iana-link-relations]], or
+									specially-defined URLs if no suitable link registry item exists.</p>
+							</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+							</td>
+							<td>(None)</td>
+						</tr>
+						<tr>
+							<td>
+								<code><dfn>integrity</dfn></code>
+							</td>
+							<td>A cryptographic hashing of the resource that allows its integrity to be verified.
+								OPTIONAL.</td>
+							<td><p>One or more whitespace-separated sets of <a
+										href="https://www.w3.org/TR/SRI/#dfn-integrity-metadata">integrity metadata</a>
+									[[!sri]]. The value MUST conform to the <a
+										href="https://www.w3.org/TR/SRI/#the-integrity-attribute">metadata
+										definition</a> [[!sri]].</p>
+								<p>Refer to [[!sri]] for the <a
+										href="https://www.w3.org/TR/SRI/#cryptographic-hash-functions">list of
+										cryptographic hashing functions</a> that user agents are expected to
+									support.</p>
+							</td>
+							<td>
+								<a href="#value-literal">Literal</a>
+							</td>
+							<td>(None)</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>length</dfn>
+								</code>
+							</td>
+							<td>The total length of a time-based media resource in (possibly fractional) seconds.
+								OPTIONAL</td>
+							<td> Number </td>
+							<td>
+								<a href="#value-number">Number</a>
+							</td>
+							<td>(None)</td>
+						</tr>
+					</tbody>
+				</table>
 
-			<aside class="example" title="A resource with a SHA-256 hashing of its content">
-				<pre>{
+				<p>Although user agent support for the <code>integrity</code> property is OPTIONAL, user agents that
+					support cryptographic hashing comparisons using this property MUST do so in accordance with
+					[[!sri]].</p>
+
+				<aside class="example" title="A resource with a SHA-256 hashing of its content">
+					<pre>{
     "type":           "LinkedResource",
     "url":            "chapter1.html",
     "encodingFormat": "text/html",
     "name":           "Chapter 1 - Loomings",
     "integrity":      "sha256-13AE04E21177BABEDFDE721577615A638341F963731EA936BBB8C3862F57CDFC"
 }</pre>
-			</aside>
+				</aside>
 
-			<pre class="idl">
+				<pre class="idl">
 dictionary LinkedResource {
     required DOMString           url;
              DOMString           encodingFormat;
@@ -3039,6 +3013,154 @@ dictionary LinkedResource {
              DOMString           integrity;
              double              length;
 };</pre>
+			</section>
+
+			<section id="CreatorInfo">
+				<h3><code>CreatorInfo</code> Definition</h3>
+
+				<p id="creatorinfo-link-def">This specification defines a new type for <a href="#creators">creators</a>
+					called <code><dfn>CreatorInfo</dfn></code>. It consists of the following properties:</p>
+
+				<table class="zebra" data-dfn-for="CreatorInfo">
+					<thead>
+						<tr>
+							<th>Term</th>
+							<th>Description</th>
+							<th>Required Value</th>
+							<th>Value Type</th>
+							<th>[[!schema.org]] Mapping</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<code>
+									<dfn>type</dfn>
+								</code>
+							</td>
+							<td>The type of creator. OPTIONAL</td>
+							<td>One or more Text. Sequence should include "<code>Person</code>" or
+									"<code>Organization</code>".</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+							</td>
+							<td>(None)</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>name</dfn>
+								</code>
+							</td>
+							<td>Name of the creator. REQUIRED.</td>
+							<td>One or more Text.</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-localizable-string">Localizable
+									Strings</a>
+							</td>
+							<td>
+								<a href="https://schema.org/name">
+									<code>name</code>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>id</dfn>
+								</code>
+							</td>
+							<td>A canonical identifier associated with the creator. OPTIONAL.</td>
+							<td>A URL record [[!url]].</td>
+							<td>
+								<a href="#value-id">Identifier</a>
+							</td>
+							<td> (None) </td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>url</dfn>
+								</code>
+							</td>
+							<td>An address associated with the creator. OPTIONAL.</td>
+							<td>A valid URL string&#160;[[!url]].</td>
+							<td>
+								<a href="#value-url">URL</a>
+							</td>
+							<td>
+								<a href="https://schema.org/url">
+									<code>url</code>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<p>Note that user agents MAY interpret a wider range of creator properties defined by Schema.org than
+					the ones in the preceding table.</p>
+
+				<pre class="idl">
+dictionary CreatorInfo {
+             sequence&lt;DOMString>         type;
+    required sequence&lt;LocalizableString> name;
+             DOMString                   id;
+             DOMString                   url;
+};
+</pre>
+			</section>
+
+			<section id="LocalizableString">
+				<h3><code>LocalizableString</code> Definition</h3>
+
+				<p id="localizablestring-link-def">This specification defines a new type for <a
+						href="#value-localizable-string">localizable strings</a> called <code><dfn
+							data-lt="localizable string">LocalizableString</dfn></code>. It consists of the following
+					properties:</p>
+
+				<table class="zebra" data-dfn-for="LocalizableString">
+					<thead>
+						<tr>
+							<th>Term</th>
+							<th>Description</th>
+							<th>Required Value</th>
+							<th>Value Type</th>
+							<th>[[!schema.org]] Mapping</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<code>
+									<dfn>value</dfn>
+								</code>
+							</td>
+							<td>The value of the localizable string. REQUIRED.</td>
+							<td>Text.</td>
+							<td></td>
+							<td>(None)</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>language</dfn>
+								</code>
+							</td>
+							<td>The language of the value. OPTIONAL.</td>
+							<td>A language code as defined in [[!bcp47]].</td>
+							<td><a href="#value-literal">Literal</a></td>
+							<td>(None)</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<pre class="idl">
+dictionary LocalizableString {
+    required DOMString                   value;
+             DOMString                   language;
+};
+</pre>
+			</section>
 		</section>
 		<section id="app-toc-structure" class="appendix">
 			<h2>Machine-Processable Table of Contents</h2>
