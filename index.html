@@ -161,8 +161,11 @@
 						means that the manifest SHOULD be expressed using only the syntactical constructions as defined
 						in this specification, as opposed to all the possibilities offered by the JSON-LD syntax.</p>
 
-					<p class="note">Beyond this specification itself, this "shape" is also defined, informally, through
-						a <a href="#app-json-schema">JSON schema</a>&#160;[[json-schema]].</p>
+					<p class="note">This shape is also defined, informally, through a <a href="#app-json-schema">JSON
+							schema</a>&#160;[[json-schema]] that expresses the constraints defined in this
+						specification. This schema is maintained at <a
+							href="https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json"
+							>https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json</a>.</p>
 
 					<p>The publication manifest also has a number of authoring flexibilities and compact authoring
 						expressions. For example, it is not always required that object types be explicitly authored, as
@@ -212,10 +215,9 @@
 						href="#manifest-processing">processes this information</a> into the <a>canonical
 						representation</a>, which can be in any language, in order to utilize the properties.</p>
 
-				<p>To simplify the understanding of the manifest format for developers, this specification defines an
-					abstract representation of the data structures employed by the manifest using the Web Interface
-					Definition Language (Web IDL) [[!webidl-1]] — <a href="#webidl-wpm">the
-							<code>PublicationManifest</code> dictionary</a>.</p>
+				<p>To simplify the manifest format for developers, this specification defines an abstract representation
+					of the data structures employed by the manifest using the Web Interface Definition Language (Web
+					IDL) [[!webidl-1]] — <a href="#webidl-wpm">the <code>PublicationManifest</code> dictionary</a>.</p>
 
 				<p>This definition expresses the expected names, datatypes, and possible restrictions for each member of
 					the manifest. Unlike a typical Web IDL definition, however, user agents are not expected to expose
@@ -262,7 +264,6 @@ dictionary PublicationManifest {
              sequence&lt;LinkedResource>    resources = [];
              sequence&lt;LinkedResource>    links = [];
 };
-					
 
 enum TextDirection {
     "ltr",
@@ -281,9 +282,8 @@ enum ProgressionDirection {
 			<section id="manifest-context">
 				<h3>Manifest Contexts</h3>
 
-				<p>A <a>digital publication's</a>
-					<a>manifest</a> starts by setting the JSON-LD context [[!json-ld]]. The context has the following
-					two major components:</p>
+				<p>A <a>manifest</a> MUST set its JSON-LD context [[!json-ld]]. The context has the following two major
+					components:</p>
 
 				<ul>
 					<li>the [[!schema.org]] context: <code>https://schema.org</code></li>
@@ -403,16 +403,14 @@ enum ProgressionDirection {
 						purpose; the groupings have no relevance outside this specification (i.e., the properties are
 						not actually grouped together in the manifest).</p>
 
-					<div class="note">
-						<p>Each manifest item drawn from schema.org identifies the property it maps to and includes its
-							defining type in parentheses. Properties are often available in many types, however, as a
-							result of the schema.org inheritance model. Refer to each property definition for more
-							detailed information about where it is valid to use.</p>
+					<p>Each manifest item drawn from schema.org identifies the property it maps to and includes its
+						defining type in parentheses. Properties are often available in many types, however, as a result
+						of the schema.org inheritance model. Refer to each property definition for more detailed
+						information about where it is valid to use.</p>
 
-						<p>Schema.org additionally includes a large number of properties that, though relevant for
-							publishing, are not mentioned in this specification — publication authors can use any of
-							these properties. This document defines only the minimal set of manifest items.</p>
-					</div>
+					<p>Schema.org additionally includes a large number of properties that, though relevant for
+						publishing, are not mentioned in this specification. These properties can be used in a manifest
+						as this document defines only the minimal set of manifest items.</p>
 
 					<p class="ednote">There are discussion on whether a best practices document would be created,
 						referring to more schema.org terms. If so, it should be linked from here.</p>
@@ -427,9 +425,9 @@ enum ProgressionDirection {
 					<section id="value-literal">
 						<h5>Literals</h5>
 
-						<p>Some <a href="#manifest-properties">manifest</a> properties expect a literal text string as
-							their value &#8212; one that is not language-dependent, such as a code value or date. These
-							values are expressed as [[!json]] strings.</p>
+						<p>When a <a href="#manifest-properties">manifest</a> property expects a literal text string as
+							its value &#8212; one that is not language-dependent, such as a code value or date &#8212;
+							its value MUST be expressed as a [[!json]] string.</p>
 
 						<p>Literal values are not changed <a href="#manifest-processing">during processing of the
 								manifest</a>, unlike other values which might be, for example, converted to objects.</p>
@@ -438,23 +436,24 @@ enum ProgressionDirection {
 					<section id="value-number">
 						<h5>Numbers</h5>
 
-						<p> Some <a href="#manifest-properties">manifest</a> properties expect a number as their value.
-							These values are expressed as [[!json]] numbers. </p>
+						<p>When a <a href="#manifest-properties">manifest</a> property expects a number as its value,
+							the values MUST be expressed as a [[!json]] number.</p>
 					</section>
 
 					<section id="value-objects">
 						<h5>Explicit and Implied Objects</h5>
 
 						<p>Various manifest properties are expected to be expressed as [[!json]]&#160;objects. Although
-							the use of objects is usually recommended, it is also acceptable to use string values that
-							are interpreted as objects depending on the context. The exact mapping of text values to
-							objects is part of the property or object definitions.</p>
+							the use of objects is usually recommended, the following sections identify cases where it is
+							also acceptable to use string values that are interpreted as objects depending on the
+							context. The exact mapping of text values to objects is part of the property or object
+							definitions.</p>
 
 						<section id="value-localizable-string">
 							<h5>Localizable Strings</h5>
 
-							<p>Some <a href="#manifest-properties">manifest</a> properties expect a localizable text
-								string as their value. These values are expressed either as:</p>
+							<p>When a <a href="#manifest-properties">manifest</a> property expects a localizable text
+								string as its value, the value MUST be expressed either as:</p>
 
 							<ul>
 								<li>a single string value;</li>
@@ -463,20 +462,26 @@ enum ProgressionDirection {
 									text.</li>
 							</ul>
 
-							<p>In the case of single string values, these represent a implied object whose
-									<code>value</code> property is the string's text and whose language will be
-								determined from other information in the manifest.</p>
+							<p>A single string value represents an implied object whose <code>value</code> property is
+								the string's text and whose language is determined from other information in the
+								manifest.</p>
 						</section>
 
 						<section id="value-object-entity">
 							<h6>Entities</h6>
 
-							<p>A common case of implied objects in the publication manifest properties set is for <a
-									href="#creators">creators</a>. The entities responsible for the various aspects of
-								creation are expressed as [[!schema.org]] <a href="https://schema.org/Person">Person</a>
-								and/or <a href="https://schema.org/Organization">Organization</a> objects. To simplify
-								authoring, however, a simple string value can be used for the entity's name. In this
-								case, the entity is assumed to represent a Person.</p>
+							<p>When a <a href="#manifest-properties">manifest</a> property expects an entity (i.e., an
+								individual or organization responsible for the various aspects of creation), its value
+								MUST be expressed either as:</p>
+
+							<ul>
+								<li>a single string value;</li>
+								<li>a <a href="#CreatorInfo">CreatorInfo</a> object.</li>
+							</ul>
+
+							<p>A single string value represents an instance of a CreatorInfo object whose
+									<code>name</code> property is the string's text and whose <code>type</code> is
+								assumed to be <a href="https://schema.org/Person">Person</a> [[!schema.org]].</p>
 
 							<aside class="example" title="Using a text string instead of a Person object.">
 								<p>The following author name is expressed as a text string:</p>
@@ -503,9 +508,8 @@ enum ProgressionDirection {
 						<section id="value-link">
 							<h5>Links</h5>
 
-							<p>With the exception of the <a href="#descriptive-properties">descriptive properties</a>,
-								manifest properties typically link to one or more resources. When a property requires a
-								link value, the link MUST be expressed in one of the following two ways:</p>
+							<p>When a manifest property links to one or more resources, it MUST be expressed in one of
+								the following two ways:</p>
 
 							<ol>
 								<li>as a string encoding the <a>URL</a> of the resources; or</li>
@@ -514,9 +518,8 @@ enum ProgressionDirection {
 									characteristics of the target resource.</li>
 							</ol>
 
-							<p>In the case of single string values, these represent an implied
-									<code>LinkedResource</code> object whose <code>url</code> property is set to that
-								string value.</p>
+							<p>A single string value represents an implied <code>LinkedResource</code> object whose
+									<code>url</code> property is set to the string value.</p>
 
 							<pre class="example" title="Resource list that includes one link using a relative URL as a string ('datatypes.svg') and two that display the various properties of the a LinkedResource object">
 {
@@ -546,8 +549,9 @@ enum ProgressionDirection {
 						<h5>URLs</h5>
 
 						<p><dfn data-lt="URL">URLs</dfn> are used to identify resources associated with a <a>digital
-								publication</a>. They MUST be <a href="https://url.spec.whatwg.org/#absolute-url-string"
-								>valid URL strings</a> [[!url]].</p>
+								publication</a>. When a property expects a URL value, it MUST be a <a
+								href="https://url.spec.whatwg.org/#absolute-url-string">valid URL string</a>
+							[[!url]].</p>
 
 						<p>Manifest URLs are restricted to only the <code>http</code> and <code>https</code>
 							<a href="https://url.spec.whatwg.org/#concept-url-scheme">schemes</a> [[!url]]. URLs MUST
@@ -599,11 +603,10 @@ enum ProgressionDirection {
 					<section id="value-array">
 						<h5>Arrays</h5>
 
-						<p>Some <a href="#manifest-properties">manifest properties</a> allow one or more value of their
+						<p>When a <a href="#manifest-properties">manifest property</a> allows one or more value of their
 							respective type (<a href="#value-literal">literal</a>, <a href="#value-objects">object</a>,
-							or <a href="#value-url">URL</a>). As a general rule, these values can be expressed as
-							[[!json]]&#160;arrays. When the property value is an array with a single element, however,
-							the array syntax MAY be omitted.</p>
+							or <a href="#value-url">URL</a>), these values are expressed as [[!json]]&#160;arrays. When
+							a property value is a single element, however, the array syntax MAY be omitted.</p>
 
 						<aside class="example" title="Using a text string instead of an array">
 							<p>As a digital publication typically contains many resources, this declaration of a single
@@ -3819,13 +3822,6 @@ dictionary LocalizableString {
 					</li>
 				</ol>
 			</section>
-		</section>
-		<section id="app-json-schema" class="appendix informative">
-			<h2>Manifest Schema</h2>
-
-			<p>A schema for manifests is available at <a
-					href="https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json"
-					>https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json</a>.</p>
 		</section>
 		<section id="app-manifest-examples" class="appendix informative">
 			<h2>Manifest Examples</h2>
