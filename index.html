@@ -161,9 +161,8 @@
 						means that the manifest SHOULD be expressed using only the syntactical constructions as defined
 						in this specification, as opposed to all the possibilities offered by the JSON-LD syntax.</p>
 
-					<p class="note">This shape is also defined, informally, through a <a href="#app-json-schema">JSON
-							schema</a>&#160;[[json-schema]] that expresses the constraints defined in this
-						specification. This schema is maintained at <a
+					<p class="note">This shape is also defined, informally, through a JSON schema&#160;[[json-schema]]
+						that expresses the constraints defined in this specification. This schema is maintained at <a
 							href="https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json"
 							>https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json</a>.</p>
 
@@ -233,7 +232,7 @@
 					<pre class="idl" id="wpm">
 dictionary PublicationManifest {
     required sequence&lt;DOMString>         type;
-             sequence&lt;DOMString>         id;
+             DOMString                   id;
              sequence&lt;DOMString>         accessMode;
              sequence&lt;DOMString>         accessModeSufficient;
              sequence&lt;DOMString>         accessibilityFeature;
@@ -457,9 +456,8 @@ enum ProgressionDirection {
 
 							<ul>
 								<li>a single string value;</li>
-								<li>an anonymous object with a <code>value</code> property containing a the property's
-									text and a <code>language</code> property that identifies the language of the
-									text.</li>
+								<li>an object with a <code>value</code> property containing a the property's text and a
+										<code>language</code> property that identifies the language of the text.</li>
 							</ul>
 
 							<p>A single string value represents an implied object whose <code>value</code> property is
@@ -2523,14 +2521,15 @@ enum ProgressionDirection {
 				<li><var>text</var>: a UTF-8 string containing the manifest;</li>
 				<li><var>base</var>: a URL string that represents the base URL for the manifest.</li>
 				<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM) Node</a>
-					[[html]] of the document that references the manifest, when available.</li>
+					[[html]] of the document that <a href="#manifest-discovery">references the manifest</a>, when
+					available.</li>
 			</ul>
 
 			<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
 				which to do so are defined by each <a>digital publication</a> format.</p>
 
-			<p class="note">For illustrative purposes, the examples in this section show the structure of the table of
-				contents as JavaScript objects. User agents can process and internalize the resulting structure in
+			<p class="note">For illustrative purposes, the examples in this section show the structure of internal
+				representation as JavaScript objects. User agents can process and internalize the resulting structure in
 				whatever language and form is appropriate.</p>
 
 			<ol>
@@ -2550,22 +2549,22 @@ enum ProgressionDirection {
 				</li>
 
 				<li>
-					<p>(<a href="#manifest-context"></a>) If the <var>manifest["@context"]</var> does not contain the
-						value "<code>https://www.w3.org/ns/pub-context</code>", issue an error and terminate this
+					<p>(<a href="#manifest-context"></a>) If <var>manifest["@context"]</var> does not contain the value
+							"<code>https://www.w3.org/ns/pub-context</code>", issue an error and terminate this
 						algorithm.</p>
 				</li>
 
 				<li>
-					<p>Iterate over each property <var>term</var> in <var>manifest</var> and create a corresponding
-						property <var>processed[term]</var>. Set the value of <var>processed[term]</var> to
-							<var>manifest[term]</var> and process the value as follows, where more than one step MAY
-						apply:</p>
+					<p>Iterate over each property <var>term</var> in <var>manifest</var> and expand its value, as
+						necessary, as follows. More than one step MAY apply.</p>
+					<p>For this step, the variable <var>current</var> holds the processed value. It is initially set to
+						the value of <var>manifest[term]</var>.</p>
 					<ul>
 						<li>
 							<p>(<a href="#value-array"></a>) If <var>term</var> expects an <a href="#value-array"
-									>array</a>, but the value of <var>processed[term]</var> is a single string or an
-								object, create an empty array and push the value of <var>processed[term]</var> onto it.
-								Set <var>processed[term]</var> to the resulting arrary.</p>
+									>array</a>, but the value of <var>current</var> is a single string or an object,
+								create an empty array and push the value of <var>current</var> onto it. Set
+									<var>current</var> to the resulting arrary.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>A number of terms require their values to be arrays but, for the sake of convenience,
@@ -2604,17 +2603,16 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>(<a href="#creators"></a>) If <var>term</var> expects an <a href="#value-object-entity"
-									>entity</a>, but the value of <var>processed[term]</var> is a simple string, a
-									<a>localizable string</a>, or an array with one or more of these string types,
-								convert each string to an anonymous object with a <var>type</var> property set to an
-								array with the value "<code>Person</code>" and a <var>name</var> property whose
-									<var>value</var> property is the string.</p>
-							<p>If <var>processed["inLanguage"]</var> is set, set <var>name["language"]</var> to this
-								value.</p>
-							<p>Set <var>processed[term]</var> to the resulting object or array of objects.</p>
-							<p>If any of the objects in <var>processed[term]</var> do not have a <var>name</var>
-								property, pop the objects from the array and issue a warning.</p>
+							<p>(<a href="#value-object-entity"></a>) If <var>term</var> expects an entity, but the value
+								of <var>current</var> is a simple string, a <a>localizable string</a>, or an array with
+								one or more of these string types, convert each string to an object with a
+									<var>type</var> property set to an array with the value "<code>Person</code>" and a
+									<var>name</var> property whose <var>value</var> property is the string.</p>
+							<p>If <var>manifest["inLanguage"]</var> is non-empty, set <var>language</var> of each object
+								to its value.</p>
+							<p>Set <var>current</var> to the resulting object or array of objects.</p>
+							<p>If any of the objects in <var>current</var> do not have a <var>name</var> property, pop
+								the objects from the array and issue a warning.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>Authors, editors, etc., are expected to be explicitly designed as an object of type
@@ -2641,7 +2639,7 @@ enum ProgressionDirection {
 						<li>
 							<p>(<a href="#value-link"></a>) If <var>term</var> is a <a
 									href="#resource-categorization-properties">resource categorization property</a> and
-								any value in its array is a simple string, convert the value(s) to an anonymous object
+								any value in <var>current</var> is a simple string, convert the value(s) to an object
 								with a <var>type</var> property set to an array containing the value
 									"<code>LinkedResource</code>" and a <var>url</var> property whose value is the
 								string.</p>
@@ -2677,11 +2675,11 @@ enum ProgressionDirection {
 
 						<li>
 							<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects a <a
-									href="#value-localizable-string">localizable string</a>, but its value is a simple
-								string, or any array with one or more simple strings, convert each string to an
-								anonymous object whose <var>value</var> property is the string value.</p>
-							<p>If <var>processed["inLanguage"]</var> is specified, set a <var>language</var> property to
-								this value.</p>
+									href="#value-localizable-string">localizable string</a>, but <var>current</var>
+								contains a simple string or any array with one or more simple strings, convert each
+								string to an object whose <var>value</var> property is the string value.</p>
+							<p>If <var>manifest["inLanguage"]</var> is specified, set the <var>language</var> property
+								of each object to this value.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>Natural language text values are expected to be explicitly designed as localizable
@@ -2724,8 +2722,9 @@ enum ProgressionDirection {
 
 						<li>
 							<p>(<a href="#value-url"></a>) If <var>term</var>, or any descendant property of it, expects
-								a URL, and its value is not an <a data-cite="!url/#absolute-url-string">absolute URL
-									string</a>, resolve the value using the value of <var>base</var>.</p>
+								a URL, and its value in <var>current</var> is not an <a
+									data-cite="!url/#absolute-url-string">absolute URL string</a>, resolve the value
+								using the value of <var>base</var>.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>All relative URLs in the publication manifest must be resolved against the base value
@@ -2733,46 +2732,12 @@ enum ProgressionDirection {
 							</details>
 						</li>
 
-						<li>
-							<p>If <var>term</var> is a <a href="#resource-categorization-properties"></a>, check whether
-								each object <var>P</var> in <var>processed[term]</var> has <var>P["url"]</var> set. If
-								not, remove <var>P</var> from <var>processed[term]</var> array and issue a warning. If
-								yes, check whether <var>P["url"]</var> is a valid URL&#160;[[!url]] and, if not, issue a
-								warning.</p>
-						</li>
-
-						<li>
-							<p>If <var>term</var> is type <a>LinkedResource</a> and the value of <var>length</var> is
-								set, check whether this value is a valid number and issue a warning if not.</p>
-						</li>
-
-						<li>
-							<p>If <var>term</var> equals "<code>type</code>" and <var>processed["type"]</var> is empty,
-								set <var>processed["type"]</var> to "<code>CreativeWork</code>" and issue a warning.</p>
-						</li>
-
-						<li>
-							<p>If <var>term</var> equals "<code>datePublished</code>" and
-									<var>processed["datePublished"]</var> is not a valid date or date-time,
-								per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
-						<li>
-							<p>If <var>term</var> equals "<code>dateModified</code>" and
-									<var>processed["dateModified"]</var> is not a valid date or date-time,
-								per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
-						<li>
-							<p>If <code>term</code> equals "<code>duration</code>" and <var>processed["duration"]</var>
-								is not a valid duration value, per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
 						<li id="canonicalization-extension-point">
 							<p>(<a href="#mod-compat"></a>, extension point) if a <a>profile</a> defines processing
 								steps for profile-specific terms, those steps are executed at this point.</p>
 						</li>
 					</ul>
+					<p>Set <var>processed[term]</var> to the value of <var>current</var>.</p>
 				</li>
 
 				<li>
@@ -2816,14 +2781,14 @@ enum ProgressionDirection {
 
 						<li id="reading-order">
 							<p>(<a href="#default-reading-order"></a>) If <var>processed["readingOrder"]</var> is not
-								set or its value is an empty string or array, create an anonymous object:</p>
+								set or its value is an empty string or array, create an object:</p>
 							<ul>
 								<li>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, issue an
 									error and terminate this algorithm.</li>
-								<li>otherwise, create an anonymous object and set its <var>url</var> property to the
-									value of <a data-cite="!dom#concept-document-url">document.URL</a>. Set
-										<var>processed["readingOrder"] to an empty array and push the anonymous object
-										onto it. </var>
+								<li>otherwise, create an object and set its <var>url</var> property to the value of <a
+										data-cite="!dom#concept-document-url">document.URL</a>. Set
+										<var>processed["readingOrder"] to an empty array and push the object onto it.
+									</var>
 								</li>
 							</ul>
 							<details>
@@ -2835,14 +2800,55 @@ enum ProgressionDirection {
 						</li>
 
 						<li id="html-extension-point">
-							<p>If a <a>profile</a> defines <var>document</var> fallbacks for profile-specific terms,
-								those steps are executed at this point.</p>
+							<p>If a <a>profile</a> specifies <var>document</var> fallbacks, those steps are executed at
+								this point.</p>
 						</li>
 					</ul>
 				</li>
 
-				<li>If any extension requirements are not set, as defined in their respective specification, terminate
-					the algorithm.</li>
+				<li>
+					<p>Perform data integrity checks on the following terms in <var>processed</var>:</p>
+					<ul>
+						<li>
+							<p>(<a href="#resource-categorization-properties"></a>) For each <a
+									href="#resource-categorization-properties">resource categorization property</a>
+								<var>term</var>, check whether each object <var>P</var> in <var>processed[term]</var>
+								has <var>P["url"]</var> set. If not, remove <var>P</var> from <var>processed[term]</var>
+								array and issue a warning. If yes, check whether <var>P["url"]</var> is a valid
+								URL&#160;[[!url]] and, if not, issue a warning.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#LinkedResource"></a>) If <var>term</var> is type <a>LinkedResource</a> and the
+								value of <var>current["length"]</var> is set, check whether this value is a valid number
+								and issue a warning if not.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#manifest-type"></a>) If <var>processed["type"]</var> is not set or contains an
+								empty value, set its value to an array with the value "<code>CreativeWork</code>" and
+								issue a warning.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#datePublished"></a>) If <var>processed["datePublished"]</var> is set and its
+								value is not a valid date or date-time per&#160;[[!iso8601]], issue a warning.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#dateModified"></a>) If <var>processed["dateModified"]</var> is set and its
+								value is not a valid date or date-time per&#160;[[!iso8601]], issue a warning.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#duration"></a>) If <var>processed["duration"]</var> is set and its value is
+								not a valid duration value, per&#160;[[!iso8601]], issue a warning.</p>
+						</li>
+
+						<li>If a <a>profile</a> specifies data validation checks, those steps are executed at this
+							point.</li>
+					</ul>
+				</li>
 			</ol>
 
 			<p class="note"> How error and warning messages are reported is user agent dependent.</p>
