@@ -2557,14 +2557,13 @@ enum ProgressionDirection {
 				<li>
 					<p>Iterate over each property <var>term</var> in <var>manifest</var> and expand its value, as
 						necessary, as follows. More than one step MAY apply.</p>
-					<p>For this step, the variable <var>current</var> holds the processed value. It is initially set to
-						the value of <var>manifest[term]</var>.</p>
-					<ul>
+					<p>For this step, the variable <var>current</var> is set to the value of <var>manifest[term]</var>
+						and is updated by each applicable transformation.</p>
+					<ol style="list-style-type: lower-alpha;">
 						<li>
 							<p>(<a href="#value-array"></a>) If <var>term</var> expects an <a href="#value-array"
-									>array</a>, but the value of <var>current</var> is a single string or an object,
-								create an empty array and push the value of <var>current</var> onto it. Set
-									<var>current</var> to the resulting arrary.</p>
+									>array</a> but <var>current</var> contains a string or object <var>value</var>,
+								convert <var>current</var> to an array and push <var>value</var> onto it.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>A number of terms require their values to be arrays but, for the sake of convenience,
@@ -2603,20 +2602,21 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>(<a href="#value-object-entity"></a>) If <var>term</var> expects an entity, but the value
-								of <var>current</var> is a simple string, a <a>localizable string</a>, or an array with
-								one or more of these string types, convert each string to an object with a
-									<var>type</var> property set to an array with the value "<code>Person</code>" and a
-									<var>name</var> property whose <var>value</var> property is the string.</p>
-							<p>If <var>manifest["inLanguage"]</var> is non-empty, set <var>language</var> of each object
-								to its value.</p>
-							<p>Set <var>current</var> to the resulting object or array of objects.</p>
-							<p>If any of the objects in <var>current</var> do not have a <var>name</var> property, pop
-								the objects from the array and issue a warning.</p>
+							<p>(<a href="#value-object-entity"></a>) If <var>term</var> expects an <a
+									href="#value-object-entity">entity</a> but the value of <var>current</var> is a
+								string <var>str</var>, convert <var>current</var> to an object with the following
+								properties:</p>
+							<ul>
+								<li><p><var>type</var> &#8211; set to an array with the value
+									"<code>Person</code>";</p></li>
+								<li><p><var>name</var> &#8211; set to <var>str</var>.</p></li>
+							</ul>
+							<p>If typeof(<var>current</var>) is <code>Array</code> [[!ecmascript]], perform this step on
+								each value of the array.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>Authors, editors, etc., are expected to be explicitly designed as an object of type
-										<code>Person</code> but, for the sake of convenience, only their name can be
+										<code>Person</code> but, for the sake of convenience, only their name has to be
 									specified. For example:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
@@ -2633,53 +2633,29 @@ enum ProgressionDirection {
     }],
     &#8230;
 }</pre>
-							</details>
-						</li>
-
-						<li>
-							<p>(<a href="#value-link"></a>) If <var>term</var> is a <a
-									href="#resource-categorization-properties">resource categorization property</a> and
-								any value in <var>current</var> is a simple string, convert the value(s) to an object
-								with a <var>type</var> property set to an array containing the value
-									"<code>LinkedResource</code>" and a <var>url</var> property whose value is the
-								string.</p>
-							<details>
-								<summary>Explanation</summary>
-								<p>Resource links are expected to be explicitly designed as an object of type
-										<code>LinkedResource</code> but, for the sake of convenience, only their
-									absolute or relative URL has to be specified. For example,</p>
-								<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    &#8230;
-    "resources" : [
-        "css/mobydick.css",
-        &#8230;
-    ],
-    &#8230;
-}</pre>
-								<p>This step converts the string values to objects, yielding the following for the
-									preceding example:</p>
-								<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    &#8230;
-    "resources" : [{
-        "type" : ["LinkedResource"],
-        "url"  : "css/mobydick.css"
-    },
-        &#8230;
-    ],
-    &#8230;
-}</pre>
+								<p class="note">For simplicity, the conversion of <var>name</var> to a localizable
+									string is described by a later step.</p>
 							</details>
 						</li>
 
 						<li>
 							<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects a <a
-									href="#value-localizable-string">localizable string</a>, but <var>current</var>
-								contains a simple string or any array with one or more simple strings, convert each
-								string to an object whose <var>value</var> property is the string value.</p>
-							<p>If <var>manifest["inLanguage"]</var> is specified, set the <var>language</var> property
-								of each object to this value.</p>
+									href="#value-localizable-string">localizable string</a> and <var>current</var>
+								contains a string <var>str</var>, convert <var>current</var> to an object with the
+								following properties:</p>
+							<ul>
+								<li>
+									<p><var>value</var> &#8211; set to <var>str</var>; and</p>
+								</li>
+								<li>
+									<p><var>language</var> &#8211; set to the value of <var>manifest["inLanguage"]</var>
+										when that property is specified, otherwise omitted.</p>
+								</li>
+							</ul>
+							<p>If typeof(<var>current</var>) is <code>Array</code> [[!ecmascript]], perform this step on
+								each value of the array.</p>
+							<p>If typeof(<var>current</var>) is <code>Object</code> [[!ecmascript]], perform this step
+								on each property of the object.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>Natural language text values are expected to be explicitly designed as localizable
@@ -2721,10 +2697,56 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>(<a href="#value-url"></a>) If <var>term</var>, or any descendant property of it, expects
-								a URL, and its value in <var>current</var> is not an <a
+							<p>(<a href="#value-link"></a>) If <var>term</var> is a <a
+									href="#resource-categorization-properties">resource categorization property</a> and
+								any value in the array in <var>current</var> is a string, convert each string
+									<var>str</var> to an object with the following properties:</p>
+							<ul>
+								<li><var>type</var> &#8211; set to an array containing the value
+										"<code>LinkedResource</code>"; and</li>
+								<li><var>url</var> &#8211; set to <var>str</var>.</li>
+							</ul>
+							<details>
+								<summary>Explanation</summary>
+								<p>Resource links are expected to be explicitly designed as an object of type
+										<code>LinkedResource</code> but, for the sake of convenience, only their
+									absolute or relative URL has to be specified. For example,</p>
+								<pre class="example">{
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
+    &#8230;
+    "resources" : [
+        "css/mobydick.css",
+        &#8230;
+    ],
+    &#8230;
+}</pre>
+								<p>This step converts the string values to objects, yielding the following for the
+									preceding example:</p>
+								<pre class="example">{
+    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
+    &#8230;
+    "resources" : [{
+        "type" : ["LinkedResource"],
+        "url"  : "css/mobydick.css"
+    },
+        &#8230;
+    ],
+    &#8230;
+}</pre>
+								<p class="note">For simplicity, the conversion of relative paths to absolute is
+									described by a later step.</p>
+							</details>
+						</li>
+
+						<li>
+							<p>(<a href="#value-url"></a>) If <var>term</var> expects a <a href="#value-url">URL</a> and
+								the value of <var>current</var> is a string that is not an <a
 									data-cite="!url/#absolute-url-string">absolute URL string</a>, resolve the value
 								using the value of <var>base</var>.</p>
+							<p>If typeof(<var>current</var>) is <code>Array</code> [[!ecmascript]], perform this step on
+								each value of the array.</p>
+							<p>If typeof(<var>current</var>) is <code>Object</code> [[!ecmascript]], perform this step
+								on each property of the object.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>All relative URLs in the publication manifest must be resolved against the base value
@@ -2736,13 +2758,13 @@ enum ProgressionDirection {
 							<p>(<a href="#mod-compat"></a>, extension point) if a <a>profile</a> defines processing
 								steps for profile-specific terms, those steps are executed at this point.</p>
 						</li>
-					</ul>
+					</ol>
 					<p>Set <var>processed[term]</var> to the value of <var>current</var>.</p>
 				</li>
 
 				<li>
 					<p>Add defaults from <var>document</var> for the following properties, when applicable:</p>
-					<ul>
+					<ol style="list-style-type: lower-alpha;">
 						<li>
 							<p>(<a href="#pub-title"></a>) If <var>processed["name"]</var> is not set, or its value is
 								an empty string or object:</p>
@@ -2803,19 +2825,58 @@ enum ProgressionDirection {
 							<p>If a <a>profile</a> specifies <var>document</var> fallbacks, those steps are executed at
 								this point.</p>
 						</li>
-					</ul>
+					</ol>
 				</li>
 
 				<li>
-					<p>Perform data integrity checks on the following terms in <var>processed</var>:</p>
-					<ul>
+					<p>Perform data integrity checks on the following properties in <var>processed</var>:</p>
+					<ol style="list-style-type: lower-alpha;">
+						<li>
+							<p>For each property <var>term</var> in <var>processed</var> that expects an array of <a
+									href="#value-object-entity">entities</a>, check whether each value <var>entry</var>
+								in <var>processed[term]</var> has its <var>name</var> property set. If not, pop
+									<var>entry</var> from <var>processed[term]</var> and issue a warning.</p>
+							<p>Repeat this step recursively for all properties of <var>current</var> that expect an
+								object in which one or more properties expect entities.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or
+								contains an empty value, set its value to an array with the value
+									"<code>CreativeWork</code>" and issue a warning.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#duration"></a>) If <var>processed["duration"]</var> is set and its value is
+								not a valid duration value, per&#160;[[!iso8601]], issue a warning.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#last-modification-date"></a>) If <var>processed["dateModified"]</var> is set
+								and its value is not a valid date or date-time per&#160;[[!iso8601]], issue a
+								warning.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#publication-date"></a>) If <var>processed["datePublished"]</var> is set and
+								its value is not a valid date or date-time per&#160;[[!iso8601]], issue a warning.</p>
+						</li>
+
 						<li>
 							<p>(<a href="#resource-categorization-properties"></a>) For each <a
 									href="#resource-categorization-properties">resource categorization property</a>
 								<var>term</var>, check whether each object <var>P</var> in <var>processed[term]</var>
-								has <var>P["url"]</var> set. If not, remove <var>P</var> from <var>processed[term]</var>
-								array and issue a warning. If yes, check whether <var>P["url"]</var> is a valid
-								URL&#160;[[!url]] and, if not, issue a warning.</p>
+								has <var>P["url"]</var> set:</p>
+							<ul>
+								<li>
+									<p>If not, remove <var>P</var> from <var>processed[term]</var> array and issue a
+										warning.</p>
+								</li>
+								<li>
+									<p>Otherwise, check whether <var>P["url"]</var> is a valid URL&#160;[[!url]] and, if
+										not, issue a warning.</p>
+								</li>
+							</ul>
 						</li>
 
 						<li>
@@ -2824,30 +2885,9 @@ enum ProgressionDirection {
 								and issue a warning if not.</p>
 						</li>
 
-						<li>
-							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or contains an
-								empty value, set its value to an array with the value "<code>CreativeWork</code>" and
-								issue a warning.</p>
-						</li>
-
-						<li>
-							<p>(<a href="#publication-date"></a>) If <var>processed["datePublished"]</var> is set and its
-								value is not a valid date or date-time per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
-						<li>
-							<p>(<a href="#last-modification-date"></a>) If <var>processed["dateModified"]</var> is set and its
-								value is not a valid date or date-time per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
-						<li>
-							<p>(<a href="#duration"></a>) If <var>processed["duration"]</var> is set and its value is
-								not a valid duration value, per&#160;[[!iso8601]], issue a warning.</p>
-						</li>
-
 						<li>If a <a>profile</a> specifies data validation checks, those steps are executed at this
 							point.</li>
-					</ul>
+					</ol>
 				</li>
 			</ol>
 
