@@ -2434,8 +2434,6 @@ enum ProgressionDirection {
 	&lt;/script&gt;
 </pre>
 
-				<p class="issue" data-number="8">The exact value of <code>rel</code> is still to be agreed upon and
-					should be registered by IANA.</p>
 			</section>
 
 			<section id="manifest-embed">
@@ -2540,7 +2538,7 @@ enum ProgressionDirection {
 
 				<li>
 					<p>Let <var>manifest</var> be the result of <a data-cite="ecmascript#sec-json.parse">parsing</a>
-						<var>text</var> [[!ecmascript]]. If parsing throws an error, terminate this algorithm.</p>
+						<var>text</var> as JSON [[!ecmascript]]. If parsing throws an error, terminate this algorithm.</p>
 				</li>
 
 				<li>
@@ -2549,9 +2547,9 @@ enum ProgressionDirection {
 				</li>
 
 				<li>
-					<p>(<a href="#manifest-context"></a>) If <var>manifest["@context"]</var> does not contain the value
-							"<code>https://www.w3.org/ns/pub-context</code>", issue an error and terminate this
-						algorithm.</p>
+					<p>(<a href="#manifest-context"></a>) If <var>manifest["@context"]</var> does not contain the values 
+						"<code>https://schema.org</code>" and "<code>https://www.w3.org/ns/pub-context</code>" (in this order), 
+						issue an error and terminate this algorithm.</p>
 				</li>
 
 				<li>
@@ -2638,7 +2636,7 @@ enum ProgressionDirection {
 							</details>
 						</li>
 
-						<li>
+						<li id="step-localizable-string">
 							<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects a <a
 									href="#value-localizable-string">localizable string</a> and <var>current</var>
 								contains a string <var>str</var>, convert <var>current</var> to an object with the
@@ -2702,7 +2700,7 @@ enum ProgressionDirection {
 								any value in the array in <var>current</var> is a string, convert each string
 									<var>str</var> to an object with the following properties:</p>
 							<ul>
-								<li><var>type</var> &#8211; set to an array containing the value
+								<li><var>type</var> &#8211; set to an array with the value
 										"<code>LinkedResource</code>"; and</li>
 								<li><var>url</var> &#8211; set to <var>str</var>.</li>
 							</ul>
@@ -2742,7 +2740,7 @@ enum ProgressionDirection {
 							<p>(<a href="#value-url"></a>) If <var>term</var> expects a <a href="#value-url">URL</a> and
 								the value of <var>current</var> is a string that is not an <a
 									data-cite="!url/#absolute-url-string">absolute URL string</a>, resolve the value
-								using the value of <var>base</var>.</p>
+								using the value of <var>base</var> [[!rfc1808]].</p>
 							<p>If typeof(<var>current</var>) is <code>Array</code> [[!ecmascript]], perform this step on
 								each value of the array.</p>
 							<p>If typeof(<var>current</var>) is <code>Object</code> [[!ecmascript]], perform this step
@@ -2767,15 +2765,20 @@ enum ProgressionDirection {
 					<ol style="list-style-type: lower-alpha;">
 						<li>
 							<p>(<a href="#pub-title"></a>) If <var>processed["name"]</var> is not set, or its value is
-								an empty string or object:</p>
+								an empty string:</p>
 							<ul>
-								<li>If the <a data-cite="html#the-title-element"><code>title</code></a> element [[html]]
-									of <var>document</var> is set and contains a non-empty value, set <var>value</var>
-									to the text content of the <code>title</code> element, and set <var>language</var>
-									to the <a data-cite="html#the-lang-and-xml:lang-attributes">language</a>
-									[[html]].</li>
-								<li>Otherwise generate a value for <var>processed["name"]</var> (see the <a
-										href="#generate_title">separate note for details</a>) and issue a warning.</li>
+								<li>Create a new <var>object</var>:
+									<ul>
+										<li>
+											if the <a data-cite="html#the-title-element"><code>title</code></a> element [[html]]
+											of <var>document</var> is set and its contains is not empty, set <var>object["value"]</var> to the text content of the <code>title</code> element and, if applicable, set <var>object["language"]</var> to the <a data-cite="html#the-lang-and-xml:lang-attributes">language</a>&nbsp;[[html]].
+										</li>
+										<li>
+											otherwise, generate a value for <var>object["value"]</var> (see the <a href="#generate_title">separate note for details</a>) and issue a warning.
+										</li>
+									</ul>
+								</li>
+								<li>Set <var>processed["name"]</var> to an empty array and push <var>object</var> onto it.</li>
 							</ul>
 							<details>
 								<summary>Explanation</summary>
@@ -2783,7 +2786,7 @@ enum ProgressionDirection {
 									when the <code>name</code> property is not specified in the manifest. For
 									example:</p>
 								<pre class="example">&lt;html&gt;
-&lt;head&gt;
+&lt;head lang="en"&gt;
     &lt;title&gt;Moby Dick&lt;/title&gt;
     &#8230;
     &lt;script type="application/ld+json"&gt;
@@ -2795,7 +2798,10 @@ enum ProgressionDirection {
 								<p>yields:</p>
 								<pre class="example">{
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "name"     : ["Moby Dick"],
+    "name"     : [{
+        "value" : "Moby Dick",
+        "language" : "en"
+    }],
     &#8230;
 }</pre>
 							</details>
@@ -2809,8 +2815,7 @@ enum ProgressionDirection {
 									error and terminate this algorithm.</li>
 								<li>otherwise, create an object and set its <var>url</var> property to the value of <a
 										data-cite="!dom#concept-document-url">document.URL</a>. Set
-										<var>processed["readingOrder"] to an empty array and push the object onto it.
-									</var>
+										<var>processed["readingOrder"]</var> to an empty array and push the object onto it.
 								</li>
 							</ul>
 							<details>
@@ -2834,7 +2839,7 @@ enum ProgressionDirection {
 						<li>
 							<p>For each property <var>term</var> in <var>processed</var> that expects an array of <a
 									href="#value-object-entity">entities</a>, check whether each value <var>entry</var>
-								in <var>processed[term]</var> has its <var>name</var> property set. If not, pop
+								in <var>processed[term]</var> has its <var>name</var> property set. If not, remove
 									<var>entry</var> from <var>processed[term]</var> and issue a warning.</p>
 							<p>Repeat this step recursively for all properties of <var>current</var> that expect an
 								object in which one or more properties expect entities.</p>
@@ -3876,15 +3881,14 @@ dictionary LocalizableString {
 				<h3>Simple Book</h3>
 				<p>A manifest for a simple book. The <a
 						href="https://w3c.github.io/pub-manifest/experiments/separate_manifest/mobydick.jsonld"
-						>canonical version</a> of this manifest is also available.</p>
+						>JSON encoding of its canonical representation</a> of this manifest is also available.</p>
 				<pre class="example" data-include="experiments/separate_manifest/mobydick-simple.jsonld" data-include-format="text"></pre>
 			</section>
 
 			<section>
 				<h3>Single-Document Publication</h3>
 				<p>Example for an embedded manifest example. The <a
-						href="https://w3c.github.io/pub-manifest/experiments/w3c_rec/simple-canonical.jsonld">canonical
-						version</a> of the manifest is, as well as a <a
+						href="https://w3c.github.io/pub-manifest/experiments/w3c_rec/simple-canonical.jsonld">JSON encoding of its canonical representation</a> of the manifest is, as well as a <a
 						href="https://github.com/w3c/pub-manifest/blob/master/experiments/w3c_rec/full_version.html"
 						>more elaborate version</a> for the same document are also available.</p>
 				<pre class="example" data-include="experiments/w3c_rec/simple_version.html" data-include-format="text"></pre>
@@ -3894,7 +3898,7 @@ dictionary LocalizableString {
 				<h3>Audiobook</h3>
 				<p>A manifest for an audiobook. The <a
 						href="https://w3c.github.io/pub-manifest/experiments/audiobook/flatland-canonical.json"
-						>canonical version</a> of this manifest is also available.</p>
+						>JSON encoding of its canonical representation</a> of this manifest is also available.</p>
 				<pre class="example" data-include="experiments/audiobook/flatland.json" data-include-format="text"></pre>
 			</section>
 		</section>
@@ -3951,12 +3955,6 @@ dictionary LocalizableString {
 						<td>
 							<a href="#accessibility"></a>
 						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>address</code>
-						</td>
-						<td><a href="#address"></a></td>
 					</tr>
 					<tr>
 						<td>
@@ -4140,7 +4138,13 @@ dictionary LocalizableString {
 							<a href="#creators"></a>
 						</td>
 					</tr>
-				</tbody>
+					<tr>
+						<td>
+							<code>url</code>
+						</td>
+						<td><a href="#address"></a></td>
+					</tr>
+					</tbody>
 			</table>
 		</section>
 		<section id="rel-index" class="appendix informative">
