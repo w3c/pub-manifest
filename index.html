@@ -2555,6 +2555,11 @@ enum ProgressionDirection {
 				<li>
 					<p>Iterate over each property <var>term</var> in <var>manifest</var> and expand its value, as
 						necessary, as follows. More than one step MAY apply.</p>
+
+					<p class=note>
+						The steps below depend on the expected value category of a <var>term</var>. Care should be taken that the value category may depend not only on the name of the term, but also on the object it is used for. For example, the value category for the term <code>url</code> is an Array (of URLs) when used for the <code>PublicationManifest</code> object, but a single URL literal otherwise.
+					</p>
+
 					<p>For this step, the variable <var>current</var> is set to the value of <var>manifest[term]</var>
 						and is updated by each applicable transformation.</p>
 					<ol style="list-style-type: lower-alpha;">
