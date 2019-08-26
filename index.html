@@ -271,7 +271,7 @@ dictionary PublicationManifest {
              sequence&lt;LinkedResource>    resources = [];
              sequence&lt;LinkedResource>    links = [];
 };
-					
+
 
 dictionary CreatorInfo {
              sequence&lt;DOMString>         type;
@@ -648,6 +648,40 @@ enum ProgressionDirection {
 
 				<section id="descriptive-properties">
 					<h4>Descriptive Properties</h4>
+
+					<section id="abridged">
+						<h5>Abridged</h5>
+
+						<p>The abridged property provides information on whether or not the <a>digital publication</a> they are about to consume is abridged or not.</p>
+
+						<table class="zebra">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Type</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>abridged</dfn>
+										</code>
+									</td>
+									<td>Indicates whether the book is an abridged edition.</td>
+									<td>A valid Boolean [[!boolean]].</td>
+									<td>Boolean.</td>
+									<td>
+										<a href="https://schema.org/abridged"><code>url</code></a> (<a
+											href="https://schema.org/Thing">Thing</a>) </td>
+								</tr>
+							</tbody>
+						</table>
+
+					</section>
 
 					<section id="accessibility">
 						<h5>Accessibility</h5>
@@ -1272,7 +1306,7 @@ enum ProgressionDirection {
     "id"             : "https://example.org/flatland-a-romance-of-many-dimensions/",
     "url"            : "https://w3c.github.io/pub-manifest/experiments/audiobook/",
     "name"           : "Flatland: A Romance of Many Dimensions",
-    &#8230;		
+    &#8230;
     "duration"       : "PT15153S",
     &#8230;
 }
@@ -1447,7 +1481,7 @@ enum ProgressionDirection {
     "inLanguage" : "fr",
     &#8230;
 	"author"     : "Marcel Proust",
-    &#8230;	
+    &#8230;
 }
 </pre>
 							<p>(See also <a href="#value-objects"></a>.)</p>
@@ -1539,6 +1573,41 @@ enum ProgressionDirection {
     &#8230;
 }
 </pre>
+					</section>
+
+					<section id="parental-advisory">
+						<h5>Parental Advisory</h5>
+
+						<p>The parental advisory is a boolean value indicating whether a <a>digital publication</a> is appropriate for younger audiences.</p>
+
+						<table class="zebra">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Category</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>isFamilyFriendly</dfn>
+										</code>
+									</td>
+									<td>Indicates whether this content is family friendly.</td>
+									<td>A Boolean [[!boolean]] value.</td>
+									<td>Boolean.</td>
+									<td>
+										<a href="https://schema.org/isFamilyFriendly"><code>isFamilyFriendly</code></a> (<a
+											href="https://schema.org/CreativeWork">CreativeWork</a>)
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
 					</section>
 
 					<section id="publication-date">
