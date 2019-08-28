@@ -147,11 +147,33 @@
 						properties expressed using a specific shape of JSON-LD&#160;[[json-ld]] format (a variant of
 						JSON&#160;[[ecma-404]] for linked data).</p>
 
-					<p>The manifest includes both descriptive properties about the publication, such as its title and
-						author, as well as information about the nature and structure of the publication.</p>
+					<p>A <a>digital publication's</a>
+						<a>manifest</a> is defined by a set of properties that describe the basic information a user
+						agent requires to process and render the publication. For ease of understanding, these
+						properties are categorized as follows:</p>
 
-					<p>This section describes the construction requirements for manifests, and outlines the general set
-						of properties for use with them.</p>
+					<dl>
+						<dt>
+							<a href="#descriptive-properties">descriptive properties</a>
+						</dt>
+						<dd>
+							<p>Descriptive properties describe aspects of a digital publication, such as its <a
+									href="#pub-title">title</a>, <a href="#creators">creator</a>, and <a
+									href="#language-and-dir">language</a>.</p>
+						</dd>
+						<dt>
+							<a href="#resource-categorization-properties">resource categorization</a>
+						</dt>
+						<dd>
+							<p>Resource categorization properties describe or identify common sets of resources, such as
+								the <a href="#resource-list">resource list</a> and <a href="#default-reading-order"
+									>default reading order</a>. These properties refer to one or more resources, such as
+								HTML documents, images, script files, and separate metadata files.</p>
+						</dd>
+					</dl>
+
+					<p class="note">These categorization have no relevance outside this specification (i.e., the
+						properties are not actually grouped together in the manifest).</p>
 				</section>
 
 				<section id="manifest-jsonld">
@@ -175,6 +197,30 @@
 
 					<p>As a consequence, a user agent does not have to be a full JSON-LD processor. User agents only
 						need to be able to read the manifest's specific shape and internalize the data.</p>
+				</section>
+
+				<section id="manifest-schemaorg">
+					<h4>Relationship to Schema.org</h4>
+
+					<p>Manifest properties are primarily drawn from <a href="https://schema.org">schema.org</a> and its
+							<a href="https://schema.org/docs/schemas.html">hosted extensions</a>&#160;[[schema.org]], in
+						particular those categorized as <a href="#descriptive-properties">descriptive properties</a>. As
+						a consequence, these properties inherit their syntax and semantics from schema.org, making
+						manifest authoring compatible with Schema.org authoring.</p>
+
+					<p>When a manifest item corresponds to a schema.org property, its <a href="#manifest-properties"
+							>property definition</a> table identifies its mapping and includes the defining type (e.g.,
+							<a href="https://schema.org/CreativeWork">CreativeWork</a> or <a
+							href="https://schema.org/Book">Book</a>) in parentheses. Properties are often available in
+						many types, however, as a result of the schema.org inheritance model. Refer to each property
+						definition for more detailed information about where it is valid to use.</p>
+
+					<p>Schema.org additionally includes a large number of properties that, though relevant for
+						publishing, are not mentioned in this specification. These properties MAY be used in a manifest
+						as this document defines only the minimal set of manifest items.</p>
+
+					<p>For more information about using additional schema.org properties, refer to <a
+							href="#publication-types"></a> and <a href="#extensibility-manifest-properties"></a></p>
 				</section>
 			</section>
 
@@ -364,56 +410,6 @@ enum ProgressionDirection {
 
 			<section id="manifest-properties">
 				<h3>Properties</h3>
-
-				<section id="properties-intro" class="informative">
-					<h4>Introduction</h4>
-
-					<p>A <a>digital publication's</a>
-						<a>manifest</a> is defined by a set of properties that describe the basic information a user
-						agent requires to process and render the publication. These properties are categorized as
-						followed:</p>
-
-					<dl>
-						<dt>
-							<a href="#descriptive-properties">descriptive properties</a>
-						</dt>
-						<dd>
-							<p>Descriptive properties describe aspects of a digital publication, such as its <a
-									href="#pub-title">title</a>, <a href="#creators">creator</a>, and <a
-									href="#language-and-dir">language</a>. These properties are primarily drawn from <a
-									href="https://schema.org">Schema.org</a> and its <a
-									href="https://schema.org/docs/schemas.html">hosted
-								extensions</a>&#160;[[schema.org]], so they map to one or several Schema.org properties
-								and inherit their syntax and semantics. (The following property categories typically do
-								not have Schema.org equivalents, so are defined specifically for publications.)</p>
-						</dd>
-						<dt>
-							<a href="#resource-categorization-properties">resource categorization</a>
-						</dt>
-						<dd>
-							<p>Resource categorization properties describe or identify common sets of resources, such as
-								the <a href="#resource-list">resource list</a> and <a href="#default-reading-order"
-									>default reading order</a>. These properties refer to one or more resources, such as
-								HTML documents, images, script files, and separate metadata files.</p>
-						</dd>
-					</dl>
-
-					<p class="note">The categorization of properties exists only to simplify comprehension of their
-						purpose; the groupings have no relevance outside this specification (i.e., the properties are
-						not actually grouped together in the manifest).</p>
-
-					<p>Each manifest item drawn from schema.org identifies the property it maps to and includes its
-						defining type in parentheses. Properties are often available in many types, however, as a result
-						of the schema.org inheritance model. Refer to each property definition for more detailed
-						information about where it is valid to use.</p>
-
-					<p>Schema.org additionally includes a large number of properties that, though relevant for
-						publishing, are not mentioned in this specification. These properties can be used in a manifest
-						as this document defines only the minimal set of manifest items.</p>
-
-					<p class="ednote">There are discussion on whether a best practices document would be created,
-						referring to more schema.org terms. If so, it should be linked from here.</p>
-				</section>
 
 				<section id="properties-value-categories">
 					<h4>Value Categories</h4>
@@ -2006,14 +2002,20 @@ enum ProgressionDirection {
 					</section>
 
 					<section id="extensibility-manifest-properties">
-						<h4>Additional Properties in the Manifest</h4>
+						<h4>Additional Manifest Properties</h4>
 
-						<p>Additional properties can be included directly in the manifest. It is RECOMMENDED that these
+						<p>Additional properties MAY be included directly in the manifest. It is RECOMMENDED that these
 							properties be taken from public schemes like [[schema.org]] or [[dcterms]] and use values
 							from controlled vocabularies whenever possible. Proprietary terms MAY be used, but it is
 							RECOMMENDED that such terms be included using <a
 								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld]],
 							with prefixes defined as part of the context.</p>
+
+						<p class="note"> A prefix definition <code>dc</code> for [[dcterms]] is included in the context
+							file of [[schema.org]]. This means that it is not necessary to add the prefix explicitly.
+							The same is true for a number of other public vocabularies; see the <a
+								href="https://schema.org/docs/jsonldcontext.json">schema.org context file</a> for
+							further details.</p>
 
 						<pre class="example" title="Usage of the schema.org 'copyrightYear' and 'copyrightHolder' terms, as an extension to the basic data">
 {
@@ -2039,12 +2041,6 @@ enum ProgressionDirection {
 &#8230;
 }
 </pre>
-						<p class="note"> A prefix definition <code>dc</code> for [[dcterms]] is included in the context
-							file of [[schema.org]]. This means that it is not necessary to add the prefix explicitly.
-							The same is true for a number of other public vocabularies; see the <a
-								href="https://schema.org/docs/jsonldcontext.json">schema.org context file</a> for
-							further details.</p>
-
 					</section>
 				</section>
 			</section>
