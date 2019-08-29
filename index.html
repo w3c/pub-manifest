@@ -299,7 +299,8 @@ dictionary PublicationManifest {
              sequence&lt;CreatorInfo>       translator;
              sequence&lt;DOMString>         url;
              DOMString                   duration;
-             DOMString                   inLanguage;
+             TextDirection               direction;
+             sequence&lt;DOMString>         inLanguage;
              TextDirection               inDirection;
              DOMString                   dateModified;
              DOMString                   datePublished;
@@ -353,6 +354,158 @@ enum ProgressionDirection {
 						href="https://schema.org/docs/faq.html#19">the vocabulary is being migrated</a> to use the
 					secure <code>https</code> scheme as its default. This specification requires the use of
 						<code>https</code> when referencing Schema.org in the manifest.</p>
+			</section>
+
+			<section id="manifest-lang-dir">
+				<h3>Manifest Language and Direction</h3>
+
+				<p>Each each natural language property value in a manifest (e.g., <a href="#pub-title">title</a>, <a
+						href="#creators">creators</a>) has a default natural <dfn>language</dfn>, which is the language
+					that it is expressed in (e.g., English, French, Chinese). It also has a natural <dfn>base
+						direction</dfn> in which it is written — the display direction, either left-to-right or
+					right-to-left.</p>
+
+				<p>The digital publication manifest includes entries to set both these concepts to aid user agents in
+					interpreting and presenting the metadata.</p>
+
+				<section id="manifest-lang-dir-global">
+					<h4>Global Declarations</h4>
+
+					<p>The default language is set by including a language declaration in the context using the <a
+							href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"
+								><code>language</code> key</a> [[!json-ld]]:</p>
+
+					<aside class="example" title="Declaring French as the default language for the manifest">
+						<pre><code>{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context", 
+        {"language":"fr"}
+    ],
+    "name" : "Le roi René"
+}</code></pre>
+					</aside>
+
+					<p class="note">It is not necessary to specify the at-sign (<code>@</code>) in the key name when
+						declaring the language as the publication context maps the terms to each other.</p>
+
+					<p>The value of the <code>language</code> MUST be set to a language code as defined in
+						[[!bcp47]].</p>
+
+					<p>Unlike the default language, the default direction of the text cannot be specified in the context
+						as JSON-LD does not currently include facilities for this. As an interim measure, this
+						specification defines a <code>direction</code> property for this purpose, as described in the
+						following table.</p>
+
+					<table class="zebra">
+						<thead>
+							<tr>
+								<th>Term</th>
+								<th>Description</th>
+								<th>Required Value</th>
+								<th>Value Category</th>
+								<th>[[!schema.org]] Mapping</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<code data-dfn-for="PublicationManifest">
+										<dfn>direction</dfn>
+									</code>
+								</td>
+								<td>Default <a>base direction</a> for textual manifest values</td>
+								<td><code>ltr</code>, <code>rtl</code>, or <code>auto</code></td>
+								<td>
+									<a href="#value-literal">Literal</a>
+								</td>
+								<td>(None)</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p>The <dfn data-lt="TextDirection">base language direction</dfn> MUST have one of the following
+						values:</p>
+
+					<div data-dfn-for="TextDirection">
+						<ul data-include="common/html/dir-values.html" data-include-replace="true"></ul>
+					</div>
+
+					<p>No default values are specified for the global language or base direction.</p>
+				</section>
+
+				<section id="manifest-lang-dir-local">
+					<h4>Item-Specific Declarations</h4>
+
+					<p>It is possible to set the language locally for any textual value in the manifest using a <a
+							href="#LocalizableString">localizable string</a>:</p>
+
+					<pre class="example" title="Setting the author name to French using a localizable string">
+{
+    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
+    "type"     : "Book",
+    &#8230;
+    "author" : {
+        "type"  : "Person",
+        "name" : {
+            "value"    : "Marcel Proust",
+            "language" : "fr"
+        }
+    }
+}
+</pre>
+					<p>The value of the <code>language</code> MUST be set to a language code as defined in
+						[[!bcp47]].</p>
+
+					<p>When used in a context of localizable texts, a simple string value is a shorthand for a
+							<a>localizable string</a>, with the <code>value</code> set to the string value, and the
+						language set to the value of the <a href="#manifest-default-lang-dir-default">default
+								<code>language</code> property</a>, if applicable, and unset otherwise. In other words,
+						the previous example is equivalent to:</p>
+
+					<pre class="example" title="Setting the default language of an author name to French">
+{
+    "@context"   : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context",
+        {"language": "fr"}
+    ],
+    "type"       : "Book",
+    &#8230;
+	"author"     : "Marcel Proust",
+    &#8230;	
+}
+</pre>
+					<p>See <a href="#value-objects"></a> for more information.</p>
+
+					<p>It is <em>not</em> possible to set the direction explicitly for a specific value.</p>
+
+					<p class="note">Setting the direction for a natural text value is currently not possible in
+						JSON-LD&#160;[[json-ld]]. In case the JSON-LD community, as well as the schema.org community,
+						introduces such a feature, future versions of this specification may extend the ability of
+						manifests to include this.</p>
+
+					<p>In order to correctly handle manifests entries containing right-to-left or bidirectional text,
+						user agents SHOULD identify the base direction of any given natural language value by scanning
+						the text for the first strong directional character.</p>
+
+					<p class="note">In situations where the first-strong heuristics will produce the wrong result (e.g.,
+						a string in the Arabic or Hebrew script that begins with a Latin acronym), content developers
+						may want to prepend a Unicode formatting character to the string. This would then produce the
+						necessary base direction when the heuristics are applied. They should use one of the following
+						formatting characters: U+200E LEFT-TO-RIGHT MARK, or U+200F RIGHT-TO-LEFT MARK. (See <a
+							href="#app-bidi-examples"></a>.)</p>
+
+					<p>Once the base direction has been identified, user agents MUST determine the appropriate rendering
+						and display of natural language values according to the Unicode Bidirectional
+						Algorithm&#160;[[!bidi]]. This could require wrapping additional markup or Unicode formatting
+						characters around the string prior to display, in order to apply the base direction.</p>
+
+					<p class="note">If authors intend to use a manifest, or a manifest template, both as embedded
+						manifest and as a separate resource, they are strongly encouraged to set these properties
+						explicitly to avoid interference of the containing <code>script</code> element in case of
+						embedding.</p>
+				</section>
 			</section>
 
 			<section id="publication-types">
@@ -1236,34 +1389,66 @@ enum ProgressionDirection {
 					</section>
 
 					<section id="language-and-dir">
-						<h5>Language and Base Direction</h5>
+						<h5>Publication Language and Base Direction</h5>
 
-						<p>A <a>digital publication</a> has at least one natural <dfn>language</dfn>, which is the
-							language that the content is expressed in (e.g., English, French, Chinese). It also has a
-							natural <dfn>base direction</dfn> in which it is written — the display direction, either
-							left-to-right or right-to-left.</p>
+						<p>A <a>digital publication</a> has at least one natural language, which is the language that
+							the content is expressed in (e.g., English, French, Chinese). It also has a natural base
+							direction in which it is written — the display direction, either left-to-right or
+							right-to-left.</p>
 
-						<p>The digital publication manifest includes entries to set both these concepts, which can
-							influence, for example, the behavior of a user agent (e.g., it might place a pop-up for a
-							table of contents on the right hand side for publications whose natural base direction is
-							right-to-left).</p>
+						<p>The digital publication manifest includes the following properties to set both these
+							concepts, which can influence, for example, the behavior of a user agent (e.g., it might
+							place a pop-up for a table of contents on the right hand side for publications whose natural
+							base direction is right-to-left).</p>
 
-						<p class="note">It is important to differentiate the language <em>of the publication</em> from
-							the language and the base direction of the individual resources that compose it. If such
-							resources are, for example, in HTML, the language and direction need to be set in those
-							resources, too. The language and base direction of the publication are not inherited.</p>
+						<table class="zebra">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Category</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>inLanguage</dfn>
+										</code>
+									</td>
+									<td>Default <a>language</a> for the publication as well as the textual manifest
+										values</td>
+									<td>One or more language code as defined in&#160;[[!bcp47]]</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+									</td>
+									<td>
+										<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
+											href="https://schema.org/Property">Property</a>) </td>
+								</tr>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>inDirection</dfn>
+										</code>
+									</td>
+									<td>Default <a>base direction</a> for the publication as well as the textual
+										manifest values</td>
+									<td><code>ltr</code>, <code>rtl</code>, or <code>auto</code></td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
+									<td>(None)</td>
+								</tr>
+							</tbody>
+						</table>
 
-						<p>Similarly, each natural language property value in the manifest (e.g., <a href="#pub-title"
-								>title</a>, <a href="#creators">creators</a>) is a <a href="#value-localizable-string"
-								>localizable string</a>.</p>
+						<p>The natural language MUST be a well-formed in terms of &#160;[[!bcp47]], while the base
+							language direction MUST have one of the following values:</p>
 
-						<p class="note">For more information about localized strings on the Web, refer to
-							[[string-meta]].</p>
-
-						<p>The natural language and base direction can be set for both the <a
-								href="#manifest-default-language-and-dir">publication</a> and the <a
-								href="#manifest-specific-language-and-dir">natural language properties values</a> of the
-							manifest.</p>
+						<ul data-include="common/html/dir-values.html" data-include-replace="true"></ul>
 
 						<p>If a user agent requires the language and one is not available in the manifest (either
 							globally or specifically for that property), or the obtained value is invalid, the user
@@ -1278,163 +1463,14 @@ enum ProgressionDirection {
 							<li>calculate the language using its own algorithm.</li>
 						</ul>
 
-						<p>No default values are specified for the <a>language</a> or the default <a>base
-							direction</a>.</p>
+						<p>If a user agent requires a primary language for the publication and more than one language is
+							specified, the first entry in the <code>inLanguage</code> array MUST be recognized as the
+							primary.</p>
 
-						<section id="manifest-default-language-and-dir">
-							<h6>Global Language and Direction</h6>
-
-							<p>The manifest MAY include global language and base direction declarations for the
-								publication using the following properties.</p>
-
-							<table class="zebra">
-								<thead>
-									<tr>
-										<th>Term</th>
-										<th>Description</th>
-										<th>Required Value</th>
-										<th>Value Category</th>
-										<th>[[!schema.org]] Mapping</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<code data-dfn-for="PublicationManifest">
-												<dfn>inLanguage</dfn>
-											</code>
-										</td>
-										<td>Default <a>language</a> for the publication as well as the textual manifest
-											values</td>
-										<td>A language code as defined in&#160;[[!bcp47]]</td>
-										<td>
-											<a href="#value-literal">Literal</a>
-										</td>
-										<td>
-											<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
-												href="https://schema.org/Property">Property</a>) </td>
-									</tr>
-									<tr>
-										<td>
-											<code data-dfn-for="PublicationManifest">
-												<dfn>inDirection</dfn>
-											</code>
-										</td>
-										<td>Default <a>base direction</a> for the publication as well as the textual
-											manifest values</td>
-										<td><code>ltr</code>, <code>rtl</code>, or <code>auto</code></td>
-										<td>
-											<a href="#value-literal">Literal</a>
-										</td>
-										<td>(None)</td>
-									</tr>
-								</tbody>
-							</table>
-
-							<p>The natural language MUST be a well-formed in terms of &#160;[[!bcp47]], while the <dfn
-									data-lt="TextDirection">base language direction</dfn> MUST have one of the following
-								values:</p>
-
-							<ul data-dfn-for="TextDirection">
-								<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly
-									directionally set to left-to-right text;</li>
-								<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly
-									directionally set to right-to-left text;</li>
-								<li><code><dfn>auto</dfn></code> indicates that the textual values are explicitly
-									directionally set to the direction of the first character with a strong
-									directionality, following the rules of the Unicode Bidirectional Algorithm
-									[[!bidi]].</li>
-							</ul>
-
-							<p>When specified, these properties are also used as defaults for textual values in the
-								manifest.</p>
-
-							<p>The global language information MAY be overridden by <a
-									href="#manifest-specific-language-and-dir">individual values</a>.</p>
-
-							<p class="note">If authors intend to use a manifest, or a manifest template, both as
-								embedded manifest and as a separate resource, they are strongly encouraged to set these
-								properties explicitly to avoid interference of the containing <code>script</code>
-								element in case of embedding.</p>
-
-						</section>
-
-						<section id="manifest-specific-language-and-dir">
-							<h6>Item-specific Language</h6>
-
-							<p>It is possible to set the language for any textual value in the manifest. This
-								information MUST be set as a <a href="#LocalizableString">localizable string</a>, i.e.,
-								using the <a
-									href="https://www.w3.org/TR/2014/REC-json-ld-20140116/#string-internationalization"
-										><code>value</code> and <code>language</code> terms</a> (instead of a simple
-								string)&#160;[[!json-ld]]:</p>
-
-							<pre class="example" title="Setting the author name to French using a localizable string">
-{
-    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "type"     : "Book",
-    &#8230;
-    "author" : {
-        "type"  : "Person",
-        "name" : {
-            "value"    : "Marcel Proust",
-            "language" : "fr"
-        }
-    }
-}
-</pre>
-							<p>The value of the <code>language</code> MUST be set to a language code as defined in
-								[[!bcp47]].</p>
-
-							<p>When used in a context of localizable texts, a simple string value is a shorthand for a
-									<a>localizable string</a>, with the <code>value</code> set to the string value, and
-								the language set to the value of the <a href="#manifest-default-language-and-dir"
-										><code>inLanguage</code></a> property, if applicable, and unset otherwise. In
-								other words, the previous example is equivalent to:</p>
-
-							<pre class="example" title="Setting the default language of an author name to French">
-{
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "type"       : "Book",
-    "inLanguage" : "fr",
-    &#8230;
-	"author"     : "Marcel Proust",
-    &#8230;	
-}
-</pre>
-							<p>(See also <a href="#value-objects"></a>.)</p>
-
-							<p>It is <em>not</em> possible to set the direction explicitly for a value.</p>
-
-							<p class="note"> Setting the direction for a natural text value is currently not possible in
-								JSON-LD&#160;[[json-ld]]. In case the JSON-LD community, as well as the schema.org
-								community, introduces such a feature, future versions of this specification may extend
-								the ability of manifests to include this.</p>
-
-
-							<p> In order to correctly handle manifests entries containing right-to-left or bidirectional
-								text, user agents SHOULD identify the base direction of any given natural language value
-								by scanning the text for the first strong directional character. </p>
-
-							<p class="note">In situations where the first-strong heuristics will produce the wrong
-								result (e.g., a string in the Arabic or Hebrew script that begins with a Latin acronym),
-								content developers may want to prepend a Unicode formatting character to the string.
-								This would then produce the necessary base direction when the heuristics are applied.
-								They should use one of the following formatting characters: U+200E LEFT-TO-RIGHT MARK,
-								or U+200F RIGHT-TO-LEFT MARK. (See <a href="#app-bidi-examples"></a>.)</p>
-
-							<p>Once the base direction has been identified, user agents MUST determine the appropriate
-								rendering and display of natural language values according to the Unicode Bidirectional
-								Algorithm&#160;[[!bidi]]. This could require wrapping additional markup or Unicode
-								formatting characters around the string prior to display, in order to apply the base
-								direction.</p>
-
-							<p>Once the base direction has been identified, user agents MUST determine the appropriate
-								rendering and display of natural language values according to the Unicode Bidirectional
-								Algorithm[[!bidi]]. This could require wrapping additional markup or control characters
-								around the string prior to display, in order to apply the base direction. (See <a
-									href="#app-bidi-examples"></a>.</p>
-						</section>
+						<p class="note">It is important to differentiate the language <em>of the publication</em> from
+							the language and the base direction of the individual resources that compose it. If such
+							resources are, for example, in HTML, the language and direction need to be set in those
+							resources, too. The language and base direction of the publication are not inherited.</p>
 					</section>
 
 					<section id="last-modification-date">
@@ -2648,8 +2684,10 @@ enum ProgressionDirection {
 									<p><var>value</var> &#8211; set to <var>str</var>; and</p>
 								</li>
 								<li>
-									<p><var>language</var> &#8211; set to the value of <var>manifest["inLanguage"]</var>
-										when that property is specified, otherwise omitted.</p>
+									<p><var>language</var> &#8211; set to the value of the <a
+											href="#manifest-lang-dir-global">language declaration in
+												<var>manifest["@context"]</var></a> when specified; otherwise,
+										omitted.</p>
 								</li>
 							</ul>
 							<p>If typeof(<var>current</var>) is <code>Array</code> [[!ecmascript]], perform this step on
@@ -2847,6 +2885,30 @@ enum ProgressionDirection {
 									<var>entry</var> from <var>processed[term]</var> and issue a warning.</p>
 							<p>Repeat this step recursively for all properties of <var>current</var> that expect an
 								object in which one or more properties expect entities.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"></a>)
+								Recursively check that every <var>language</var> property in <var>processed</var>
+								conforms to [[!bcp47]] and issue a warning for any invalid values found.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#manifest-lang-dir-global"></a>) If <var>processed["direction"]</var> is set
+								and its value is not one of the <a href="#manifest-lang-dir-global">required directional
+									values</a>, issue a warning.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
+								that each value in its array conforms to [[!bcp47]] and issue a warning for any invalid
+								values found.</p>
+						</li>
+
+						<li>
+							<p>(<a href="#language-and-dir"></a>) If <var>processed["inDirection"]</var> is set and its
+								value is not one of the <a href="#language-and-dir">required directional values</a>,
+								issue a warning.</p>
 						</li>
 
 						<li>
