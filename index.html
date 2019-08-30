@@ -301,7 +301,7 @@ dictionary PublicationManifest {
              DOMString                   duration;
              TextDirection               direction;
              sequence&lt;DOMString>         inLanguage;
-             TextDirection               inDirection;
+             ProgressionDirection        inDirection;
              DOMString                   dateModified;
              DOMString                   datePublished;
              ProgressionDirection        readingProgression = "ltr";
@@ -328,13 +328,13 @@ enum ProgressionDirection {
 			<section id="manifest-context">
 				<h3>Manifest Contexts</h3>
 
-				<p>A <a>manifest</a> MUST set its JSON-LD context [[!json-ld]]. The context has the following two major
-					components:</p>
+				<p>A <a>manifest</a> MUST set its JSON-LD context [[!json-ld]] with the following two components, in the
+					specified order:</p>
 
-				<ul>
+				<ol>
 					<li>the [[!schema.org]] context: <code>https://schema.org</code></li>
 					<li>the publication context: <code>https://www.w3.org/ns/pub-context</code></li>
-				</ul>
+				</ol>
 
 				<pre class="example" title="The context declaration.">
 {
@@ -386,11 +386,11 @@ enum ProgressionDirection {
 }</code></pre>
 					</aside>
 
-					<p class="note">It is not necessary to specify the at-sign (<code>@</code>) in the key name when
-						declaring the language as the publication context maps the terms to each other.</p>
+					<p>The global language declaration MUST follow the <a href="#manifest-context">publication
+							context</a> when present.</p>
 
-					<p>The value of the <code>language</code> MUST be set to a language code as defined in
-						[[!bcp47]].</p>
+					<p>The value of the <code>language</code> MUST be set to a language code that is well-formed as
+						defined in [[!bcp47]].</p>
 
 					<p>Unlike the default language, the default direction of the text cannot be specified in the context
 						as JSON-LD does not currently include facilities for this. As an interim measure, this
@@ -427,9 +427,15 @@ enum ProgressionDirection {
 					<p>The <dfn data-lt="TextDirection">base language direction</dfn> MUST have one of the following
 						values:</p>
 
-					<div data-dfn-for="TextDirection">
-						<ul data-include="common/html/dir-values.html" data-include-replace="true"></ul>
-					</div>
+					<ul data-dfn-for="TextDirection">
+						<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly directionally
+							set to left-to-right text;</li>
+						<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly directionally
+							set to right-to-left text;</li>
+						<li><code><dfn>auto</dfn></code> indicates that the textual values are explicitly directionally
+							set to the direction of the first character with a strong directionality, following the
+							rules of the Unicode Bidirectional Algorithm [[!bidi]].</li>
+					</ul>
 
 					<p>No default values are specified for the global language or base direction.</p>
 				</section>
@@ -454,8 +460,8 @@ enum ProgressionDirection {
     }
 }
 </pre>
-					<p>The value of the <code>language</code> MUST be set to a language code as defined in
-						[[!bcp47]].</p>
+					<p>The value of the <code>language</code> MUST be set to a language code that is well-formed as
+						defined in [[!bcp47]].</p>
 
 					<p>When used in a context of localizable texts, a simple string value is a shorthand for a
 							<a>localizable string</a>, with the <code>value</code> set to the string value, and the
@@ -472,13 +478,16 @@ enum ProgressionDirection {
     ],
     "type"       : "Book",
     &#8230;
-	"author"     : "Marcel Proust",
+    "author"     : "Marcel Proust",
     &#8230;	
 }
 </pre>
 					<p>See <a href="#value-objects"></a> for more information.</p>
 
 					<p>It is <em>not</em> possible to set the direction explicitly for a specific value.</p>
+
+					<p class="note">For more information about localized strings on the Web, refer to
+						[[string-meta]].</p>
 
 					<p class="note">Setting the direction for a natural text value is currently not possible in
 						JSON-LD&#160;[[json-ld]]. In case the JSON-LD community, as well as the schema.org community,
@@ -1436,7 +1445,7 @@ enum ProgressionDirection {
 									</td>
 									<td>Default <a>base direction</a> for the publication as well as the textual
 										manifest values</td>
-									<td><code>ltr</code>, <code>rtl</code>, or <code>auto</code></td>
+									<td><code>ltr</code> or <code>rtl</code></td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -1448,16 +1457,22 @@ enum ProgressionDirection {
 						<p>The natural language MUST be a well-formed in terms of &#160;[[!bcp47]], while the base
 							language direction MUST have one of the following values:</p>
 
-						<ul data-include="common/html/dir-values.html" data-include-replace="true"></ul>
+						<ul>
+							<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly
+								directionally set to left-to-right text;</li>
+							<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly
+								directionally set to right-to-left text;</li>
+						</ul>
 
-						<p>If a user agent requires the language and one is not available in the manifest (either
-							globally or specifically for that property), or the obtained value is invalid, the user
-							agent MAY attempt to determine the language when <a href="#manifest-processing">generating
-								its canonical representation</a>. This specification does not mandate how such a
-							language tag is created. The user agent might:</p>
+						<p>If a user agent requires the publication language and it is not available in the manifest, or
+							the obtained value is invalid, the user agent MAY attempt to determine the publication
+							language when <a href="#manifest-processing">generating its canonical representation</a>.
+							This specification does not mandate how such a language tag is created. The user agent
+							might:</p>
 
 						<ul>
-							<li>use the <a>non-empty</a> language declaration of the manifest;</li>
+							<li>use the <a>non-empty</a>
+								<a href="#manifest-lang-dir">language declaration of the manifest</a>;</li>
 							<li>use the first non-empty language declaration found in a resource in the <a>default
 									reading order</a>;</li>
 							<li>calculate the language using its own algorithm.</li>
@@ -2889,8 +2904,8 @@ enum ProgressionDirection {
 
 						<li>
 							<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"></a>)
-								Recursively check that every <var>language</var> property in <var>processed</var>
-								conforms to [[!bcp47]] and issue a warning for any invalid values found.</p>
+								Recursively check that every <var>language</var> property in <var>processed</var> is
+								well-formed [[!bcp47]] and issue a warning for any invalid values found.</p>
 						</li>
 
 						<li>
@@ -2901,8 +2916,8 @@ enum ProgressionDirection {
 
 						<li>
 							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
-								that each value in its array conforms to [[!bcp47]] and issue a warning for any invalid
-								values found.</p>
+								that each value in its array is well-formed [[!bcp47]] and issue a warning for any
+								invalid values found.</p>
 						</li>
 
 						<li>

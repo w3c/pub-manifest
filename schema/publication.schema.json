@@ -8,12 +8,10 @@
             "type": "array",
             "items": [
 	            {
-	            	"type": "string",
-	            	"enum": ["https://schema.org", "https://www.w3.org/ns/pub-context"]
+	            	"const": "https://schema.org"
 	            },
 	            {
-	            	"type": "string",
-	            	"enum": ["https://schema.org", "https://www.w3.org/ns/pub-context"]
+	            	"const": "https://www.w3.org/ns/pub-context"
 	            },
 	            {
 	            	"type": "object",
