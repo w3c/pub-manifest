@@ -151,7 +151,7 @@
 						<a>manifest</a> is defined by a set of properties that describe the basic information a user
 						agent requires to process and render the publication. For ease of understanding, these
 						properties are categorized as follows:</p>
-          
+
 					<dl>
 						<dt>
 							<a href="#descriptive-properties">descriptive properties</a>
@@ -359,7 +359,7 @@ enum ProgressionDirection {
 			<section id="manifest-lang-dir">
 				<h3>Manifest Language and Direction</h3>
 
-				<p>Each each natural language property value in a manifest (e.g., <a href="#pub-title">title</a>, <a
+				<p>Each natural language property value in a manifest (e.g., <a href="#pub-title">title</a>, <a
 						href="#creators">creators</a>) has a default natural <dfn>language</dfn>, which is the language
 					that it is expressed in (e.g., English, French, Chinese). It also has a natural <dfn>base
 						direction</dfn> in which it is written — the display direction, either left-to-right or
@@ -1397,97 +1397,6 @@ enum ProgressionDirection {
 								Wikiepedia page</a> gives a concise description of the ISO duration syntax. </p>
 					</section>
 
-					<section id="language-and-dir">
-						<h5>Publication Language and Base Direction</h5>
-
-						<p>A <a>digital publication</a> has at least one natural language, which is the language that
-							the content is expressed in (e.g., English, French, Chinese). It also has a natural base
-							direction in which it is written — the display direction, either left-to-right or
-							right-to-left.</p>
-
-						<p>The digital publication manifest includes the following properties to set both these
-							concepts, which can influence, for example, the behavior of a user agent (e.g., it might
-							place a pop-up for a table of contents on the right hand side for publications whose natural
-							base direction is right-to-left).</p>
-
-						<table class="zebra">
-							<thead>
-								<tr>
-									<th>Term</th>
-									<th>Description</th>
-									<th>Required Value</th>
-									<th>Value Category</th>
-									<th>[[!schema.org]] Mapping</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inLanguage</dfn>
-										</code>
-									</td>
-									<td>Default <a>language</a> for the publication as well as the textual manifest
-										values</td>
-									<td>One or more language code as defined in&#160;[[!bcp47]]</td>
-									<td>
-										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
-									</td>
-									<td>
-										<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
-											href="https://schema.org/Property">Property</a>) </td>
-								</tr>
-								<tr>
-									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inDirection</dfn>
-										</code>
-									</td>
-									<td>Default <a>base direction</a> for the publication as well as the textual
-										manifest values</td>
-									<td><code>ltr</code> or <code>rtl</code></td>
-									<td>
-										<a href="#value-literal">Literal</a>
-									</td>
-									<td>(None)</td>
-								</tr>
-							</tbody>
-						</table>
-
-						<p>The natural language MUST be a well-formed in terms of &#160;[[!bcp47]], while the base
-							language direction MUST have one of the following values:</p>
-
-						<ul>
-							<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly
-								directionally set to left-to-right text;</li>
-							<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly
-								directionally set to right-to-left text;</li>
-						</ul>
-
-						<p>If a user agent requires the publication language and it is not available in the manifest, or
-							the obtained value is invalid, the user agent MAY attempt to determine the publication
-							language when <a href="#manifest-processing">generating its canonical representation</a>.
-							This specification does not mandate how such a language tag is created. The user agent
-							might:</p>
-
-						<ul>
-							<li>use the <a>non-empty</a>
-								<a href="#manifest-lang-dir">language declaration of the manifest</a>;</li>
-							<li>use the first non-empty language declaration found in a resource in the <a>default
-									reading order</a>;</li>
-							<li>calculate the language using its own algorithm.</li>
-						</ul>
-
-						<p>If a user agent requires a primary language for the publication and more than one language is
-							specified, the first entry in the <code>inLanguage</code> array MUST be recognized as the
-							primary.</p>
-
-						<p class="note">It is important to differentiate the language <em>of the publication</em> from
-							the language and the base direction of the individual resources that compose it. If such
-							resources are, for example, in HTML, the language and direction need to be set in those
-							resources, too. The language and base direction of the publication are not inherited.</p>
-					</section>
-
 					<section id="last-modification-date">
 						<h5>Last Modification Date</h5>
 
@@ -1599,6 +1508,97 @@ enum ProgressionDirection {
     &#8230;
 }
 </pre>
+					</section>
+
+					<section id="language-and-dir">
+						<h5>Publication Language and Base Direction</h5>
+
+						<p>A <a>digital publication</a> has at least one natural language, which is the language that
+							the content is expressed in (e.g., English, French, Chinese). It also has a natural base
+							direction in which it is written — the display direction, either left-to-right or
+							right-to-left.</p>
+
+						<p>The digital publication manifest includes the following properties to set both these
+							concepts, which can influence, for example, the behavior of a user agent (e.g., it might
+							place a pop-up for a table of contents on the right hand side for publications whose natural
+							base direction is right-to-left).</p>
+
+						<table class="zebra">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Category</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>inLanguage</dfn>
+										</code>
+									</td>
+									<td>Default <a>language</a> for the publication as well as the textual manifest
+										values</td>
+									<td>One or more language code as defined in&#160;[[!bcp47]]</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+									</td>
+									<td>
+										<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
+											href="https://schema.org/Property">Property</a>) </td>
+								</tr>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>inDirection</dfn>
+										</code>
+									</td>
+									<td>Default <a>base direction</a> for the publication as well as the textual
+										manifest values</td>
+									<td><code>ltr</code> or <code>rtl</code></td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
+									<td>(None)</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<p>The natural language MUST be a well-formed in terms of &#160;[[!bcp47]], while the base
+							language direction MUST have one of the following values:</p>
+
+						<ul>
+							<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly
+								directionally set to left-to-right text;</li>
+							<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly
+								directionally set to right-to-left text;</li>
+						</ul>
+
+						<p>If a user agent requires the publication language and it is not available in the manifest, or
+							the obtained value is invalid, the user agent MAY attempt to determine the publication
+							language when <a href="#manifest-processing">generating its canonical representation</a>.
+							This specification does not mandate how such a language tag is created. The user agent
+							might:</p>
+
+						<ul>
+							<li>use the <a>non-empty</a>
+								<a href="#manifest-lang-dir">language declaration of the manifest</a>;</li>
+							<li>use the first non-empty language declaration found in a resource in the <a>default
+									reading order</a>;</li>
+							<li>calculate the language using its own algorithm.</li>
+						</ul>
+
+						<p>If a user agent requires a primary language for the publication and more than one language is
+							specified, the first entry in the <code>inLanguage</code> array MUST be recognized as the
+							primary.</p>
+
+						<p class="note">It is important to differentiate the language <em>of the publication</em> from
+							the language and the base direction of the individual resources that compose it. If such
+							resources are, for example, in HTML, the language and direction need to be set in those
+							resources, too. The language and base direction of the publication are not inherited.</p>
 					</section>
 
 					<section id="reading-progression-direction">
