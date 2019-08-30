@@ -170,14 +170,6 @@
                 }
             ]
         },
-        "readingProgression": {
-            "type": "string",
-            "enum": [
-                "rtl",
-                "ltr"
-            ],
-            "default": "ltr"
-        },
         "name": {
             "$ref": "localizable.schema.json"
         },

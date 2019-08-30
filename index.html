@@ -151,7 +151,7 @@
 						<a>manifest</a> is defined by a set of properties that describe the basic information a user
 						agent requires to process and render the publication. For ease of understanding, these
 						properties are categorized as follows:</p>
-          
+
 					<dl>
 						<dt>
 							<a href="#descriptive-properties">descriptive properties</a>
@@ -301,10 +301,9 @@ dictionary PublicationManifest {
              DOMString                   duration;
              TextDirection               direction;
              sequence&lt;DOMString>         inLanguage;
-             ProgressionDirection        inDirection;
+             ProgressionDirection        inDirection = "ltr";
              DOMString                   dateModified;
              DOMString                   datePublished;
-             ProgressionDirection        readingProgression = "ltr";
     required sequence&lt;LocalizableString> name;
     required sequence&lt;LinkedResource>    readingOrder;
              sequence&lt;LinkedResource>    resources = [];
@@ -1397,97 +1396,6 @@ enum ProgressionDirection {
 								Wikiepedia page</a> gives a concise description of the ISO duration syntax. </p>
 					</section>
 
-					<section id="language-and-dir">
-						<h5>Publication Language and Base Direction</h5>
-
-						<p>A <a>digital publication</a> has at least one natural language, which is the language that
-							the content is expressed in (e.g., English, French, Chinese). It also has a natural base
-							direction in which it is written — the display direction, either left-to-right or
-							right-to-left.</p>
-
-						<p>The digital publication manifest includes the following properties to set both these
-							concepts, which can influence, for example, the behavior of a user agent (e.g., it might
-							place a pop-up for a table of contents on the right hand side for publications whose natural
-							base direction is right-to-left).</p>
-
-						<table class="zebra">
-							<thead>
-								<tr>
-									<th>Term</th>
-									<th>Description</th>
-									<th>Required Value</th>
-									<th>Value Category</th>
-									<th>[[!schema.org]] Mapping</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inLanguage</dfn>
-										</code>
-									</td>
-									<td>Default <a>language</a> for the publication as well as the textual manifest
-										values</td>
-									<td>One or more language code as defined in&#160;[[!bcp47]]</td>
-									<td>
-										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
-									</td>
-									<td>
-										<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
-											href="https://schema.org/Property">Property</a>) </td>
-								</tr>
-								<tr>
-									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inDirection</dfn>
-										</code>
-									</td>
-									<td>Default <a>base direction</a> for the publication as well as the textual
-										manifest values</td>
-									<td><code>ltr</code> or <code>rtl</code></td>
-									<td>
-										<a href="#value-literal">Literal</a>
-									</td>
-									<td>(None)</td>
-								</tr>
-							</tbody>
-						</table>
-
-						<p>The natural language MUST be a well-formed in terms of &#160;[[!bcp47]], while the base
-							language direction MUST have one of the following values:</p>
-
-						<ul>
-							<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly
-								directionally set to left-to-right text;</li>
-							<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly
-								directionally set to right-to-left text;</li>
-						</ul>
-
-						<p>If a user agent requires the publication language and it is not available in the manifest, or
-							the obtained value is invalid, the user agent MAY attempt to determine the publication
-							language when <a href="#manifest-processing">generating its canonical representation</a>.
-							This specification does not mandate how such a language tag is created. The user agent
-							might:</p>
-
-						<ul>
-							<li>use the <a>non-empty</a>
-								<a href="#manifest-lang-dir">language declaration of the manifest</a>;</li>
-							<li>use the first non-empty language declaration found in a resource in the <a>default
-									reading order</a>;</li>
-							<li>calculate the language using its own algorithm.</li>
-						</ul>
-
-						<p>If a user agent requires a primary language for the publication and more than one language is
-							specified, the first entry in the <code>inLanguage</code> array MUST be recognized as the
-							primary.</p>
-
-						<p class="note">It is important to differentiate the language <em>of the publication</em> from
-							the language and the base direction of the individual resources that compose it. If such
-							resources are, for example, in HTML, the language and direction need to be set in those
-							resources, too. The language and base direction of the publication are not inherited.</p>
-					</section>
-
 					<section id="last-modification-date">
 						<h5>Last Modification Date</h5>
 
@@ -1601,12 +1509,18 @@ enum ProgressionDirection {
 </pre>
 					</section>
 
-					<section id="reading-progression-direction">
-						<h5>Reading Progression Direction</h5>
+					<section id="language-and-dir">
+						<h5>Publication Language and Base Direction</h5>
 
-						<p>The <dfn data-lt="ProgressionDirection">reading progression</dfn> establishes the reading
-							direction from one resource to the next within a <a>digital publication</a>. It is expressed
-							using the <code>readingDirection</code> property.</p>
+						<p>A <a>digital publication</a> has at least one natural language, which is the language that
+							the content is expressed in (e.g., English, French, Chinese). It also has a natural base
+							direction in which it is written — the display direction, either left-to-right or
+							right-to-left.</p>
+
+						<p>The digital publication manifest includes the following properties to set both these
+							concepts, which can influence, for example, the behavior of a user agent (e.g., menu
+							position, swap direction, defining tap zones to lead the user to the next and previous
+							pages, touch gestures, etc.).</p>
 
 						<table class="zebra">
 							<thead>
@@ -1622,10 +1536,27 @@ enum ProgressionDirection {
 								<tr>
 									<td>
 										<code data-dfn-for="PublicationManifest">
-											<dfn>readingProgression</dfn>
+											<dfn>inLanguage</dfn>
 										</code>
 									</td>
-									<td>Reading direction from one resource to the other.</td>
+									<td>Default <a>language</a> for the publication as well as the textual manifest
+										values</td>
+									<td>One or more language code as defined in&#160;[[!bcp47]]</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+									</td>
+									<td>
+										<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
+											href="https://schema.org/Property">Property</a>) </td>
+								</tr>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>inDirection</dfn>
+										</code>
+									</td>
+									<td>Default <a>base direction</a> for the publication as well as the textual
+										manifest values</td>
 									<td><code>ltr</code> or <code>rtl</code></td>
 									<td>
 										<a href="#value-literal">Literal</a>
@@ -1635,7 +1566,8 @@ enum ProgressionDirection {
 							</tbody>
 						</table>
 
-						<p>The value of this property MUST be either:</p>
+						<p>The natural language MUST be a well-formed in terms of &#160;[[!bcp47]], while the base
+							language direction MUST have one of the following values:</p>
 
 						<ul data-dfn-for="ProgressionDirection">
 							<li><code><dfn>ltr</dfn></code>: left-to-right;</li>
@@ -1644,23 +1576,39 @@ enum ProgressionDirection {
 
 						<p>The default value is <code>ltr</code>.</p>
 
-						<p>This property has <em>no effect</em> on the rendering of the individual primary resources; it
-							is only relevant for the progression direction from one resource to the other.</p>
+						<p>If a user agent requires the publication language and it is not available in the manifest, or
+							the obtained value is invalid, the user agent MAY attempt to determine the publication
+							language when <a href="#manifest-processing">generating its canonical representation</a>.
+							This specification does not mandate how such a language tag is created. The user agent
+							might:</p>
 
-						<p class="note">The reading progression of a publication is used to adapt such publication level
-							interactions as menu position, swap direction, defining tap zones to lead the user to the
-							next and previous pages, touch gestures, etc.</p>
+						<ul>
+							<li>use the <a>non-empty</a>
+								<a href="#manifest-lang-dir">language declaration of the manifest</a>;</li>
+							<li>use the first non-empty language declaration found in a resource in the <a>default
+									reading order</a>;</li>
+							<li>calculate the language using its own algorithm.</li>
+						</ul>
 
-						<p>If the <code>readingProgression</code> is not set, user agents MUST use the default value
+						<p>If a user agent requires a primary language for the publication and more than one language is
+							specified, the first entry in the <code>inLanguage</code> array MUST be recognized as the
+							primary.</p>
+
+						<p>If the <code>inDirection</code> property is not set, user agents MUST use the default value
 								<code>ltr</code> when generating their <a>canonical representation</a>.</p>
 
-						<pre class="example" title="Reading progression set explicitl to ltr">
+						<p class="note">It is important to differentiate the language <em>of the publication</em> from
+							the language and the base direction of the individual resources that compose it. If such
+							resources are, for example, in HTML, the language and direction need to be set in those
+							resources, too. The language and base direction of the publication are not inherited.</p>
+
+						<pre class="example" title="Reading direction set explicitl to ltr">
 {
     "@context"           : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"               : "Book",
     &#8230;
     "url"                : "https://publisher.example.org/mobydick",
-    "readingProgression" : "ltr"
+    "inDirection" : "ltr"
 }
 </pre>
 					</section>
@@ -4194,14 +4142,6 @@ dictionary LocalizableString {
 						</td>
 						<td>
 							<a href="#default-reading-order"></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>readingProgression</code>
-						</td>
-						<td>
-							<a href="#reading-progression-direction"></a>
 						</td>
 					</tr>
 					<tr>
