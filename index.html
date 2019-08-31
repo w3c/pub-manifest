@@ -2988,6 +2988,16 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
+							<p>(<a href="#default-reading-order"></a> and <a href="#resource-list"></a>) For each entry
+								in <var>processed["readingOrder"]</var> and <var>processed["resources"]</var> with an
+									<var>alternative</var> property <var>P</var>, iterate each value of
+									<var>alternative</var>
+								<var>V</var>.</p>
+							<p>If <var>V["url"]</var> does not match the URL of a resource in the <a>resource list</a>,
+								remove <var>V</var> from <var>P</var> array and issue a warning.</p>
+						</li>
+
+						<li>
 							<p>(<a href="#resource-categorization-properties"></a>) For each <a
 									href="#resource-categorization-properties">resource categorization property</a>
 								<var>term</var>, check whether each object <var>P</var> in <var>processed[term]</var>
@@ -3154,11 +3164,24 @@ enum ProgressionDirection {
 							</td>
 							<td>The total length of a time-based media resource in (possibly fractional) seconds.
 								OPTIONAL</td>
-							<td> Number </td>
+							<td>Number</td>
 							<td>
 								<a href="#value-number">Number</a>
 							</td>
 							<td>(None)</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>alternative</dfn>
+								</code>
+							</td>
+							<td>A reference to a reformulation of the resource in an alternative format. OPTIONAL</td>
+							<td>One or more valid URL strings&#160;[[!url]].</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-url">URLs</a>
+							</td>
+							<td> (None) </td>
 						</tr>
 					</tbody>
 				</table>
@@ -3186,6 +3209,7 @@ dictionary LinkedResource {
              sequence&lt;DOMString> rel;
              DOMString           integrity;
              double              length;
+             sequence&lt;DOMString>     alternative
 };</pre>
 			</section>
 
