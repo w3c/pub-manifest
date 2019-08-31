@@ -1325,6 +1325,7 @@ enum ProgressionDirection {
             "type"  : "Person",
             "name" : "Ivan Herman",
             "id"   : "https://www.w3.org/People/Ivan/"
+            "identifier": "0000-0003-0782-2704",
         }
     ],
     "editor"    : [
@@ -3229,6 +3230,23 @@ dictionary LinkedResource {
 								</a>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>identifier</dfn>
+								</code>
+							</td>
+							<td>An identifier associated with the creator (e.g., ORCID). OPTIONAL.</td>
+							<td>One or more text(s).</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+							</td>
+							<td>
+								<a href="https://schema.org/identifier">
+									<code>identifier</code>
+								</a>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 
@@ -3241,6 +3259,7 @@ dictionary CreatorInfo {
     required sequence&lt;LocalizableString> name;
              DOMString                   id;
              DOMString                   url;
+             sequence&lt;DOMString>         identifier;
 };
 </pre>
 			</section>
