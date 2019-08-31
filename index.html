@@ -2952,11 +2952,11 @@ enum ProgressionDirection {
 						<li>
 							<p>(<a href="#resource-categorization-properties"></a>) For each <a
 									href="#resource-categorization-properties">resource categorization property</a>
-								<var>term</var>, check whether each object <var>P</var> in <var>processed[term]</var>
-								has <var>P["url"]</var> set:</p>
+								<var>term</var> in <var>processed</var>, check whether each object <var>P</var> in
+									<var>processed[term]</var> has <var>P["url"]</var> set:</p>
 							<ul>
 								<li>
-									<p>If not, remove <var>P</var> from <var>processed[term]</var> array and issue a
+									<p>If not, remove <var>P</var> from the <var>processed[term]</var> array and issue a
 										warning.</p>
 								</li>
 								<li>
@@ -2967,9 +2967,9 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>(<a href="#LinkedResource"></a>) If <var>term</var> is type <a>LinkedResource</a> and the
-								value of <var>current["length"]</var> is set, check whether this value is a valid number
-								and issue a warning if not.</p>
+							<p>(<a href="#LinkedResource"></a>) For each property <var>term</var> in
+									<var>processed</var> that expects type <a>LinkedResource</a>, issue a warning if
+									<var>term["length"]</var> is set and is not a valid number.</p>
 						</li>
 
 						<li>If a <a>profile</a> specifies data validation checks, those steps are executed at this
