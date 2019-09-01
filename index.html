@@ -3003,6 +3003,19 @@ enum ProgressionDirection {
 						<tr>
 							<td>
 								<code>
+									<dfn>type</dfn>
+								</code>
+							</td>
+							<td>The type of resource. OPTIONAL</td>
+							<td>One or more Text. Sequence MUST include "<code>LinkedResource</code>".</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+							</td>
+							<td>(None)</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
 									<dfn>url</dfn>
 								</code>
 							</td>
@@ -3141,6 +3154,7 @@ enum ProgressionDirection {
 
 				<pre class="idl">
 dictionary LinkedResource {
+             sequence&lt;DOMString> type;
     required DOMString           url;
              DOMString           encodingFormat;
              sequence&lt;LocalizableString>   name;
@@ -3175,7 +3189,7 @@ dictionary LinkedResource {
 								</code>
 							</td>
 							<td>The type of creator. OPTIONAL</td>
-							<td>One or more Text. Sequence should include "<code>Person</code>" or
+							<td>One or more Text. Sequence MUST include "<code>Person</code>" or
 									"<code>Organization</code>".</td>
 							<td>
 								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
@@ -3286,6 +3300,19 @@ dictionary CreatorInfo {
 						<tr>
 							<td>
 								<code>
+									<dfn>type</dfn>
+								</code>
+							</td>
+							<td>The type of string. OPTIONAL</td>
+							<td>One or more Text. Sequence MUST include "<code>LocalizableString</code>".</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+							</td>
+							<td>(None)</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
 									<dfn>value</dfn>
 								</code>
 							</td>
@@ -3310,6 +3337,7 @@ dictionary CreatorInfo {
 
 				<pre class="idl">
 dictionary LocalizableString {
+             sequence&lt;DOMString>         type;
     required DOMString                   value;
              DOMString                   language;
 };
