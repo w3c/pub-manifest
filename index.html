@@ -301,7 +301,6 @@ dictionary PublicationManifest {
              DOMString                   duration;
              TextDirection               direction;
              sequence&lt;DOMString>         inLanguage;
-             ProgressionDirection        inDirection;
              DOMString                   dateModified;
              DOMString                   datePublished;
              ProgressionDirection        readingProgression = "ltr";
@@ -1515,14 +1514,9 @@ enum ProgressionDirection {
 						<h5>Publication Language and Base Direction</h5>
 
 						<p>A <a>digital publication</a> has at least one natural language, which is the language that
-							the content is expressed in (e.g., English, French, Chinese). It also has a natural base
-							direction in which it is written — the display direction, either left-to-right or
-							right-to-left.</p>
-
-						<p>The digital publication manifest includes the following properties to set both these
-							concepts, which can influence, for example, the behavior of a user agent (e.g., it might
-							place a pop-up for a table of contents on the right hand side for publications whose natural
-							base direction is right-to-left).</p>
+							the content is expressed in (e.g., English, French, Chinese). The manifest includes the
+							following property to set this concept, which can influence, for example, the behavior of a
+							user agent (e.g., to preload a dictionary or text-to-speech engine).</p>
 
 						<table class="zebra">
 							<thead>
@@ -1541,8 +1535,7 @@ enum ProgressionDirection {
 											<dfn>inLanguage</dfn>
 										</code>
 									</td>
-									<td>Default <a>language</a> for the publication as well as the textual manifest
-										values</td>
+									<td>Default <a>language</a> for the publication.</td>
 									<td>One or more language code as defined in&#160;[[!bcp47]]</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
@@ -1551,32 +1544,10 @@ enum ProgressionDirection {
 										<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
 											href="https://schema.org/Property">Property</a>) </td>
 								</tr>
-								<tr>
-									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inDirection</dfn>
-										</code>
-									</td>
-									<td>Default <a>base direction</a> for the publication as well as the textual
-										manifest values</td>
-									<td><code>ltr</code> or <code>rtl</code></td>
-									<td>
-										<a href="#value-literal">Literal</a>
-									</td>
-									<td>(None)</td>
-								</tr>
 							</tbody>
 						</table>
 
-						<p>The natural language MUST be well-formed in terms of &#160;[[!bcp47]], while the base
-							language direction MUST have one of the following values:</p>
-
-						<ul>
-							<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly
-								directionally set to left-to-right text;</li>
-							<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly
-								directionally set to right-to-left text;</li>
-						</ul>
+						<p>The natural language MUST be well-formed in terms of &#160;[[!bcp47]].</p>
 
 						<p>If a user agent requires the publication language and it is not available in the manifest, or
 							the obtained value is invalid, the user agent MAY attempt to determine the publication
@@ -1597,9 +1568,9 @@ enum ProgressionDirection {
 							primary.</p>
 
 						<p class="note">It is important to differentiate the language <em>of the publication</em> from
-							the language and the base direction of the individual resources that compose it. If such
-							resources are, for example, in HTML, the language and direction need to be set in those
-							resources, too. The language and base direction of the publication are not inherited.</p>
+							the language of the individual resources that compose it. If such resources are, for
+							example, in HTML, the language needs to be set in those resources, too. The language of the
+							publication is not inherited.</p>
 					</section>
 
 					<section id="reading-progression-direction">
@@ -2916,18 +2887,6 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
-								that each value in its array is well-formed [[!bcp47]] and issue a warning for any
-								invalid values found.</p>
-						</li>
-
-						<li>
-							<p>(<a href="#language-and-dir"></a>) If <var>processed["inDirection"]</var> is set and its
-								value is not one of the <a href="#language-and-dir">required directional values</a>,
-								issue a warning.</p>
-						</li>
-
-						<li>
 							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or
 								contains an empty value, set its value to an array with the value
 									"<code>CreativeWork</code>" and issue a warning.</p>
@@ -2949,6 +2908,24 @@ enum ProgressionDirection {
 								its value is not a valid date or date-time per&#160;[[!iso8601]], issue a warning.</p>
 						</li>
 
+						<li>
+							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
+								that each value in its array is well-formed [[!bcp47]] and issue a warning for any
+								invalid values found.</p>
+						</li>
+						
+						<li>
+							<p>(<a href="#reading-progression-direction"></a>) Verify <var>processed["readingProgression"]</var> as
+								follows:</p>
+							<ul>
+								<li>If the property is not set, set its value to "<code>ltr</code>".</li>
+								<li>Otherwise, if the property is set but is not one of the <a
+									href="#reading-progression-direction">required directional values</a>, issue a
+									warning.</li>
+								<li>Otherwise, do nothing.</li>
+							</ul>
+						</li>
+						
 						<li>
 							<p>(<a href="#resource-categorization-properties"></a>) For each <a
 									href="#resource-categorization-properties">resource categorization property</a>
@@ -4165,14 +4142,6 @@ dictionary LocalizableString {
 					</tr>
 					<tr>
 						<td>
-							<code>inDirection</code>
-						</td>
-						<td>
-							<a href="#language-and-dir"></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<code>inker</code>
 						</td>
 						<td>
@@ -4241,6 +4210,14 @@ dictionary LocalizableString {
 						</td>
 						<td>
 							<a href="#default-reading-order"></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>readingProgression</code>
+						</td>
+						<td>
+							<a href="#reading-progression-direction"></a>
 						</td>
 					</tr>
 					<tr>
