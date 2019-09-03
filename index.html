@@ -2983,13 +2983,26 @@ enum ProgressionDirection {
 		<section id="security-privacy">
 			<h2>Security and Privacy Considerations</h2>
 
-			<p>Since this specification does not define an implementation of a publication manifest, security and
-				privacy considerations are generally left for each <a href="#extensions">profile</a> to identify.</p>
+			<p>Since this specification does not define an implementation of a publication manifest, specific security
+				and privacy considerations are left for each <a href="#extensions">profile</a> to identify.</p>
 
-			<p>As the manifest is expressed using JSON-LD, however, the <a href="https://www.w3.org/TR/json-ld11/#privacy"
-					>privacy</a> and <a href="https://www.w3.org/TR/json-ld11/#iana-considerations">security
-					considerations</a> [[!json-ld]] detailed in that specification are applicable to all
-				implementations.</p>
+			<p>As the manifest is expressed using JSON-LD, however, the <a
+					href="https://www.w3.org/TR/json-ld11/#privacy">privacy</a> and <a
+					href="https://www.w3.org/TR/json-ld11/#iana-considerations">security considerations</a> [[!json-ld]]
+				detailed in that specification are applicable to all implementations.</p>
+
+			<p>Some additional general considerations for implementations of the manifest format include:</p>
+
+			<ul>
+				<li>The location of resources is not defined at the manifest level, so implementations that allow
+					references to remotely hosted resources will need to be concerned with Web security principles
+					(e.g., cross-origin resource sharing).</li>
+				<li>The ability to <a href="#links">link to external resources</a> potentially exposes users to
+					malicious content.</li>
+				<li>The manifest allows personally identifiable information about a digital publication's creator(s)
+					(e.g., names, identifying URLs) to be included, so authoring tools could expose unexpected
+					information if explicit author approval of metadata is not required.</li>
+			</ul>
 		</section>
 		<section id="app-custom-types" class="appendix">
 			<h2>Custom Type Definition</h2>
