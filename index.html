@@ -2983,13 +2983,10 @@ enum ProgressionDirection {
 		<section id="security-privacy">
 			<h2>Security and Privacy Considerations</h2>
 
-			<p>Since this specification does not define an implementation of a publication manifest, specific security
-				and privacy considerations are left for each <a href="#extensions">profile</a> to identify.</p>
-
-			<p>As the manifest is expressed using JSON-LD, however, the <a
-					href="https://www.w3.org/TR/json-ld11/#privacy">privacy</a> and <a
-					href="https://www.w3.org/TR/json-ld11/#iana-considerations">security considerations</a> [[!json-ld]]
-				detailed in that specification are applicable to all implementations.</p>
+			<p>As the manifest is expressed using JSON-LD the <a href="https://www.w3.org/TR/json-ld11/#privacy"
+					>privacy</a> and <a href="https://www.w3.org/TR/json-ld11/#iana-considerations">security
+					considerations</a> [[!json-ld]] detailed in that specification are applicable to all
+				implementations.</p>
 
 			<p>Some additional general considerations for implementations of the manifest format include:</p>
 
@@ -3003,6 +3000,10 @@ enum ProgressionDirection {
 					(e.g., names, identifying URLs) to be included, so authoring tools could expose unexpected
 					information if explicit author approval of metadata is not required.</li>
 			</ul>
+
+			<p>More specific security and privacy considerations are left to each <a href="#extensions">profile</a> of
+				the manifest to detail, as these will vary depending on the nature of the digital publication
+				format.</p>
 		</section>
 		<section id="app-custom-types" class="appendix">
 			<h2>Custom Type Definition</h2>
