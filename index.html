@@ -802,6 +802,40 @@ enum ProgressionDirection {
 				<section id="descriptive-properties">
 					<h4>Descriptive Properties</h4>
 
+					<section id="abridged">
+						<h5>Abridged</h5>
+
+						<p>The abridged property provides information on whether or not the <a>digital publication</a> has been shortened from it's original form.</p>
+
+						<table class="zebra">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Type</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>abridged</dfn>
+										</code>
+									</td>
+									<td>Indicates whether the book is an abridged edition.</td>
+									<td>A valid Boolean [[!boolean]].</td>
+									<td>Boolean.</td>
+									<td>
+										<a href="https://schema.org/abridged"><code>abridged</code></a> (<a
+											href="https://schema.org/book">Book</a>) </td>
+								</tr>
+							</tbody>
+						</table>
+
+					</section>
+
 					<section id="accessibility">
 						<h5>Accessibility</h5>
 
@@ -1400,7 +1434,7 @@ enum ProgressionDirection {
     "id"             : "https://example.org/flatland-a-romance-of-many-dimensions/",
     "url"            : "https://w3c.github.io/pub-manifest/experiments/audiobook/",
     "name"           : "Flatland: A Romance of Many Dimensions",
-    &#8230;		
+    &#8230;
     "duration"       : "PT15153S",
     &#8230;
 }
