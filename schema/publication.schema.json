@@ -38,6 +38,9 @@
         "id": {
             "type": "string"
         },
+        "abridged": {
+        	"type": "boolean"
+        },
         "accessMode": {
             "type": [
                 "string",
