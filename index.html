@@ -363,7 +363,7 @@ enum ProgressionDirection {
 
 				<ol>
 					<li>the [[!schema.org]] context: <code>https://schema.org</code></li>
-					<li>the publication context: <code>https://www.w3.org/ns/pub-context</code></li>
+					<li>the <dfn>publication context</dfn>: <code>https://www.w3.org/ns/pub-context</code></li>
 				</ol>
 
 				<pre class="example" title="The context declaration.">
@@ -392,10 +392,10 @@ enum ProgressionDirection {
 					Chinese). It also has a natural <dfn>base direction</dfn> in which it is written — the display
 					direction, either left-to-right or right-to-left.</p>
 
-				<p>The digital publication manifest includes entries to set both these concepts &#8212; both <a
-						href="#manifest-lang-dir-global">globally</a> and for <a href="#manifest-lang-dir-local"
-						>individual items</a> &#8212; to aid user agents in interpreting and presenting the
-					metadata.</p>
+				<p>The digital publication manifest provides the ability to set both these concepts <a
+						href="#manifest-lang-dir-global">globally</a> &#8212; and, for language, on <a
+						href="#manifest-lang-dir-local">individual items</a> &#8212; to aid user agents in interpreting
+					and presenting the metadata.</p>
 
 				<section id="manifest-lang-dir-global">
 					<h4>Global Declarations</h4>
@@ -424,8 +424,10 @@ enum ProgressionDirection {
 							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
 						tag</a>&#160;[[!bcp47]].</p>
 
-					<p>The global language declaration MUST follow the <a href="#manifest-context">publication
-							context</a> when present.</p>
+					<p class="ednote">There is an open issue to determine whether it is better to require valid or
+						well-formed language tags.</p>
+
+					<p>The global language declaration, when present, MUST follow the <a>publication context</a>.</p>
 
 					<p>Unlike the default language, the default text direction cannot be specified in the context as
 						JSON-LD does not currently include facilities for this. As an interim measure, this
@@ -512,37 +514,8 @@ enum ProgressionDirection {
 					<p>In such cases, the local declaration takes precedence over the <a
 							href="#manifest-lang-dir-global">global declaration</a>.</p>
 
-					<p>It is <em>not</em> possible to set the direction explicitly for a specific value.</p>
-
-					<div class="note">
-						<p>Setting the direction for a natural text value is currently not possible in
-							JSON-LD&#160;[[json-ld]]. In case the JSON-LD community, as well as the schema.org
-							community, introduces such a feature, future versions of this specification may extend the
-							ability of manifests to include this.</p>
-
-
-						<p>For more information about localized strings on the Web, refer to [[string-meta]].</p>
-					</div>
-
-					<p>In order to correctly handle manifests entries containing right-to-left or bidirectional text,
-						user agents SHOULD identify the base direction of any given natural language value by scanning
-						the text for the first strong directional character.</p>
-
-					<p class="note">In situations where the first-strong heuristics will produce the wrong result (e.g.,
-						a string in the Arabic or Hebrew script that begins with a Latin acronym), authors can prepend a
-						Unicode formatting character (one of U+200E LEFT-TO-RIGHT MARK or U+200F RIGHT-TO-LEFT MARK) to
-						the string. This would then produce the necessary base direction when the heuristics are
-						applied. (See <a href="#app-bidi-examples"></a>.)</p>
-
-					<p>Once the base direction has been identified, user agents MUST determine the appropriate rendering
-						and display of natural language values according to the Unicode Bidirectional
-						Algorithm&#160;[[!bidi]]. This could require wrapping additional markup or Unicode formatting
-						characters around the string prior to display, in order to apply the base direction.</p>
-
-					<p class="note">If authors intend to use a manifest, or a manifest template, both as embedded
-						manifest and as a separate resource, they are strongly encouraged to set these properties
-						explicitly to avoid interference of the containing <code>script</code> element in case of
-						embedding.</p>
+					<p class="note">It is <em>not</em> possible to set the direction explicitly for a specific value.
+						For more information, refer to <a href="#app-bidi-directionality"></a>.</p>
 				</section>
 			</section>
 
@@ -1592,10 +1565,11 @@ enum ProgressionDirection {
 								>well-formed language tag</a> &#160;[[!bcp47]].</p>
 
 						<p>If a user agent requires the publication language and it is not available in the manifest, or
-							the obtained value is invalid, the user agent MAY attempt to determine the publication
-							language when <a href="#manifest-processing">generating its canonical representation</a>.
-							This specification does not mandate how such a language tag is created. The user agent
-							might:</p>
+							the obtained value is not <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed</a>&#160;[[!bcp47]], the user agent MAY attempt to determine the
+							publication language when <a href="#manifest-processing">generating its canonical
+								representation</a>. This specification does not mandate how such a language tag is
+							created. The user agent might:</p>
 
 						<ul>
 							<li>use the <a>non-empty</a>
@@ -2912,8 +2886,9 @@ enum ProgressionDirection {
 						<li id="processing-checks-language">
 							<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"></a>)
 								Recursively check that every <var>language</var> property in <var>processed</var> is <a
-									href="https://tools.ietf.org/html/bcp47#section-2.2.9">valid</a>&#160;[[!bcp47]] and
-								issue a warning for any invalid values found.</p>
+									href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed</a>&#160;[[!bcp47]] and issue a warning for any non well-formed values
+								found.</p>
 						</li>
 
 						<li id="processing-checks-direction">
@@ -2947,8 +2922,9 @@ enum ProgressionDirection {
 						<li id="processing-checks-inlanguage">
 							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
 								that each value in its array is <a
-									href="https://tools.ietf.org/html/bcp47#section-2.2.9">valid</a>&#160;[[!bcp47]] and
-								issue a warning for any invalid values found.</p>
+									href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed</a>&#160;[[!bcp47]] and issue a warning for any non well-formed values
+								found.</p>
 						</li>
 
 						<li id="processing-checks-progression-dir">
