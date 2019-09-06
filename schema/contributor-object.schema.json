@@ -34,6 +34,16 @@
                     }
                 }
             ]
+        },
+        "url": {
+        	"type": "string",
+        	"format": "iri" 
+        },
+        "identifier": {
+        	"type": "array",
+        	"items": {
+        		"type": "string"
+        	}
         }
     },
     "required": [
