@@ -3179,7 +3179,7 @@ enum ProgressionDirection {
 							<td>A reference to a reformulation of the resource in an alternative format. OPTIONAL</td>
 							<td>One or more valid URL strings&#160;[[!url]].</td>
 							<td>
-								<a href="#value-array">Array</a> of <a href="#value-url">URLs</a>
+								<a href="#value-array">Array</a> of <a href="#value-link">Links</a>
 							</td>
 							<td> (None) </td>
 						</tr>
@@ -3209,7 +3209,7 @@ dictionary LinkedResource {
              sequence&lt;DOMString> rel;
              DOMString           integrity;
              double              length;
-             sequence&lt;DOMString> alternative;
+             sequence&lt;LinkedResource> alternative;
 };</pre>
 			</section>
 
