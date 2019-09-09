@@ -3163,10 +3163,14 @@ enum ProgressionDirection {
 						<tr>
 							<td>
 								<code>
-									<dfn>alternative</dfn>
+									<dfn>alternate</dfn>
 								</code>
 							</td>
-							<td>A reference to a reformulation of the resource in an alternative format. OPTIONAL</td>
+							<td>
+								<p>References to one or more reformulation(s) of the resource in alternative formats.</p>
+								<p>When specified, <code>encodingFormat</code> indicates the format of the reformulation.</p>
+								<p>OPTIONAL</p>
+							</td>
 							<td>
 								<p>One or more instances of <a href="#publication-link-def"><code>LinkedResource</code></a> objects.</p>
 							</td>
@@ -3201,7 +3205,7 @@ dictionary LinkedResource {
              sequence&lt;DOMString> rel;
              DOMString           integrity;
              double              length;
-             sequence&lt;LinkedResource> alternative;
+             sequence&lt;LinkedResource> alternate;
 };</pre>
 			</section>
 
