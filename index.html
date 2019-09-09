@@ -310,6 +310,7 @@
 dictionary PublicationManifest {
     required sequence&lt;DOMString>         type;
              DOMString                   id;
+             boolean                     abridged;
              sequence&lt;DOMString>         accessMode;
              sequence&lt;DOMString>         accessModeSufficient;
              sequence&lt;DOMString>         accessibilityFeature;
@@ -600,8 +601,17 @@ enum ProgressionDirection {
 						<h5>Numbers</h5>
 
 						<p>When a <a href="#manifest-properties">manifest</a> property expects a number as its value,
-							the values MUST be expressed as a [[!json]] <a
+							the value MUST be expressed as a [[!json]] <a
 								href="https://tools.ietf.org/html/rfc4627#section-2.4">number</a>.</p>
+					</section>
+
+					<section id="value-boolean">
+						<h5>Booleans</h5>
+
+						<p>When a <a href="#manifest-properties">manifest</a> property expects a boolean as its value,
+							the value MUST be expressed as an [[!ecmascript]]&#160;<a
+								href="ecmascript#sec-terms-and-definitions-boolean-value">Boolean value</a>
+								(<code>true</code> or <code>false</code>).</p>
 					</section>
 
 					<section id="value-objects">
@@ -805,7 +815,8 @@ enum ProgressionDirection {
 					<section id="abridged">
 						<h5>Abridged</h5>
 
-						<p>The abridged property provides information on whether or not the <a>digital publication</a> has been shortened from it's original form.</p>
+						<p>The abridged property provides information on whether or not the <a>digital publication</a>
+							has been shortened from its original form.</p>
 
 						<table class="zebra">
 							<thead>
@@ -825,15 +836,14 @@ enum ProgressionDirection {
 										</code>
 									</td>
 									<td>Indicates whether the book is an abridged edition.</td>
-									<td>A valid Boolean [[!boolean]].</td>
-									<td>Boolean.</td>
+									<td>Either <code>true</code> or <code>false</code>.</td>
+									<td><a href="#value-boolean">Boolean</a></td>
 									<td>
 										<a href="https://schema.org/abridged"><code>abridged</code></a> (<a
 											href="https://schema.org/book">Book</a>) </td>
 								</tr>
 							</tbody>
 						</table>
-
 					</section>
 
 					<section id="accessibility">
@@ -2935,6 +2945,11 @@ enum ProgressionDirection {
 							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or
 								contains an empty value, set its value to an array with the value
 									"<code>CreativeWork</code>" and issue a warning.</p>
+						</li>
+
+						<li id="processing-checks-abridged">
+							<p>(<a href="#abridged"></a>) If <var>processed["abridged"]</var> is set and it is not a <a
+									href="#value-boolean">boolean value</a>, issue a warning.</p>
 						</li>
 
 						<li id="processing-checks-duration">
