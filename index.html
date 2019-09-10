@@ -144,17 +144,16 @@
 					<h4>Manifest Format</h4>
 
 					<p>A <a>digital publication</a> is described by its <a>manifest</a>, which provides a set of
-						properties expressed using a specific shape of JSON-LD&#160;[[json-ld]] format (a variant of
+						properties expressed using a specific shape of JSON-LD&#160;[[json-ld]] (a variant of
 						JSON&#160;[[ecma-404]] for linked data).</p>
 
-					<p>A <a>digital publication's</a>
-						<a>manifest</a> is defined by a set of properties that describe the basic information a user
-						agent requires to process and render the publication. For ease of understanding, these
-						properties are categorized as follows:</p>
+					<p>The properties of the manifest describe the basic information a user agent requires to process
+						and render a publication. For ease of understanding, these properties are categorized as
+						follows:</p>
 
 					<dl>
 						<dt>
-							<a href="#descriptive-properties">descriptive properties</a>
+							<a href="#descriptive-properties">Descriptive properties</a>
 						</dt>
 						<dd>
 							<p>Descriptive properties describe aspects of a digital publication, such as its <a
@@ -162,13 +161,41 @@
 									href="#language-and-dir">language</a>.</p>
 						</dd>
 						<dt>
-							<a href="#resource-categorization-properties">resource categorization</a>
+							<a href="#resource-categorization-properties">Resource categorization properties</a>
 						</dt>
 						<dd>
 							<p>Resource categorization properties describe or identify common sets of resources, such as
 								the <a href="#resource-list">resource list</a> and <a href="#default-reading-order"
 									>default reading order</a>. These properties refer to one or more resources, such as
-								HTML documents, images, script files, and separate metadata files.</p>
+								HTML documents, images, scripts, and metadata records.</p>
+						</dd>
+					</dl>
+
+					<p>The <a>manifest</a> also identifies key resources of a digital publication through the use of
+						link relations. These relations are applied to the <a href="#dom-linkedresource-rel"
+								><code>rel</code> property</a> of <a href="#LinkedResource"><code>LinkedResource</code>
+							objects</a> (e.g., the links found in the <a href="#pub-table-of-contents">table of
+							contents</a> and <a href="#resource-list">resource list</a>).</p>
+
+					<p>The types of resources these relations identify are categorized as follows:</p>
+
+					<dl>
+						<dt>
+							<a href="#informative-rel">Informative resources</a>
+						</dt>
+						<dd>
+							<p>Informative resources are resources that contain additional information about the
+								publication, such as its <a href="#privacy-policy">privacy policy</a>, <a
+									href="#accessibility-report">accessibility report</a>, or <a href="#preview"
+									>preview</a>.</p>
+						</dd>
+						<dt>
+							<a href="#structural-rel">Structural resources</a>
+						</dt>
+						<dd>
+							<p>Structural resources are key meta structures of the publication, such as the <a
+									href="#cover">cover image</a>, <a href="#table-of-contents">table of contents</a>,
+								and <a href="#page-list">page list</a>.</p>
 						</dd>
 					</dl>
 
@@ -180,8 +207,8 @@
 					<h4>JSON-LD Authoring and Processing</h4>
 
 					<p>This specification defines the publication manifest as a specific "shape" of [[!json-ld]]. This
-						means that the manifest SHOULD be expressed using only the syntactical constructions as defined
-						in this specification, as opposed to all the possibilities offered by the JSON-LD syntax.</p>
+						means that the manifest SHOULD be expressed using only the syntactic constructions defined in
+						this specification, as opposed to all the possibilities offered by the JSON-LD syntax.</p>
 
 					<p class="note">This shape is also defined, informally, through a JSON schema&#160;[[json-schema]]
 						that expresses the constraints defined in this specification. This schema is maintained at <a
@@ -202,24 +229,28 @@
 				<section id="manifest-schemaorg">
 					<h4>Relationship to Schema.org</h4>
 
-					<p>Manifest properties are primarily drawn from <a href="https://schema.org">schema.org</a> and its
-							<a href="https://schema.org/docs/schemas.html">hosted extensions</a>&#160;[[schema.org]], in
-						particular those categorized as <a href="#descriptive-properties">descriptive properties</a>. As
-						a consequence, these properties inherit their syntax and semantics from schema.org, making
-						manifest authoring compatible with Schema.org authoring.</p>
+					<p>Manifest properties, in particular those categorized as <a href="#descriptive-properties"
+							>descriptive properties</a>, are primarily drawn from <a href="https://schema.org"
+							>schema.org</a> and its <a href="https://schema.org/docs/schemas.html">hosted
+						extensions</a>&#160;[[!schema.org]]. As a consequence, these properties inherit their syntax and
+						semantics from schema.org, making manifest authoring compatible with schema.org authoring.</p>
 
 					<p>When a manifest item corresponds to a schema.org property, its <a href="#manifest-properties"
-							>property definition</a> table identifies its mapping and includes the defining type (e.g.,
-							<a href="https://schema.org/CreativeWork">CreativeWork</a> or <a
-							href="https://schema.org/Book">Book</a>) in parentheses. Properties are often available in
-						many types, however, as a result of the schema.org inheritance model. Refer to each property
-						definition for more detailed information about where it is valid to use.</p>
+							>property definition</a> identifies its mapping and includes the defining type (e.g., <a
+							href="https://schema.org/CreativeWork">CreativeWork</a> or <a href="https://schema.org/Book"
+							>Book</a>) in parentheses.</p>
 
 					<p>Schema.org additionally includes a large number of properties that, though relevant for
 						publishing, are not mentioned in this specification. These properties MAY be used in a manifest
 						as this document defines only the minimal set of manifest items.</p>
 
-					<p>For more information about using additional schema.org properties, refer to <a
+					<p>When using additional schema.org properties, ensure that they are valid for the <a
+							href="#publication-types">type of publication</a> specified in the manifest. Properties are
+						often available in many schema.org types, as a result of the inheritance model used by the
+						vocabulary, but not all properties are available for all types. For more detailed information
+						about which types accept which properties, refer to [[!schema.org]].</p>
+
+					<p>More information about using additional schema.org properties is also available in <a
 							href="#publication-types"></a> and <a href="#extensibility-manifest-properties"></a></p>
 				</section>
 			</section>
@@ -227,7 +258,7 @@
 			<section id="manifest-requirements">
 				<h5>Requirements</h5>
 
-				<p>All implementations of the a <a>digital publication</a> manifest MUST set the following:</p>
+				<p>The following properties MUST be set in the manifest:</p>
 
 				<ul>
 					<li>
@@ -236,21 +267,14 @@
 					<li>
 						<a href="#publication-types">type</a>
 					</li>
-					<li>
-						<a href="#default-reading-order">default reading order</a>
-					</li>
-					<li>
-						<a href="#pub-title">title</a>
-					</li>
 				</ul>
-
-				<p class="note">Not all of these properties have to be serialized in the manifest. Refer to each
-					property's definition to determine whether, and how, it is compiled into the <a>canonical
-						representation</a> from other information.</p>
 
 				<p>The priority of all other <a href="#manifest-properties">properties</a> and <a href="#manifest-rel"
 						>resource relations</a> is OPTIONAL, but MAY be modified by implementations of the manifest
 					format.</p>
+
+				<p class="note">Some properties are implicitly required, as they are compiled from alternative
+					information when not explicitly authored. See <a href="#webidl"></a> for more information.</p>
 			</section>
 
 			<section id="webidl">
@@ -262,12 +286,19 @@
 
 				<p>To simplify the manifest format for developers, this specification defines an abstract representation
 					of the data structures employed by the manifest using the Web Interface Definition Language (Web
-					IDL) [[!webidl-1]] — <a href="#webidl-wpm">the <code>PublicationManifest</code> dictionary</a>.</p>
+					IDL)&#160;[[!webidl-1]] — <a href="#webidl-wpm">the <code>PublicationManifest</code>
+					dictionary</a>.</p>
 
 				<p>This definition expresses the expected names, datatypes, and possible restrictions for each member of
 					the manifest. Unlike a typical Web IDL definition, however, user agents are not expected to expose
 					the information in the manifest as an API. The Web IDL language is chosen solely to provide an
 					abstraction of the data model.</p>
+
+				<p>The required members of the <code>PublicationManifest</code> dictionary do not exactly match <a
+						href="#manifest-requirements">the required members of the manifest</a> as user agents are
+					expected to compile information from other sources in the absence of an explicit declaration for
+					some properties (e.g., for the <a href="#pub-title">title</a> and <a href="#default-reading-order"
+						>reading order</a>).</p>
 
 				<p class="note">It is not necessary to understand the Web IDL definition in order to create digital
 					publications. Authoring requirements are defined in the following sections.</p>
@@ -279,6 +310,7 @@
 dictionary PublicationManifest {
     required sequence&lt;DOMString>         type;
              DOMString                   id;
+             boolean                     abridged;
              sequence&lt;DOMString>         accessMode;
              sequence&lt;DOMString>         accessModeSufficient;
              sequence&lt;DOMString>         accessibilityFeature;
@@ -301,9 +333,9 @@ dictionary PublicationManifest {
              DOMString                   duration;
              TextDirection               direction;
              sequence&lt;DOMString>         inLanguage;
-             ProgressionDirection        inDirection = "ltr";
              DOMString                   dateModified;
              DOMString                   datePublished;
+             ProgressionDirection        readingProgression = "ltr";
     required sequence&lt;LocalizableString> name;
     required sequence&lt;LinkedResource>    readingOrder;
              sequence&lt;LinkedResource>    resources = [];
@@ -327,12 +359,12 @@ enum ProgressionDirection {
 			<section id="manifest-context">
 				<h3>Manifest Contexts</h3>
 
-				<p>A <a>manifest</a> MUST set its JSON-LD context [[!json-ld]] with the following two components, in the
-					specified order:</p>
+				<p>A <a>manifest</a> MUST set its JSON-LD context&#160;[[!json-ld]] with the following two components,
+					in the specified order:</p>
 
 				<ol>
 					<li>the [[!schema.org]] context: <code>https://schema.org</code></li>
-					<li>the publication context: <code>https://www.w3.org/ns/pub-context</code></li>
+					<li>the <dfn>publication context</dfn>: <code>https://www.w3.org/ns/pub-context</code></li>
 				</ol>
 
 				<pre class="example" title="The context declaration.">
@@ -346,55 +378,62 @@ enum ProgressionDirection {
 					requirement for the <a href="https://schema.org/creator">creator</a> property to be order
 					preserving).</p>
 
-				<p class="ednote">As part of the continuous contacts with Schema.org the additional features defined in
-					the publication context file could migrate to the core Schema.org vocabulary.</p>
-
-				<p class="note">Although Schema.org is often referenced using the <code>http</code> URI scheme, <a
+				<p>Although Schema.org is often referenced using the <code>http</code> URI scheme, <a
 						href="https://schema.org/docs/faq.html#19">the vocabulary is being migrated</a> to use the
-					secure <code>https</code> scheme as its default. This specification requires the use of
-						<code>https</code> when referencing Schema.org in the manifest.</p>
+					secure <code>https</code> scheme as its default. The use of <code>https</code> when referencing
+					Schema.org in the manifest is REQUIRED by this specification.</p>
 			</section>
 
 			<section id="manifest-lang-dir">
 				<h3>Manifest Language and Direction</h3>
 
-				<p>Each natural language property value in a manifest (e.g., <a href="#pub-title">title</a>, <a
-						href="#creators">creators</a>) has a default natural <dfn>language</dfn>, which is the language
-					that it is expressed in (e.g., English, French, Chinese). It also has a natural <dfn>base
-						direction</dfn> in which it is written — the display direction, either left-to-right or
-					right-to-left.</p>
+				<p>Each <a href="#value-localizable-string">natural language property value</a> in a manifest (e.g., <a
+						href="#pub-title">title</a>, <a href="#creators">creators</a>) has a default natural
+						<dfn>language</dfn>, which is the language that it is expressed in (e.g., English, French,
+					Chinese). It also has a natural <dfn>base direction</dfn> in which it is written — the display
+					direction, either left-to-right or right-to-left.</p>
 
-				<p>The digital publication manifest includes entries to set both these concepts to aid user agents in
-					interpreting and presenting the metadata.</p>
+				<p>The digital publication manifest provides the ability to set both these concepts <a
+						href="#manifest-lang-dir-global">globally</a> &#8212; and, for language, on <a
+						href="#manifest-lang-dir-local">individual items</a> &#8212; to aid user agents in interpreting
+					and presenting the metadata.</p>
 
 				<section id="manifest-lang-dir-global">
 					<h4>Global Declarations</h4>
 
-					<p>The default language is set by including a language declaration in the context using the <a
+					<p>The default language for natural language manifest properties is set by including a global
+						language declaration in the context using the <a
 							href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"
-								><code>language</code> key</a> [[!json-ld]]:</p>
+								><code>language</code> keyword</a>&#160;[[!json-ld]]. It is used to expand simple string
+						values into <a href="#value-localizable-string">localizable strings</a> during the <a
+							href="#manifest-processing">processing of the manifest</a>, as well as to provide a language
+						for localizable strings that omit one.</p>
+
 
 					<aside class="example" title="Declaring French as the default language for the manifest">
 						<pre><code>{
-    "@context" : [
+    "@context": [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context", 
         {"language":"fr"}
     ],
-    "name" : "Le roi René"
+    &#8230;
 }</code></pre>
 					</aside>
 
-					<p>The global language declaration MUST follow the <a href="#manifest-context">publication
-							context</a> when present.</p>
+					<p>The value of <code>language</code> MUST be a <a
+							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
+						tag</a>&#160;[[!bcp47]].</p>
 
-					<p>The value of the <code>language</code> MUST be set to a language code that is well-formed as
-						defined in [[!bcp47]].</p>
+					<p class="ednote">There is an open issue to determine whether it is better to require valid or
+						well-formed language tags.</p>
 
-					<p>Unlike the default language, the default direction of the text cannot be specified in the context
-						as JSON-LD does not currently include facilities for this. As an interim measure, this
-						specification defines a <code>direction</code> property for this purpose, as described in the
-						following table.</p>
+					<p>The global language declaration, when present, MUST follow the <a>publication context</a>.</p>
+
+					<p>Unlike the default language, the default text direction cannot be specified in the context as
+						JSON-LD does not currently include facilities for this. As an interim measure, this
+						specification defines a <code>direction</code> property for defining the global text
+						direction.</p>
 
 					<table class="zebra">
 						<thead>
@@ -414,7 +453,7 @@ enum ProgressionDirection {
 									</code>
 								</td>
 								<td>Default <a>base direction</a> for textual manifest values</td>
-								<td><code>ltr</code>, <code>rtl</code>, or <code>auto</code></td>
+								<td>One of: <code>ltr</code>, <code>rtl</code>, or <code>auto</code>.</td>
 								<td>
 									<a href="#value-literal">Literal</a>
 								</td>
@@ -431,19 +470,28 @@ enum ProgressionDirection {
 							set to left-to-right text;</li>
 						<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly directionally
 							set to right-to-left text;</li>
-						<li><code><dfn>auto</dfn></code> indicates that the textual values are explicitly directionally
+						<li><code><dfn>auto</dfn></code>: indicates that the textual values are explicitly directionally
 							set to the direction of the first character with a strong directionality, following the
-							rules of the Unicode Bidirectional Algorithm [[!bidi]].</li>
+							rules of the Unicode Bidirectional Algorithm&#160;[[!bidi]].</li>
 					</ul>
 
-					<p>No default values are specified for the global language or base direction.</p>
+					<pre class="example" title="Setting the global text directionality to right-to-left">{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context", 
+        {"language":"he"}
+    ],
+    "direction" : "rtl"
+}</pre>
+
+					<p>Default values are not specified for the global language and base direction declarations.</p>
 				</section>
 
 				<section id="manifest-lang-dir-local">
 					<h4>Item-Specific Declarations</h4>
 
-					<p>It is possible to set the language locally for any textual value in the manifest using a <a
-							href="#LocalizableString">localizable string</a>:</p>
+					<p>It is possible to set the language locally for any natural language value in the manifest using a
+							<a href="#LocalizableString">localizable string</a>:</p>
 
 					<pre class="example" title="Setting the author name to French using a localizable string">
 {
@@ -459,60 +507,16 @@ enum ProgressionDirection {
     }
 }
 </pre>
-					<p>The value of the <code>language</code> MUST be set to a language code that is well-formed as
-						defined in [[!bcp47]].</p>
+					<p>The value of the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"
+								><code>language</code> keyword</a>&#160;[[!json-ld]] MUST be a <a
+							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
+						tag</a>&#160;[[!bcp47]].</p>
 
-					<p>When used in a context of localizable texts, a simple string value is a shorthand for a
-							<a>localizable string</a>, with the <code>value</code> set to the string value, and the
-						language set to the value of the <a href="#manifest-default-lang-dir-default">default
-								<code>language</code> property</a>, if applicable, and unset otherwise. In other words,
-						the previous example is equivalent to:</p>
+					<p>In such cases, the local declaration takes precedence over the <a
+							href="#manifest-lang-dir-global">global declaration</a>.</p>
 
-					<pre class="example" title="Setting the default language of an author name to French">
-{
-    "@context"   : [
-        "https://schema.org",
-        "https://www.w3.org/ns/pub-context",
-        {"language": "fr"}
-    ],
-    "type"       : "Book",
-    &#8230;
-    "author"     : "Marcel Proust",
-    &#8230;	
-}
-</pre>
-					<p>See <a href="#value-objects"></a> for more information.</p>
-
-					<p>It is <em>not</em> possible to set the direction explicitly for a specific value.</p>
-
-					<p class="note">For more information about localized strings on the Web, refer to
-						[[string-meta]].</p>
-
-					<p class="note">Setting the direction for a natural text value is currently not possible in
-						JSON-LD&#160;[[json-ld]]. In case the JSON-LD community, as well as the schema.org community,
-						introduces such a feature, future versions of this specification may extend the ability of
-						manifests to include this.</p>
-
-					<p>In order to correctly handle manifests entries containing right-to-left or bidirectional text,
-						user agents SHOULD identify the base direction of any given natural language value by scanning
-						the text for the first strong directional character.</p>
-
-					<p class="note">In situations where the first-strong heuristics will produce the wrong result (e.g.,
-						a string in the Arabic or Hebrew script that begins with a Latin acronym), content developers
-						may want to prepend a Unicode formatting character to the string. This would then produce the
-						necessary base direction when the heuristics are applied. They should use one of the following
-						formatting characters: U+200E LEFT-TO-RIGHT MARK, or U+200F RIGHT-TO-LEFT MARK. (See <a
-							href="#app-bidi-examples"></a>.)</p>
-
-					<p>Once the base direction has been identified, user agents MUST determine the appropriate rendering
-						and display of natural language values according to the Unicode Bidirectional
-						Algorithm&#160;[[!bidi]]. This could require wrapping additional markup or Unicode formatting
-						characters around the string prior to display, in order to apply the base direction.</p>
-
-					<p class="note">If authors intend to use a manifest, or a manifest template, both as embedded
-						manifest and as a separate resource, they are strongly encouraged to set these properties
-						explicitly to avoid interference of the containing <code>script</code> element in case of
-						embedding.</p>
+					<p class="note">It is <em>not</em> possible to set the direction explicitly for a specific value.
+						For more information, refer to <a href="#app-bidi-directionality"></a>.</p>
 				</section>
 			</section>
 
@@ -521,9 +525,10 @@ enum ProgressionDirection {
 
 				<p>A <a>digital publication's</a>
 					<a>manifest</a> defines its <dfn>Publication Type</dfn> using the <code
-						data-dfn-for="PublicationManifest"><dfn>type</dfn></code> term&#160;[[!json-ld]]. The type MAY
-					be mapped onto <a href="https://schema.org/CreativeWork"
-					><code>CreativeWork</code></a>&#160;[[!schema.org]].</p>
+						data-dfn-for="PublicationManifest"><dfn>type</dfn></code> keyword&#160;[[!json-ld]]. The type
+					MAY be mapped onto any [[!schema.org]] type, but <a href="https://schema.org/CreativeWork"
+							><code>CreativeWork</code></a> is <a href="#processing-checks-type">assumed as the
+						default</a> when no type is specified.</p>
 
 				<pre class="example" title="Setting a publication's type to CreativeWork.">
 {
@@ -533,11 +538,11 @@ enum ProgressionDirection {
 }
 </pre>
 
-				<p>Schema.org also includes a number of more specific subtypes of <code>CreativeWork</code>, such as <a
-						href="https://schema.org/Article"><code>Article</code></a>, <a href="https://schema.org/Book"
-							><code>Book</code></a>, <a href="https://schema.org/TechArticle"
-						><code>TechArticle</code></a>, and <a href="https://schema.org/Course"><code>Course</code></a>.
-					These MAY be used instead of, or in addition to, <code>CreativeWork</code>.</p>
+				<p>More specific subtypes of <code>CreativeWork</code>, such as <a href="https://schema.org/Article"
+							><code>Article</code></a>, <a href="https://schema.org/Book"><code>Book</code></a>, <a
+						href="https://schema.org/TechArticle"><code>TechArticle</code></a>, and <a
+						href="https://schema.org/Course"><code>Course</code></a> can be used instead of, or in addition
+					to, <code>CreativeWork</code>.</p>
 
 				<pre class="example" title="Setting a publication's type to Book.">
 {
@@ -547,8 +552,8 @@ enum ProgressionDirection {
 }
 </pre>
 
-				<p>Each Schema.org type defines a set of properties that are valid for use with it. To ensure that the
-					manifest can be validated and processed by Schema.org aware processors, the manifest SHOULD contain
+				<p>Each schema.org type defines a set of properties that are valid for use with it. To ensure that the
+					manifest can be validated and processed by schema.org-aware processors, the manifest SHOULD contain
 					only the properties associated with the selected type.</p>
 
 				<p>If properties from more than one type are needed, the manifest MAY include multiple type
@@ -562,11 +567,12 @@ enum ProgressionDirection {
 }
 </pre>
 
-				<p>User agents SHOULD NOT fail to process manifests that are not valid to their declared Schema.org
+				<p>User agents SHOULD NOT fail to process manifests that are not valid to their declared schema.org
 					type(s).</p>
 
-				<p class="note">Refer to the Schema.org site for the complete <a href="https://schema.org/CreativeWork"
-						>list of <code>CreativeWork</code> subtypes</a>.</p>
+				<p class="note">Refer to the schema.org site for the complete <a
+						href="https://schema.org/CreativeWork#subtypes">list of <code>CreativeWork</code>
+					subtypes</a>.</p>
 			</section>
 
 			<section id="manifest-properties">
@@ -583,26 +589,39 @@ enum ProgressionDirection {
 
 						<p>When a <a href="#manifest-properties">manifest</a> property expects a literal text string as
 							its value &#8212; one that is not language-dependent, such as a code value or date &#8212;
-							its value MUST be expressed as a [[!json]] string.</p>
+							its value MUST be expressed as a [[!json]] <a
+								href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>.</p>
 
 						<p>Literal values are not changed <a href="#manifest-processing">during processing of the
-								manifest</a>, unlike other values which might be, for example, converted to objects.</p>
+								manifest</a>, unlike other values which might be, for example, <a href="#value-objects"
+								>converted to objects</a>.</p>
 					</section>
 
 					<section id="value-number">
 						<h5>Numbers</h5>
 
 						<p>When a <a href="#manifest-properties">manifest</a> property expects a number as its value,
-							the values MUST be expressed as a [[!json]] number.</p>
+							the value MUST be expressed as a [[!json]] <a
+								href="https://tools.ietf.org/html/rfc4627#section-2.4">number</a>.</p>
+					</section>
+
+					<section id="value-boolean">
+						<h5>Booleans</h5>
+
+						<p>When a <a href="#manifest-properties">manifest</a> property expects a boolean as its value,
+							the value MUST be expressed as an [[!ecmascript]]&#160;<a
+								href="ecmascript#sec-terms-and-definitions-boolean-value">Boolean value</a>
+								(<code>true</code> or <code>false</code>).</p>
 					</section>
 
 					<section id="value-objects">
 						<h5>Explicit and Implied Objects</h5>
 
-						<p>Various manifest properties are expected to be expressed as [[!json]]&#160;objects. Although
-							the use of objects is usually recommended, the following sections identify cases where it is
-							also acceptable to use string values that are interpreted as objects depending on the
-							context. The exact mapping of text values to objects is part of the property or object
+						<p>Various manifest properties are expected to be expressed as [[!json]]&#160;<a
+								href="https://tools.ietf.org/html/rfc4627#section-2.2">objects</a>. Although the use of
+							objects is usually recommended, the following sections identify cases where it is also
+							acceptable to use string values that are interpreted as objects depending on the context.
+							The exact mapping of text values to objects is part of the property or object
 							definitions.</p>
 
 						<section id="value-localizable-string">
@@ -612,9 +631,11 @@ enum ProgressionDirection {
 								string as its value, the value MUST be expressed either as:</p>
 
 							<ul>
-								<li>a single string value;</li>
-								<li>an object with a <code>value</code> property containing a the property's text and a
-										<code>language</code> property that identifies the language of the text.</li>
+								<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+									value; or</li>
+								<li>a [[!json]]&#160;<a href="https://tools.ietf.org/html/rfc4627#section-2.2"
+										>object</a> with a <code>value</code> property containing a the property's text
+									and a <code>language</code> property that identifies the language of the text.</li>
 							</ul>
 
 							<p>A single string value represents an implied object whose <code>value</code> property is
@@ -630,20 +651,21 @@ enum ProgressionDirection {
 								MUST be expressed either as:</p>
 
 							<ul>
-								<li>a single string value;</li>
-								<li>a <a href="#CreatorInfo">CreatorInfo</a> object.</li>
+								<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+									value; or</li>
+								<li>a <a href="#CreatorInfo"><code>CreatorInfo</code> object</a>.</li>
 							</ul>
 
-							<p>A single string value represents an instance of a CreatorInfo object whose
+							<p>A single string value represents an instance of a <code>CreatorInfo</code> object whose
 									<code>name</code> property is the string's text and whose <code>type</code> is
-								assumed to be <a href="https://schema.org/Person">Person</a> [[!schema.org]].</p>
+								assumed to be <a href="https://schema.org/Person">Person</a>&#160;[[!schema.org]].</p>
 
-							<aside class="example" title="Using a text string instead of a Person object.">
-								<p>The following author name is expressed as a text string:</p>
+							<aside class="example" title="Using a string instead of a Person object.">
+								<p>The following author name is expressed as a string:</p>
 
 								<pre>
 {
-    "author" : "Herman Melville",
+    "author" : "Edgar Allen Poe",
     &#8230;
 }</pre>
 								<p>but, in the context of <a href="#creators">creators</a>, it is equivalent to:</p>
@@ -652,7 +674,7 @@ enum ProgressionDirection {
 {
     "author" : {
         "type" : "Person",
-        "name" : "Herman Melville"
+        "name" : "Edgar Allen Poe"
     },
     &#8230;
 }</pre>
@@ -663,17 +685,18 @@ enum ProgressionDirection {
 						<section id="value-link">
 							<h5>Links</h5>
 
-							<p>When a manifest property links to one or more resources, it MUST be expressed in one of
-								the following two ways:</p>
+							<p>When a manifest property links to one or more resources, it MUST be expressed either
+								as:</p>
 
 							<ol>
-								<li>as a string encoding the <a>URL</a> of the resources; or</li>
-								<li>as an instance of a <a href="#publication-link-def"><code>LinkedResource</code>
+								<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+									encoding the <a>URL</a> of the resources; or</li>
+								<li>an instance of a <a href="#publication-link-def"><code>LinkedResource</code>
 										object</a> that can be used to express the URL, the media type, and other
 									characteristics of the target resource.</li>
 							</ol>
 
-							<p>A single string value represents an implied <code>LinkedResource</code> object whose
+							<p>A string value represents an implied <code>LinkedResource</code> object whose
 									<code>url</code> property is set to the string value.</p>
 
 							<pre class="example" title="Resource list that includes one link using a relative URL as a string ('datatypes.svg') and two that display the various properties of the a LinkedResource object">
@@ -705,13 +728,13 @@ enum ProgressionDirection {
 
 						<p><dfn data-lt="URL">URLs</dfn> are used to identify resources associated with a <a>digital
 								publication</a>. When a property expects a URL value, it MUST be a <a
-								href="https://url.spec.whatwg.org/#absolute-url-string">valid URL string</a>
-							[[!url]].</p>
+								href="https://url.spec.whatwg.org/#absolute-url-string">valid URL
+							string</a>&#160;[[!url]].</p>
 
 						<p>Manifest URLs are restricted to only the <code>http</code> and <code>https</code>
-							<a href="https://url.spec.whatwg.org/#concept-url-scheme">schemes</a> [[!url]]. URLs MUST
-							dereference to a resource, although user agents are not required to dereference all URLs in
-							the manifest.</p>
+							<a href="https://url.spec.whatwg.org/#concept-url-scheme">schemes</a>&#160;[[!url]]. URLs
+							MUST dereference to a resource, although user agents are not required to dereference all
+							URLs in the manifest.</p>
 
 						<p>In the case of <a href="https://url.spec.whatwg.org/#relative-url-string">relative-URL
 								strings</a>, these are resolved to <a
@@ -723,7 +746,7 @@ enum ProgressionDirection {
 						<ul>
 							<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, it is the <a
 									href="https://www.w3.org/TR/json-ld11/#inheriting-base-iri-from-html-s-base-element"
-									>document base URL of the embedding document</a> [[!json-ld]];</li>
+									>document base URL of the embedding document</a>&#160;[[!json-ld]];</li>
 							<li>In the case of a <a href="#manifest-link">linked manifest</a>, it is the URL of the
 								manifest resource.</li>
 							<li>In the case of a digital publication format that uses <a
@@ -744,8 +767,7 @@ enum ProgressionDirection {
 					<section id="value-id">
 						<h5>Identifiers</h5>
 
-						<p>Identifiers are <a href="https://url.spec.whatwg.org/#concept-url">URL records</a> [[!url]]
-							that can be used to refer to <a class="externalDFN"
+						<p>Identifiers are used to refer to <a class="externalDFN"
 								href="https://www.w3.org/TR/publishing-linking/#dfn-web-content">Web Content</a> in a
 							persistent and unambiguous manner. <abbr title="Uniform Resource Locators">URLs</abbr>,
 								<abbr title="Uniform Resource Names">URNs</abbr>, <abbr
@@ -753,15 +775,19 @@ enum ProgressionDirection {
 								title="International Standard Book Numbers">ISBNs</abbr>, and <abbr
 								title="Persistent Uniform Resource Locators">PURLs</abbr> are all examples of persistent
 							identifiers frequently used in publishing.</p>
+
+						<p>Identifiers MUST be expressed as <a href="https://url.spec.whatwg.org/#concept-url">URL
+								records</a>&#160;[[!url]]</p>
 					</section>
 
 					<section id="value-array">
 						<h5>Arrays</h5>
 
 						<p>When a <a href="#manifest-properties">manifest property</a> allows one or more value of their
-							respective type (<a href="#value-literal">literal</a>, <a href="#value-objects">object</a>,
-							or <a href="#value-url">URL</a>), these values are expressed as [[!json]]&#160;arrays. When
-							a property value is a single element, however, the array syntax MAY be omitted.</p>
+							respective type (e.g., <a href="#value-literal">literal</a>, <a href="#value-objects"
+								>object</a>, or <a href="#value-url">URL</a>), these values are expressed as [[!json]]
+								<a href="https://tools.ietf.org/html/rfc4627#section-2.3">arrays</a>. When a property
+							value is a single element, however, the array syntax MAY be omitted.</p>
 
 						<aside class="example" title="Using a text string instead of an array">
 							<p>As a digital publication typically contains many resources, this declaration of a single
@@ -786,14 +812,47 @@ enum ProgressionDirection {
 				<section id="descriptive-properties">
 					<h4>Descriptive Properties</h4>
 
+					<section id="abridged">
+						<h5>Abridged</h5>
+
+						<p>The abridged property provides information on whether or not the <a>digital publication</a>
+							has been shortened from its original form.</p>
+
+						<table class="zebra">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Type</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code data-dfn-for="PublicationManifest">
+											<dfn>abridged</dfn>
+										</code>
+									</td>
+									<td>Indicates whether the book is an abridged edition.</td>
+									<td>Either <code>true</code> or <code>false</code>.</td>
+									<td><a href="#value-boolean">Boolean</a></td>
+									<td>
+										<a href="https://schema.org/abridged"><code>abridged</code></a> (<a
+											href="https://schema.org/book">Book</a>) </td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+
 					<section id="accessibility">
 						<h5>Accessibility</h5>
 
-						<p>The accessibility properties provides information about the suitability of a <a>digital
-								publication</a> for consumption by users with varying preferred reading modalities.
+						<p>The accessibility properties provide information about the suitability of a <a>digital
+								publication</a> for consumption by users with different preferred reading modalities.
 							These properties typically supplement an evaluation against established accessibility
-							criteria, such as those provided in [[WCAG20]]. (For linking to a detailed accessibility
-							report, see <a href="#accessibility-report"></a>.)</p>
+							criteria, such as those provided in [[wcag21]].</p>
 
 						<p>The following properties are categorized as accessibility properties:</p>
 
@@ -814,7 +873,7 @@ enum ProgressionDirection {
 											<dfn>accessMode</dfn>
 										</code>
 									</td>
-									<td> The human sensory perceptual system or cognitive faculty through which a person
+									<td>The human sensory perceptual system or cognitive faculty through which a person
 										may process or perceive information. </td>
 									<td>One or more text(s).</td>
 									<td>
@@ -830,7 +889,7 @@ enum ProgressionDirection {
 											<dfn>accessModeSufficient</dfn>
 										</code>
 									</td>
-									<td> A list of single or combined accessModes that are sufficient to understand all
+									<td> A list of single or combined access modes that are sufficient to understand all
 										the intellectual content of a resource. </td>
 									<td> One or more <a href="https://schema.org/ItemList">ItemList</a>.</td>
 									<td>
@@ -881,11 +940,8 @@ enum ProgressionDirection {
 											<dfn>accessibilitySummary</dfn>
 										</code>
 									</td>
-									<td>A human-readable summary of specific accessibility features or deficiencies,
-										consistent with the other accessibility metadata but expressing subtleties such
-										as “short descriptions are present but long descriptions will be needed for
-										non-visual users” or “short descriptions are present and no long descriptions
-										are needed.” </td>
+									<td>A human-readable summary of specific accessibility features or deficiencies that
+										is consistent with the other accessibility metadata. </td>
 									<td>Text.</td>
 									<td>
 										<a href="#value-localizable-string">Localizable String</a>
@@ -901,9 +957,9 @@ enum ProgressionDirection {
 						<p class="note">Detailed descriptions of these properties, including the expected values to use
 							with them, are available at [[webschemas-a11y]].</p>
 
-						<p class="note">The author can also provide a reference to a detailed <a
-								href="#accessibility-report">Accessibility Report</a> if more information is needed than
-							can be expressed by these properties.</p>
+						<p class="note">A reference to a detailed <a href="#accessibility-report">accessibility
+								report</a> can also be provided if more information is needed than can be expressed by
+							these properties.</p>
 
 						<pre class="example" title="Example accessiblity metadata for a document with text and images. The publication provides alternative text and long descriptions appropriate for each image, so can also be read in purely textual form.">
 {
@@ -911,6 +967,7 @@ enum ProgressionDirection {
     "type"     : "CreativeWork",
     &#8230;
     "accessMode"            : ["textual", "visual"],
+    "accessibilityFeature"  : ["alternativeText", "longDescription"]
     "accessModeSufficient"  : [
         {
             "type"           : "ItemList",
@@ -930,9 +987,8 @@ enum ProgressionDirection {
 					<section id="address">
 						<h4>Address</h4>
 
-						<p>A <a>digital publication's</a>
-							<dfn>address</dfn> is a <a>URL</a> that identifies its source location. It is expressed
-							using the <code>url</code> property.</p>
+						<p>An <dfn>address</dfn> is a <a>URL</a> that identifies the source location of a <a>digital
+								publication</a>. It is expressed using the <code>url</code> property.</p>
 
 						<table class="zebra">
 							<thead>
@@ -952,7 +1008,7 @@ enum ProgressionDirection {
 										</code>
 									</td>
 									<td>URL of the publication.</td>
-									<td>A valid URL string [[!url]].</td>
+									<td>A valid URL string&#160;[[!url]].</td>
 									<td><a href="#value-array">Array</a> of <a href="#value-url">URLs</a></td>
 									<td>
 										<a href="https://schema.org/url"><code>url</code></a> (<a
@@ -972,7 +1028,7 @@ enum ProgressionDirection {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
-    "url"      : "https://publisher.example.org/mobydick",
+    "url"      : "https://publisher.example.org/frankenstein",
     &#8230;
 }
 </pre>
@@ -982,8 +1038,8 @@ enum ProgressionDirection {
 						<h5>Canonical Identifier</h5>
 
 						<p>A <a>digital publication's</a>
-							<dfn>canonical identifier</dfn> property provides a unique identifier for the publication.
-							It is expressed using the <code>id</code> property.</p>
+							<dfn>canonical identifier</dfn> property provides a unique identifier for a <a>digital
+								publication</a>. It is expressed using the <code>id</code> property.</p>
 
 						<table class="zebra">
 							<thead>
@@ -1003,7 +1059,7 @@ enum ProgressionDirection {
 										</code>
 									</td>
 									<td>Preferred version of the publication.</td>
-									<td>A URL record [[!url]].</td>
+									<td>A URL record&#160;[[!url]].</td>
 									<td><a href="#value-id">Identifier</a></td>
 									<td>(None)</td>
 								</tr>
@@ -1039,7 +1095,7 @@ enum ProgressionDirection {
     "type"     : "Book",
     &#8230;
     "id"       : "urn:isbn:9780123456789",
-    "url"      : "https://publisher.example.org/mobydick",
+    "url"      : "https://publisher.example.org/wuthering-heights",
     &#8230;
 }
 </pre>
@@ -1048,7 +1104,7 @@ enum ProgressionDirection {
 					<section id="creators">
 						<h5>Creators</h5>
 
-						<p>A <dfn>creator</dfn> is an individual or entity responsible for the creation of the
+						<p>A <dfn>creator</dfn> is an individual or organization responsible for the creation of a
 								<a>digital publication</a>.</p>
 
 						<p>The following properties are categorized as creators:</p>
@@ -1274,19 +1330,20 @@ enum ProgressionDirection {
 							</tbody>
 						</table>
 
-						<p>Creators are represented in one of the following two ways:</p>
+						<p>Creators MUST be represented either as:</p>
 
 						<ol>
-							<li>as a string encoding the name of a <a href="https://schema.org/Person"
-										><code>Person</code></a> [[!schema.org]]; or</li>
-							<li>as an instance of a <a href="https://schema.org/Person"><code>Person</code></a> or <a
-									href="https://schema.org/Organization"><code>Organization</code></a>
-								[[!schema.org]].</li>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+								encoding the name of a <a href="https://schema.org/Person"
+								><code>Person</code></a>&#160;[[!schema.org]]; or</li>
+							<li>an instance of a <a href="https://schema.org/Person"><code>Person</code></a> or <a
+									href="https://schema.org/Organization"
+								><code>Organization</code></a>&#160;[[!schema.org]].</li>
 						</ol>
 
-						<p>In other words, a single string value is a shorthand for a [[!schema.org]]
-								<code>Person</code> whose <code>name</code> property is set to that string value. (See
-							also <a href="#value-object-entity"></a>.)</p>
+						<p>A single string value is a shorthand for a [[!schema.org]] <code>Person</code> whose
+								<code>name</code> property is set to that string value. (See also <a
+								href="#value-object-entity"></a>.)</p>
 
 						<p>When compiling each set of creator information from a [[!schema.org]] <a
 								href="https://schema.org/Person"><code>Person</code></a> or <a
@@ -1301,10 +1358,10 @@ enum ProgressionDirection {
     "type"     : "Book",
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     &#8230;
-    "url"      : "https://publisher.example.org/mobydick",
+    "url"      : "https://publisher.example.org/alice-in-wonderland",
     "author"   : {
         "type"  : "Person",
-        "name"  : "Herman Melville"
+        "name"  : "Lewis Carroll"
     }
 }
 </pre>
@@ -1324,6 +1381,7 @@ enum ProgressionDirection {
             "type"  : "Person",
             "name" : "Ivan Herman",
             "id"   : "https://www.w3.org/People/Ivan/"
+            "identifier": "0000-0003-0782-2704",
         }
     ],
     "editor"    : [
@@ -1347,8 +1405,8 @@ enum ProgressionDirection {
 						<h5>Duration</h5>
 
 						<p> The <dfn>global duration</dfn> indicates the overall length of a <em>time-based</em>
-							<a>digital publication</a> (e.g., an audiobook, a book consisting of a series of video
-							clips, etc.). It is expressed as a "Duration" value as defined by&#160;[[!iso8601]]. </p>
+							<a>digital publication</a> (e.g., an audiobook or a book consisting of a series of video
+							clips). It is expressed using the <code>duration</code> property.</p>
 
 						<table class="zebra">
 							<thead>
@@ -1368,7 +1426,7 @@ enum ProgressionDirection {
 										</code>
 									</td>
 									<td>Overall duration of a time-based publication.</td>
-									<td>Duration value as defined by&#160;[[!iso8601]]</td>
+									<td>Duration value as defined by&#160;[[!iso8601]].</td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -1386,7 +1444,7 @@ enum ProgressionDirection {
     "id"             : "https://example.org/flatland-a-romance-of-many-dimensions/",
     "url"            : "https://w3c.github.io/pub-manifest/experiments/audiobook/",
     "name"           : "Flatland: A Romance of Many Dimensions",
-    &#8230;		
+    &#8230;
     "duration"       : "PT15153S",
     &#8230;
 }
@@ -1399,10 +1457,10 @@ enum ProgressionDirection {
 					<section id="last-modification-date">
 						<h5>Last Modification Date</h5>
 
-						<p>The <dfn>last modification date</dfn> is the date when the <a>digital publication</a> was
-							last updated (i.e., whenever changes were last made to any of the resources of the
-							publication, including the <a>manifest</a>). It is expressed using the
-								<code>dateModified</code> property.</p>
+						<p>The <dfn>last modification date</dfn> is the date when a <a>digital publication</a> was last
+							updated (i.e., whenever changes were last made to any of the resources of the publication,
+							including the <a>manifest</a>). It is expressed using the <code>dateModified</code>
+							property.</p>
 						<table class="zebra">
 							<thead>
 								<tr>
@@ -1424,7 +1482,7 @@ enum ProgressionDirection {
 									<td>A <a href="https://schema.org/Date"><code>Date</code></a> or <a
 											href="https://schema.org/DateTime"><code>DateTime</code></a>
 										value&#160;[[!schema.org]], both expressed in ISO 8601 Date, or Date Time
-										formats, respectively [[iso8601]].</td>
+										formats, respectively&#160;[[!iso8601]].</td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -1434,10 +1492,10 @@ enum ProgressionDirection {
 								</tr>
 							</tbody>
 						</table>
-						<p>The last modification date does not necessarily reflect all changes to the publication (e.g.,
-							third-party content could change without the author being aware). User agents SHOULD check
-							the last modification date of individual resources to determine if they have changed and
-							need updating.</p>
+						<p>The last modification date does not necessarily reflect all changes to a publication (e.g.,
+							if a digital publication format allows references to third-party content). User agents
+							SHOULD check the last modification date of individual resources to determine if they have
+							changed and need updating.</p>
 
 						<pre class="example" title="Last modification date of the publication">
 {
@@ -1455,7 +1513,7 @@ enum ProgressionDirection {
 					<section id="publication-date">
 						<h5>Publication Date</h5>
 
-						<p>The <dfn>publication date</dfn> is the date on which the <a>digital publication</a> was
+						<p>The <dfn>publication date</dfn> is the date on which a <a>digital publication</a> was
 							originally published. It represents a static event in the lifecycle of a publication and
 							allows subsequent revisions to be identified and compared. It is expressed using the
 								<code>datePublished</code> property.</p>
@@ -1480,7 +1538,7 @@ enum ProgressionDirection {
 									<td>Creation date of the publication.</td>
 									<td>A <a href="https://schema.org/Date"><code>Date</code></a> or <a
 											href="https://schema.org/DateTime"><code>DateTime</code></a>, both expressed
-										in ISO 8601 Date, or Date Time formats, respectively [[!iso8601]].</td>
+										in ISO 8601 Date, or Date Time formats, respectively&#160;[[!iso8601]].</td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -1492,8 +1550,8 @@ enum ProgressionDirection {
 						</table>
 
 						<p>The exact moment of publication is intentionally left open to interpretation: it could be
-							when the publication is first made available online or could be a point in time before
-							publication when the publication is considered final.</p>
+							when the publication is first made available or could be a point in time before publication
+							when the publication is considered final.</p>
 
 						<pre class="example" title="Creation and modification date of the publication">
 {
@@ -1510,17 +1568,12 @@ enum ProgressionDirection {
 					</section>
 
 					<section id="language-and-dir">
-						<h5>Publication Language and Base Direction</h5>
+						<h5>Publication Language</h5>
 
 						<p>A <a>digital publication</a> has at least one natural language, which is the language that
-							the content is expressed in (e.g., English, French, Chinese). It also has a natural base
-							direction in which it is written — the display direction, either left-to-right or
-							right-to-left.</p>
-
-						<p>The digital publication manifest includes the following properties to set both these
-							concepts, which can influence, for example, the behavior of a user agent (e.g., it might
-							place a pop-up for a table of contents on the right hand side for publications whose natural
-							base direction is right-to-left).</p>
+							the content is expressed in (e.g., English, French, Chinese). The manifest includes the
+							following property to set this concept, which can influence, for example, the behavior of a
+							user agent (e.g., to preload a dictionary or text-to-speech engine).</p>
 
 						<table class="zebra">
 							<thead>
@@ -1539,9 +1592,9 @@ enum ProgressionDirection {
 											<dfn>inLanguage</dfn>
 										</code>
 									</td>
-									<td>Default <a>language</a> for the publication as well as the textual manifest
-										values</td>
-									<td>One or more language code as defined in&#160;[[!bcp47]]</td>
+									<td>Default <a>language</a> for the publication.</td>
+									<td>One or more <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+											>well-formed language tags</a>&#160;[[!bcp47]].</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
 									</td>
@@ -1549,38 +1602,18 @@ enum ProgressionDirection {
 										<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
 											href="https://schema.org/Property">Property</a>) </td>
 								</tr>
-								<tr>
-									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inDirection</dfn>
-										</code>
-									</td>
-									<td>Default <a>base direction</a> for the publication as well as the textual
-										manifest values</td>
-									<td><code>ltr</code> or <code>rtl</code></td>
-									<td>
-										<a href="#value-literal">Literal</a>
-									</td>
-									<td>(None)</td>
-								</tr>
 							</tbody>
 						</table>
 
-						<p>The natural language MUST be well-formed in terms of &#160;[[!bcp47]], while the base
-							language direction MUST have one of the following values:</p>
-
-						<ul>
-							<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly
-								directionally set to left-to-right text;</li>
-							<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly
-								directionally set to right-to-left text;</li>
-						</ul>
+						<p>The natural language MUST be a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed language tag</a> &#160;[[!bcp47]].</p>
 
 						<p>If a user agent requires the publication language and it is not available in the manifest, or
-							the obtained value is invalid, the user agent MAY attempt to determine the publication
-							language when <a href="#manifest-processing">generating its canonical representation</a>.
-							This specification does not mandate how such a language tag is created. The user agent
-							might:</p>
+							the obtained value is not <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed</a>&#160;[[!bcp47]], the user agent MAY attempt to determine the
+							publication language when <a href="#manifest-processing">generating its canonical
+								representation</a>. This specification does not mandate how such a language tag is
+							created. The user agent might:</p>
 
 						<ul>
 							<li>use the <a>non-empty</a>
@@ -1595,23 +1628,19 @@ enum ProgressionDirection {
 							primary.</p>
 
 						<p class="note">It is important to differentiate the language <em>of the publication</em> from
-							the language and the base direction of the individual resources that compose it. If such
-							resources are, for example, in HTML, the language and direction need to be set in those
-							resources, too. The language and base direction of the publication are not inherited.</p>
+							the language of the individual resources that compose it. If such resources are, for
+							example, in HTML, the language needs to be set in those resources, too. The language of the
+							publication is not inherited.</p>
 					</section>
 
 					<section id="reading-progression-direction">
 						<h5>Reading Progression Direction</h5>
 
-						<p>A <a>digital publication</a> has at least one natural language, which is the language that
-							the content is expressed in (e.g., English, French, Chinese). It also has a natural base
-							direction in which it is written — the display direction, either left-to-right or
-							right-to-left.</p>
-
-						<p>The digital publication manifest includes the following properties to set both these
-							concepts, which can influence, for example, the behavior of a user agent (e.g., menu
-							position, swap direction, defining tap zones to lead the user to the next and previous
-							pages, touch gestures, etc.).</p>
+						<p>The <dfn data-lt="ProgressionDirection">reading progression direction</dfn> establishes the
+							reading direction from one resource to the next within a <a>digital publication</a>. It is
+							used to adapt such publication-level interactions as menu position, touch gestures, swap
+							direction, and tap zones for next and previous page. The reading progression is expressed
+							using the <code>readingDirection</code> property.</p>
 
 						<table class="zebra">
 							<thead>
@@ -1627,28 +1656,11 @@ enum ProgressionDirection {
 								<tr>
 									<td>
 										<code data-dfn-for="PublicationManifest">
-											<dfn>inLanguage</dfn>
+											<dfn>readingProgression</dfn>
 										</code>
 									</td>
-									<td>Default <a>language</a> for the publication as well as the textual manifest
-										values</td>
-									<td>One or more language code as defined in&#160;[[!bcp47]]</td>
-									<td>
-										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
-									</td>
-									<td>
-										<a href="https://schema.org/inLanguage"><code>inLanguage</code></a> (<a
-											href="https://schema.org/Property">Property</a>) </td>
-								</tr>
-								<tr>
-									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inDirection</dfn>
-										</code>
-									</td>
-									<td>Default <a>base direction</a> for the publication as well as the textual
-										manifest values</td>
-									<td><code>ltr</code> or <code>rtl</code></td>
+									<td>Reading progression direction from one resource to the other.</td>
+									<td>One of: <code>ltr</code> or <code>rtl</code>.</td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -1657,49 +1669,27 @@ enum ProgressionDirection {
 							</tbody>
 						</table>
 
-						<p>The natural language MUST be well-formed in terms of &#160;[[!bcp47]], while the base
-							language direction MUST have one of the following values:</p>
+						<p>The value of this property MUST be either:</p>
 
 						<ul data-dfn-for="ProgressionDirection">
 							<li><code><dfn>ltr</dfn></code>: left-to-right;</li>
 							<li><code><dfn>rtl</dfn></code>: right-to-left.</li>
 						</ul>
 
-						<p>The default value is <code>ltr</code>.</p>
+						<p>The default value is <code>ltr</code>. If the <code>readingProgression</code> is not set,
+							user agents MUST use the default value when generating their <a>canonical
+							representation</a>.</p>
 
-						<p>If a user agent requires the publication language and it is not available in the manifest, or
-							the obtained value is invalid, the user agent MAY attempt to determine the publication
-							language when <a href="#manifest-processing">generating its canonical representation</a>.
-							This specification does not mandate how such a language tag is created. The user agent
-							might:</p>
+						<p>This property has <em>no effect</em> on the rendering of the individual primary resources; it
+							is only relevant for the progression direction from one resource to the other.</p>
 
-						<ul>
-							<li>use the <a>non-empty</a>
-								<a href="#manifest-lang-dir">language declaration of the manifest</a>;</li>
-							<li>use the first non-empty language declaration found in a resource in the <a>default
-									reading order</a>;</li>
-							<li>calculate the language using its own algorithm.</li>
-						</ul>
-
-						<p>If a user agent requires a primary language for the publication and more than one language is
-							specified, the first entry in the <code>inLanguage</code> array MUST be recognized as the
-							primary.</p>
-
-						<p>If the <code>inDirection</code> property is not set, user agents MUST use the default value
-								<code>ltr</code> when generating their <a>canonical representation</a>.</p>
-
-						<p class="note">It is important to differentiate the language <em>of the publication</em> from
-							the language and the base direction of the individual resources that compose it. If such
-							resources are, for example, in HTML, the language and direction need to be set in those
-							resources, too. The language and base direction of the publication are not inherited.</p>
-
-						<pre class="example" title="Reading direction set explicitl to ltr">
+						<pre class="example" title="Reading progression set explicitl to ltr">
 {
     "@context"           : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"               : "Book",
     &#8230;
-    "url"                : "https://publisher.example.org/mobydick",
-    "inDirection" : "ltr"
+    "url"                : "https://publisher.example.org/leviathan",
+    "readingProgression" : "ltr"
 }
 </pre>
 					</section>
@@ -1707,7 +1697,7 @@ enum ProgressionDirection {
 					<section id="pub-title">
 						<h5>Title</h5>
 
-						<p>The title provides the human-readable name of the <a>digital publication</a>. It is expressed
+						<p>The title provides the human-readable name of a <a>digital publication</a>. It is expressed
 							using the <code>name</code> property.</p>
 
 						<table class="zebra">
@@ -1745,17 +1735,16 @@ enum ProgressionDirection {
 							create one. This specification does not specify what heuristics to use to generate such a
 							title.</p>
 
-						<p class="note">A user agent is not expected to produce a <a
-								data-cite="WCAG20#navigation-mechanisms-title">meaningful title</a>&#160;[[wcag20]] for
-							a publication when one is not specified. </p>
+						<p class="note">A user agent is not expected to produce a <a data-cite="wcag21#page-titled"
+								>meaningful title</a>&#160;[[wcag21]] for a publication when one is not specified. </p>
 
 						<pre class="example" title="Title of the book set explicitly">
 {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
-    "url"      : "https://publisher.example.org/mobydick",
-    "name"     : "Moby Dick"
+    "url"      : "https://publisher.example.org/heart-of-darkness",
+    "name"     : "Heart of Darkness"
 }
 </pre>
 					</section>
@@ -1802,18 +1791,10 @@ enum ProgressionDirection {
 											<dfn>readingOrder</dfn>
 										</code>
 									</td>
-									<td></td>
+									<td>Order of progression through the resources of a digital publication.</td>
 									<td>
-										<p>One or more of:</p>
-										<ul>
-											<li>a string, representing the <a>URL</a> of the resource; or</li>
-											<li>an instance of a <a href="#publication-link-def"
-														><code>LinkedResource</code></a> object</li>
-										</ul>
-										<p>The order of items is <em>significant</em>. The URLs MUST NOT include
-											fragment identifiers. Non-HTML resources SHOULD be expressed as
-												<code>LinkedResource</code> objects with their
-												<code>encodingFormat</code> values set.</p>
+										<p>One or more <a href="#publication-link-def"
+											><code>LinkedResource</code></a>.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-link">Links</a>
@@ -1823,6 +1804,24 @@ enum ProgressionDirection {
 							</tbody>
 						</table>
 
+						<p>Each element of the <code>readingOrder</code> property MUST be expressed either as:</p>
+
+						<ul>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+								representing the <a>URL</a> of the resource; or</li>
+							<li>an instance of a <a href="#publication-link-def"><code>LinkedResource</code></a>
+								object.</li>
+						</ul>
+
+						<p>A single string value represents an instance of a <code>LinkedResource</code> object whose
+								<code>url</code> property is the string's text.</p>
+
+						<p>The order of items is <em>significant</em>.</p>
+
+						<p>The URLs expressed in the reading order MUST NOT include fragment identifiers. Non-HTML
+							resources SHOULD be expressed as <code>LinkedResource</code> objects with their
+								<code>encodingFormat</code> values set.</p>
+
 						<p>The default reading order MUST include at least one resource.</p>
 
 						<pre class="example" title="Reading order expressed as a simple list of URLs">
@@ -1830,8 +1829,8 @@ enum ProgressionDirection {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
-    "url"      : "https://publisher.example.org/mobydick",
-    "name"     : "Moby Dick",
+    "url"      : "https://publisher.example.org/pride-prejudice",
+    "name"     : "Pride and Prejudice",
     "readingOrder" : [
         "html/title.html",
         "html/copyright.html",
@@ -1847,8 +1846,8 @@ enum ProgressionDirection {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
     &#8230;
-    "url"      : "https://publisher.example.org/mobydick",
-    "name"     : "Moby Dick",
+    "url"      : "https://publisher.example.org/pride-prejudice",
+    "name"     : "Pride and Prejudice",
     "readingOrder" : [{
         "type"           : "LinkedResource",
         "url"            : "html/title.html",
@@ -1869,7 +1868,7 @@ enum ProgressionDirection {
 					<section id="resource-list">
 						<h5>Resource List</h5>
 
-						<p>The <dfn>resource list</dfn> enumerates any additional resources used in the processing and
+						<p>The <dfn>resource list</dfn> enumerates any additional resources used in the processing or
 							rendering of a <a>digital publication</a> that are not already listed in the <a>default
 								reading order</a>. It is expressed using the <code>resources</code> property.</p>
 
@@ -1890,17 +1889,11 @@ enum ProgressionDirection {
 											<dfn>resources</dfn>
 										</code>
 									</td>
-									<td></td>
+									<td>List of additional publication resources used in the processing or rendering of
+										a publication.</td>
 									<td>
-										<p>One or more of:</p>
-										<ul>
-											<li>a string, representing the <a>URL</a> of the resource; or</li>
-											<li>an instance of a <a href="#publication-link-def"
-														><code>LinkedResource</code></a> object</li>
-										</ul>
-										<p>The order of items is <em>not significant</em>. The URLs MUST NOT include
-											fragment identifiers. It is RECOMMENDED to use <code>LinkedResource</code>
-											objects with their <code>encodingFormat</code> values set.</p>
+										<p>One or more <a href="#publication-link-def"
+											><code>LinkedResource</code></a>.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-link">Links</a>
@@ -1909,6 +1902,24 @@ enum ProgressionDirection {
 								</tr>
 							</tbody>
 						</table>
+
+						<p>Each element of the <code>resources</code> property MUST be expressed either as:</p>
+
+						<ul>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+								representing the <a>URL</a> of the resource; or</li>
+							<li>an instance of a <a href="#publication-link-def"><code>LinkedResource</code></a>
+								object.</li>
+						</ul>
+
+						<p>A single string value represents an instance of a <code>LinkedResource</code> object whose
+								<code>url</code> property is the string's text.</p>
+
+						<p>The order of items is <em>not significant</em>.</p>
+
+						<p>The URLs MUST NOT include fragment identifiers. It is RECOMMENDED to use
+								<code>LinkedResource</code> objects with their <code>encodingFormat</code> values
+							set.</p>
 
 						<p>The completeness of the resource list can affect the usability of a digital publication in
 							certain reading scenarios (e.g., the ability to read it offline). For this reason, it is
@@ -1954,9 +1965,10 @@ enum ProgressionDirection {
 					<section id="links">
 						<h5>Links</h5>
 
-						<p>The <dfn><code>links</code></dfn> property provides a list of resources that are <em>not</em>
+						<p>The <dfn>Links</dfn> list is used to provide a list of resources that are <em>not</em>
 							required for the processing and rendering of a <a>digital publication</a> (i.e., the content
-							of the publication remains unaffected even if these resources are not available).</p>
+							of the publication remains unaffected even if these resources are not available). Links are
+							expressed using the <code>links</code> property.</p>
 
 						<table class="zebra">
 							<thead>
@@ -1975,17 +1987,11 @@ enum ProgressionDirection {
 											<dfn>links</dfn>
 										</code>
 									</td>
-									<td></td>
+									<td>List of resources associated with a publication but not required for its
+										processing or rendering.</td>
 									<td>
-										<p>One or more of:</p>
-										<ul>
-											<li>a string, representing the <a>URL</a> of the resource; or</li>
-											<li>an instance of a <a href="#publication-link-def"
-														><code>LinkedResource</code></a> object</li>
-										</ul>
-										<p>The order of items is <em>not significant</em>. It is RECOMMENDED to use
-												<code>LinkedResource</code> objects with their
-												<code>encodingFormat</code> and <code>rel</code> values set.</p>
+										<p>One or more <a href="#publication-link-def"
+											><code>LinkedResource</code></a>.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-link">Links</a>
@@ -1994,6 +2000,23 @@ enum ProgressionDirection {
 								</tr>
 							</tbody>
 						</table>
+
+						<p>Each element of the <code>links</code> property MUST be expressed either as:</p>
+
+						<ul>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+								representing the <a>URL</a> of the resource; or</li>
+							<li>an instance of a <a href="#publication-link-def"><code>LinkedResource</code></a>
+								object.</li>
+						</ul>
+
+						<p>A single string value represents an instance of a <code>LinkedResource</code> object whose
+								<code>url</code> property is the string's text.</p>
+
+						<p>The order of items is <em>not significant</em>.</p>
+
+						<p>It is RECOMMENDED to use <code>LinkedResource</code> objects with their
+								<code>encodingFormat</code> and <code>rel</code> values set.</p>
 
 						<p>Linked resources are typically made available to user agents to augment or enhance the
 							processing or rendering, such as:</p>
@@ -2073,11 +2096,11 @@ enum ProgressionDirection {
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 &#8230;
-"url"        : "https://publisher.example.org/mobydick",
-"name"       : "Moby Dick",
+"url"        : "https://publisher.example.org/time-machine",
+"name"       : "The Time Machine",
 "links"  : [{
 	"type"            : "LinkedResource",
-	"url"             : "https://www.publisher.example.org/mobydick-onix.xml",
+	"url"             : "https://www.publisher.example.org/time-machine/onix.xml",
 	"encodingFormat"  : "application/onix+xml",
 	"rel"             : "describedby"
 },{
@@ -2138,38 +2161,6 @@ enum ProgressionDirection {
 			<section id="manifest-rel">
 				<h3>Resource Relations</h3>
 
-				<section id="rel-intro" class="informative">
-					<h4>Introduction</h4>
-
-					<p>The <a>manifest</a> identifies key resources of a <a>digital publication</a> through the use of
-						link relations. These relations are applied to the <a href="#dom-linkedresource-rel"
-								><code>rel</code> property</a> of <a href="#LinkedResource"><code>LinkedResource</code>
-							objects</a> (e.g., the links found in the <a href="#pub-table-of-contents">table of
-							contents</a> and <a href="#resource-list">resource list</a>).</p>
-
-					<p>The types of resources these relations identify are categorized as follows:</p>
-
-					<dl>
-						<dt>
-							<a href="#informative-rel">informative resources</a>
-						</dt>
-						<dd>
-							<p>Informative resources are resources that contain additional information about the
-								publication, such as its <a href="#privacy-policy">privacy policy</a>, <a
-									href="#accessibility-report">accessibility report</a>, or <a href="#preview"
-									>preview</a>.</p>
-						</dd>
-						<dt>
-							<a href="#structural-rel">structural resources</a>
-						</dt>
-						<dd>
-							<p>Structural resources are key meta structures of the publication, such as the <a
-									href="#cover">cover image</a>, <a href="#table-of-contents">table of contents</a>,
-								and <a href="#page-list">page list</a>.</p>
-						</dd>
-					</dl>
-				</section>
-
 				<section id="informative-rel">
 					<h4>Informative Resources</h4>
 
@@ -2179,7 +2170,7 @@ enum ProgressionDirection {
 						<p>An accessibility report provides information about the suitability of a <a>digital
 								publication</a> for consumption by users with varying preferred reading modalities.
 							These reports typically identify the result of an evaluation against established
-							accessibility criteria, such as those provided in [[WCAG21]], and are an important source of
+							accessibility criteria, such as those provided in [[wcag21]], and are an important source of
 							information in determining the usability of a publication.</p>
 
 						<p>An accessibility report is identified using the <code>accessibility-report</code> link
@@ -2193,19 +2184,19 @@ enum ProgressionDirection {
 							publication.</p>
 
 						<p>It is also RECOMMENDED that the accessibility report be provided in a human-readable format,
-							such as [[!html]]. Augmenting these reports with machine-processable metadata, such as
-							provided in Schema.org [[!schema.org]], is also RECOMMENDED.</p>
+							such as HTML [[!html]]. Augmenting these reports with machine-processable metadata, such as
+							provided in schema.org&#160;[[!schema.org]], is also RECOMMENDED.</p>
 
 						<pre class="example" title="Link to an accessibility report">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
-    "url"        : "https://publisher.example.org/mobydick",
-    "name"       : "Moby Dick",
+    "url"        : "https://publisher.example.org/sherlock-holmes",
+    "name"       : "The Adventures of Sherlock Holmes",
     "links"  : [{
         "type"        : "LinkedResource",
-        "url"         : "https://www.publisher.example.org/mobydick-accessibility.html",
+        "url"         : "https://www.publisher.example.org/sherlock-holmes-accessibility.html",
         "rel"         : "accessibility-report"
     },{
         &#8230;
@@ -2231,8 +2222,8 @@ enum ProgressionDirection {
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 …
-"url"        : "https://publisher.example.org/mobydick",
-"name"       : "Moby Dick",
+"url"        : "https://publisher.example.org/jekyll-hyde",
+"name"       : "The Strange Case of Dr. Jekyll and Mr. Hyde",
 "links"  : [{
 	"type"            : "LinkedResource",
 	"url"             : "preview.mp3",
@@ -2249,11 +2240,11 @@ enum ProgressionDirection {
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 …
-"url"        : "https://publisher.example.org/mobydick",
-"name"       : "Moby Dick",
+"url"        : "https://publisher.example.org/jekyll-hyde",
+"name"       : "The Strange Case of Dr. Jekyll and Mr. Hyde",
 "links"  : [{
 	"type"            : "LinkedResource",
-	"url"             : "https://publisher.example.org/mobydickpreview.html",
+	"url"             : "https://publisher.example.org/jekyll-hyde-preview.html",
 	"encodingFormat"  : "text/html",
 	"rel"             : "preview"
 },{
@@ -2333,8 +2324,8 @@ enum ProgressionDirection {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
-    "url"        : "https://publisher.example.org/donquixote",
-    "name"       : "Don Quixote",
+    "url"        : "https://publisher.example.org/adam-bede",
+    "name"       : "Adam Bede",
     "resources"  : [{
         "type"           : "LinkedResource",
         "url"            : "cover.html",
@@ -2373,7 +2364,7 @@ enum ProgressionDirection {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
-    "url"        : "https://publisher.example.org/donquixote",
+    "url"        : "https://publisher.example.org/gullivers-travels",
     "name"       : "Gulliver's Travels",
     "resources"  : [{
         "type"           : "LinkedResource",
@@ -2400,23 +2391,21 @@ enum ProgressionDirection {
 							within a <a>digital publication</a>.</p>
 
 						<p>The page list is identified by the <code>pagelist</code> link relation. The <a
-								href="#value-url">URL</a> expressed in the <code>url</code> term MUST NOT include a
-							fragment identifier.</p>
+								href="#value-url">URL</a> expressed in the <code>url</code> term of the resource that
+							identifies the page list MUST NOT include a fragment identifier.</p>
 
 						<p class="ednote">The <code>pagelist</code> term is not currently registered in the IANA link
 							relations but the Working Group expects to add it.</p>
 
-						<p>The link to the page list MAY be specified in either the <a href="#default-reading-order"
-								>default reading order</a> or <a href="#resource-list">resource-list</a>, but MUST NOT
-							be specified in both.</p>
+						<p>The link to the page list MUST NOT be specified in the <a href="#links">links list</a>.</p>
 
 						<pre class="example" title="Page list identified in another resource of the publication">
 {
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 &#8230;
-"url"        : "https://publisher.example.org/mobydick",
-"name"       : "Moby Dick",
+"url"        : "https://publisher.example.org/metamorphosis",
+"name"       : "Metamorphosis",
 "resources"  : [{
 	"type"       : "LinkedResource",
 	"url"        : "toc_file.html",
@@ -2437,11 +2426,11 @@ enum ProgressionDirection {
 
 						<p>The <dfn data-lt="toc">table of contents</dfn> is identified by the <code>contents</code>
 							link relation&#160;[[!iana-link-relations]]. The <a href="#value-url">URL</a> expressed in
-							the <code>url</code> term MUST NOT include a fragment identifier.</p>
+							the <code>url</code> term of the resource that identifies the table of contents MUST NOT
+							include a fragment identifier.</p>
 
-						<p>The link to the table of contents MAY be specified in either the <a
-								href="#default-reading-order">default reading order</a> or <a href="#resource-list"
-								>resource-list</a>, but MUST NOT be specified in both.</p>
+						<p>The link to the table of contents MUST NOT be specified in the <a
+								href="#default-reading-order">links list</a>.</p>
 
 						<p>The RECOMMENDED structure and processing model for the table of contents is defined in <a
 								href="#app-toc-structure"></a>.</p>
@@ -2451,8 +2440,8 @@ enum ProgressionDirection {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
     &#8230;
-    "url"        : "https://publisher.example.org/mobydick",
-    "name"       : "Moby Dick",
+    "url"        : "https://publisher.example.org/ilprincipe",
+    "name"       : "Il Principe",
     "resources"  : [{
         "type"       : "LinkedResource",
         "url"        : "toc_file.html",
@@ -2476,7 +2465,7 @@ enum ProgressionDirection {
 					<ul>
 						<li>through the use of relations defined in [[!iana-relations]]; or</li>
 						<li>through the use of <a href="https://tools.ietf.org/html/rfc8288#section-2.1.2">extension
-								relation types</a> [[!rfc8288]].</li>
+								relation types</a>&#160;[[!rfc8288]].</li>
 					</ul>
 
 					<p>Use of relations from [[!iana-relations]] is RECOMMENDED.</p>
@@ -2530,7 +2519,7 @@ enum ProgressionDirection {
 						href="https://www.w3.org/TR/html5/semantics-scripting.html#the-script-element"
 							><code>script</code> element</a>&#160;[[!html]] whose <a
 						href="https://www.w3.org/TR/json-ld11/#embedding-json-ld-in-html-documents"><code>type</code>
-						attribute is set to <code>application/ld+json</code></a> [[!json-ld]].</p>
+						attribute is set to <code>application/ld+json</code></a>&#160;[[!json-ld]].</p>
 
 				<pre class="example" title="A publication manifest included in an HTML document">
 &lt;script type="application/ld+json"&gt;
@@ -2568,7 +2557,7 @@ enum ProgressionDirection {
 				<p> In order for a <a>digital publication</a> format to be compatible with this specification, following
 					conditions MUST be met: </p>
 
-				<ul>
+				<ol>
 					<li>It MUST adhere to the manifest format requirements defined in this specification.</li>
 					<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid
 						for the extended manifest. To achieve this, and if new terms are added to the general manifest,
@@ -2577,17 +2566,13 @@ enum ProgressionDirection {
 								categories used in the algorithm (e.g., <a href="#value-array">array</a> or <a
 									href="#value-localizable-string">localizable string</a>). This means the relevant
 								canonicalization steps will be automatically executed for those terms </li>
-							<li>If necessary, the profile MAY define its own canonicalization step, to be executed as
-								the <a href="#canonicalization-extension-point">last step of the general
-									canonicalization algorithm</a>. Such an extra step MUST NOT invalidate the results
-								of any of the steps defined for the <a href="#manifest-processing">processing
-									algorithm</a> in general. </li>
+							<li>If necessary, the profile MAY define its own canonicalization step(s), to be executed at
+								the designated extension points within the <a href="#manifest-processing">processing
+									algorithm</a>. Such extra steps MUST NOT invalidate the results of any of the steps
+								defined for the <a href="#manifest-processing">processing algorithm</a> in general.</li>
 						</ul>
 					</li>
-					<li>If necessary, the profile MAY define its own manifest processing step, to be executed as part of
-						the steps described in <a href="#manifest-processing"></a>
-					</li>
-				</ul>
+				</ol>
 				<p class="ednote"> Adding an example of a term added by, e.g., the audiobook profile would be a good
 					idea, when available. </p>
 			</section>
@@ -2604,9 +2589,9 @@ enum ProgressionDirection {
 			<ul>
 				<li><var>text</var>: a UTF-8 string containing the manifest;</li>
 				<li><var>base</var>: a URL string that represents the base URL for the manifest.</li>
-				<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM) Node</a>
-					[[html]] of the document that <a href="#manifest-discovery">references the manifest</a>, when
-					available.</li>
+				<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM)
+					Node</a>&#160;[[!html]] of the document that <a href="#manifest-discovery">references the
+						manifest</a>, when available.</li>
 			</ul>
 
 			<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
@@ -2617,29 +2602,29 @@ enum ProgressionDirection {
 				whatever language and form is appropriate.</p>
 
 			<ol>
-				<li>
+				<li id="processing-init">
 					<p>Let <var>processed</var> be an object containing the <a>canonical representation</a> of the
 						manifest.</p>
 				</li>
 
-				<li>
+				<li id="processing-json">
 					<p>Let <var>manifest</var> be the result of <a data-cite="ecmascript#sec-json.parse">parsing</a>
-						<var>text</var> as JSON [[!ecmascript]]. If parsing throws an error, terminate this
+						<var>text</var> as JSON&#160;[[!ecmascript]]. If parsing throws an error, terminate this
 						algorithm.</p>
 				</li>
 
-				<li>
-					<p>If typeof(<var>manifest</var>) is not <code>Object</code> [[!ecmascript]], terminate this
+				<li id="processing-object">
+					<p>If typeof(<var>manifest</var>) is not <code>Object</code>&#160;[[!ecmascript]], terminate this
 						algorithm.</p>
 				</li>
 
-				<li>
+				<li id="processing-context">
 					<p>(<a href="#manifest-context"></a>) If <var>manifest["@context"]</var> does not contain the values
 							"<code>https://schema.org</code>" and "<code>https://www.w3.org/ns/pub-context</code>" (in
 						this order), issue an error and terminate this algorithm.</p>
 				</li>
 
-				<li>
+				<li id="processing-expansion">
 					<p>Iterate over each property <var>term</var> in <var>manifest</var> and expand its value, as
 						necessary, as follows. More than one step MAY apply.</p>
 					<p class="note"> The steps below depend on the expected value category of a <var>term</var>. Care
@@ -2650,48 +2635,32 @@ enum ProgressionDirection {
 					<p>For this step, the variable <var>current</var> is set to the value of <var>manifest[term]</var>
 						and is updated by each applicable transformation.</p>
 					<ol style="list-style-type: lower-alpha;">
-						<li>
+						<li id="processing-expansion-arrays">
 							<p>(<a href="#value-array"></a>) If <var>term</var> expects an <a href="#value-array"
 									>array</a> but <var>current</var> contains a string or object <var>value</var>,
 								convert <var>current</var> to an array and push <var>value</var> onto it.</p>
 							<details>
 								<summary>Explanation</summary>
-								<p>A number of terms require their values to be arrays but, for the sake of convenience,
-									authors are allowed to use a single value instead of a one element array. For
-									example,</p>
+								<p>A number of terms require their values to be arrays, but, for the sake of
+									convenience, authors are allowed to use a single value instead of a one element
+									array. For example,</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "name"      : "Moby Dick",
-    "author"    : "Herman Melville",
-    "resources" : [{
-        "type"           : "LinkedResource",
-        "rel"            : "cover",
-        "url"            : "images/cover.jpg",
-        "encodingFormat" : "image/jpeg"
-    },
-        &#8230;
-    }],
+    "name"      : "Et dukkehjem",
+    "author"    : "Henrik Ibsen",
     &#8230;
 }</pre>
 								<p>yields:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "name"      : ["Moby Dick"],
-    "author"    : ["Herman Melville"],
-    "resources" : [{
-        "type"           : ["LinkedResource"],
-        "rel"            : ["cover"],
-        "url"            : "images/cover.jpg",
-        "encodingFormat" : "image/jpeg"
-    },
-        &#8230;
-    }],
+    "name"      : ["Et dukkehjem"],
+    "author"    : ["Henrik Ibsen"],
     &#8230;
 }</pre>
 							</details>
 						</li>
 
-						<li>
+						<li id="processing-expansion-entities">
 							<p>(<a href="#value-object-entity"></a>) If <var>term</var> expects an <a
 									href="#value-object-entity">entity</a> but the value of <var>current</var> is a
 								string <var>str</var>, convert <var>current</var> to an object with the following
@@ -2701,16 +2670,16 @@ enum ProgressionDirection {
 									"<code>Person</code>";</p></li>
 								<li><p><var>name</var> &#8211; set to <var>str</var>.</p></li>
 							</ul>
-							<p>If typeof(<var>current</var>) is <code>Array</code> [[!ecmascript]], perform this step on
-								each value of the array.</p>
+							<p>If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this
+								step on each element of the array.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>Authors, editors, etc., are expected to be explicitly designed as an object of type
-										<code>Person</code> but, for the sake of convenience, only their name has to be
+										<code>Person</code>, but, for the sake of convenience, only their name has to be
 									specified. For example:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "author"    : ["Herman Melville"],
+    "author"    : ["Ralph Ellison"],
     &#8230;
 }</pre>
 								<p>This rule converts the string values to objects, yielding the following for the
@@ -2719,7 +2688,7 @@ enum ProgressionDirection {
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "author"    : [{
         "type" : ["Person"],
-        "name" : "Herman Melville"
+        "name" : "Ralph Ellison"
     }],
     &#8230;
 }</pre>
@@ -2728,7 +2697,7 @@ enum ProgressionDirection {
 							</details>
 						</li>
 
-						<li id="step-localizable-string">
+						<li id="processing-expansion-localizable-strings">
 							<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects a <a
 									href="#value-localizable-string">localizable string</a> and <var>current</var>
 								contains a string <var>str</var>, convert <var>current</var> to an object with the
@@ -2744,51 +2713,56 @@ enum ProgressionDirection {
 										omitted.</p>
 								</li>
 							</ul>
-							<p>If typeof(<var>current</var>) is <code>Array</code> [[!ecmascript]], perform this step on
-								each value of the array.</p>
-							<p>If typeof(<var>current</var>) is <code>Object</code> [[!ecmascript]], perform this step
-								on each property of the object.</p>
+							<p>If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this
+								step on each element of the array.</p>
+							<p>If typeof(<var>current</var>) is <code>Object</code>&#160;[[!ecmascript]], perform this
+								step on each property of the object.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>Natural language text values are expected to be explicitly designed as localizable
-									string objects but, for the sake of convenience, can be simple strings For example,
-									if no language information has been provided via <code>inLanguage</code> in the
-									manifest then:</p>
+									string objects, but, for the sake of convenience, can be simple strings. For
+									example, if no language information has been provided via the <a
+										href="#manifest-lang-dir-global">global language declaration</a> then:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "name"      : ["Moby Dick"],
+    "name"      : ["La Comédie humaine"],
     &#8230;
 }</pre>
 								<p>yields:</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"      : [{
-        "value" : "Moby Dick"
+        "value" : "La Comédie humaine"
     }],
     &#8230;
 }</pre>
-								<p>If an explicit language has also been provided in the manifest, that language is also
+								<p>If, however, an explicit language has been provided in the manifest, that language is
 									added to the localizable string object. For example,</p>
 								<pre class="example">{
-    "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "inLanguage" : "en",
-    "name"       : ["Moby Dick"],
+    "@context"  : [
+                     "https://schema.org",
+                     "https://www.w3.org/ns/pub-context",
+                     {"language": "fr"}
+                  ],
+    "name"       : ["La Comédie humaine"],
     &#8230;
 }</pre>
 								<p>yields:</p>
 								<pre class="example">{
-    "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
-    "inLanguage": "en",
+    "@context"  : [
+                     "https://schema.org",
+                     "https://www.w3.org/ns/pub-context",
+                     {"language": "fr"}
+                  ],
     "name"      : [{
-        "value"    : "Moby Dick",
-        "language" : "en"
+        "value"    : "La Comédie humaine",
+        "language" : "fr"
     }],
     &#8230;
 }</pre>
 							</details>
 						</li>
-	
-						<li>
+						<li id="processing-expansion-links">
 							<p>(<a href="#value-link"></a>) If <var>term</var> is a <a
 									href="#resource-categorization-properties">resource categorization property</a> or an <a href="#dom-linkedresource-alternate"><code>alternate</code></a> property, and
 								any value in the array in <var>current</var> is a string, convert each string
@@ -2801,13 +2775,13 @@ enum ProgressionDirection {
 							<details>
 								<summary>Explanation</summary>
 								<p>Resource links are expected to be explicitly designed as an object of type
-										<code>LinkedResource</code> but, for the sake of convenience, only their
+										<code>LinkedResource</code>, but, for the sake of convenience, only their
 									absolute or relative URL has to be specified. For example,</p>
 								<pre class="example">{
     "@context"  : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     &#8230;
     "resources" : [
-        "css/mobydick.css",
+        "css/book.css",
         &#8230;
     ],
     &#8230;
@@ -2819,7 +2793,7 @@ enum ProgressionDirection {
     &#8230;
     "resources" : [{
         "type" : ["LinkedResource"],
-        "url"  : "css/mobydick.css"
+        "url"  : "css/book.css"
     },
         &#8230;
     ],
@@ -2830,15 +2804,15 @@ enum ProgressionDirection {
 							</details>
 						</li>
 
-						<li>
+						<li id="processing-expansion-urls">
 							<p>(<a href="#value-url"></a>) If <var>term</var> expects a <a href="#value-url">URL</a> and
 								the value of <var>current</var> is a string that is not an <a
 									data-cite="!url/#absolute-url-string">absolute URL string</a>, resolve the value
-								using the value of <var>base</var> [[!rfc1808]].</p>
-							<p>If typeof(<var>current</var>) is <code>Array</code> [[!ecmascript]], perform this step on
-								each value of the array.</p>
-							<p>If typeof(<var>current</var>) is <code>Object</code> [[!ecmascript]], perform this step
-								on each property of the object.</p>
+								using the value of <var>base</var>&#160;[[!rfc1808]].</p>
+							<p>If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this
+								step on each element of the array.</p>
+							<p>If typeof(<var>current</var>) is <code>Object</code>&#160;[[!ecmascript]], perform this
+								step on each property of the object.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>All relative URLs in the publication manifest must be resolved against the base value
@@ -2846,7 +2820,7 @@ enum ProgressionDirection {
 							</details>
 						</li>
 
-						<li id="canonicalization-extension-point">
+						<li id="processing-expansion-extension">
 							<p>(<a href="#mod-compat"></a>, extension point) if a <a>profile</a> defines processing
 								steps for profile-specific terms, those steps are executed at this point.</p>
 						</li>
@@ -2854,26 +2828,33 @@ enum ProgressionDirection {
 					<p>Set <var>processed[term]</var> to the value of <var>current</var>.</p>
 				</li>
 
-				<li>
+				<li id="processing-defaults">
 					<p>Add defaults from <var>document</var> for the following properties, when applicable:</p>
 					<ol style="list-style-type: lower-alpha;">
-						<li>
+						<li id="processing-defaults-title">
 							<p>(<a href="#pub-title"></a>) If <var>processed["name"]</var> is not set, or its value is
 								an empty string:</p>
 							<ul>
-								<li>Create a new <var>object</var>: <ul>
-										<li> if the <a data-cite="html#the-title-element"><code>title</code></a> element
-											[[html]] of <var>document</var> is set and its contains is not empty, set
-												<var>object["value"]</var> to the text content of the <code>title</code>
-											element and, if applicable, set <var>object["language"]</var> to the <a
-												data-cite="html#the-lang-and-xml:lang-attributes"
-											>language</a>&#160;[[html]]. </li>
-										<li> otherwise, generate a value for <var>object["value"]</var> (see the <a
-												href="#generate_title">separate note for details</a>) and issue a
-											warning. </li>
+								<li>
+									<p>Create a new object <var>title</var>:</p>
+									<ul>
+										<li>
+											<p>if the <a data-cite="html#the-title-element"><code>title</code></a>
+												element&#160;[[!html]] of <var>document</var> is set and its contains is
+												not empty, set <var>title["value"]</var> to the text content of the
+													<code>title</code> element and, if applicable, set
+													<var>title["language"]</var> to the <a
+													data-cite="html#the-lang-and-xml:lang-attributes"
+												>language</a>&#160;[[!html]].</p>
+										</li>
+										<li>
+											<p>otherwise, generate a value for <var>title["value"]</var> (see the <a
+													href="#generate_title">separate note for details</a>) and issue a
+												warning.</p>
+										</li>
 									</ul>
 								</li>
-								<li>Set <var>processed["name"]</var> to an empty array and push <var>object</var> onto
+								<li>Set <var>processed["name"]</var> to an empty array and add <var>title</var> to
 									it.</li>
 							</ul>
 							<details>
@@ -2883,7 +2864,7 @@ enum ProgressionDirection {
 									example:</p>
 								<pre class="example">&lt;html&gt;
 &lt;head lang="en"&gt;
-    &lt;title&gt;Moby Dick&lt;/title&gt;
+    &lt;title&gt;The Golden Bough&lt;/title&gt;
     &#8230;
     &lt;script type="application/ld+json"&gt;
     {
@@ -2895,7 +2876,7 @@ enum ProgressionDirection {
 								<pre class="example">{
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"     : [{
-        "value" : "Moby Dick",
+        "value" : "The Golden Bough",
         "language" : "en"
     }],
     &#8230;
@@ -2903,16 +2884,20 @@ enum ProgressionDirection {
 							</details>
 						</li>
 
-						<li id="reading-order">
+						<li id="processing-defaults-reading-order">
 							<p>(<a href="#default-reading-order"></a>) If <var>processed["readingOrder"]</var> is not
-								set or its value is an empty string or array, create an object:</p>
+								set or its value is an empty string or array:</p>
 							<ul>
-								<li>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, issue an
-									error and terminate this algorithm.</li>
-								<li>otherwise, create an object and set its <var>url</var> property to the value of <a
-										data-cite="!dom#concept-document-url">document.URL</a>. Set
-										<var>processed["readingOrder"]</var> to an empty array and push the object onto
-									it. </li>
+								<li>
+									<p>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, issue an
+										error and terminate this algorithm.</p>
+								</li>
+								<li>
+									<p>otherwise, create an object and set its <var>url</var> property to the value of
+											<a data-cite="!dom#concept-document-url">document.URL</a>. Set
+											<var>processed["readingOrder"]</var> to an empty array and add the object to
+										it.</p>
+								</li>
 							</ul>
 							<details>
 								<summary>Explanation</summary>
@@ -2922,17 +2907,17 @@ enum ProgressionDirection {
 							</details>
 						</li>
 
-						<li id="html-extension-point">
+						<li id="processing-defaults-extension">
 							<p>If a <a>profile</a> specifies <var>document</var> fallbacks, those steps are executed at
 								this point.</p>
 						</li>
 					</ol>
 				</li>
 
-				<li>
+				<li id="processing-checks">
 					<p>Perform data integrity checks on the following properties in <var>processed</var>:</p>
 					<ol style="list-style-type: lower-alpha;">
-						<li>
+						<li id="processing-checks-entities">
 							<p>For each property <var>term</var> in <var>processed</var> that expects an array of <a
 									href="#value-object-entity">entities</a>, check whether each value <var>entry</var>
 								in <var>processed[term]</var> has its <var>name</var> property set. If not, remove
@@ -2941,60 +2926,75 @@ enum ProgressionDirection {
 								object in which one or more properties expect entities.</p>
 						</li>
 
-						<li>
+						<li id="processing-checks-language">
 							<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"></a>)
-								Recursively check that every <var>language</var> property in <var>processed</var> is
-								well-formed [[!bcp47]] and issue a warning for any invalid values found.</p>
+								Recursively check that every <var>language</var> property in <var>processed</var> is <a
+									href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed</a>&#160;[[!bcp47]] and issue a warning for any non well-formed values
+								found.</p>
 						</li>
 
-						<li>
+						<li id="processing-checks-direction">
 							<p>(<a href="#manifest-lang-dir-global"></a>) If <var>processed["direction"]</var> is set
 								and its value is not one of the <a href="#manifest-lang-dir-global">required directional
 									values</a>, issue a warning.</p>
 						</li>
 
-						<li>
-							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
-								that each value in its array is well-formed [[!bcp47]] and issue a warning for any
-								invalid values found.</p>
-						</li>
-
-						<li>
-							<p>(<a href="#language-and-dir"></a>) If <var>processed["inDirection"]</var> is set and its
-								value is not one of the <a href="#language-and-dir">required directional values</a>,
-								issue a warning.</p>
-						</li>
-
-						<li>
+						<li id="processing-checks-type">
 							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or
 								contains an empty value, set its value to an array with the value
 									"<code>CreativeWork</code>" and issue a warning.</p>
 						</li>
 
-						<li>
+						<li id="processing-checks-abridged">
+							<p>(<a href="#abridged"></a>) If <var>processed["abridged"]</var> is set and it is not a <a
+									href="#value-boolean">boolean value</a>, issue a warning.</p>
+						</li>
+
+						<li id="processing-checks-duration">
 							<p>(<a href="#duration"></a>) If <var>processed["duration"]</var> is set and its value is
 								not a valid duration value, per&#160;[[!iso8601]], issue a warning.</p>
 						</li>
 
-						<li>
+						<li id="processing-checks-last-mod">
 							<p>(<a href="#last-modification-date"></a>) If <var>processed["dateModified"]</var> is set
 								and its value is not a valid date or date-time per&#160;[[!iso8601]], issue a
 								warning.</p>
 						</li>
 
-						<li>
+						<li id="processing-checks-pub-date">
 							<p>(<a href="#publication-date"></a>) If <var>processed["datePublished"]</var> is set and
 								its value is not a valid date or date-time per&#160;[[!iso8601]], issue a warning.</p>
 						</li>
 
-						<li>
+						<li id="processing-checks-inlanguage">
+							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
+								that each value in its array is <a
+									href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed</a>&#160;[[!bcp47]] and issue a warning for any non well-formed values
+								found.</p>
+						</li>
+
+						<li id="processing-checks-progression-dir">
+							<p>(<a href="#reading-progression-direction"></a>) Verify
+									<var>processed["readingProgression"]</var> as follows:</p>
+							<ul>
+								<li>If the property is not set, set its value to "<code>ltr</code>".</li>
+								<li>Otherwise, if the property is set but is not one of the <a
+										href="#reading-progression-direction">required directional values</a>, issue a
+									warning.</li>
+								<li>Otherwise, do nothing.</li>
+							</ul>
+						</li>
+
+						<li id="processing-checks-urls">
 							<p>(<a href="#resource-categorization-properties"></a>) For each <a
 									href="#resource-categorization-properties">resource categorization property</a>
-								<var>term</var>, check whether each object <var>P</var> in <var>processed[term]</var>
-								has <var>P["url"]</var> set:</p>
+								<var>term</var> in <var>processed</var>, check whether each object <var>P</var> in
+									<var>processed[term]</var> has <var>P["url"]</var> set:</p>
 							<ul>
 								<li>
-									<p>If not, remove <var>P</var> from <var>processed[term]</var> array and issue a
+									<p>If not, remove <var>P</var> from the <var>processed[term]</var> array and issue a
 										warning.</p>
 								</li>
 								<li>
@@ -3004,19 +3004,45 @@ enum ProgressionDirection {
 							</ul>
 						</li>
 
-						<li>
-							<p>(<a href="#LinkedResource"></a>) If <var>term</var> is type <a>LinkedResource</a> and the
-								value of <var>current["length"]</var> is set, check whether this value is a valid number
-								and issue a warning if not.</p>
+						<li id="processing-checks-length">
+							<p>(<a href="#LinkedResource"></a>) For each property <var>term</var> in
+									<var>processed</var> that expects type <a>LinkedResource</a>, issue a warning if
+									<var>term["length"]</var> is set and is not a valid number.</p>
 						</li>
 
-						<li>If a <a>profile</a> specifies data validation checks, those steps are executed at this
-							point.</li>
+						<li id="processing-checks-extension">
+							<p>If a <a>profile</a> specifies data validation checks, those steps are executed at this
+								point.</p>
+						</li>
 					</ol>
 				</li>
 			</ol>
 
-			<p class="note"> How error and warning messages are reported is user agent dependent.</p>
+			<p class="note">How error and warning messages are reported is user agent dependent.</p>
+		</section>
+		<section id="security-privacy">
+			<h2>Security and Privacy Considerations</h2>
+
+			<p>As the manifest is expressed using JSON-LD, the <a href="https://www.w3.org/TR/json-ld11/#privacy"
+					>privacy</a> and <a href="https://www.w3.org/TR/json-ld11/#iana-considerations">security
+					considerations</a> [[!json-ld]] detailed in that specification are applicable to all <a
+					href="#extensions">profiles</a> of the manifest.</p>
+
+			<p>Some additional general considerations for profiles include:</p>
+
+			<ul>
+				<li>The location of resources is not defined at the manifest level, so profiles that allow references to
+					remotely hosted resources will need to be concerned with Web security principles (e.g., cross-origin
+					resource sharing).</li>
+				<li>The ability to <a href="#links">link to external resources</a> potentially exposes users to
+					malicious content.</li>
+				<li>The manifest allows personally identifiable information about a digital publication's creator(s)
+					(e.g., names, identifying URLs) to be included, so authoring tools could expose unexpected
+					information if explicit author approval of metadata is not required.</li>
+			</ul>
+
+			<p>More specific security and privacy considerations are left to each profile to detail, as these will vary
+				depending on the nature of the <a>digital publication</a> format.</p>
 		</section>
 		<section id="app-custom-types" class="appendix">
 			<h2>Custom Type Definition</h2>
@@ -3038,6 +3064,19 @@ enum ProgressionDirection {
 						</tr>
 					</thead>
 					<tbody>
+						<tr>
+							<td>
+								<code>
+									<dfn>type</dfn>
+								</code>
+							</td>
+							<td>The type of resource. OPTIONAL</td>
+							<td>One or more Text. Sequence MUST include "<code>LinkedResource</code>".</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+							</td>
+							<td>(None)</td>
+						</tr>
 						<tr>
 							<td>
 								<code>
@@ -3132,10 +3171,10 @@ enum ProgressionDirection {
 							<td>A cryptographic hashing of the resource that allows its integrity to be verified.
 								OPTIONAL.</td>
 							<td><p>One or more whitespace-separated sets of <a
-										href="https://www.w3.org/TR/SRI/#dfn-integrity-metadata">integrity metadata</a>
-									[[!sri]]. The value MUST conform to the <a
+										href="https://www.w3.org/TR/SRI/#dfn-integrity-metadata">integrity
+									metadata</a>&#160;[[!sri]]. The value MUST conform to the <a
 										href="https://www.w3.org/TR/SRI/#the-integrity-attribute">metadata
-										definition</a> [[!sri]].</p>
+										definition</a>&#160;[[!sri]].</p>
 								<p>Refer to [[!sri]] for the <a
 										href="https://www.w3.org/TR/SRI/#cryptographic-hash-functions">list of
 										cryptographic hashing functions</a> that user agents are expected to
@@ -3261,7 +3300,7 @@ dictionary LinkedResource {
 								</code>
 							</td>
 							<td>The type of creator. OPTIONAL</td>
-							<td>One or more Text. Sequence should include "<code>Person</code>" or
+							<td>One or more Text. Sequence MUST include "<code>Person</code>" or
 									"<code>Organization</code>".</td>
 							<td>
 								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
@@ -3293,7 +3332,7 @@ dictionary LinkedResource {
 								</code>
 							</td>
 							<td>A canonical identifier associated with the creator. OPTIONAL.</td>
-							<td>A URL record [[!url]].</td>
+							<td>A URL record&#160;[[!url]].</td>
 							<td>
 								<a href="#value-id">Identifier</a>
 							</td>
@@ -3316,6 +3355,23 @@ dictionary LinkedResource {
 								</a>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<code>
+									<dfn>identifier</dfn>
+								</code>
+							</td>
+							<td>An identifier associated with the creator (e.g., ORCID). OPTIONAL.</td>
+							<td>One or more text(s).</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+							</td>
+							<td>
+								<a href="https://schema.org/identifier">
+									<code>identifier</code>
+								</a>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 
@@ -3328,6 +3384,7 @@ dictionary CreatorInfo {
     required sequence&lt;LocalizableString> name;
              DOMString                   id;
              DOMString                   url;
+             sequence&lt;DOMString>         identifier;
 };
 </pre>
 			</section>
@@ -3354,12 +3411,25 @@ dictionary CreatorInfo {
 						<tr>
 							<td>
 								<code>
+									<dfn>type</dfn>
+								</code>
+							</td>
+							<td>The type of string. OPTIONAL</td>
+							<td>One or more Text. Sequence MUST include "<code>LocalizableString</code>".</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+							</td>
+							<td>(None)</td>
+						</tr>
+						<tr>
+							<td>
+								<code>
 									<dfn>value</dfn>
 								</code>
 							</td>
 							<td>The value of the localizable string. REQUIRED.</td>
 							<td>Text.</td>
-							<td></td>
+							<td><a href="#value-literal">Literal</a></td>
 							<td>(None)</td>
 						</tr>
 						<tr>
@@ -3369,7 +3439,8 @@ dictionary CreatorInfo {
 								</code>
 							</td>
 							<td>The language of the value. OPTIONAL.</td>
-							<td>A language code as defined in [[!bcp47]].</td>
+							<td>A <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
+								tag</a>&#160;[[!bcp47]].</td>
 							<td><a href="#value-literal">Literal</a></td>
 							<td>(None)</td>
 						</tr>
@@ -3378,6 +3449,7 @@ dictionary CreatorInfo {
 
 				<pre class="idl">
 dictionary LocalizableString {
+             sequence&lt;DOMString>         type;
     required DOMString                   value;
              DOMString                   language;
 };
@@ -3391,12 +3463,13 @@ dictionary LocalizableString {
 				<h3>Introduction</h3>
 
 				<p>To facilitate navigation within pages and across sites, HTML uses the <a
-						href="https://www.w3.org/TR/html/sections.html#the-nav-element"><code>nav</code> element</a>
-					[[html]] to express lists of links. Although generic in nature by default, the purpose of a
-						<code>nav</code> element can be more specifically identified by use of the <a
-						href="https://www.w3.org/TR/html/dom.html#aria-role-attribute"><code>role</code> attribute</a>
-					[[html]]. In particular, the <code>doc-toc</code> role from the [[dpub-aria-1.0]] vocabulary
-					identifies the <code>nav</code> element as the <a>digital publication's</a> table of contents.</p>
+						href="https://www.w3.org/TR/html/sections.html#the-nav-element"><code>nav</code>
+					element</a>&#160;[[html]] to express lists of links. Although generic in nature by default, the
+					purpose of a <code>nav</code> element can be more specifically identified by use of the <a
+						href="https://www.w3.org/TR/html/dom.html#aria-role-attribute"><code>role</code>
+					attribute</a>&#160;[[html]]. In particular, the <code>doc-toc</code> role from the [[dpub-aria-1.0]]
+					vocabulary identifies the <code>nav</code> element as the <a>digital publication's</a> table of
+					contents.</p>
 
 				<p>Including an identifiable table of contents is an accessible way to produce any <a>digital
 						publication</a>, but due to the flexibility of HTML markup, it also presents challenges for user
@@ -3437,7 +3510,7 @@ dictionary LocalizableString {
 					<dd>
 						<p>Although a title for the table of contents is optional, to avoid having a user agent generate
 							a placeholder title when one is needed, it is advised to add one. Titles are specified using
-							any of the [[html]] <a
+							any of the [[!html]]&#160;<a
 								href="https://www.w3.org/TR/html/sections.html#the-h1-h2-h3-h4-h5-and-h6-elements"
 									><code>h1</code> through <code>h6</code> elements</a>. Note that only the first such
 							element is recognized as the title. If a heading element is not found before the <a
@@ -3446,8 +3519,9 @@ dictionary LocalizableString {
 					</dd>
 					<dt id="toc-list-links">List of Links</dt>
 					<dd>
-						<p>The first [[html]] <a href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"
-									><code>ol</code></a> or <a
+						<p>The first [[!html]]&#160;<a
+								href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"
+								><code>ol</code></a> or <a
 								href="https://www.w3.org/TR/html/grouping-content.html#the-ul-element"
 								><code>ul</code></a> list element encountered in the <code>nav</code> element is assumed
 							to contain the list that defines the links into the content. This list will be found even if
@@ -3486,7 +3560,7 @@ dictionary LocalizableString {
 					<dt id="toc-skipped-elements">Skipped Elements</dt>
 					<dd>
 						<p>A small set of elements are ignored when the parsing table of contents to avoid
-							misinterpretation. These are the [[html]] <a
+							misinterpretation. These are the [[!html]]&#160;<a
 								href="https://www.w3.org/TR/html/dom.html#sectioning-content">sectioning content
 								elements</a> and <a href="https://www.w3.org/TR/html/sections.html#sectioning-roots"
 								>sectioning root elements</a>. The reason they are ignored is because they can defined
@@ -3612,8 +3686,9 @@ dictionary LocalizableString {
 					of contents as JavaScript objects. User agents can process and internalize the resulting structure
 					in whatever language and form is appropriate.</p>
 
-				<p>For the purposes of this algorithm, a <dfn>list element</dfn> is defined as either an [[!html]] <a
-						href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"><code>ol</code></a> or <a
+				<p>For the purposes of this algorithm, a <dfn>list element</dfn> is defined as either an
+						[[!html]]&#160;<a href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"
+							><code>ol</code></a> or <a
 						href="https://www.w3.org/TR/html/grouping-content.html#the-ul-element"><code>ul</code></a>
 					element.</p>
 
@@ -3687,7 +3762,7 @@ dictionary LocalizableString {
 											<li>the text string obtained from the descendant content (e.g., by
 												calculating the <a
 													href="https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te"
-													>accessible name</a> [[accname-1.1]] of the element).</li>
+													>accessible name</a>&#160;[[accname-1.1]] of the element).</li>
 										</ul>
 										<p>If the resulting value of <code>name</code> is an empty string (e.g., after
 											removing any presentational elements and trimming all leading and trailing
@@ -3937,7 +4012,8 @@ dictionary LocalizableString {
 													<li>the text string obtained from the descendant content (e.g., by
 														calculating the <a
 															href="https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te"
-															>accessible name</a> [[accname-1.1]] of the element).</li>
+															>accessible name</a>&#160;[[accname-1.1]] of the
+														element).</li>
 												</ul>
 												<p>If the resulting value of <code>name</code> is an empty string (e.g.,
 													after removing any presentational elements and trimming all leading
@@ -4047,31 +4123,31 @@ dictionary LocalizableString {
 
 			<section>
 				<h3>Simple Book</h3>
-				<p>A manifest for a simple book. The <a
+				<p>A manifest for a simple book. A <a
 						href="https://w3c.github.io/pub-manifest/experiments/separate_manifest/mobydick.jsonld">JSON
-						encoding of its canonical representation</a> of this manifest is also available.</p>
+						encoding of the canonical representation</a> of this manifest is also available.</p>
 				<pre class="example" data-include="experiments/separate_manifest/mobydick-simple.jsonld" data-include-format="text"></pre>
 			</section>
 
 			<section>
 				<h3>Single-Document Publication</h3>
-				<p>Example for an embedded manifest example. The <a
+				<p>Example for an embedded manifest example. A <a
 						href="https://w3c.github.io/pub-manifest/experiments/w3c_rec/simple-canonical.jsonld">JSON
-						encoding of its canonical representation</a> of the manifest is, as well as a <a
+						encoding of the canonical representation</a> of the manifest is also available, as well as a <a
 						href="https://github.com/w3c/pub-manifest/blob/master/experiments/w3c_rec/full_version.html"
-						>more elaborate version</a> for the same document are also available.</p>
+						>more elaborate version</a> for the same document.</p>
 				<pre class="example" data-include="experiments/w3c_rec/simple_version.html" data-include-format="text"></pre>
 			</section>
 
 			<section>
 				<h3>Audiobook</h3>
-				<p>A manifest for an audiobook. The <a
+				<p>A manifest for an audiobook. A <a
 						href="https://w3c.github.io/pub-manifest/experiments/audiobook/flatland-canonical.json">JSON
-						encoding of its canonical representation</a> of this manifest is also available.</p>
+						encoding of the canonical representation</a> of this manifest is also available.</p>
 				<pre class="example" data-include="experiments/audiobook/flatland.json" data-include-format="text"></pre>
 			</section>
 		</section>
-		<section id="app-bidi-examples" data-include="common/html/bidi-example-table.html" data-include-replace="true"></section>
+		<section id="app-bidi" data-include="common/html/bidi-example-table.html" data-include-replace="true"></section>
 		<section id="properties-index" class="appendix informative">
 			<h4>Properties Index</h4>
 
@@ -4205,14 +4281,6 @@ dictionary LocalizableString {
 					</tr>
 					<tr>
 						<td>
-							<code>inDirection</code>
-						</td>
-						<td>
-							<a href="#language-and-dir"></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<code>inker</code>
 						</td>
 						<td>
@@ -4281,6 +4349,14 @@ dictionary LocalizableString {
 						</td>
 						<td>
 							<a href="#default-reading-order"></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>readingProgression</code>
+						</td>
+						<td>
+							<a href="#reading-progression-direction"></a>
 						</td>
 					</tr>
 					<tr>
