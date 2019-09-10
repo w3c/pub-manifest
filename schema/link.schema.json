@@ -56,6 +56,21 @@
         "length": {
             "type": "number",
             "exclusiveMinimum": 0
+        },
+        "alternate": {
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "format": "uri-reference"
+                    },
+                    {
+                        "$ref": "link.schema.json"
+                    }
+                ]
+            },
+            "uniqueItems": true
         }
     },
     "required": [
