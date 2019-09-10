@@ -2787,10 +2787,10 @@ enum ProgressionDirection {
 }</pre>
 							</details>
 						</li>
-
+	
 						<li>
 							<p>(<a href="#value-link"></a>) If <var>term</var> is a <a
-									href="#resource-categorization-properties">resource categorization property</a> and
+									href="#resource-categorization-properties">resource categorization property</a> or an <a href="#dom-linkedresource-alternate"><code>alternate</code></a> property, and
 								any value in the array in <var>current</var> is a string, convert each string
 									<var>str</var> to an object with the following properties:</p>
 							<ul>
@@ -2988,16 +2988,6 @@ enum ProgressionDirection {
 						</li>
 
 						<li>
-							<p>(<a href="#default-reading-order"></a> and <a href="#resource-list"></a>) For each entry
-								in <var>processed["readingOrder"]</var> and <var>processed["resources"]</var> with an
-									<var>alternative</var> property <var>P</var>, iterate each value of
-									<var>alternative</var>
-								<var>V</var>.</p>
-							<p>If <var>V["url"]</var> does not match the URL of a resource in the <a>resource list</a>,
-								remove <var>V</var> from <var>P</var> array and issue a warning.</p>
-						</li>
-
-						<li>
 							<p>(<a href="#resource-categorization-properties"></a>) For each <a
 									href="#resource-categorization-properties">resource categorization property</a>
 								<var>term</var>, check whether each object <var>P</var> in <var>processed[term]</var>
@@ -3173,13 +3163,29 @@ enum ProgressionDirection {
 						<tr>
 							<td>
 								<code>
-									<dfn>alternative</dfn>
+									<dfn>alternate</dfn>
 								</code>
 							</td>
-							<td>A reference to a reformulation of the resource in an alternative format. OPTIONAL</td>
-							<td>One or more valid URL strings&#160;[[!url]].</td>
 							<td>
-								<a href="#value-array">Array</a> of <a href="#value-url">URLs</a>
+								<p>References to one or more reformulation(s) of the resource in alternative formats.</p>
+								<p>When specified, <code>encodingFormat</code> indicates the format of the reformulation.</p>
+								<p>Order is not significant.</p>
+								<p>OPTIONAL</p>
+								<p>One or more of:</p>
+										<ul>
+											<li>a string, representing the <a>URL</a> of the resource reformulation in an alternative format; or</li>
+											<li>an instance of a <a href="#publication-link-def"
+														><code>LinkedResource</code></a> object</li>
+										</ul>
+										<p>The order of items is <em>not significant</em>. Non-HTML resources SHOULD be expressed as
+												<code>LinkedResource</code> objects with their
+												<code>encodingFormat</code> values set.</p>
+							</td>
+							<td>
+								<p>One or more instances of <a href="#publication-link-def"><code>LinkedResource</code></a> objects.</p>
+							</td>
+							<td>
+								<a href="#value-array">Array</a> of <a href="#value-link">Links</a>
 							</td>
 							<td> (None) </td>
 						</tr>
@@ -3200,16 +3206,34 @@ enum ProgressionDirection {
 }</pre>
 				</aside>
 
+				<aside class="example" title="A resource with its alternate formats">
+					<pre>{
+    "type":           "LinkedResource",
+    "url":            "chapter1.mp3",
+    "encodingFormat": "audio/mpeg",
+    "name":           "Chapter 1 - Loomings",
+    "alternate": [
+	"chapter1.html",
+	{
+		"type": "LinkedResource",
+		"url": "chapter1.json",
+		"encodingFormat": "application/vnd.wp-sync-media+json"
+		"length": 1669
+	}
+    ]
+}</pre>
+				</aside>
+
 				<pre class="idl">
 dictionary LinkedResource {
-    required DOMString           url;
-             DOMString           encodingFormat;
-             sequence&lt;LocalizableString>   name;
-             LocalizableString   description;
-             sequence&lt;DOMString> rel;
-             DOMString           integrity;
-             double              length;
-             sequence&lt;DOMString> alternative;
+    required DOMString                           url;
+             DOMString                           encodingFormat;
+             sequence&lt;LocalizableString>         name;
+             LocalizableString                   description;
+             sequence&lt;DOMString>                 rel;
+             DOMString                           integrity;
+             double                              length;
+             sequence&lt;LinkedResource>            alternate;
 };</pre>
 			</section>
 
