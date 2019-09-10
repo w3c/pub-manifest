@@ -12,7 +12,7 @@
 		<p>In situations where the first-strong heuristics will produce the wrong result (e.g., a string in the Arabic
 			or Hebrew script that begins with a Latin acronym), authors can prepend a Unicode formatting character (one
 			of U+200E LEFT-TO-RIGHT MARK or U+200F RIGHT-TO-LEFT MARK) to the string. This would then produce the
-			necessary base direction when the heuristics are applied. (See <a href="#app-bidi-examples"/>.)</p>
+			necessary base direction when the heuristics are applied. (See <a href="#app-bidi-examples"></a>.)</p>
 
 		<p>Once the base direction has been identified, user agents MUST determine the appropriate rendering and display
 			of natural language values according to the Unicode Bidirectional Algorithm&#160;[[!bidi]]. This could
@@ -44,7 +44,7 @@
 
 		<table>
 			<tr>
-				<td>Character order in memory:&nbsp;</td>
+				<td>Character order in memory:&#160;</td>
 				<td>
 					<code>
 						<bdo dir="ltr">HTML היא שפת סימון.</bdo>
@@ -52,17 +52,17 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Gives incorrect display:&nbsp;</td>
+				<td>Gives incorrect display:&#160;</td>
 				<td dir="ltr">HTML היא שפת סימון.</td>
 			</tr>
 			<tr>
-				<td>Source code with formatting character:&nbsp;</td>
+				<td>Source code with formatting character:&#160;</td>
 				<td>
 					<code>"<bdo dir="ltr">\u200FHTML היא שפת סימון.</bdo>"</code>
 				</td>
 			</tr>
 			<tr>
-				<td>Gives expected display:&nbsp;</td>
+				<td>Gives expected display:&#160;</td>
 				<td dir="rtl">HTML היא שפת סימון.</td>
 			</tr>
 		</table>
@@ -72,7 +72,7 @@
 
 		<table>
 			<tr>
-				<td>Character order in memory:&nbsp;</td>
+				<td>Character order in memory:&#160;</td>
 				<td>
 					<code>
 						<bdo dir="ltr">'سلام' is hello in Persian.</bdo>
@@ -80,17 +80,17 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Gives incorrect display:&nbsp;</td>
+				<td>Gives incorrect display:&#160;</td>
 				<td dir="rtl">'سلام' is hello in Persian.</td>
 			</tr>
 			<tr>
-				<td>Source code with formatting character:&nbsp;</td>
+				<td>Source code with formatting character:&#160;</td>
 				<td>
 					<code>"<bdo dir="ltr">\u200E'سلام' is hello in Persian.</bdo>"</code>
 				</td>
 			</tr>
 			<tr>
-				<td>Gives expected display:&nbsp;</td>
+				<td>Gives expected display:&#160;</td>
 				<td dir="ltr">'سلام' is hello in Persian.</td>
 			</tr>
 		</table>
