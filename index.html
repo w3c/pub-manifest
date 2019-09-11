@@ -610,7 +610,7 @@ enum ProgressionDirection {
 
 						<p>When a <a href="#manifest-properties">manifest</a> property expects a boolean as its value,
 							the value MUST be expressed as an [[!ecmascript]]&#160;<a
-								href="ecmascript#sec-terms-and-definitions-boolean-value">Boolean value</a>
+								data-cite="ecmascript#sec-terms-and-definitions-boolean-value">Boolean value</a>
 								(<code>true</code> or <code>false</code>).</p>
 					</section>
 
@@ -840,7 +840,7 @@ enum ProgressionDirection {
 									<td><a href="#value-boolean">Boolean</a></td>
 									<td>
 										<a href="https://schema.org/abridged"><code>abridged</code></a> (<a
-											href="https://schema.org/book">Book</a>) </td>
+											href="https://schema.org/Book">Book</a>) </td>
 								</tr>
 							</tbody>
 						</table>
@@ -2764,9 +2764,10 @@ enum ProgressionDirection {
 						</li>
 						<li id="processing-expansion-links">
 							<p>(<a href="#value-link"></a>) If <var>term</var> is a <a
-									href="#resource-categorization-properties">resource categorization property</a> or an <a href="#dom-linkedresource-alternate"><code>alternate</code></a> property, and
-								any value in the array in <var>current</var> is a string, convert each string
-									<var>str</var> to an object with the following properties:</p>
+									href="#resource-categorization-properties">resource categorization property</a> or
+								an <a href="#dom-linkedresource-alternate"><code>alternate</code></a> property, and any
+								value in the array in <var>current</var> is a string, convert each string <var>str</var>
+								to an object with the following properties:</p>
 							<ul>
 								<li><var>type</var> &#8211; set to an array with the value
 									"<code>LinkedResource</code>"; and</li>
@@ -3206,22 +3207,26 @@ enum ProgressionDirection {
 								</code>
 							</td>
 							<td>
-								<p>References to one or more reformulation(s) of the resource in alternative formats.</p>
-								<p>When specified, <code>encodingFormat</code> indicates the format of the reformulation.</p>
+								<p>References to one or more reformulation(s) of the resource in alternative
+									formats.</p>
+								<p>When specified, <code>encodingFormat</code> indicates the format of the
+									reformulation.</p>
 								<p>Order is not significant.</p>
 								<p>OPTIONAL</p>
 								<p>One or more of:</p>
-										<ul>
-											<li>a string, representing the <a>URL</a> of the resource reformulation in an alternative format; or</li>
-											<li>an instance of a <a href="#publication-link-def"
-														><code>LinkedResource</code></a> object</li>
-										</ul>
-										<p>The order of items is <em>not significant</em>. Non-HTML resources SHOULD be expressed as
-												<code>LinkedResource</code> objects with their
-												<code>encodingFormat</code> values set.</p>
+								<ul>
+									<li>a string, representing the <a>URL</a> of the resource reformulation in an
+										alternative format; or</li>
+									<li>an instance of a <a href="#publication-link-def"><code>LinkedResource</code></a>
+										object</li>
+								</ul>
+								<p>The order of items is <em>not significant</em>. Non-HTML resources SHOULD be
+									expressed as <code>LinkedResource</code> objects with their
+										<code>encodingFormat</code> values set.</p>
 							</td>
 							<td>
-								<p>One or more instances of <a href="#publication-link-def"><code>LinkedResource</code></a> objects.</p>
+								<p>One or more instances of <a href="#publication-link-def"
+										><code>LinkedResource</code></a> objects.</p>
 							</td>
 							<td>
 								<a href="#value-array">Array</a> of <a href="#value-link">Links</a>
