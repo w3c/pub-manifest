@@ -2124,13 +2124,13 @@ enum ProgressionDirection {
 								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld]],
 							with prefixes defined as part of the context.</p>
 
-						<p class="note"> A prefix definition <code>dc</code> for [[dcterms]] is included in the context
+						<p class="note">A prefix definition <code>dcterms</code> for [[dcterms]] is included in the context
 							file of [[schema.org]]. This means that it is not necessary to add the prefix explicitly.
 							The same is true for a number of other public vocabularies; see the <a
 								href="https://schema.org/docs/jsonldcontext.json">schema.org context file</a> for
 							further details.</p>
 
-						<pre class="example" title="Usage of the schema.org 'copyrightYear' and 'copyrightHolder' terms, as an extension to the basic data">
+						<pre class="example" title="Extending the basic data using the schema.org 'copyrightYear' and 'copyrightHolder' terms.">
 {
 "@context"        : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"            : "TechArticle",
@@ -2143,14 +2143,24 @@ enum ProgressionDirection {
 }
 </pre>
 
-						<pre class="example" title="Usage of the Dublin Core 'subject' with the 2012 ACM Classification terms, as an extension to the basic data">
+						<pre class="example" title="Extending the basic data set using the Dublin Core 'subject' term with the 2012 ACM Classification terms.">
 {
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "CreativeWork",
 &#8230;
 "id"         : "http://www.w3.org/TR/tabular-data-model/",
 "url"        : "http://www.w3.org/TR/2015/REC-tabular-data-model-20151217/",
-"dc:subject" : ["Web data description languages","Data integration","Data Exchange"],
+"dcterms:subject" : ["Web data description languages","Data integration","Data Exchange"],
+&#8230;
+}
+</pre>
+						
+						<pre class="example" title="Extending the basic data set using the Dublin Core 'conformsTo' term to identify the version of a standard a publication conforms to.">
+{
+"@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
+"type"       : "CreativeWork",
+&#8230;
+"dcterms:conformsTo" : "https://example.org/publishing/standard-11",
 &#8230;
 }
 </pre>
