@@ -2123,12 +2123,26 @@ enum ProgressionDirection {
 							RECOMMENDED that such terms be included using <a
 								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld]],
 							with prefixes defined as part of the context.</p>
-
-						<p class="note">A prefix definition <code>dcterms</code> for [[dcterms]] is included in the context
-							file of [[schema.org]]. This means that it is not necessary to add the prefix explicitly.
-							The same is true for a number of other public vocabularies; see the <a
-								href="https://schema.org/docs/jsonldcontext.json">schema.org context file</a> for
-							further details.</p>
+						
+						<pre class="example" title="Extending the basic data set using a vocabulary prefix declaration.">
+{
+"@context"   : [
+                    "https://schema.org",
+                    "https://www.w3.org/ns/pub-context",
+                    {"ex": "https://example.org/vocab"}
+               ],
+&#8230;
+"ex:region" : "North America",
+&#8230;
+}
+</pre>
+						
+						<p class="note">The <a href="https://schema.org/docs/jsonldcontext.json">schema.org context
+								file</a> [[schema.org]] defines a number of prefixes for commonly used vocabularies,
+							such as the Dublin Core Terms (`dcterms`) [[dcterms]] and Element Set (`dc`) [[dc11]], the
+							FOAF vocabulary (`foaf`) [[foaf]], and the Bibliographic Ontology (`bibo`) [[bibo]].
+							Properties from these vocabularies can be used without their prefixes having to be
+							declared.</p>
 
 						<pre class="example" title="Extending the basic data using the schema.org 'copyrightYear' and 'copyrightHolder' terms.">
 {
@@ -2154,7 +2168,7 @@ enum ProgressionDirection {
 &#8230;
 }
 </pre>
-						
+
 						<pre class="example" title="Extending the basic data set using the Dublin Core 'conformsTo' term to identify the version of a standard a publication conforms to.">
 {
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
