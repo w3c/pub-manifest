@@ -410,7 +410,7 @@ enum ProgressionDirection {
 						for localizable strings that omit one.</p>
 
 
-					<aside class="example" title="Declaring French as the default language for the manifest">
+					<aside class="example" title="Declaring French as the default language for the manifest.">
 						<pre><code>{
     "@context": [
         "https://schema.org",
@@ -475,7 +475,7 @@ enum ProgressionDirection {
 							rules of the Unicode Bidirectional Algorithm&#160;[[!bidi]].</li>
 					</ul>
 
-					<pre class="example" title="Setting the global text directionality to right-to-left">{
+					<pre class="example" title="Setting the global text directionality to right-to-left.">{
     "@context" : [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context", 
@@ -493,7 +493,7 @@ enum ProgressionDirection {
 					<p>It is possible to set the language locally for any natural language value in the manifest using a
 							<a href="#LocalizableString">localizable string</a>:</p>
 
-					<pre class="example" title="Setting the author name to French using a localizable string">
+					<pre class="example" title="Setting the author name to French using a localizable string.">
 {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
@@ -699,7 +699,7 @@ enum ProgressionDirection {
 							<p>A string value represents an implied <code>LinkedResource</code> object whose
 									<code>url</code> property is set to the string value.</p>
 
-							<pre class="example" title="Resource list that includes one link using a relative URL as a string ('datatypes.svg') and two that display the various properties of the a LinkedResource object">
+							<pre class="example" title="Resource list that includes one link using a relative URL as a string ('datatypes.svg') and two that display the various properties of the a LinkedResource object.">
 {
     &#8230;
     "resources" : [
@@ -789,7 +789,7 @@ enum ProgressionDirection {
 								<a href="https://tools.ietf.org/html/rfc4627#section-2.3">arrays</a>. When a property
 							value is a single element, however, the array syntax MAY be omitted.</p>
 
-						<aside class="example" title="Using a text string instead of an array">
+						<aside class="example" title="Using a text string instead of an array.">
 							<p>As a digital publication typically contains many resources, this declaration of a single
 								resource:</p>
 
@@ -1023,7 +1023,7 @@ enum ProgressionDirection {
 						<div class="note">The publication's address can also be used as value for an identifier link
 							relation&#160;[[link-relation]].</div>
 
-						<pre class="example" title="Setting the address of the publication">
+						<pre class="example" title="Setting the address of the publication.">
 {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
@@ -1078,7 +1078,7 @@ enum ProgressionDirection {
 							additional types of identifiers using the <a href="https://schema.org/identifier"
 									><code>identifier</code> property</a>&#160;[[!schema.org]] and/or its subtypes.</p>
 
-						<pre class="example" title="Example of setting the canonical identifier and the address as URLs">
+						<pre class="example" title="Example of setting the canonical identifier and the address as URLs.">
 {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "TechArticle",
@@ -1089,7 +1089,7 @@ enum ProgressionDirection {
 }
 </pre>
 
-						<pre class="example" title="Example of a URN for the canonical identifier">
+						<pre class="example" title="Example of a URN for the canonical identifier.">
 {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
@@ -1353,7 +1353,7 @@ enum ProgressionDirection {
 
 						<p>The manifest MAY include more than one of each type of creator.</p>
 
-						<pre class="example" title="Author of a book">
+						<pre class="example" title="Author of a book.">
 {
     "type"     : "Book",
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
@@ -1365,7 +1365,7 @@ enum ProgressionDirection {
     }
 }
 </pre>
-						<pre class="example" title="Separate listing of editors, authors, and publisher, with some persons expressed as simple strings">
+						<pre class="example" title="Separate listing of editors, authors, and publisher, with some persons expressed as simple strings.">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "TechArticle",
@@ -1437,7 +1437,7 @@ enum ProgressionDirection {
 							</tbody>
 						</table>
 
-						<pre class="example" title="Global duration provided in the manifest (in seconds)">
+						<pre class="example" title="Global duration provided in the manifest (in seconds).">
 {
     "@context"       : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
     "type"           : "Audiobook",
@@ -1497,7 +1497,7 @@ enum ProgressionDirection {
 							SHOULD check the last modification date of individual resources to determine if they have
 							changed and need updating.</p>
 
-						<pre class="example" title="Last modification date of the publication">
+						<pre class="example" title="Last modification date of the publication.">
 {
     "@context"     : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"         : "TechArticle",
@@ -1553,7 +1553,7 @@ enum ProgressionDirection {
 							when the publication is first made available or could be a point in time before publication
 							when the publication is considered final.</p>
 
-						<pre class="example" title="Creation and modification date of the publication">
+						<pre class="example" title="Creation and modification date of the publication.">
 {
     "@context"      : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"          : "TechArticle",
@@ -1683,7 +1683,7 @@ enum ProgressionDirection {
 						<p>This property has <em>no effect</em> on the rendering of the individual primary resources; it
 							is only relevant for the progression direction from one resource to the other.</p>
 
-						<pre class="example" title="Reading progression set explicitl to ltr">
+						<pre class="example" title="Reading progression set explicitl to ltr (left-to-right).">
 {
     "@context"           : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"               : "Book",
@@ -1738,7 +1738,7 @@ enum ProgressionDirection {
 						<p class="note">A user agent is not expected to produce a <a data-cite="wcag21#page-titled"
 								>meaningful title</a>&#160;[[wcag21]] for a publication when one is not specified. </p>
 
-						<pre class="example" title="Title of the book set explicitly">
+						<pre class="example" title="Title of the book set explicitly.">
 {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
@@ -1824,7 +1824,7 @@ enum ProgressionDirection {
 
 						<p>The default reading order MUST include at least one resource.</p>
 
-						<pre class="example" title="Reading order expressed as a simple list of URLs">
+						<pre class="example" title="Reading order expressed as a simple list of URLs.">
 {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
@@ -1841,7 +1841,7 @@ enum ProgressionDirection {
     ]
 }
 </pre>
-						<pre class="example" title="Reading order expressed as objects providing more information on items">
+						<pre class="example" title="Reading order expressed as objects providing more information on items.">
 {
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"     : "Book",
@@ -1931,7 +1931,7 @@ enum ProgressionDirection {
 							agent SHOULD still be able to render a publication even if some of these resources are not
 							identified as belonging to the publication (e.g., if it is taken offline without them).</p>
 
-						<pre class="example" title="Listing resources, some via a simple URL, some with more details">
+						<pre class="example" title="Listing resources, some via a simple URL, some with more details.">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "TechArticle",
@@ -2091,7 +2091,7 @@ enum ProgressionDirection {
 							are part of the publication (i.e., are needed for more than just manifest extensibility).
 							Otherwise, they MUST be included in the <a href="#links">links list</a>.</p>
 
-						<pre class="example" title="Link to external ONIX for Books Metadata file">
+						<pre class="example" title="Link to external ONIX for Books Metadata file.">
 {
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
@@ -2211,7 +2211,7 @@ enum ProgressionDirection {
 							such as HTML [[!html]]. Augmenting these reports with machine-processable metadata, such as
 							provided in schema.org&#160;[[!schema.org]], is also RECOMMENDED.</p>
 
-						<pre class="example" title="Link to an accessibility report">
+						<pre class="example" title="Link to an accessibility report.">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
@@ -2242,7 +2242,7 @@ enum ProgressionDirection {
 
 						<p>Previews MAY be located externally or included as resources of digital publications.</p>
 
-						<pre class="example" title="A preview is identified as an audio resource of a digital publication">
+						<pre class="example" title="A preview is identified as an audio resource of a digital publication.">
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 …
@@ -2260,7 +2260,7 @@ enum ProgressionDirection {
 }
 </pre>
 
-						<pre class="example" title="A preview is expressed as an external link">
+						<pre class="example" title="A preview is expressed as an external link.">
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
 …
@@ -2295,7 +2295,7 @@ enum ProgressionDirection {
 						<p>A <dfn data-lt="privacyPolicy">privacy policy</dfn> is identified using the
 								<code>privacy-policy</code> link relation&#160;[[!iana-link-relations]].</p>
 
-						<pre class="example" title="Privacy policy expressed as an external link">
+						<pre class="example" title="Privacy policy expressed as an external link.">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "TechArticle",
@@ -2343,7 +2343,7 @@ enum ProgressionDirection {
 							MUST define at least one unique property to allow user agents to determine its usability
 							(e.g., a different format, height, width or relation).</p>
 
-						<pre class="example" title="Cover HTML page">
+						<pre class="example" title="Cover HTML page.">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
@@ -2362,7 +2362,7 @@ enum ProgressionDirection {
 }
 </pre>
 
-						<pre class="example" title="Cover image with title and description">
+						<pre class="example" title="Cover image with title and description.">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
@@ -2383,7 +2383,7 @@ enum ProgressionDirection {
 }
 </pre>
 
-						<pre class="example" title="Cover image in JPEG and SVG formats">
+						<pre class="example" title="Cover image in JPEG and SVG formats.">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
@@ -2423,7 +2423,7 @@ enum ProgressionDirection {
 
 						<p>The link to the page list MUST NOT be specified in the <a href="#links">links list</a>.</p>
 
-						<pre class="example" title="Page list identified in another resource of the publication">
+						<pre class="example" title="Page list identified in another resource of the publication.">
 {
 "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
 "type"       : "Book",
@@ -2459,7 +2459,7 @@ enum ProgressionDirection {
 						<p>The RECOMMENDED structure and processing model for the table of contents is defined in <a
 								href="#app-toc-structure"></a>.</p>
 
-						<pre class="example" title="Resource containing the table of contents identified by its rel attribute value">
+						<pre class="example" title="Resource containing the table of contents identified by its rel attribute value.">
 {
     "@context"   : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "type"       : "Book",
@@ -2522,7 +2522,7 @@ enum ProgressionDirection {
 					include a fragment identifier that references the <code>script</code> element that contains the
 					manifest (see <a href="#manifest-embed"></a>).</p>
 
-				<pre class="example" title="Link to a manifest within the same HTML resource">
+				<pre class="example" title="Link to a manifest within the same HTML resource.">
 	&lt;link href="#example_manifest" rel="publication"&gt;
 	&#8230;
 	&lt;script id="example_manifest" type="application/ld+json"&gt;
@@ -2545,7 +2545,7 @@ enum ProgressionDirection {
 						href="https://www.w3.org/TR/json-ld11/#embedding-json-ld-in-html-documents"><code>type</code>
 						attribute is set to <code>application/ld+json</code></a>&#160;[[!json-ld]].</p>
 
-				<pre class="example" title="A publication manifest included in an HTML document">
+				<pre class="example" title="A publication manifest included in an HTML document.">
 &lt;script type="application/ld+json"&gt;
    {
       &#8230;
@@ -3264,7 +3264,7 @@ enum ProgressionDirection {
 					support cryptographic hashing comparisons using this property MUST do so in accordance with
 					[[!sri]].</p>
 
-				<aside class="example" title="A resource with a SHA-256 hashing of its content">
+				<aside class="example" title="A resource with a SHA-256 hashing of its content.">
 					<pre>{
     "type":           "LinkedResource",
     "url":            "chapter1.html",
@@ -3274,7 +3274,7 @@ enum ProgressionDirection {
 }</pre>
 				</aside>
 
-				<aside class="example" title="A resource with its alternate formats">
+				<aside class="example" title="A resource with its alternate formats.">
 					<pre>{
     "type":           "LinkedResource",
     "url":            "chapter1.mp3",
@@ -3740,7 +3740,7 @@ dictionary LocalizableString {
 							<summary>Explanation</summary>
 							<p>This step initializes the <em>toc</em> object that will store the title and the branches
 								of the table of contents.</p>
-							<aside class="example" title="Visualization of the default toc object">
+							<aside class="example" title="Visualization of the default toc object.">
 								<pre>
 {
    "name": '',
@@ -3810,7 +3810,7 @@ dictionary LocalizableString {
 										heading element, or generates a text string from it, depends on whether it will
 										re-use any descendant tagging in the presentation (e.g., to retain images,
 										MathML, ruby and other content that does not translate to text easily).</p>
-									<aside class="example" title="Visualization of the toc object with a heading">
+									<aside class="example" title="Visualization of the toc object with a heading.">
 										<pre>
 {
    "name": "Contents",
@@ -3822,7 +3822,7 @@ dictionary LocalizableString {
 										that indicates the <code>nav</code> element does not have a heading (e.g., a
 										list has already been processed, since the heading would not follow the list of
 										links).</p>
-									<aside class="example" title="Visualization of the toc object without a heading">
+									<aside class="example" title="Visualization of the toc object without a heading.">
 										<pre>
 {
    "name": null,
@@ -3914,7 +3914,7 @@ dictionary LocalizableString {
 									<p>Each list item represents a possible new branch in the table of contents, so
 										whenever one is encountered a new blank object is created in <em>current toc
 											branch</em>.</p>
-									<aside class="example" title="Visualization of a new branch object">
+									<aside class="example" title="Visualization of a new branch object.">
 										<pre>
 {
    "name": '',
@@ -3980,7 +3980,7 @@ dictionary LocalizableString {
 										it in the stack.</p>
 									<p>As a final step, <em>current toc branch</em> is reset back to
 										<code>null</code>.</p>
-									<aside class="example" title="Visualization of a branch merge">
+									<aside class="example" title="Visualization of a branch merge.">
 										<p>If the following two objects are in <em>current toc branch</em></p>
 										<pre>{
    "name": "Section 1",
@@ -4086,7 +4086,7 @@ dictionary LocalizableString {
 										entry will not be linkable.</p>
 									<p>Additional information about the target of the link — the type of resource and
 										its relation — is also retained.</p>
-									<aside class="example" title="Visualization of a link to an SVG image">
+									<aside class="example" title="Visualization of a link to an SVG image.">
 										<pre>{
    "name": "In the Beginning",
    "url": "http://example.com/page1.svg",
