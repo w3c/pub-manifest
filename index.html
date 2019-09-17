@@ -2120,7 +2120,7 @@ enum ProgressionDirection {
 							RECOMMENDED that such terms be included using <a
 								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld]],
 							with prefixes defined as part of the context.</p>
-
+						
 						<pre class="example" title="Extending the basic data set using a vocabulary prefix declaration.">
 {
 "@context"   : [
@@ -2133,7 +2133,7 @@ enum ProgressionDirection {
 &#8230;
 }
 </pre>
-
+						
 						<p class="note">The <a href="https://schema.org/docs/jsonldcontext.json">schema.org context
 								file</a> [[schema.org]] defines a number of prefixes for commonly used vocabularies,
 							such as the Dublin Core Terms (`dcterms`) [[dcterms]] and Element Set (`dc`) [[dc11]], the
@@ -2602,22 +2602,8 @@ enum ProgressionDirection {
 			<h2>Processing a Manifest</h2>
 
 			<p>The <dfn data-lt="processing the manifest|processing a manifest|process a manifest">steps for processing
-					a manifest</dfn> into its <a>canonical representation</a> are given by the following algorithm.</p>
-
-			<p>The following error types are used in this algorithm:</p>
-
-			<ul>
-				<li><dfn data-lt="validation errors">validation error</dfn> &#8212; a non-terminating error that occurs
-					when the value of a property does match its expected input.</li>
-				<li><dfn data-lt="fatal errors">fatal error</dfn> &#8212; a terminating error that results, for example,
-					when a manifest cannot be processed or does not match critical validity constraints.</li>
-			</ul>
-
-			<p>User agents SHOULD NOT include in their canonical representation any value that generates a <a>validation
-					error</a>.</p>
-
-			<p>User agents SHOULD expose both validation and fatal errors, but this specification does not prescribe the
-				manner in which this has to be done.</p>
+					a manifest</dfn> into its <a>canonical representation</a> are given by the following algorithm. If
+				the algorithm terminates early, the manifest is not valid.</p>
 
 			<p>The algorithm takes the following arguments:</p>
 
@@ -2644,19 +2630,19 @@ enum ProgressionDirection {
 
 				<li id="processing-json">
 					<p>Let <var>manifest</var> be the result of <a data-cite="ecmascript#sec-json.parse">parsing</a>
-						<var>text</var> as JSON&#160;[[!ecmascript]].</p>
-					<p>If parsing throws an error, this is a <a>fatal error</a>. Return failure.</p>
+						<var>text</var> as JSON&#160;[[!ecmascript]]. If parsing throws an error, terminate this
+						algorithm.</p>
 				</li>
 
 				<li id="processing-object">
-					<p>If typeof(<var>manifest</var>) is not <code>Object</code>&#160;[[!ecmascript]], this is a
-							<a>fatal error</a>. Return failure.</p>
+					<p>If typeof(<var>manifest</var>) is not <code>Object</code>&#160;[[!ecmascript]], terminate this
+						algorithm.</p>
 				</li>
 
 				<li id="processing-context">
 					<p>(<a href="#manifest-context"></a>) If <var>manifest["@context"]</var> does not contain the values
 							"<code>https://schema.org</code>" and "<code>https://www.w3.org/ns/pub-context</code>" (in
-						this order), this is a <a>fatal error</a>. Return failure.</p>
+						this order), issue an error and terminate this algorithm.</p>
 				</li>
 
 				<li id="processing-expansion">
@@ -2886,7 +2872,7 @@ enum ProgressionDirection {
 										<li>
 											<p>otherwise, generate a value for <var>title["value"]</var> (see the <a
 													href="#generate_title">separate note for details</a>) and issue a
-													<a>validation error</a>.</p>
+												warning.</p>
 										</li>
 									</ul>
 								</li>
@@ -2925,8 +2911,8 @@ enum ProgressionDirection {
 								set or its value is an empty string or array:</p>
 							<ul>
 								<li>
-									<p>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, this is
-										a <a>fatal error</a>. Return failure.</p>
+									<p>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, issue an
+										error and terminate this algorithm.</p>
 								</li>
 								<li>
 									<p>otherwise, create an object and set its <var>url</var> property to the value of
@@ -2953,17 +2939,11 @@ enum ProgressionDirection {
 				<li id="processing-checks">
 					<p>Perform data integrity checks on the following properties in <var>processed</var>:</p>
 					<ol style="list-style-type: lower-alpha;">
-						<li id="processing-checks-values">
-							<p>For each property with a known <a href="#properties-value-categories">value type</a>,
-								check that the actual value matches the expected value. If not, this is a <a>validation
-									error</a>.</p>
-						</li>
-
 						<li id="processing-checks-entities">
 							<p>For each property <var>term</var> in <var>processed</var> that expects an array of <a
 									href="#value-object-entity">entities</a>, check whether each value <var>entry</var>
-								in <var>processed[term]</var> has its <var>name</var> property set. If not, this is a
-									<a>validation error</a>.</p>
+								in <var>processed[term]</var> has its <var>name</var> property set. If not, remove
+									<var>entry</var> from <var>processed[term]</var> and issue a warning.</p>
 							<p>Repeat this step recursively for all properties of <var>current</var> that expect an
 								object in which one or more properties expect entities.</p>
 						</li>
@@ -2972,51 +2952,49 @@ enum ProgressionDirection {
 							<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"></a>)
 								Recursively check that every <var>language</var> property in <var>processed</var> is <a
 									href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-								>well-formed</a>&#160;[[!bcp47]]. Each non well-formed value found is a <a>validation
-									error</a>.</p>
+								>well-formed</a>&#160;[[!bcp47]] and issue a warning for any non well-formed values
+								found.</p>
 						</li>
 
 						<li id="processing-checks-direction">
 							<p>(<a href="#manifest-lang-dir-global"></a>) If <var>processed["direction"]</var> is set
 								and its value is not one of the <a href="#manifest-lang-dir-global">required directional
-									values</a>, this is a <a>validation error</a>.</p>
+									values</a>, issue a warning.</p>
 						</li>
 
 						<li id="processing-checks-type">
 							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or
-								contains an empty value, this is a <a>validation error</a>. Set its value to an array
-								with the value "<code>CreativeWork</code>".</p>
+								contains an empty value, set its value to an array with the value
+									"<code>CreativeWork</code>" and issue a warning.</p>
 						</li>
 
 						<li id="processing-checks-abridged">
 							<p>(<a href="#abridged"></a>) If <var>processed["abridged"]</var> is set and it is not a <a
-									href="#value-boolean">boolean value</a>, this is a <a>validation error</a>.</p>
+									href="#value-boolean">boolean value</a>, issue a warning.</p>
 						</li>
 
 						<li id="processing-checks-duration">
 							<p>(<a href="#duration"></a>) If <var>processed["duration"]</var> is set and its value is
-								not a valid duration value, per&#160;[[!iso8601]], this is a <a>validation
-								error</a>.</p>
+								not a valid duration value, per&#160;[[!iso8601]], issue a warning.</p>
 						</li>
 
 						<li id="processing-checks-last-mod">
 							<p>(<a href="#last-modification-date"></a>) If <var>processed["dateModified"]</var> is set
-								and its value is not a valid date or date-time per&#160;[[!iso8601]], this is a
-									<a>validation error</a>.</p>
+								and its value is not a valid date or date-time per&#160;[[!iso8601]], issue a
+								warning.</p>
 						</li>
 
 						<li id="processing-checks-pub-date">
 							<p>(<a href="#publication-date"></a>) If <var>processed["datePublished"]</var> is set and
-								its value is not a valid date or date-time per&#160;[[!iso8601]], this is a
-									<a>validation error</a>.</p>
+								its value is not a valid date or date-time per&#160;[[!iso8601]], issue a warning.</p>
 						</li>
 
 						<li id="processing-checks-inlanguage">
 							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
 								that each value in its array is <a
 									href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-								>well-formed</a>&#160;[[!bcp47]]. Each non well-formed value found is a <a>validation
-									error</a>.</p>
+								>well-formed</a>&#160;[[!bcp47]] and issue a warning for any non well-formed values
+								found.</p>
 						</li>
 
 						<li id="processing-checks-progression-dir">
@@ -3025,8 +3003,8 @@ enum ProgressionDirection {
 							<ul>
 								<li>If the property is not set, set its value to "<code>ltr</code>".</li>
 								<li>Otherwise, if the property is set but is not one of the <a
-										href="#reading-progression-direction">required directional values</a>, this is a
-										<a>validation error</a>.</li>
+										href="#reading-progression-direction">required directional values</a>, issue a
+									warning.</li>
 								<li>Otherwise, do nothing.</li>
 							</ul>
 						</li>
@@ -3038,20 +3016,20 @@ enum ProgressionDirection {
 									<var>processed[term]</var> has <var>P["url"]</var> set:</p>
 							<ul>
 								<li>
-									<p>If not, this is a <a>validation error</a>.</p>
+									<p>If not, remove <var>P</var> from the <var>processed[term]</var> array and issue a
+										warning.</p>
 								</li>
 								<li>
-									<p>Otherwise, check whether <var>P["url"]</var> is a valid URL&#160;[[!url]]. If
-										not, this is a <a>validation error</a>.</p>
+									<p>Otherwise, check whether <var>P["url"]</var> is a valid URL&#160;[[!url]] and, if
+										not, issue a warning.</p>
 								</li>
 							</ul>
 						</li>
 
 						<li id="processing-checks-length">
 							<p>(<a href="#LinkedResource"></a>) For each property <var>term</var> in
-									<var>processed</var> that expects type <a>LinkedResource</a>, if
-									<var>term["length"]</var> is set and is not a valid number this is a <a>validation
-									error</a>.</p>
+									<var>processed</var> that expects type <a>LinkedResource</a>, issue a warning if
+									<var>term["length"]</var> is set and is not a valid number.</p>
 						</li>
 
 						<li id="processing-checks-extension">
@@ -3061,6 +3039,8 @@ enum ProgressionDirection {
 					</ol>
 				</li>
 			</ol>
+
+			<p class="note">How error and warning messages are reported is user agent dependent.</p>
 		</section>
 		<section id="security-privacy">
 			<h2>Security and Privacy Considerations</h2>
