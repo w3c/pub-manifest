@@ -490,17 +490,24 @@ enum ProgressionDirection {
 					<p>It is possible to set the language locally for any natural language value in the manifest using a
 							<a href="#LocalizableString">localizable string</a>:</p>
 
-					<pre class="example" title="Setting the author name to French using a localizable string.">
+					<pre class="example" title="Providing the author name in English for a Chinese publication.">
 {
-    "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context",
+        {"language": "cn"}
+    ],
     "type"     : "Book",
     &#8230;
     "author" : {
         "type"  : "Person",
-        "name" : {
-            "value"    : "Marcel Proust",
-            "language" : "fr"
-        }
+        "name" : [
+            "孔子",
+            {
+                "value"    : "Confucius",
+                "language" : "en"
+            }
+        ]
     }
 }
 </pre>
@@ -509,8 +516,8 @@ enum ProgressionDirection {
 							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
 						tag</a>&#160;[[!bcp47]].</p>
 
-					<p>In such cases, the local declaration takes precedence over the <a
-							href="#manifest-lang-dir-global">global declaration</a>.</p>
+					<p>A local language declaration takes precedence over a <a href="#manifest-lang-dir-global">global
+							declaration</a>.</p>
 
 					<p class="note">It is <em>not</em> possible to set the direction explicitly for a specific value.
 						For more information, refer to <a href="#app-bidi-directionality"></a>.</p>
@@ -2120,7 +2127,7 @@ enum ProgressionDirection {
 							RECOMMENDED that such terms be included using <a
 								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld]],
 							with prefixes defined as part of the context.</p>
-						
+
 						<pre class="example" title="Extending the basic data set using a vocabulary prefix declaration.">
 {
 "@context"   : [
@@ -2133,7 +2140,7 @@ enum ProgressionDirection {
 &#8230;
 }
 </pre>
-						
+
 						<p class="note">The <a href="https://schema.org/docs/jsonldcontext.json">schema.org context
 								file</a> [[schema.org]] defines a number of prefixes for commonly used vocabularies,
 							such as the Dublin Core Terms (`dcterms`) [[dcterms]] and Element Set (`dc`) [[dc11]], the
