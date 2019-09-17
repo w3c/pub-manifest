@@ -2954,15 +2954,16 @@ enum ProgressionDirection {
 					<p>Perform data integrity checks on the following properties in <var>processed</var>:</p>
 					<ol style="list-style-type: lower-alpha;">
 						<li id="processing-checks-values">
-							<p>For each property with a known <a href="#properties-value-categories">value type</a>,
-								check that the actual value matches the expected value. If not, this is a <a>validation
-									error</a>.</p>
+							<p>(<a href="#properties-value-categories"></a>) For each property with a known <a
+									href="#properties-value-categories">value type</a>, check that the actual value
+								matches the expected value. If not, this is a <a>validation error</a>.</p>
 						</li>
 
 						<li id="processing-checks-entities">
-							<p>For each property <var>term</var> in <var>processed</var> that expects an array of <a
-									href="#value-object-entity">entities</a>, check whether each value <var>entry</var>
-								in <var>processed[term]</var> has its <var>name</var> property set. If not, this is a
+							<p>(<a href="#value-object-entity"></a>) For each property <var>term</var> in
+									<var>processed</var> that expects an array of <a href="#value-object-entity"
+									>entities</a>, check whether each value <var>entry</var> in
+									<var>processed[term]</var> has its <var>name</var> property set. If not, this is a
 									<a>validation error</a>.</p>
 							<p>Repeat this step recursively for all properties of <var>current</var> that expect an
 								object in which one or more properties expect entities.</p>
