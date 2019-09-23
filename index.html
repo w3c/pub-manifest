@@ -1697,7 +1697,7 @@ enum ProgressionDirection {
 
 						<pre class="example" title="Setting the title of a book explicitly.">{
     …
-    "name" : "Heart of Darkness"
+    "name" : "Heart of Darkness",
     …
 }</pre>
 					</section>
@@ -2156,12 +2156,12 @@ enum ProgressionDirection {
     …
     "links" : [
         {
-    	    "type"           : "LinkedResource",
-	        "url"            : "preview.mp3",
-    	    "encodingFormat" : "audio/mpeg",
-	        "rel"            : "preview"
+            "type"           : "LinkedResource",
+            "url"            : "preview.mp3",
+            "encodingFormat" : "audio/mpeg",
+            "rel"            : "preview"
         },
-    	…
+        …
     ],
     …
 }</pre>
@@ -2170,10 +2170,10 @@ enum ProgressionDirection {
     …
     "links" : [
         {
-	        "type"           : "LinkedResource",
-	        "url"            : "https://publisher.example.org/jekyll-hyde-preview.html",
-        	"encodingFormat" : "text/html",
-        	"rel"            : "preview"
+            "type"           : "LinkedResource",
+            "url"            : "https://publisher.example.org/jekyll-hyde-preview.html",
+            "encodingFormat" : "text/html",
+            "rel"            : "preview"
         },
     	…
     ],
@@ -2309,11 +2309,11 @@ enum ProgressionDirection {
     …
     "resources" : [
         {
-        	"type" : "LinkedResource",
-        	"url"  : "toc_file.html",
-        	"rel"  : "pagelist"
+            "type" : "LinkedResource",
+            "url"  : "toc_file.html",
+            "rel"  : "pagelist"
         },
-    	…
+        …
     ],
     …
 }</pre>
@@ -2395,14 +2395,14 @@ enum ProgressionDirection {
 					manifest (see <a href="#manifest-embed"></a>).</p>
 
 				<pre class="example" title="Linking to a manifest within the same HTML resource.">
-	&lt;link href="#example_manifest" rel="publication"&gt;
-	…
-	&lt;script id="example_manifest" type="application/ld+json"&gt;
-	{
+    &lt;link href="#example_manifest" rel="publication"&gt;
+    …
+    &lt;script id="example_manifest" type="application/ld+json"&gt;
+    {
         "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
         …
-	}
-	&lt;/script&gt;
+    }
+    &lt;/script&gt;
 </pre>
 
 			</section>
@@ -3184,13 +3184,13 @@ enum ProgressionDirection {
     "encodingFormat" : "audio/mpeg",
     "name"           : "Chapter 1 - Loomings",
     "alternate"      : [
-    	"chapter1.html",
-    	{
-    		"type": "LinkedResource",
-    		"url": "chapter1.json",
-    		"encodingFormat": "application/vnd.wp-sync-media+json"
-    		"length": 1669
-    	}
+        "chapter1.html",
+        {
+            "type": "LinkedResource",
+            "url": "chapter1.json",
+            "encodingFormat": "application/vnd.wp-sync-media+json",
+            "length": 1669
+        }
     ]
 }</pre>
 
