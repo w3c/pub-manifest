@@ -338,8 +338,8 @@ dictionary PublicationManifest {
              ProgressionDirection        readingProgression = "ltr";
     required sequence&lt;LocalizableString> name;
     required sequence&lt;LinkedResource>    readingOrder;
-             sequence&lt;LinkedResource>    resources = [];
-             sequence&lt;LinkedResource>    links = [];
+             sequence&lt;LinkedResource>    resources;
+             sequence&lt;LinkedResource>    links;
 };
 
 enum TextDirection {
