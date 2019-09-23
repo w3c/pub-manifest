@@ -4,23 +4,6 @@
     "title": "Localizable String Object",
     "type": "object",
     "properties": {
-        "type": {
-            "anyOf": [
-                {
-                    "type": "string",
-                    "const": "LocalizableString"
-                },
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "contains": {
-                        "const": "LocalizableString"
-                    }
-                }
-            ]
-        },
         "value": {
             "type": "string"
         },
