@@ -2436,39 +2436,6 @@ enum ProgressionDirection {
 					methods.</p>
 			</section>
 		</section>
-		<section id="extensions">
-			<h2>Modular Extensions</h2>
-
-			<p>The manifest format defined in this specification is designed to be implemented and extended by
-				publishing communities in the production of new <a>digital publication</a> formats (e.g., audiobooks and
-				scholarly publications). The flexibility the manifest format offers allows it to be tailored to each
-				community's specific needs while also providing a common base for user agents that need to process the
-				formats (i.e., minimizing the differences between each format and simplifying interoperability).</p>
-
-			<p>Extensions of the manifest, also known as <dfn>profiles</dfn>, are created by <em>extending</em> the core
-				definition in this specification with module-specific terms and/or new requirements.</p>
-
-			<p>In order for a profile to be compatible with this specification, the following conditions MUST be met: </p>
-
-			<ol>
-				<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
-					></a>.</li>
-				<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid for
-					the extended manifest. To achieve this, and if new terms are added to the general manifest, then: <ul>
-						<li>The term SHOULD be categorized, if applicable, to one or more of the general term categories
-							used in the algorithm (e.g., <a href="#value-array">array</a> or <a
-								href="#value-localizable-string">localizable string</a>). This means the relevant
-							canonicalization steps will be automatically executed for those terms </li>
-						<li>If necessary, the profile MAY define its own canonicalization step(s), to be executed at the
-							designated extension points within the <a href="#manifest-processing">processing
-								algorithm</a>. Such extra steps MUST NOT invalidate the results of any of the steps
-							defined for the <a href="#manifest-processing">processing algorithm</a> in general.</li>
-					</ul>
-				</li>
-			</ol>
-			<p class="ednote"> Adding an example of a term added by, e.g., the audiobook profile would be a good idea,
-				when available. </p>
-		</section>
 		<section id="manifest-processing">
 			<h2>Processing a Manifest</h2>
 
@@ -2945,6 +2912,39 @@ enum ProgressionDirection {
 					<p>Return <var>processed</var>.</p>
 				</li>
 			</ol>
+		</section>
+		<section id="extensions">
+			<h2>Modular Extensions</h2>
+
+			<p>The manifest format defined in this specification is designed to be implemented and extended by
+				publishing communities in the production of new <a>digital publication</a> formats (e.g., audiobooks and
+				scholarly publications). The flexibility the manifest format offers allows it to be tailored to each
+				community's specific needs while also providing a common base for user agents that need to process the
+				formats (i.e., minimizing the differences between each format and simplifying interoperability).</p>
+
+			<p>Extensions of the manifest, also known as <dfn>profiles</dfn>, are created by <em>extending</em> the core
+				definition in this specification with module-specific terms and/or new requirements.</p>
+
+			<p>In order for a profile to be compatible with this specification, the following conditions MUST be met: </p>
+
+			<ol>
+				<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
+					></a>.</li>
+				<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid for
+					the extended manifest. To achieve this, and if new terms are added to the general manifest, then: <ul>
+						<li>The term SHOULD be categorized, if applicable, to one or more of the general term categories
+							used in the algorithm (e.g., <a href="#value-array">array</a> or <a
+								href="#value-localizable-string">localizable string</a>). This means the relevant
+							canonicalization steps will be automatically executed for those terms </li>
+						<li>If necessary, the profile MAY define its own canonicalization step(s), to be executed at the
+							designated extension points within the <a href="#manifest-processing">processing
+								algorithm</a>. Such extra steps MUST NOT invalidate the results of any of the steps
+							defined for the <a href="#manifest-processing">processing algorithm</a> in general.</li>
+					</ul>
+				</li>
+			</ol>
+			<p class="ednote"> Adding an example of a term added by, e.g., the audiobook profile would be a good idea,
+				when available. </p>
 		</section>
 		<section id="security-privacy">
 			<h2>Security and Privacy Considerations</h2>
