@@ -877,7 +877,7 @@ dictionary LocalizableString {
 							<p>A string value represents an implied <code>LinkedResource</code> object whose
 									<code>url</code> property is set to the string value.</p>
 
-							<p>A <code>LinkedResource</code> object is defined as follows:</p>
+							<p id="publication-link-def">A <code>LinkedResource</code> object is defined as follows:</p>
 
 							<table class="zebra" data-dfn-for="LinkedResource">
 								<thead>
@@ -1043,16 +1043,14 @@ dictionary LocalizableString {
 											<ul>
 												<li>a string, representing the <a>URL</a> of the resource reformulation
 													in an alternative format; or</li>
-												<li>an instance of a <a href="#publication-link-def"
-															><code>LinkedResource</code></a> object</li>
+												<li>an instance of a <code>LinkedResource</code> object</li>
 											</ul>
 											<p>The order of items is <em>not significant</em>. Non-HTML resources SHOULD
 												be expressed as <code>LinkedResource</code> objects with their
 													<code>encodingFormat</code> values set.</p>
 										</td>
 										<td>
-											<p>One or more instances of <a href="#publication-link-def"
-														><code>LinkedResource</code></a> objects.</p>
+											<p>One or more instances of <code>LinkedResource</code> objects.</p>
 										</td>
 										<td>
 											<a href="#value-array">Array</a> of <a href="#value-linked-resource">Linked
