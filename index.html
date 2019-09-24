@@ -2442,10 +2442,16 @@ enum ProgressionDirection {
 			<section id="mod-intro" class="informative">
 				<h3>Introduction</h3>
 
-				<p>Publishing communities (e.g., audio books, scholarly publications) are encouraged to define
-					extensions, also known as <dfn>profiles</dfn>, by <em>extending</em> the core manifest with
-					module-specific terms and possibly adding new requirements. </p>
+				<p>This manifest format defined in this specification is designed to be implemented and extended by
+					publishing communities in the production of new <a>digital publication</a> formats (e.g., audiobooks
+					and scholarly publications). The flexibility the manifest format offers allows it to be tailored to
+					each community's specific needs while also providing a common base for user agents that need to
+					process the formats (i.e., minimizing the differences between each format and simplifying
+					interoperability).</p>
 
+				<p>Extensions of the manifest, also known as <dfn>profiles</dfn>, are created by <em>extending</em> the
+					core definition in this specification with module-specific terms and/or new requirements. The rules
+					governing these modifications are defined in this section.</p>
 			</section>
 
 			<section id="mod-compat">
@@ -2455,7 +2461,8 @@ enum ProgressionDirection {
 					conditions MUST be met: </p>
 
 				<ol>
-					<li>It MUST adhere to the manifest format requirements defined in this specification.</li>
+					<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
+						></a>.</li>
 					<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid
 						for the extended manifest. To achieve this, and if new terms are added to the general manifest,
 						then: <ul>
