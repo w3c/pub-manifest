@@ -92,15 +92,14 @@
 
 				<dl>
 					<dt>
-						<dfn>Canonical Representation</dfn>
+						<dfn>Internal Representation</dfn>
 					</dt>
 					<dd>
-						<p>The canonical representation of a manifest is the internal data structure created by user
-							agents when they <a href="#manifest-processing">process the manifest</a> and remove all
-							possible ambiguities and incorporate any missing values that can be inferred from another
-							source.</p>
+						<p>The internal representation of a manifest is the data structure created by user agents when
+							they <a href="#manifest-processing">process the manifest</a> and remove all possible
+							ambiguities and incorporate any missing values that can be inferred from another source.</p>
 						<p>It is possible for the information expressed in the manifest to be the equivalent of the
-							canonical representation created by user agents if there are no ambiguities or missing
+							internal representation created by user agents if there are no ambiguities or missing
 							information.</p>
 					</dd>
 					<dt>
@@ -217,10 +216,9 @@
 
 					<p>The publication manifest also has a number of authoring flexibilities and compact authoring
 						expressions. For example, it is not always required that object types be explicitly authored, as
-						these are automatically generated during canonicalization when missing (see <a
-							href="#value-objects"></a> for more information). A <a>canonical representation</a> of the
-						manifest data is defined separately; see the separate section on <a href="#webidl"></a> for
-						further details.</p>
+						these are automatically generated during processing when missing (see <a href="#value-objects"
+						></a> for more information). An <a>internal representation</a> of the manifest data is defined
+						separately; see the separate section on <a href="#webidl"></a> for further details.</p>
 
 					<p>As a consequence, a user agent does not have to be a full JSON-LD processor. User agents only
 						need to be able to read the manifest's specific shape and internalize the data.</p>
@@ -281,7 +279,7 @@
 				<h3>Web IDL</h3>
 
 				<p>Although a <a>digital publication</a>'s manifest is authored as [[!json-ld]], a user agent <a
-						href="#manifest-processing">processes this information</a> into the <a>canonical
+						href="#manifest-processing">processes this information</a> into the <a>internal
 						representation</a>, which can be in any language, in order to utilize the properties.</p>
 
 				<p>To simplify the manifest format for developers, this specification defines an abstract representation
@@ -1967,7 +1965,7 @@ dictionary LocalizableString {
 						<p>If a user agent requires the publication language and it is not available in the manifest, or
 							the obtained value is not <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
 								>well-formed</a>&#160;[[!bcp47]], the user agent MAY attempt to determine the
-							publication language when <a href="#manifest-processing">generating its canonical
+							publication language when <a href="#manifest-processing">generating its internal
 								representation</a>. This specification does not mandate how such a language tag is
 							created. The user agent might:</p>
 
@@ -2033,7 +2031,7 @@ dictionary LocalizableString {
 						</ul>
 
 						<p>The default value is <code>ltr</code>. If the <code>readingProgression</code> is not set,
-							user agents MUST use the default value when generating their <a>canonical
+							user agents MUST use the default value when generating their <a>internal
 							representation</a>.</p>
 
 						<p>This property has <em>no effect</em> on the rendering of the individual primary resources; it
@@ -2405,7 +2403,7 @@ dictionary LocalizableString {
 					<p>Although both methods are valid, the use of linked records is RECOMMENDED.</p>
 
 					<p>This specification does not define how such additional properties are compiled, stored or exposed
-						by user agents in their <a>canonical representation</a> of the manifest. A user agent MAY ignore
+						by user agents in their <a>internal representation</a> of the manifest. A user agent MAY ignore
 						some or all extended properties.</p>
 
 					<section id="extensibility-linked-records">
@@ -2834,49 +2832,11 @@ dictionary LocalizableString {
 					methods.</p>
 			</section>
 		</section>
-		<section id="extensions">
-			<h2>Modular Extensions</h2>
-
-			<section id="mod-intro" class="informative">
-				<h3>Introduction</h3>
-
-				<p>Publishing communities (e.g., audio books, scholarly publications) are encouraged to define
-					extensions, also known as <dfn>profiles</dfn>, by <em>extending</em> the core manifest with
-					module-specific terms and possibly adding new requirements. </p>
-
-			</section>
-
-			<section id="mod-compat">
-				<h3>Compatibility Requirements</h3>
-
-				<p> In order for a <a>digital publication</a> format to be compatible with this specification, following
-					conditions MUST be met: </p>
-
-				<ol>
-					<li>It MUST adhere to the manifest format requirements defined in this specification.</li>
-					<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid
-						for the extended manifest. To achieve this, and if new terms are added to the general manifest,
-						then: <ul>
-							<li>The term SHOULD be categorized, if applicable, to one or more of the general term
-								categories used in the algorithm (e.g., <a href="#value-array">array</a> or <a
-									href="#value-localizable-string">localizable string</a>). This means the relevant
-								canonicalization steps will be automatically executed for those terms </li>
-							<li>If necessary, the profile MAY define its own canonicalization step(s), to be executed at
-								the designated extension points within the <a href="#manifest-processing">processing
-									algorithm</a>. Such extra steps MUST NOT invalidate the results of any of the steps
-								defined for the <a href="#manifest-processing">processing algorithm</a> in general.</li>
-						</ul>
-					</li>
-				</ol>
-				<p class="ednote"> Adding an example of a term added by, e.g., the audiobook profile would be a good
-					idea, when available. </p>
-			</section>
-		</section>
 		<section id="manifest-processing">
 			<h2>Processing a Manifest</h2>
 
 			<p>The <dfn data-lt="processing the manifest|processing a manifest|process a manifest">steps for processing
-					a manifest</dfn> into its <a>canonical representation</a> are given by the following algorithm.</p>
+					a manifest</dfn> into its <a>internal representation</a> are given by the following algorithm.</p>
 
 			<p>The following error types are used in this algorithm:</p>
 
@@ -2887,7 +2847,7 @@ dictionary LocalizableString {
 					when a manifest cannot be processed or does not match critical validity constraints.</li>
 			</ul>
 
-			<p>User agents SHOULD NOT include in their canonical representation any value that generates a <a>validation
+			<p>User agents SHOULD NOT include in their internal representation any value that generates a <a>validation
 					error</a>.</p>
 
 			<p>User agents SHOULD expose both validation and fatal errors, but this specification does not prescribe the
@@ -2903,7 +2863,7 @@ dictionary LocalizableString {
 						manifest</a>, when available.</li>
 			</ul>
 
-			<p>If successful, the algorithm returns an object containing the canonical representation of the data.</p>
+			<p>If successful, the algorithm returns an object containing the internal representation of the data.</p>
 
 			<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
 				which to do so are defined by each <a>digital publication</a> format.</p>
@@ -2914,7 +2874,7 @@ dictionary LocalizableString {
 
 			<ol>
 				<li id="processing-init">
-					<p>Let <var>processed</var> be an object containing the <a>canonical representation</a> of the
+					<p>Let <var>processed</var> be an object containing the <a>internal representation</a> of the
 						manifest.</p>
 				</li>
 
@@ -3346,6 +3306,39 @@ dictionary LocalizableString {
 					<p>Return <var>processed</var>.</p>
 				</li>
 			</ol>
+		</section>
+		<section id="extensions">
+			<h2>Modular Extensions</h2>
+
+			<p>The manifest format defined in this specification is designed to be implemented and extended by
+				publishing communities in the production of new <a>digital publication</a> formats (e.g., audiobooks and
+				scholarly publications). The flexibility the manifest format offers allows it to be tailored to each
+				community's specific needs while also providing a common base for user agents that need to process the
+				formats (i.e., minimizing the differences between each format and simplifying interoperability).</p>
+
+			<p>Extensions of the manifest, also known as <dfn>profiles</dfn>, are created by <em>extending</em> the core
+				definition in this specification with module-specific terms and/or new requirements.</p>
+
+			<p>In order for a profile to be compatible with this specification, the following conditions MUST be met: </p>
+
+			<ol>
+				<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
+					></a>.</li>
+				<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid for
+					the extended manifest. To achieve this, and if new terms are added to the general manifest, then: <ul>
+						<li>The term SHOULD be categorized, if applicable, to one or more of the general term categories
+							used in the algorithm (e.g., <a href="#value-array">array</a> or <a
+								href="#value-localizable-string">localizable string</a>). This means the relevant
+							processing steps will be automatically executed for those terms </li>
+						<li>If necessary, the profile MAY define its own processing step(s), to be executed at the
+							designated extension points within the <a href="#manifest-processing">processing
+								algorithm</a>. Such extra steps MUST NOT invalidate the results of any of the steps
+							defined for the <a href="#manifest-processing">processing algorithm</a> in general.</li>
+					</ul>
+				</li>
+			</ol>
+			<p class="ednote"> Adding an example of a term added by, e.g., the audiobook profile would be a good idea,
+				when available. </p>
 		</section>
 		<section id="security-privacy">
 			<h2>Security and Privacy Considerations</h2>
@@ -4026,7 +4019,7 @@ dictionary LocalizableString {
 				<h3>Simple Book</h3>
 				<p>A manifest for a simple book. A <a
 						href="https://w3c.github.io/pub-manifest/experiments/separate_manifest/mobydick.jsonld">JSON
-						encoding of the canonical representation</a> of this manifest is also available.</p>
+						encoding of the internal representation</a> of this manifest is also available.</p>
 				<pre class="example" data-include="experiments/separate_manifest/mobydick-simple.jsonld" data-include-format="text"></pre>
 			</section>
 
@@ -4034,7 +4027,7 @@ dictionary LocalizableString {
 				<h3>Single-Document Publication</h3>
 				<p>Example for an embedded manifest example. A <a
 						href="https://w3c.github.io/pub-manifest/experiments/w3c_rec/simple-canonical.jsonld">JSON
-						encoding of the canonical representation</a> of the manifest is also available, as well as a <a
+						encoding of the internal representation</a> of the manifest is also available, as well as a <a
 						href="https://github.com/w3c/pub-manifest/blob/master/experiments/w3c_rec/full_version.html"
 						>more elaborate version</a> for the same document.</p>
 				<pre class="example" data-include="experiments/w3c_rec/simple_version.html" data-include-format="text"></pre>
@@ -4044,7 +4037,7 @@ dictionary LocalizableString {
 				<h3>Audiobook</h3>
 				<p>A manifest for an audiobook. A <a
 						href="https://w3c.github.io/pub-manifest/experiments/audiobook/flatland-canonical.json">JSON
-						encoding of the canonical representation</a> of this manifest is also available.</p>
+						encoding of the internal representation</a> of this manifest is also available.</p>
 				<pre class="example" data-include="experiments/audiobook/flatland.json" data-include-format="text"></pre>
 			</section>
 		</section>
