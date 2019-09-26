@@ -1018,7 +1018,10 @@ dictionary LocalizableString {
 				</ol>
 
 				<pre class="example" title="Setting the context declaration.">{
-    "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context"
+    ],
     …
 }</pre>
 
@@ -1030,6 +1033,21 @@ dictionary LocalizableString {
 						href="https://schema.org/docs/faq.html#19">the vocabulary is being migrated</a> to use the
 					secure <code>https</code> scheme as its default. The use of <code>https</code> when referencing
 					Schema.org in the manifest is REQUIRED by this specification.</p>
+
+				<p>The context can be extended by including additional paramaters &#8212; such as the <a
+						href="#manifest-context">global language and direction declarations</a> &#8212; in an object
+					following the publication context.</p>
+				
+				<pre class="example">{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context",
+        {
+            "language" : "es"
+        }
+    ],
+    …
+}</pre>
 			</section>
 
 			<section id="manifest-lang-dir">
@@ -1221,6 +1239,7 @@ dictionary LocalizableString {
 			</section>
 
 			<section id="profile-conformance">
+
 				<h3>Profile Conformance</h3>
 
 				<p>A <a>digital publication</a> indicates the <a>profile</a> its manifest and content are in conformance
@@ -1233,7 +1252,7 @@ dictionary LocalizableString {
 							<th>Description</th>
 							<th>Required Value</th>
 							<th>Value Type</th>
-							<th>[[!schema.org]] Mapping</th>
+							<th>[[!dcterms]] Mapping</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -1246,7 +1265,9 @@ dictionary LocalizableString {
 							<td>URL of the profile.</td>
 							<td>A valid URL string&#160;[[!url]].</td>
 							<td><a href="#value-array">Array</a> of <a href="#value-url">URLs</a></td>
-							<td>(None)</td>
+							<td><a
+									href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#terms-conformsTo"
+									>conformsTo</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -2527,7 +2548,10 @@ dictionary LocalizableString {
     "@context" : [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context",
-        {"ex": "https://example.org/vocab"}
+        {
+            "language" : "en",
+            "ex"       : "https://example.org/vocab"
+        }
     ],
     …
     "ex:region" : "North America",

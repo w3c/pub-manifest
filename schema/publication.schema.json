@@ -35,6 +35,10 @@
             },
             "uniqueItems": true
         },
+        "conformsTo": {
+        	"type": "string",
+        	"format": "iri"
+        },
         "id": {
             "type": "string"
         },
