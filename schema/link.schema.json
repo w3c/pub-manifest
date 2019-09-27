@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://w3c.github.io/pub-manifest/schema/link.schema.json",
+    "$id": "link.schema.json",
     "title": "Publication Links",
     "type": "object",
     "properties": {
@@ -22,8 +22,7 @@
             ]
         },
         "url": {
-            "type": "string",
-            "format": "iri-reference"
+            "$ref": "url.schema.json"
         },
         "encodingFormat": {
             "type": "string"
@@ -62,8 +61,7 @@
             "items": {
                 "anyOf": [
                     {
-                        "type": "string",
-                        "format": "uri-reference"
+                        "$ref": "url.schema.json"
                     },
                     {
                         "$ref": "link.schema.json"
