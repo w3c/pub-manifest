@@ -22,8 +22,7 @@
             ]
         },
         "url": {
-            "type": "string",
-            "format": "iri-reference"
+            "$ref": "url.schema.json"
         },
         "encodingFormat": {
             "type": "string"
@@ -62,8 +61,7 @@
             "items": {
                 "anyOf": [
                     {
-                        "type": "string",
-                        "format": "uri-reference"
+                        "$ref": "url.schema.json"
                     },
                     {
                         "$ref": "link.schema.json"

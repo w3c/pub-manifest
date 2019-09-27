@@ -120,8 +120,7 @@
             "$ref": "contributor.schema.json"
         },
         "url": {
-            "type": "string",
-            "format": "uri"
+            "$ref": "url.schema.json"
         },
         "duration": {
             "type": "string",
