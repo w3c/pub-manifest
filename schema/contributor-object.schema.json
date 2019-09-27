@@ -8,8 +8,7 @@
             "$ref": "localizable.schema.json"
         },
         "id": {
-            "type": "string",
-            "format": "iri"
+            "$ref": "url.schema.json"
         },
         "type": {
             "anyOf": [
@@ -36,8 +35,7 @@
             ]
         },
         "url": {
-        	"type": "string",
-        	"format": "iri" 
+        	"$ref": "url.schema.json" 
         },
         "identifier": {
         	"type": "array",
