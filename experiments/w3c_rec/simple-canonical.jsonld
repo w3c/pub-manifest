@@ -1,11 +1,13 @@
 {
     "@context": [ 
         "https://schema.org",
-        "https://www.w3.org/ns/pub-context"
+        "https://www.w3.org/ns/pub-context",
+        {"language" : "en-US"}
     ],
     "type": [
         "TechArticle"
     ],
+    "conformsTo": ["https://example.com/article"],
     "id": "http://www.w3.org/TR/tabular-data-model/",
     "url": "http://www.w3.org/TR/2015/REC-tabular-data-model-20151217/",
     "copyrightYear": "2015",
