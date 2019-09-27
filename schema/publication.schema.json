@@ -36,8 +36,7 @@
             "uniqueItems": true
         },
         "conformsTo": {
-        	"type": "string",
-        	"format": "iri"
+        	"$ref": "url.schema.json"
         },
         "id": {
             "type": "string"
