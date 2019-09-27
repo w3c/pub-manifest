@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://w3c.github.io/pub-manifest/schema/localizable.schema.json",
+    "$id": "localizable.schema.json",
     "title": "Localizable String or Object",
     "anyOf": [
         {
