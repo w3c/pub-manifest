@@ -35,8 +35,18 @@
             },
             "uniqueItems": true
         },
-        "conformsTo": {
-        	"$ref": "url.schema.json"
+        "conformsTo" : {
+            "oneOf": [
+                {
+                    "$ref": "url.schema.json"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "url.schema.json"
+                    }        
+                }
+            ]
         },
         "id": {
             "type": "string"
