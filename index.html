@@ -3002,6 +3002,20 @@ dictionary LocalizableString {
 					</details>
 				</li>
 
+				<li id="processing-language">
+					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>lang</var> be the value of the last instance
+						of the <var>language</var> keyword in an object in the <var>manifest[@context]</var> array. If
+						no instances of <var>language</var> exist, set <var>lang</var> to <code>null</code>.</p>
+					<p>If the value of <var>lang</var> is not a <a
+							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
+						language tag, this is a <a>validation error</a>. Set <code>lang</code> to <code>null</code>.</p>
+					<details>
+						<summary>Explanation</summary>
+						<p>The global language declaration obtained here is used to set the language for localizable
+							strings without a declaration.</p>
+					</details>
+				</li>
+
 				<li id="processing-expansion">
 					<p>Iterate over each property <var>term</var> in <var>manifest</var> and expand its value, as
 						necessary, as follows. More than one step MAY apply.</p>
@@ -3086,10 +3100,8 @@ dictionary LocalizableString {
 									<p><var>value</var> &#8211; set to <var>str</var>; and</p>
 								</li>
 								<li>
-									<p><var>language</var> &#8211; set to the value of the <a
-											href="#manifest-lang-dir-global">language declaration in
-												<var>manifest["@context"]</var></a> when specified; otherwise,
-										omitted.</p>
+									<p><var>language</var> &#8211; set to the value of <var>lang</var> when not
+											<code>null</code>; otherwise, omitted.</p>
 								</li>
 							</ul>
 							<p>If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this
