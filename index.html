@@ -4139,28 +4139,41 @@ dictionary LocalizableString {
 			<h2>Manifest Examples</h2>
 
 			<section>
-				<h3>Simple Book</h3>
-				<p>A manifest for a simple book. A <a
-						href="https://w3c.github.io/pub-manifest/experiments/separate_manifest/mobydick.jsonld">JSON
+				<h3>Basic Manifest</h3>
+
+				<p>The following is a manifest with a basic set of metadata for an example book profile.</p>
+
+				<p>A <a href="https://w3c.github.io/pub-manifest/experiments/separate_manifest/mobydick.jsonld">JSON
 						encoding of the internal representation</a> of this manifest is also available.</p>
+
 				<pre class="example" data-include="experiments/separate_manifest/mobydick-simple.jsonld" data-include-format="text"></pre>
 			</section>
 
 			<section>
 				<h3>Single-Document Publication</h3>
-				<p>Example for an embedded manifest example. A <a
-						href="https://w3c.github.io/pub-manifest/experiments/w3c_rec/simple-canonical.jsonld">JSON
+
+				<p>The following is a manifest for an example article profile. The article consists only of the document
+					the manifest is embedded in. The title and reading order are omitted from the manifest, as these
+					properties are automatically generated during <a href="#manifest-processing">processing</a> from the
+					title and URL of the containing document, respectively.</p>
+
+				<p>A <a href="https://w3c.github.io/pub-manifest/experiments/w3c_rec/simple-canonical.jsonld">JSON
 						encoding of the internal representation</a> of the manifest is also available, as well as a <a
 						href="https://github.com/w3c/pub-manifest/blob/master/experiments/w3c_rec/full_version.html"
 						>more elaborate version</a> for the same document.</p>
+
 				<pre class="example" data-include="experiments/w3c_rec/simple_version.html" data-include-format="text"></pre>
 			</section>
 
 			<section>
 				<h3>Audiobook</h3>
-				<p>A manifest for an audiobook [[audiobooks]]. A <a
-						href="https://w3c.github.io/pub-manifest/experiments/audiobook/flatland-canonical.json">JSON
+
+				<p>The following example shows a manifest that conforms to the <a
+						href="https://www.w3.org/TR/audiobooks">Audiobooks profile</a> [[audiobooks]].</p>
+
+				<p>A <a href="https://w3c.github.io/pub-manifest/experiments/audiobook/flatland-canonical.json">JSON
 						encoding of the internal representation</a> of this manifest is also available.</p>
+
 				<pre class="example" data-include="experiments/audiobook/flatland.json" data-include-format="text"></pre>
 			</section>
 		</section>
