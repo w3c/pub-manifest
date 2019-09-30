@@ -12,7 +12,7 @@
                 },
                 {
                     "const": "https://www.w3.org/ns/pub-context"
-                },
+                }
             ],
             "uniqueItems": true
         },
