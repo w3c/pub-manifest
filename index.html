@@ -92,6 +92,24 @@
 
 				<dl>
 					<dt>
+						<dfn>Bounds</dfn>
+					</dt>
+					<dd>
+						<p>A <a>digital publication</a> consists of a finite set of resources that represent its
+							content. This extent is known as its bounds and is defined within its manifest — it is
+							obtained from the union of resources listed in the <a href="#default-reading-order">default
+								reading order</a> and <a href="#resource-list">resource list</a>.</p>
+					</dd>
+
+					<dt>
+						<dfn data-lt="digital publications|digital publication's">Digital Publication</dfn>
+					</dt>
+					<dd>
+						<p>The term digital publication refers to a publication authored in a format that uses a
+								<a>profile</a> of the <a>manifest</a>.</p>
+					</dd>
+
+					<dt>
 						<dfn>Internal Representation</dfn>
 					</dt>
 					<dd>
@@ -101,14 +119,6 @@
 						<p>It is possible for the information expressed in the manifest to be the equivalent of the
 							internal representation created by user agents if there are no ambiguities or missing
 							information.</p>
-					</dd>
-					<dt>
-						<dfn data-lt="digital publications|digital publication's">Digital Publication</dfn>
-					</dt>
-					<dd>
-						<p>The term digital publication is used to refer to a publication authored in a format that uses
-							the <a>manifest</a> format. These formats can differ in their structural and content
-							requirements.</p>
 					</dd>
 
 					<dt>
@@ -128,6 +138,19 @@
 							or property whose text content or value consists of one or more characters after whitespace
 							normalization, where whitespace normalization rules are defined per the host format.</p>
 					</dd>
+
+					<dt>
+						<dfn>Profile</dfn>
+					</dt>
+					<dd>
+						<p>Profiles are publication formats (e.g., audiobooks) that use the <a>manifest</a> format
+							defined in this specification to describe their <a>bounds</a> and content. These formats can
+							extend the core definition in this specification with profile-specific terms and/or new
+							requirements.</p>
+						<p>Although profiles can differ in their structural and content requirements, such variances are
+							restricted to maintain a high degree of predictabibility between formats. (See <a
+								href="#extensions"></a>.)</p>
+					</dd>
 				</dl>
 			</section>
 
@@ -145,6 +168,13 @@
 					<p>A <a>digital publication</a> is described by its <a>manifest</a>, which provides a set of
 						properties expressed using a specific shape of JSON-LD&#160;[[json-ld]] (a variant of
 						JSON&#160;[[ecma-404]] for linked data).</p>
+
+					<p>The manifest is what enables user agents to understand the <a>bounds</a> of <a>digital
+							publication</a> and the connection between its resources. It includes metadata that
+						describes the digital publication, as a publication has an identity and nature beyond its
+						constituent resources. The manifest also provides a list of all the resources that belong to the
+						digital publication and a default reading order, which is how it connects resources into a
+						single contiguous work.</p>
 
 					<p>The properties of the manifest describe the basic information a user agent requires to process
 						and render a publication. For ease of understanding, these properties are categorized as
@@ -265,6 +295,9 @@
 					<li>
 						<a href="#publication-types">type</a>
 					</li>
+					<li>
+						<a href="#profile-conformance">conformsTo</a>
+					</li>
 				</ul>
 
 				<p>The priority of all other <a href="#manifest-properties">properties</a> and <a href="#manifest-rel"
@@ -307,6 +340,7 @@
 					<pre class="idl" id="wpm">
 dictionary PublicationManifest {
     required sequence&lt;DOMString>         type;
+    required sequence&lt;DOMString>         conformsTo;
              DOMString                   id;
              boolean                     abridged;
              sequence&lt;DOMString>         accessMode;
@@ -394,6 +428,587 @@ dictionary LocalizableString {
 				</section>
 			</section>
 
+			<section id="properties-value-categories">
+				<h3>Value Categories</h3>
+
+				<p>This section describes the categories of values that can be used with properties of the publication
+					manifest.</p>
+
+				<section id="value-literal">
+					<h4>Literals</h4>
+
+					<p>When a <a href="#manifest-properties">manifest</a> property expects a literal text string as its
+						value &#8212; one that is not language-dependent, such as a code value or date &#8212; its value
+						MUST be expressed as a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5"
+							>string</a>.</p>
+
+					<p>Literal values are not changed <a href="#manifest-processing">during processing of the
+							manifest</a>, unlike other values which might be, for example, <a href="#value-objects"
+							>converted to objects</a>.</p>
+				</section>
+
+				<section id="value-number">
+					<h4>Numbers</h4>
+
+					<p>When a <a href="#manifest-properties">manifest</a> property expects a number as its value, the
+						value MUST be expressed as a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.4"
+							>number</a>.</p>
+				</section>
+
+				<section id="value-boolean">
+					<h4>Booleans</h4>
+
+					<p>When a <a href="#manifest-properties">manifest</a> property expects a boolean as its value, the
+						value MUST be expressed as an [[!ecmascript]]&#160;<a
+							data-cite="ecmascript#sec-terms-and-definitions-boolean-value">Boolean value</a>
+							(<code>true</code> or <code>false</code>).</p>
+				</section>
+
+				<section id="value-objects">
+					<h4>Explicit and Implied Objects</h4>
+
+					<p>Various manifest properties are expected to be expressed as [[!json]]&#160;<a
+							href="https://tools.ietf.org/html/rfc4627#section-2.2">objects</a>. Although the use of
+						objects is usually recommended, the following sections identify cases where it is also
+						acceptable to use string values that are interpreted as objects depending on the context. The
+						exact mapping of text values to objects is part of the property or object definitions.</p>
+
+					<section id="value-localizable-string">
+						<h5>Localizable Strings</h5>
+
+						<p>When a <a href="#manifest-properties">manifest</a> property expects a localizable text string
+							as its value, the value MUST be expressed either as:</p>
+
+						<ul>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a> value;
+								or</li>
+							<li>A <code>LocalizableString</code>.</li>
+						</ul>
+
+						<p>A single string value represents an implied object whose <code>value</code> property is the
+							string's text and whose language is determined from other information in the manifest.</p>
+
+						<p>A <code>LocalizableString</code> is a [[!json]]&#160;<a
+								href="https://tools.ietf.org/html/rfc4627#section-2.2">object</a> consisting of the
+							following properties:</p>
+
+						<table class="zebra" data-dfn-for="LocalizableString">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Type</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code>
+											<dfn>value</dfn>
+										</code>
+									</td>
+									<td>The value of the localizable string. REQUIRED.</td>
+									<td>Text.</td>
+									<td><a href="#value-literal">Literal</a></td>
+									<td>(None)</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>language</dfn>
+										</code>
+									</td>
+									<td>The language of the value. OPTIONAL.</td>
+									<td>A <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
+											tag</a>&#160;[[!bcp47]].</td>
+									<td><a href="#value-literal">Literal</a></td>
+									<td>(None)</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<pre class="example">{
+    "value"    : "",
+    "language" : ""
+}</pre>
+					</section>
+
+					<section id="value-entity">
+						<h6>Entities</h6>
+
+						<p>When a <a href="#manifest-properties">manifest</a> property expects an entity (i.e., an
+							individual or organization responsible for the various aspects of creation), its value MUST
+							be expressed either as:</p>
+
+						<ul>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a> value;
+								or</li>
+							<li>an <code>Entity</code>.</li>
+						</ul>
+
+						<p>A single string value represents an instance of an <code>Entity</code> object whose
+								<code>name</code> property is the string's text and whose <code>type</code> is assumed
+							to be <a href="https://schema.org/Person">Person</a>&#160;[[!schema.org]].</p>
+
+						<p>An <code>Entity</code> is defined as an instance of either the [[!schema.org]] <a
+								href="https://schema.org/Person"><code>Person</code></a> or <a
+								href="https://schema.org/Organization"><code>Organization</code></a> type with the
+							following minimal property set:</p>
+
+						<table class="zebra" data-dfn-for="Entity">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Type</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code>
+											<dfn>type</dfn>
+										</code>
+									</td>
+									<td>The type of creator. OPTIONAL</td>
+									<td>One or more Text. Sequence MUST include "<code>Person</code>" or
+											"<code>Organization</code>".</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+									</td>
+									<td>(None)</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>name</dfn>
+										</code>
+									</td>
+									<td>Name of the creator. REQUIRED.</td>
+									<td>One or more Text.</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-localizable-string"
+											>Localizable Strings</a>
+									</td>
+									<td>
+										<a href="https://schema.org/name">
+											<code>name</code>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>id</dfn>
+										</code>
+									</td>
+									<td>A canonical identifier associated with the creator. OPTIONAL.</td>
+									<td>A URL record&#160;[[!url]].</td>
+									<td>
+										<a href="#value-id">Identifier</a>
+									</td>
+									<td> (None) </td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>url</dfn>
+										</code>
+									</td>
+									<td>An address associated with the creator. OPTIONAL.</td>
+									<td>A valid URL string&#160;[[!url]].</td>
+									<td>
+										<a href="#value-url">URL</a>
+									</td>
+									<td>
+										<a href="https://schema.org/url">
+											<code>url</code>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>identifier</dfn>
+										</code>
+									</td>
+									<td>An identifier associated with the creator (e.g., ORCID). OPTIONAL.</td>
+									<td>One or more text(s).</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+									</td>
+									<td>
+										<a href="https://schema.org/identifier">
+											<code>identifier</code>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<p>Note that user agents MAY interpret a wider range of creator properties defined by Schema.org
+							than the ones in the preceding table.</p>
+
+						<aside class="example" title="Using a string instead of a Person object.">
+							<p>The following author name is expressed as a string:</p>
+
+							<pre>{
+    …
+    "author" : "Edgar Allen Poe",
+    …
+}</pre>
+							<p>but, in the context of <a href="#creators">creators</a>, it is equivalent to:</p>
+
+							<pre>{
+    …
+    "author" : {
+        "type" : "Person",
+        "name" : "Edgar Allen Poe"
+    },
+    …
+}</pre>
+							<p>(See <a href="#creators"></a> for further details.)</p>
+						</aside>
+					</section>
+
+					<section id="value-linked-resource">
+						<h5>Linked Resources</h5>
+
+						<p>When a manifest property links to one or more resources, it MUST be expressed either as:</p>
+
+						<ol>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+								encoding the <a>URL</a> of the resources; or</li>
+							<li>an instance of a <code>LinkedResource</code>.</li>
+						</ol>
+
+						<p>A string value represents an implied <code>LinkedResource</code> object whose
+								<code>url</code> property is set to the string value.</p>
+
+						<p id="publication-link-def">A <code>LinkedResource</code> object is defined as follows:</p>
+
+						<table class="zebra" data-dfn-for="LinkedResource">
+							<thead>
+								<tr>
+									<th>Term</th>
+									<th>Description</th>
+									<th>Required Value</th>
+									<th>Value Type</th>
+									<th>[[!schema.org]] Mapping</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<code>
+											<dfn>type</dfn>
+										</code>
+									</td>
+									<td>The type of resource. OPTIONAL</td>
+									<td>One or more Text. Sequence MUST include "<code>LinkedResource</code>".</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+									</td>
+									<td>(None)</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>url</dfn>
+										</code>
+									</td>
+									<td>Location of the resource. REQUIRED.</td>
+									<td>A valid URL string&#160;[[!url]]. Refer to the property definitions that accept
+										this type for additional restrictions.</td>
+									<td>
+										<a href="#value-url">URL</a>
+									</td>
+									<td>
+										<a href="https://schema.org/url">
+											<code>url</code>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>encodingFormat</dfn>
+										</code>
+									</td>
+									<td>Media type of the resource (e.g., <code>text/html</code>). OPTIONAL.</td>
+									<td>MIME Media Type&#160;[[!rfc2046]].</td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
+									<td>
+										<a href="https://schema.org/encodingFormat">
+											<code>encodingFormat</code>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>name</dfn>
+										</code>
+									</td>
+									<td>Name of the item. OPTIONAL.</td>
+									<td>One or more Text items.</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-localizable-string"
+											>Localizable Strings</a>
+									</td>
+									<td>
+										<a href="https://schema.org/name">
+											<code>name</code>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>description</dfn>
+										</code>
+									</td>
+									<td>Description of the item. OPTIONAL.</td>
+									<td>Text.</td>
+									<td>
+										<a href="#value-localizable-string">Localizable String</a>
+									</td>
+									<td>
+										<a href="https://schema.org/description">
+											<code>description</code>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>rel</dfn>
+										</code>
+									</td>
+									<td>The relation of the resource to the publication. OPTIONAL.</td>
+									<td>
+										<p>One or more <a href="#manifest-rel">relations</a>. The values are either the
+											relevant relation terms of the IANA link
+											registry&#160;[[!iana-link-relations]], or specially-defined URLs if no
+											suitable link registry item exists.</p>
+									</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
+									</td>
+									<td>(None)</td>
+								</tr>
+								<tr>
+									<td>
+										<code><dfn>integrity</dfn></code>
+									</td>
+									<td>A cryptographic hashing of the resource that allows its integrity to be
+										verified. OPTIONAL.</td>
+									<td><p>One or more whitespace-separated sets of <a
+												href="https://www.w3.org/TR/SRI/#dfn-integrity-metadata">integrity
+												metadata</a>&#160;[[!sri]]. The value MUST conform to the <a
+												href="https://www.w3.org/TR/SRI/#the-integrity-attribute">metadata
+												definition</a>&#160;[[!sri]].</p>
+										<p>Refer to [[!sri]] for the <a
+												href="https://www.w3.org/TR/SRI/#cryptographic-hash-functions">list of
+												cryptographic hashing functions</a> that user agents are expected to
+											support.</p>
+									</td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
+									<td>(None)</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>length</dfn>
+										</code>
+									</td>
+									<td>The total length of a time-based media resource in (possibly fractional)
+										seconds. OPTIONAL</td>
+									<td>Number</td>
+									<td>
+										<a href="#value-number">Number</a>
+									</td>
+									<td>(None)</td>
+								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>alternate</dfn>
+										</code>
+									</td>
+									<td>
+										<p>References to one or more reformulation(s) of the resource in alternative
+											formats.</p>
+										<p>When specified, <code>encodingFormat</code> indicates the format of the
+											reformulation.</p>
+										<p>Order is not significant.</p>
+										<p>OPTIONAL</p>
+										<p>One or more of:</p>
+										<ul>
+											<li>a string, representing the <a>URL</a> of the resource reformulation in
+												an alternative format; or</li>
+											<li>an instance of a <code>LinkedResource</code> object</li>
+										</ul>
+										<p>The order of items is <em>not significant</em>. Non-HTML resources SHOULD be
+											expressed as <code>LinkedResource</code> objects with their
+												<code>encodingFormat</code> values set.</p>
+									</td>
+									<td>
+										<p>One or more instances of <code>LinkedResource</code> objects.</p>
+									</td>
+									<td>
+										<a href="#value-array">Array</a> of <a href="#value-linked-resource">Linked
+											Resources</a>
+									</td>
+									<td> (None) </td>
+								</tr>
+							</tbody>
+						</table>
+
+						<p>Although user agent support for the <code>integrity</code> property is OPTIONAL, user agents
+							that support cryptographic hashing comparisons using this property MUST do so in accordance
+							with [[!sri]].</p>
+
+						<pre class="example" title="A resource with a SHA-256 hashing of its content.">{
+    "type"           : "LinkedResource",
+    "url"            : "chapter1.html",
+    "encodingFormat" : "text/html",
+    "name"           : "Chapter 1 - Loomings",
+    "integrity"      : "sha256-13AE04E21177BABEDFDE721577615A638341F963731EA936BBB8C3862F57CDFC"
+}</pre>
+
+						<pre class="example" title="A resource with its alternate formats.">{
+    "type"           : "LinkedResource",
+    "url"            : "chapter1.mp3",
+    "encodingFormat" : "audio/mpeg",
+    "name"           : "Chapter 1 - Loomings",
+    "alternate"      : [
+        "chapter1.html",
+        {
+            "type": "LinkedResource",
+            "url": "chapter1.json",
+            "encodingFormat": "application/vnd.wp-sync-media+json",
+            "length": 1669
+        }
+    ]
+}</pre>
+
+						<p>A string value represents an implied <code>LinkedResource</code> object whose
+								<code>url</code> property is set to the string value.</p>
+
+						<pre class="example" title="Resource list that includes one link using a relative URL as a string ('datatypes.svg') and two that display the various properties of the a LinkedResource object.">{
+    …
+    "resources" : [
+        "datatypes.svg",
+        {
+            "type"            : "LinkedResource",
+            "url"             : "test-utf8.csv",
+            "encodingFormat"  : "text/csv",
+            "name"            : "Test Results",
+            "description"     : "CSV file containing the full data set used."
+        },
+        {
+            "type"            : "LinkedResource",
+            "url"             : "terminology.html",
+            "encodingFormat"  : "text/html",
+            "rel"             : "glossary"
+        }
+    ],
+    …
+}</pre>
+					</section>
+				</section>
+
+				<section id="value-url">
+					<h4>URLs</h4>
+
+					<p><dfn data-lt="URL">URLs</dfn> are used to identify resources associated with a <a>digital
+							publication</a>. When a property expects a URL value, it MUST be a <a
+							href="https://url.spec.whatwg.org/#absolute-url-string">valid URL
+						string</a>&#160;[[!url]].</p>
+
+					<p>Manifest URLs are restricted to only the <code>http</code> and <code>https</code>
+						<a href="https://url.spec.whatwg.org/#concept-url-scheme">schemes</a>&#160;[[!url]].</p>
+
+					<p>In the case of <a href="https://url.spec.whatwg.org/#relative-url-string">relative-URL
+							strings</a>, these are resolved to <a
+							href="https://url.spec.whatwg.org/#absolute-url-string">absolute-URL strings</a> using a <a
+							href="https://url.spec.whatwg.org/#concept-base-url">base URL</a>&#160;[[!url]].</p>
+
+					<p>The base URL for relative-URL strings is determined as follows:</p>
+
+					<ul>
+						<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, it is the <a
+								href="https://www.w3.org/TR/json-ld11/#inheriting-base-iri-from-html-s-base-element"
+								>document base URL of the embedding document</a>&#160;[[!json-ld]];</li>
+						<li>In the case of a <a href="#manifest-link">linked manifest</a>, it is the URL of the manifest
+							resource.</li>
+						<li>In the case of a digital publication format that uses <a href="#manifest-other-discovery"
+								>another means of discovering the manifest</a>, it is defined by the format.</li>
+					</ul>
+
+					<p>By consequence, relative-URL strings in embedded manifests are resolved against the URL of the
+						document that references the manifest <em>unless</em> the document declares a base URL (i.e., in
+						a <a data-cite="!html#the-base-element"><code>&lt;base&gt;</code> element</a> in its
+						header).</p>
+
+					<p class="note">URLs allow for the usage of characters from Unicode following&#160;[[rfc3987]]. See
+							<a href="https://www.w3.org/TR/html/references.html#biblio-url">the note in the HTML5
+							specification</a> for further details.</p>
+				</section>
+
+				<section id="value-id">
+					<h4>Identifiers</h4>
+
+					<p>Identifiers are used to refer to a <a>digital publication</a> and the <a href="#value-entity"
+							>entities</a> reponsible for its creation in a persistent and unambiguous manner. <abbr
+							title="Uniform Resource Locators">URLs</abbr>, <abbr title="Uniform Resource Names"
+							>URNs</abbr>, <abbr title="Digital Object Identifiers">DOIs</abbr>, <abbr
+							title="International Standard Book Numbers">ISBNs</abbr>, and <abbr
+							title="Persistent Uniform Resource Locators">PURLs</abbr> are all examples of persistent
+						identifiers frequently used in publishing.</p>
+
+					<p>Identifiers MUST be expressed as <a href="https://url.spec.whatwg.org/#concept-url">URL
+							records</a>&#160;[[!url]]</p>
+				</section>
+
+				<section id="value-array">
+					<h4>Arrays</h4>
+
+					<p>When a <a href="#manifest-properties">manifest property</a> allows one or more value of their
+						respective type (e.g., <a href="#value-literal">literal</a>, <a href="#value-objects"
+						>object</a>, or <a href="#value-url">URL</a>), these values are expressed as [[!json]] <a
+							href="https://tools.ietf.org/html/rfc4627#section-2.3">arrays</a>. When a property value is
+						a single element, however, the array syntax MAY be omitted.</p>
+
+					<aside class="example" title="Using a text string instead of an array.">
+						<p>As a digital publication typically contains many resources, this declaration of a single
+							resource:</p>
+
+						<pre>{
+    …
+    "resources" : "datatypes.svg",
+    …
+}</pre>
+						<p>is equivalent to the array:</p>
+
+						<pre>{
+    …
+    "resources" : ["datatypes.svg"],
+    …
+}</pre>
+					</aside>
+				</section>
+			</section>
+
 			<section id="manifest-context">
 				<h3>Manifest Contexts</h3>
 
@@ -406,7 +1021,10 @@ dictionary LocalizableString {
 				</ol>
 
 				<pre class="example" title="Setting the context declaration.">{
-    "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context"
+    ],
     …
 }</pre>
 
@@ -418,6 +1036,21 @@ dictionary LocalizableString {
 						href="https://schema.org/docs/faq.html#19">the vocabulary is being migrated</a> to use the
 					secure <code>https</code> scheme as its default. The use of <code>https</code> when referencing
 					Schema.org in the manifest is REQUIRED by this specification.</p>
+
+				<p>The context can be extended by including additional paramaters &#8212; such as the <a
+						href="#manifest-context">global language and direction declarations</a> &#8212; in an object
+					following the publication context.</p>
+
+				<pre class="example">{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context",
+        {
+            "language" : "es"
+        }
+    ],
+    …
+}</pre>
 			</section>
 
 			<section id="manifest-lang-dir">
@@ -608,593 +1241,54 @@ dictionary LocalizableString {
 					subtypes</a>.</p>
 			</section>
 
+			<section id="profile-conformance">
+
+				<h3>Profile Conformance</h3>
+
+				<p>A <a>digital publication</a> indicates the <a>profile</a> its manifest and content are in conformance
+					with using the <code>conformsTo</code> property.</p>
+
+				<table class="zebra">
+					<thead>
+						<tr>
+							<th>Term</th>
+							<th>Description</th>
+							<th>Required Value</th>
+							<th>Value Type</th>
+							<th>[[!dcterms]] Mapping</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<code data-dfn-for="PublicationManifest">
+									<dfn>conformsTo</dfn>
+								</code>
+							</td>
+							<td>URL of the profile.</td>
+							<td>A valid URL string&#160;[[!url]].</td>
+							<td><a href="#value-array">Array</a> of <a href="#value-url">URLs</a></td>
+							<td><a
+									href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#terms-conformsTo"
+									>conformsTo</a></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<p>The URL to use for each profile is defined in its respective specification.</p>
+
+				<p class="note">The <code>conformsTo</code> property can also be used to indicate conformance to other
+					specifications and standards (e.g., to [[WCAG21]]).</p>
+
+				<pre class="example" title="Identify that a digital publication conforms to the W3C Audiobooks specification.">{
+    …
+    "conformsTo" : "https://www.w3.org/TR/audiobooks",
+    …
+}</pre>
+			</section>
+
 			<section id="manifest-properties">
 				<h3>Properties</h3>
-
-				<section id="properties-value-categories">
-					<h4>Value Categories</h4>
-
-					<p>This section describes the categories of values that can be used with properties of the
-						publication manifest.</p>
-
-					<section id="value-literal">
-						<h5>Literals</h5>
-
-						<p>When a <a href="#manifest-properties">manifest</a> property expects a literal text string as
-							its value &#8212; one that is not language-dependent, such as a code value or date &#8212;
-							its value MUST be expressed as a [[!json]] <a
-								href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>.</p>
-
-						<p>Literal values are not changed <a href="#manifest-processing">during processing of the
-								manifest</a>, unlike other values which might be, for example, <a href="#value-objects"
-								>converted to objects</a>.</p>
-					</section>
-
-					<section id="value-number">
-						<h5>Numbers</h5>
-
-						<p>When a <a href="#manifest-properties">manifest</a> property expects a number as its value,
-							the value MUST be expressed as a [[!json]] <a
-								href="https://tools.ietf.org/html/rfc4627#section-2.4">number</a>.</p>
-					</section>
-
-					<section id="value-boolean">
-						<h5>Booleans</h5>
-
-						<p>When a <a href="#manifest-properties">manifest</a> property expects a boolean as its value,
-							the value MUST be expressed as an [[!ecmascript]]&#160;<a
-								data-cite="ecmascript#sec-terms-and-definitions-boolean-value">Boolean value</a>
-								(<code>true</code> or <code>false</code>).</p>
-					</section>
-
-					<section id="value-objects">
-						<h5>Explicit and Implied Objects</h5>
-
-						<p>Various manifest properties are expected to be expressed as [[!json]]&#160;<a
-								href="https://tools.ietf.org/html/rfc4627#section-2.2">objects</a>. Although the use of
-							objects is usually recommended, the following sections identify cases where it is also
-							acceptable to use string values that are interpreted as objects depending on the context.
-							The exact mapping of text values to objects is part of the property or object
-							definitions.</p>
-
-						<section id="value-localizable-string">
-							<h5>Localizable Strings</h5>
-
-							<p>When a <a href="#manifest-properties">manifest</a> property expects a localizable text
-								string as its value, the value MUST be expressed either as:</p>
-
-							<ul>
-								<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
-									value; or</li>
-								<li>A <code>LocalizableString</code>.</li>
-							</ul>
-
-							<p>A single string value represents an implied object whose <code>value</code> property is
-								the string's text and whose language is determined from other information in the
-								manifest.</p>
-
-							<p>A <code>LocalizableString</code> is a [[!json]]&#160;<a
-									href="https://tools.ietf.org/html/rfc4627#section-2.2">object</a> consisting of the
-								following properties:</p>
-
-							<table class="zebra" data-dfn-for="LocalizableString">
-								<thead>
-									<tr>
-										<th>Term</th>
-										<th>Description</th>
-										<th>Required Value</th>
-										<th>Value Type</th>
-										<th>[[!schema.org]] Mapping</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<code>
-												<dfn>value</dfn>
-											</code>
-										</td>
-										<td>The value of the localizable string. REQUIRED.</td>
-										<td>Text.</td>
-										<td><a href="#value-literal">Literal</a></td>
-										<td>(None)</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>language</dfn>
-											</code>
-										</td>
-										<td>The language of the value. OPTIONAL.</td>
-										<td>A <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed
-												language tag</a>&#160;[[!bcp47]].</td>
-										<td><a href="#value-literal">Literal</a></td>
-										<td>(None)</td>
-									</tr>
-								</tbody>
-							</table>
-
-							<pre class="example">{
-    "value"    : "",
-    "language" : ""
-}</pre>
-						</section>
-
-						<section id="value-entity">
-							<h6>Entities</h6>
-
-							<p>When a <a href="#manifest-properties">manifest</a> property expects an entity (i.e., an
-								individual or organization responsible for the various aspects of creation), its value
-								MUST be expressed either as:</p>
-
-							<ul>
-								<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
-									value; or</li>
-								<li>an <code>Entity</code>.</li>
-							</ul>
-
-							<p>A single string value represents an instance of an <code>Entity</code> object whose
-									<code>name</code> property is the string's text and whose <code>type</code> is
-								assumed to be <a href="https://schema.org/Person">Person</a>&#160;[[!schema.org]].</p>
-
-							<p>An <code>Entity</code> is defined as an instance of either the [[!schema.org]] <a
-									href="https://schema.org/Person"><code>Person</code></a> or <a
-									href="https://schema.org/Organization"><code>Organization</code></a> type with the
-								following minimal property set:</p>
-
-							<table class="zebra" data-dfn-for="Entity">
-								<thead>
-									<tr>
-										<th>Term</th>
-										<th>Description</th>
-										<th>Required Value</th>
-										<th>Value Type</th>
-										<th>[[!schema.org]] Mapping</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<code>
-												<dfn>type</dfn>
-											</code>
-										</td>
-										<td>The type of creator. OPTIONAL</td>
-										<td>One or more Text. Sequence MUST include "<code>Person</code>" or
-												"<code>Organization</code>".</td>
-										<td>
-											<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
-										</td>
-										<td>(None)</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>name</dfn>
-											</code>
-										</td>
-										<td>Name of the creator. REQUIRED.</td>
-										<td>One or more Text.</td>
-										<td>
-											<a href="#value-array">Array</a> of <a href="#value-localizable-string"
-												>Localizable Strings</a>
-										</td>
-										<td>
-											<a href="https://schema.org/name">
-												<code>name</code>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>id</dfn>
-											</code>
-										</td>
-										<td>A canonical identifier associated with the creator. OPTIONAL.</td>
-										<td>A URL record&#160;[[!url]].</td>
-										<td>
-											<a href="#value-id">Identifier</a>
-										</td>
-										<td> (None) </td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>url</dfn>
-											</code>
-										</td>
-										<td>An address associated with the creator. OPTIONAL.</td>
-										<td>A valid URL string&#160;[[!url]].</td>
-										<td>
-											<a href="#value-url">URL</a>
-										</td>
-										<td>
-											<a href="https://schema.org/url">
-												<code>url</code>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>identifier</dfn>
-											</code>
-										</td>
-										<td>An identifier associated with the creator (e.g., ORCID). OPTIONAL.</td>
-										<td>One or more text(s).</td>
-										<td>
-											<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
-										</td>
-										<td>
-											<a href="https://schema.org/identifier">
-												<code>identifier</code>
-											</a>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-
-							<p>Note that user agents MAY interpret a wider range of creator properties defined by
-								Schema.org than the ones in the preceding table.</p>
-
-							<aside class="example" title="Using a string instead of a Person object.">
-								<p>The following author name is expressed as a string:</p>
-
-								<pre>{
-    …
-    "author" : "Edgar Allen Poe",
-    …
-}</pre>
-								<p>but, in the context of <a href="#creators">creators</a>, it is equivalent to:</p>
-
-								<pre>{
-    …
-    "author" : {
-        "type" : "Person",
-        "name" : "Edgar Allen Poe"
-    },
-    …
-}</pre>
-								<p>(See <a href="#creators"></a> for further details.)</p>
-							</aside>
-						</section>
-
-						<section id="value-linked-resource">
-							<h5>Linked Resources</h5>
-
-							<p>When a manifest property links to one or more resources, it MUST be expressed either
-								as:</p>
-
-							<ol>
-								<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
-									encoding the <a>URL</a> of the resources; or</li>
-								<li>an instance of a <code>LinkedResource</code>.</li>
-							</ol>
-
-							<p>A string value represents an implied <code>LinkedResource</code> object whose
-									<code>url</code> property is set to the string value.</p>
-
-							<p id="publication-link-def">A <code>LinkedResource</code> object is defined as follows:</p>
-
-							<table class="zebra" data-dfn-for="LinkedResource">
-								<thead>
-									<tr>
-										<th>Term</th>
-										<th>Description</th>
-										<th>Required Value</th>
-										<th>Value Type</th>
-										<th>[[!schema.org]] Mapping</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<code>
-												<dfn>type</dfn>
-											</code>
-										</td>
-										<td>The type of resource. OPTIONAL</td>
-										<td>One or more Text. Sequence MUST include "<code>LinkedResource</code>".</td>
-										<td>
-											<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
-										</td>
-										<td>(None)</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>url</dfn>
-											</code>
-										</td>
-										<td>Location of the resource. REQUIRED.</td>
-										<td>A valid URL string&#160;[[!url]]. Refer to the property definitions that
-											accept this type for additional restrictions.</td>
-										<td>
-											<a href="#value-url">URL</a>
-										</td>
-										<td>
-											<a href="https://schema.org/url">
-												<code>url</code>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>encodingFormat</dfn>
-											</code>
-										</td>
-										<td>Media type of the resource (e.g., <code>text/html</code>). OPTIONAL.</td>
-										<td>MIME Media Type&#160;[[!rfc2046]].</td>
-										<td>
-											<a href="#value-literal">Literal</a>
-										</td>
-										<td>
-											<a href="https://schema.org/encodingFormat">
-												<code>encodingFormat</code>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>name</dfn>
-											</code>
-										</td>
-										<td>Name of the item. OPTIONAL.</td>
-										<td>One or more Text items.</td>
-										<td>
-											<a href="#value-array">Array</a> of <a href="#value-localizable-string"
-												>Localizable Strings</a>
-										</td>
-										<td>
-											<a href="https://schema.org/name">
-												<code>name</code>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>description</dfn>
-											</code>
-										</td>
-										<td>Description of the item. OPTIONAL.</td>
-										<td>Text.</td>
-										<td>
-											<a href="#value-localizable-string">Localizable String</a>
-										</td>
-										<td>
-											<a href="https://schema.org/description">
-												<code>description</code>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>rel</dfn>
-											</code>
-										</td>
-										<td>The relation of the resource to the publication. OPTIONAL.</td>
-										<td>
-											<p>One or more <a href="#manifest-rel">relations</a>. The values are either
-												the relevant relation terms of the IANA link
-												registry&#160;[[!iana-link-relations]], or specially-defined URLs if no
-												suitable link registry item exists.</p>
-										</td>
-										<td>
-											<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
-										</td>
-										<td>(None)</td>
-									</tr>
-									<tr>
-										<td>
-											<code><dfn>integrity</dfn></code>
-										</td>
-										<td>A cryptographic hashing of the resource that allows its integrity to be
-											verified. OPTIONAL.</td>
-										<td><p>One or more whitespace-separated sets of <a
-													href="https://www.w3.org/TR/SRI/#dfn-integrity-metadata">integrity
-													metadata</a>&#160;[[!sri]]. The value MUST conform to the <a
-													href="https://www.w3.org/TR/SRI/#the-integrity-attribute">metadata
-													definition</a>&#160;[[!sri]].</p>
-											<p>Refer to [[!sri]] for the <a
-													href="https://www.w3.org/TR/SRI/#cryptographic-hash-functions">list
-													of cryptographic hashing functions</a> that user agents are expected
-												to support.</p>
-										</td>
-										<td>
-											<a href="#value-literal">Literal</a>
-										</td>
-										<td>(None)</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>length</dfn>
-											</code>
-										</td>
-										<td>The total length of a time-based media resource in (possibly fractional)
-											seconds. OPTIONAL</td>
-										<td>Number</td>
-										<td>
-											<a href="#value-number">Number</a>
-										</td>
-										<td>(None)</td>
-									</tr>
-									<tr>
-										<td>
-											<code>
-												<dfn>alternate</dfn>
-											</code>
-										</td>
-										<td>
-											<p>References to one or more reformulation(s) of the resource in alternative
-												formats.</p>
-											<p>When specified, <code>encodingFormat</code> indicates the format of the
-												reformulation.</p>
-											<p>Order is not significant.</p>
-											<p>OPTIONAL</p>
-											<p>One or more of:</p>
-											<ul>
-												<li>a string, representing the <a>URL</a> of the resource reformulation
-													in an alternative format; or</li>
-												<li>an instance of a <code>LinkedResource</code> object</li>
-											</ul>
-											<p>The order of items is <em>not significant</em>. Non-HTML resources SHOULD
-												be expressed as <code>LinkedResource</code> objects with their
-													<code>encodingFormat</code> values set.</p>
-										</td>
-										<td>
-											<p>One or more instances of <code>LinkedResource</code> objects.</p>
-										</td>
-										<td>
-											<a href="#value-array">Array</a> of <a href="#value-linked-resource">Linked
-												Resources</a>
-										</td>
-										<td> (None) </td>
-									</tr>
-								</tbody>
-							</table>
-
-							<p>Although user agent support for the <code>integrity</code> property is OPTIONAL, user
-								agents that support cryptographic hashing comparisons using this property MUST do so in
-								accordance with [[!sri]].</p>
-
-							<pre class="example" title="A resource with a SHA-256 hashing of its content.">{
-    "type"           : "LinkedResource",
-    "url"            : "chapter1.html",
-    "encodingFormat" : "text/html",
-    "name"           : "Chapter 1 - Loomings",
-    "integrity"      : "sha256-13AE04E21177BABEDFDE721577615A638341F963731EA936BBB8C3862F57CDFC"
-}</pre>
-
-							<pre class="example" title="A resource with its alternate formats.">{
-    "type"           : "LinkedResource",
-    "url"            : "chapter1.mp3",
-    "encodingFormat" : "audio/mpeg",
-    "name"           : "Chapter 1 - Loomings",
-    "alternate"      : [
-        "chapter1.html",
-        {
-            "type": "LinkedResource",
-            "url": "chapter1.json",
-            "encodingFormat": "application/vnd.wp-sync-media+json",
-            "length": 1669
-        }
-    ]
-}</pre>
-
-							<p>A string value represents an implied <code>LinkedResource</code> object whose
-									<code>url</code> property is set to the string value.</p>
-
-							<pre class="example" title="Resource list that includes one link using a relative URL as a string ('datatypes.svg') and two that display the various properties of the a LinkedResource object.">{
-    …
-    "resources" : [
-        "datatypes.svg",
-        {
-            "type"            : "LinkedResource",
-            "url"             : "test-utf8.csv",
-            "encodingFormat"  : "text/csv",
-            "name"            : "Test Results",
-            "description"     : "CSV file containing the full data set used."
-        },
-        {
-            "type"            : "LinkedResource",
-            "url"             : "terminology.html",
-            "encodingFormat"  : "text/html",
-            "rel"             : "glossary"
-        }
-    ],
-    …
-}</pre>
-						</section>
-					</section>
-
-					<section id="value-url">
-						<h5>URLs</h5>
-
-						<p><dfn data-lt="URL">URLs</dfn> are used to identify resources associated with a <a>digital
-								publication</a>. When a property expects a URL value, it MUST be a <a
-								href="https://url.spec.whatwg.org/#absolute-url-string">valid URL
-							string</a>&#160;[[!url]].</p>
-
-						<p>Manifest URLs are restricted to only the <code>http</code> and <code>https</code>
-							<a href="https://url.spec.whatwg.org/#concept-url-scheme">schemes</a>&#160;[[!url]].</p>
-
-						<p>In the case of <a href="https://url.spec.whatwg.org/#relative-url-string">relative-URL
-								strings</a>, these are resolved to <a
-								href="https://url.spec.whatwg.org/#absolute-url-string">absolute-URL strings</a> using a
-								<a href="https://url.spec.whatwg.org/#concept-base-url">base URL</a>&#160;[[!url]].</p>
-
-						<p>The base URL for relative-URL strings is determined as follows:</p>
-
-						<ul>
-							<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, it is the <a
-									href="https://www.w3.org/TR/json-ld11/#inheriting-base-iri-from-html-s-base-element"
-									>document base URL of the embedding document</a>&#160;[[!json-ld]];</li>
-							<li>In the case of a <a href="#manifest-link">linked manifest</a>, it is the URL of the
-								manifest resource.</li>
-							<li>In the case of a digital publication format that uses <a
-									href="#manifest-other-discovery">another means of discovering the manifest</a>, it
-								is defined by the format.</li>
-						</ul>
-
-						<p>By consequence, relative-URL strings in embedded manifests are resolved against the URL of
-							the document that references the manifest <em>unless</em> the document declares a base URL
-							(i.e., in a <a data-cite="!html#the-base-element"><code>&lt;base&gt;</code> element</a> in
-							its header).</p>
-
-						<p class="note">URLs allow for the usage of characters from Unicode following&#160;[[rfc3987]].
-							See <a href="https://www.w3.org/TR/html/references.html#biblio-url">the note in the HTML5
-								specification</a> for further details.</p>
-					</section>
-
-					<section id="value-id">
-						<h5>Identifiers</h5>
-
-						<p>Identifiers are used to refer to a <a>digital publication</a> and the <a href="#value-entity"
-								>entities</a> reponsible for its creation in a persistent and unambiguous manner. <abbr
-								title="Uniform Resource Locators">URLs</abbr>, <abbr title="Uniform Resource Names"
-								>URNs</abbr>, <abbr title="Digital Object Identifiers">DOIs</abbr>, <abbr
-								title="International Standard Book Numbers">ISBNs</abbr>, and <abbr
-								title="Persistent Uniform Resource Locators">PURLs</abbr> are all examples of persistent
-							identifiers frequently used in publishing.</p>
-
-						<p>Identifiers MUST be expressed as <a href="https://url.spec.whatwg.org/#concept-url">URL
-								records</a>&#160;[[!url]]</p>
-					</section>
-
-					<section id="value-array">
-						<h5>Arrays</h5>
-
-						<p>When a <a href="#manifest-properties">manifest property</a> allows one or more value of their
-							respective type (e.g., <a href="#value-literal">literal</a>, <a href="#value-objects"
-								>object</a>, or <a href="#value-url">URL</a>), these values are expressed as [[!json]]
-								<a href="https://tools.ietf.org/html/rfc4627#section-2.3">arrays</a>. When a property
-							value is a single element, however, the array syntax MAY be omitted.</p>
-
-						<aside class="example" title="Using a text string instead of an array.">
-							<p>As a digital publication typically contains many resources, this declaration of a single
-								resource:</p>
-
-							<pre>{
-    …
-    "resources" : "datatypes.svg",
-    …
-}</pre>
-							<p>is equivalent to the array:</p>
-
-							<pre>{
-    …
-    "resources" : ["datatypes.svg"],
-    …
-}</pre>
-						</aside>
-					</section>
-				</section>
 
 				<section id="descriptive-properties">
 					<h4>Descriptive Properties</h4>
@@ -1202,8 +1296,8 @@ dictionary LocalizableString {
 					<section id="abridged">
 						<h5>Abridged</h5>
 
-						<p>The abridged property provides information on whether or not a <a>digital publication</a> has
-							been shortened from its original form.</p>
+						<p>The <code>abridged</code> property provides information on whether or not a <a>digital
+								publication</a> has been shortened from its original form.</p>
 
 						<table class="zebra">
 							<thead>
@@ -2457,7 +2551,10 @@ dictionary LocalizableString {
     "@context" : [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context",
-        {"ex": "https://example.org/vocab"}
+        {
+            "language" : "en",
+            "ex"       : "https://example.org/vocab"
+        }
     ],
     …
     "ex:region" : "North America",
@@ -2481,12 +2578,6 @@ dictionary LocalizableString {
 						<pre class="example" title="Extending the basic data set using the Dublin Core 'subject' term with the 2012 ACM Classification terms.">{
     …
     "dcterms:subject" : ["Web data description languages","Data integration","Data Exchange"],
-    …
-}</pre>
-
-						<pre class="example" title="Extending the basic data set using the Dublin Core 'conformsTo' term to identify the version of a standard a publication conforms to.">{
-    …
-    "dcterms:conformsTo" : "https://example.org/publishing/standard-11",
     …
 }</pre>
 					</section>
@@ -2894,6 +2985,40 @@ dictionary LocalizableString {
 						this order), this is a <a>fatal error</a>. Return failure.</p>
 				</li>
 
+				<li id="processing-conformance">
+					<p>(<a href="#profile-conformance"></a>) Determine the <a>profile</a> the manifest conforms to as
+						follows:</p>
+					<ol>
+						<li>If <var>manifest["conformsTo"]</var> is not set, this is a <a>fatal error</a>. Return
+							failure.</li>
+						<li>If <var>manifest["conformsTo"]</var> does not include a URL of a recognized profile, this is
+							a <a>fatal error</a>. Return failure.</li>
+						<li>If <var>manifest["conformsTo"]</var> includes the URLs of more than one recognized profile,
+							this is a <a>validation error</a>. The user agent can select which to give precedence
+							to.</li>
+						<li>Otherwise, the publication is an instance of the profile defined by the recognized URL.</li>
+					</ol>
+					<details>
+						<summary>Explanation</summary>
+						<p>The profile the publication conforms to is used to determine any additional extension steps
+							that have to be performed during processing.</p>
+					</details>
+				</li>
+
+				<li id="processing-language">
+					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>lang</var> be the value of the last instance
+						of the <var>language</var> keyword in an object in the <var>manifest[@context]</var> array. If
+						no instances of <var>language</var> exist, set <var>lang</var> to <code>null</code>.</p>
+					<p>If the value of <var>lang</var> is not a <a
+							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
+						language tag, this is a <a>validation error</a>. Set <code>lang</code> to <code>null</code>.</p>
+					<details>
+						<summary>Explanation</summary>
+						<p>The global language declaration obtained here is used to set the language for localizable
+							strings without a declaration.</p>
+					</details>
+				</li>
+
 				<li id="processing-expansion">
 					<p>Iterate over each property <var>term</var> in <var>manifest</var> and expand its value, as
 						necessary, as follows. More than one step MAY apply.</p>
@@ -2978,10 +3103,8 @@ dictionary LocalizableString {
 									<p><var>value</var> &#8211; set to <var>str</var>; and</p>
 								</li>
 								<li>
-									<p><var>language</var> &#8211; set to the value of the <a
-											href="#manifest-lang-dir-global">language declaration in
-												<var>manifest["@context"]</var></a> when specified; otherwise,
-										omitted.</p>
+									<p><var>language</var> &#8211; set to the value of <var>lang</var> when not
+											<code>null</code>; otherwise, omitted.</p>
 								</li>
 							</ul>
 							<p>If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this
@@ -3096,7 +3219,7 @@ dictionary LocalizableString {
 						</li>
 
 						<li id="processing-expansion-extension">
-							<p>(<a href="#mod-compat"></a>, extension point) if a <a>profile</a> defines processing
+							<p>(<a href="#extensions"></a>, extension point) if a <a>profile</a> defines processing
 								steps for profile-specific terms, those steps are executed at this point.</p>
 						</li>
 					</ol>
@@ -3310,19 +3433,18 @@ dictionary LocalizableString {
 			<h2>Modular Extensions</h2>
 
 			<p>The manifest format defined in this specification is designed to be implemented and extended by
-				publishing communities in the production of new <a>digital publication</a> formats (e.g., audiobooks and
-				scholarly publications). The flexibility the manifest format offers allows it to be tailored to each
-				community's specific needs while also providing a common base for user agents that need to process the
-				formats (i.e., minimizing the differences between each format and simplifying interoperability).</p>
-
-			<p>Extensions of the manifest, also known as <dfn>profiles</dfn>, are created by <em>extending</em> the core
-				definition in this specification with module-specific terms and/or new requirements.</p>
+				publishing communities in the production of new <a>profiles</a> (e.g., audiobooks and scholarly
+				publications). The flexibility the manifest format offers allows it to be tailored to each community's
+				specific needs while also providing a common base for user agents that need to process the profiles
+				(i.e., minimizing the differences between each profile and simplifying interoperability).</p>
 
 			<p>In order for a profile to be compatible with this specification, the following conditions MUST be met: </p>
 
 			<ol>
 				<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
 					></a>.</li>
+				<li>It MUST define a unique conformance URL and require that conforming publications include this URL in
+					their <a href="conforms-to"><code>conformsTo</code> property</a>.</li>
 				<li>One or both <a href="#manifest-link">linking methods</a> MUST be used in the discovery of the
 					manifest.</li>
 				<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid for
@@ -4058,6 +4180,14 @@ dictionary LocalizableString {
 				<tbody>
 					<tr>
 						<td>
+							<code>abridged</code>
+						</td>
+						<td>
+							<a href="#abridged"></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<code>accessMode</code>
 						</td>
 						<td>
@@ -4114,6 +4244,22 @@ dictionary LocalizableString {
 					</tr>
 					<tr>
 						<td>
+							<code>conformsTo</code>
+						</td>
+						<td>
+							<a href="#profile-conformance"></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>@context</code>
+						</td>
+						<td>
+							<a href="#manifest-context"></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<code>contributor</code>
 						</td>
 						<td>
@@ -4142,6 +4288,14 @@ dictionary LocalizableString {
 						</td>
 						<td>
 							<a href="#publication-date"></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>direction</code>
+						</td>
+						<td>
+							<a href="#manifest-lang-dir-global"></a>
 						</td>
 					</tr>
 					<tr>
@@ -4188,6 +4342,14 @@ dictionary LocalizableString {
 						</td>
 						<td>
 							<a href="#language-and-dir"></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>language</code>
+						</td>
+						<td>
+							<a href="#manifest-lang-dir-global"></a>
 						</td>
 					</tr>
 					<tr>
@@ -4268,6 +4430,14 @@ dictionary LocalizableString {
 						</td>
 						<td>
 							<a href="#creators"></a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<code>type</code>
+						</td>
+						<td>
+							<a href="#publication-types"></a>
 						</td>
 					</tr>
 					<tr>

@@ -7,20 +7,12 @@
         "@context": {
             "type": "array",
             "items": [
-	            {
-	            	"const": "https://schema.org"
-	            },
-	            {
-	            	"const": "https://www.w3.org/ns/pub-context"
-	            },
-	            {
-	            	"type": "object",
-	            	"properties": {
-	            		"language": {
-                            "$ref": "bcp.schema.json"
-	            		}
-	            	}
-	            }
+                {
+                    "const": "https://schema.org"
+                },
+                {
+                    "const": "https://www.w3.org/ns/pub-context"
+                }
             ],
             "uniqueItems": true
         },
@@ -33,6 +25,19 @@
                 "type": "string"
             },
             "uniqueItems": true
+        },
+        "conformsTo" : {
+            "oneOf": [
+                {
+                    "$ref": "url.schema.json"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "url.schema.json"
+                    }        
+                }
+            ]
         },
         "id": {
             "type": "string"

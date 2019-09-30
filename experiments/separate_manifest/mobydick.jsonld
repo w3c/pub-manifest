@@ -1,8 +1,12 @@
 {
     "@context": [
         "https://schema.org",
-        "https://www.w3.org/ns/pub-context"
+        "https://www.w3.org/ns/pub-context",
+        {
+        	"language": "en"
+        }
     ],
+    "conformsTo": ["https://example.com/publication"],
     "type": [
         "Book"
     ],

@@ -6,7 +6,12 @@
     ...
     <script id="wpm" type="application/ld+json">
     {
-        "@context"        : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
+        "@context"        : [
+            "https://schema.org",
+            "https://www.w3.org/ns/pub-context",
+            {"language" : "en-US"}
+        ],
+        "conformsTo"      : "https://example.com/article",
         "type"            : "TechArticle",
         "id"              : "http://www.w3.org/TR/tabular-data-model/",
         "url"             : "http://www.w3.org/TR/2015/REC-tabular-data-model-20151217/",
