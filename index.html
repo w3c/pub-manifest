@@ -293,9 +293,6 @@
 						<a href="#manifest-context">context</a>
 					</li>
 					<li>
-						<a href="#publication-types">type</a>
-					</li>
-					<li>
 						<a href="#profile-conformance">conformsTo</a>
 					</li>
 				</ul>
@@ -339,7 +336,7 @@
 
 					<pre class="idl" id="wpm">
 dictionary PublicationManifest {
-    required sequence&lt;DOMString>         type;
+             sequence&lt;DOMString>         type = "CreativeWork";
     required sequence&lt;DOMString>         conformsTo;
              DOMString                   id;
              boolean                     abridged;
