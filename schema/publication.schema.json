@@ -182,8 +182,6 @@
     },
     "required": [
         "@context",
-        "type",
-        "readingOrder",
-        "name"
+        "conformsTo"
     ]
 }
