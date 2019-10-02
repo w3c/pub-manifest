@@ -12,6 +12,7 @@
 		<xsl:text>{
     "@context": [
         "https://schema.org",
+        
         "https://www.w3.org/ns/pub-context"</xsl:text>
 		
 		<!-- add manifest language -->
@@ -22,6 +23,7 @@
 		<!-- add placeholder conformsTo -->
 		<xsl:call-template name="add-property">
 			<xsl:with-param name="property" select="'conformsTo'"/>
+			<xsl:with-param name="elem" select="'https://www.w3.org/publishing/epub3/'"/>
 			<xsl:with-param name="allow-placeholder" select="'true'"></xsl:with-param>
 		</xsl:call-template>
 		
@@ -56,34 +58,35 @@
 			</xsl:otherwise>
 		</xsl:choose>
 		
-		<!-- add title(s) -->
-		<xsl:call-template name="add-property">
-			<xsl:with-param name="property" select="'name'"/>
-			<xsl:with-param name="elem" select="dc:title"/>
-		</xsl:call-template>
+		<!-- add dc elements -->
+		<xsl:variable name="dcProperties" select="dc:*"/>
+		<xsl:variable name="dc">
+			<dc property="name">title</dc>
+			<dc property="inLanguage">language</dc>
+			<dc>creator</dc>
+			<dc>contributor</dc>
+			<dc>publisher</dc>
+			<dc property="datePublished">date</dc>
+		</xsl:variable>
 		
-		<!-- add language(s) -->
-		<xsl:call-template name="add-property">
-			<xsl:with-param name="property" select="'inLanguage'"/>
-			<xsl:with-param name="elem" select="dc:language"/>
-		</xsl:call-template>
+		<xsl:for-each select="$dc/dc">
+			<xsl:variable name="property">
+				<xsl:choose>
+					<xsl:when test="@property"><xsl:value-of select="@property"/></xsl:when>
+					<xsl:otherwise><xsl:value-of select="current()"/></xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			
+			<xsl:call-template name="add-property">
+				<xsl:with-param name="property" select="$property"/>
+				<xsl:with-param name="elem" select="$dcProperties[local-name() = current()]"/>
+			</xsl:call-template>
+		</xsl:for-each>
 		
 		<!-- add identifier(s) -->
 		<xsl:call-template name="add-property">
 			<xsl:with-param name="property" select="'identifier'"/>
 			<xsl:with-param name="elem" select="dc:identifier[not(@id=/opf:package/@unique-identifier)]"/>
-		</xsl:call-template>
-		
-		<!-- add creator(s) -->
-		<xsl:call-template name="add-property">
-			<xsl:with-param name="property" select="'creator'"/>
-			<xsl:with-param name="elem" select="dc:creator"/>
-		</xsl:call-template>
-		
-		<!-- add contributor(s) -->
-		<xsl:call-template name="add-property">
-			<xsl:with-param name="property" select="'contributor'"/>
-			<xsl:with-param name="elem" select="dc:contributor"/>
 		</xsl:call-template>
 		
 		<!-- add last modified date -->
@@ -92,15 +95,12 @@
 			<xsl:with-param name="elem" select="opf:meta[@property='dcterms:modified']"/>
 		</xsl:call-template>
 		
-		<!-- add date published -->
-		<xsl:call-template name="add-property">
-			<xsl:with-param name="property" select="'datePublished'"/>
-			<xsl:with-param name="elem" select="dc:date"/>
-		</xsl:call-template>
-		
 		<!-- add accessibility metadata -->
 		<xsl:variable name="a11y">
-			<a11y>accessMode</a11y><a11y>accessibilityFeature</a11y><a11y>accessibilityHazard</a11y><a11y>accessibilitySummary</a11y>
+			<a11y>accessMode</a11y>
+			<a11y>accessibilityFeature</a11y>
+			<a11y>accessibilityHazard</a11y>
+			<a11y>accessibilitySummary</a11y>
 		</xsl:variable>
 		
 		<xsl:variable name="a11yProperties" select="opf:meta[contains(@property, 'schema:access')]"/>
@@ -122,17 +122,9 @@
 					<xsl:text>,</xsl:text>
 				</xsl:if>
 				
-				<xsl:text>{
-					"type" : "ItemList",
-					"itemListElement" : [</xsl:text>
-					<xsl:for-each select="tokenize(.,'(,|\s)\s*')">
-						<xsl:if test="not(position() = 1)">
-							<xsl:text>,</xsl:text>
-						</xsl:if>
-						<xsl:text>"</xsl:text><xsl:value-of select="current()"/><xsl:text>"</xsl:text>
-					</xsl:for-each>
-				<xsl:text>]
-				}</xsl:text>
+				<xsl:call-template name="make-itemlist">
+					<xsl:with-param name="elem" select="current()"/>
+				</xsl:call-template>
 			</xsl:for-each>
 			
 			<xsl:text>]</xsl:text>
@@ -226,7 +218,7 @@
 						<xsl:text>,
 			"</xsl:text><xsl:value-of select="$property"/><xsl:text>" : </xsl:text>
 						
-						<xsl:call-template name="make-itemlist">
+						<xsl:call-template name="make-array">
 							<xsl:with-param name="elem" select="$elem"/>
 						</xsl:call-template>
 					</xsl:when>
@@ -248,8 +240,7 @@
 	
 	
 	
-	<xsl:template name="make-itemlist">
-		<xsl:param name="position"/>
+	<xsl:template name="make-array">
 		<xsl:param name="elem"/>
 		
 		<xsl:text>[</xsl:text>
@@ -258,10 +249,27 @@
 			<xsl:if test="position() > 1">
 				<xsl:text>,</xsl:text>
 			</xsl:if>
-			<xsl:text>"</xsl:text><xsl:value-of select=" replace(current(), '&quot;', '\\&quot;')"/><xsl:text>"</xsl:text>
+			<xsl:text>"</xsl:text><xsl:value-of select="replace(current(), '&quot;', '\\&quot;')"/><xsl:text>"</xsl:text>
 		</xsl:for-each>
 		
 		<xsl:text>]</xsl:text>
+	</xsl:template>
+	
+	
+	
+	<xsl:template name="make-itemlist">
+		<xsl:param name="elem"/>
+		<xsl:text>{
+					"type" : "ItemList",
+					"itemListElement" : [</xsl:text>
+		<xsl:for-each select="tokenize($elem,'(,|\s)\s*')">
+			<xsl:if test="not(position() = 1)">
+				<xsl:text>,</xsl:text>
+			</xsl:if>
+			<xsl:text>"</xsl:text><xsl:value-of select="current()"/><xsl:text>"</xsl:text>
+		</xsl:for-each>
+		<xsl:text>]
+				}</xsl:text>
 	</xsl:template>
 	
 	
