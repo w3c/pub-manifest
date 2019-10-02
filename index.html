@@ -528,12 +528,24 @@ dictionary LocalizableString {
 										</code>
 									</td>
 									<td>The base direction of the value. OPTIONAL.</td>
-									<td>"ltr" or "rtl"</td>
+									<td><code>ltr</code> or <code>rtl</code></td>
 									<td><a href="#value-literal">Literal</a></td>
 									<td>(None)</td>
 								</tr>
 							</tbody>
 						</table>
+
+						<p>The meaning of the base direction values are:</p>
+
+						<ul data-dfn-for="TextDirection">
+							<li><code><dfn>ltr</dfn></code>: indicates that the textual value is explicitly directionally set to left-to-right text;</li>
+							<li><code><dfn>rtl</dfn></code>: indicates that the textual value is explicitly directionally set to right-to-left text;</li>
+						</ul>
+
+						<p>
+							A missing base direction value means that that the textual value is explicitly directionally set to the direction of the first character with a strong directionality, following the rules of the Unicode Bidirectional Algorithm&#160;[[!bidi]].</li>
+						</p>	
+
 						<aside class="example" title="Set the language of a string">
 						<pre>{
     "value"     : "孔子",
@@ -549,11 +561,11 @@ dictionary LocalizableString {
 					</aside>
 					<div class=note>
 						<p>
-							If the base direction value were not set in the last example, the text would be displayed, following the Unicode Bidirectional Algorithm&nbsp;[[bidi]], as
+							If the base direction value were not set in the last example, the text would be displayed, following the Unicode Bidirectional Algorithm&nbsp;[[bidi]] and due to the presence of a Latin character starting the string, as:
 						</p>
 						<p dir="ltr">HTML היא שפת סימון.</p>		
 						<p>
-							due to the presence of a, in this case, Latin character starting the sentence. However, that would be incorrect. The extra <var>direction</var> value is necessary to yield the right display, namely:
+							However, that would be incorrect. The extra <var>direction</var> value is necessary to yield the right display, namely:
 						</p>
 
 						<p dir="rtl">HTML היא שפת סימון.</p> 
@@ -1148,13 +1160,13 @@ dictionary LocalizableString {
 
 					<p>The global language and base direction declaration, when present, MUST follow the <a>publication context</a>.</p>
 
-					<p>Default values are not specified for the global language and base direction declarations.</p>
+					<p>Default values are not specified for the global language. The default value for the global direction is <code>null</code>.</p>
 				</section>
 
 				<section id="manifest-lang-dir-local">
 					<h4>Item-Specific Declarations</h4>
 
-					<p>It is possible to set the language locally for any natural language value in the manifest using a
+					<p>It is possible to set the language or a base direction locally for any natural language value in the manifest using a
 							<a href="#LocalizableString">localizable string</a>:</p>
 
 
@@ -3035,24 +3047,26 @@ dictionary LocalizableString {
 					</details>
 				</li>
 
-				<li id="processing-language-direction">
+				<li id="processing-language">
 					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>lang</var> be the value of the last instance
 						of the <var>language</var> keyword in an object in the <var>manifest["@context"]</var> array. If
 						no instances of <var>language</var> exist, set <var>lang</var> to <code>null</code>.</p>
 					<p>If the value of <var>lang</var> is not a <a
 							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
 						language tag, this is a <a>validation error</a>. Set <code>lang</code> to <code>null</code>.</p>
-
-					<p>Let <var>dir</var> be the value of the last instance
-						of the <var>direction</var> keyword in an object in the <var>manifest["@context"]</var> array. If
-						no instances of <var>direction</var> exist, set <var>dir</var> to <code>null</code>.</p>
-					<p>If the value of <var>dir</var> is not "<code>ltr</code>", "<code>rtl</code>", or <code>null</code> this is a <a>validation error</a>. Set <code>dir</code> to <code>null</code>.</p>
 	
 					<details>
 						<summary>Explanation</summary>
 						<p>The global language declaration obtained here is used to set the language and base direction for localizable
 							strings without a declaration.</p>
 					</details>
+				</li>
+
+				<li id="processing-direction">	
+					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>dir</var> be the value of the last instance
+						of the <var>direction</var> keyword in an object in the <var>manifest["@context"]</var> array. If
+						no instances of <var>direction</var> exist, set <var>dir</var> to <code>null</code>.</p>
+					<p>If the value of <var>dir</var> is not "<code>ltr</code>", "<code>rtl</code>", or <code>null</code> this is a <a>validation error</a>. Set <code>dir</code> to <code>null</code>.</p>
 				</li>
 
 				<li id="processing-expansion">
