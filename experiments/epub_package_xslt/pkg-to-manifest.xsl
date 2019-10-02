@@ -21,13 +21,13 @@
 		
 		<!-- add placeholder conformsTo -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'conformsTo'"/>
+			<xsl:with-param name="property" select="'conformsTo'"/>
 			<xsl:with-param name="allow-placeholder" select="'true'"></xsl:with-param>
 		</xsl:call-template>
 		
 		<!-- add canonical identifier -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'id'"/>
+			<xsl:with-param name="property" select="'id'"/>
 			<xsl:with-param name="elem" select="opf:metadata/dc:identifier[@id=current()/@unique-identifier]"/>
 		</xsl:call-template>
 		
@@ -44,13 +44,13 @@
 		<xsl:choose>
 			<xsl:when test="opf:meta[@property='rdf:type']">
 				<xsl:call-template name="add-property">
-					<xsl:with-param name="parameter" select="'type'"/>
+					<xsl:with-param name="property" select="'type'"/>
 					<xsl:with-param name="elem" select="opf:meta[@property='rdf:type']"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:call-template name="add-property">
-					<xsl:with-param name="parameter" select="'type'"/>
+					<xsl:with-param name="property" select="'type'"/>
 					<xsl:with-param name="elem" select="'CreativeWork'"/>
 				</xsl:call-template>
 			</xsl:otherwise>
@@ -58,43 +58,43 @@
 		
 		<!-- add title(s) -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'name'"/>
+			<xsl:with-param name="property" select="'name'"/>
 			<xsl:with-param name="elem" select="dc:title"/>
 		</xsl:call-template>
 		
 		<!-- add language(s) -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'inLanguage'"/>
+			<xsl:with-param name="property" select="'inLanguage'"/>
 			<xsl:with-param name="elem" select="dc:language"/>
 		</xsl:call-template>
 		
 		<!-- add identifier(s) -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'identifier'"/>
+			<xsl:with-param name="property" select="'identifier'"/>
 			<xsl:with-param name="elem" select="dc:identifier[not(@id=/opf:package/@unique-identifier)]"/>
 		</xsl:call-template>
 		
 		<!-- add creator(s) -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'creator'"/>
+			<xsl:with-param name="property" select="'creator'"/>
 			<xsl:with-param name="elem" select="dc:creator"/>
 		</xsl:call-template>
 		
 		<!-- add contributor(s) -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'contributor'"/>
+			<xsl:with-param name="property" select="'contributor'"/>
 			<xsl:with-param name="elem" select="dc:contributor"/>
 		</xsl:call-template>
 		
 		<!-- add last modified date -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'dateModified'"/>
+			<xsl:with-param name="property" select="'dateModified'"/>
 			<xsl:with-param name="elem" select="opf:meta[@property='dcterms:modified']"/>
 		</xsl:call-template>
 		
 		<!-- add date published -->
 		<xsl:call-template name="add-property">
-			<xsl:with-param name="parameter" select="'datePublished'"/>
+			<xsl:with-param name="property" select="'datePublished'"/>
 			<xsl:with-param name="elem" select="dc:date"/>
 		</xsl:call-template>
 		
@@ -108,7 +108,7 @@
 		<xsl:for-each select="$a11y/a11y">
 			<xsl:variable name="a11yName" select="concat('schema:',current())"/>
 			<xsl:call-template name="add-property">
-				<xsl:with-param name="parameter" select="current()"/>
+				<xsl:with-param name="property" select="current()"/>
 				<xsl:with-param name="elem" select="$a11yProperties[@property=$a11yName]"/>
 			</xsl:call-template>
 		</xsl:for-each>
@@ -212,8 +212,8 @@
 
 
 	<xsl:template name="add-property">
+		<xsl:param name="property"/>
 		<xsl:param name="elem"/>
-		<xsl:param name="parameter"/>
 		<xsl:param name="allow-placeholder"/>
 		
 		<xsl:variable name="cnt" select="count($elem)"/>
@@ -224,21 +224,21 @@
 				<xsl:choose>
 					<xsl:when test="$cnt > 1">
 						<xsl:text>,
-			"</xsl:text><xsl:value-of select="$parameter"/><xsl:text>" : </xsl:text>
+			"</xsl:text><xsl:value-of select="$property"/><xsl:text>" : </xsl:text>
 						
-						<xsl:call-template name="make-array">
+						<xsl:call-template name="make-itemlist">
 							<xsl:with-param name="elem" select="$elem"/>
 						</xsl:call-template>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>,
-		"</xsl:text><xsl:value-of select="$parameter"/><xsl:text>" : "</xsl:text><xsl:value-of select="$elem"/><xsl:text>"</xsl:text>
+		"</xsl:text><xsl:value-of select="$property"/><xsl:text>" : "</xsl:text><xsl:value-of select="$elem"/><xsl:text>"</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="$allow-placeholder">
 				<xsl:text>,
-		"</xsl:text><xsl:value-of select="$parameter"/><xsl:text>" : ""</xsl:text>
+		"</xsl:text><xsl:value-of select="$property"/><xsl:text>" : ""</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<!-- ignore the element -->
@@ -248,7 +248,7 @@
 	
 	
 	
-	<xsl:template name="make-array">
+	<xsl:template name="make-itemlist">
 		<xsl:param name="position"/>
 		<xsl:param name="elem"/>
 		
