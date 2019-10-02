@@ -13,6 +13,6 @@ The [experiments folder](https://github.com/w3c/pub-manifest/tree/master/experim
 
 ## Processing Tools
 
-- [Canonical Manifest Generator](https://github.com/iherman/WPManifest) — Demonstrates how to compile a canonical manifest from a Web Publication's manifest and entry page (source hosted in a separate repository). This tool can also be [tested live](https://iherman.github.io/WPManifest/webview/).
+- [Canonical Manifest Generator](https://github.com/iherman/WPManifest) — Demonstrates how to compile a canonical manifest from a  publication manifest and entry page (source hosted in a separate repository). This tool can also be [tested live](https://iherman.github.io/WPManifest/webview/).
 - [Table of Contents Generator](https://github.com/w3c/wpub/tree/master/experiments/toc_generator) — Demonstrates how an HTML `nav` can be processed by user agents to extract the table of contents. This tool can also be [tested live](https://w3c.github.io/wpub/experiments/toc_generator/).
 - [EPUB Package Document to Publication Manifest XSLT](https://github.com/w3c/pub-manifest/tree/master/experiments/epub_package_xslt) - Converts an EPUB 3 Package Document to the publication manifest format. (work-in-progress)
