@@ -1262,7 +1262,8 @@ dictionary LocalizableString {
 								</code>
 							</td>
 							<td>URL of the profile.</td>
-							<td>A valid URL string&#160;[[!url]].</td>
+							<td>An <a href="https://url.spec.whatwg.org/#absolute-url-with-fragment-string"
+									>absolute-URL-with-fragment string</a>&#160;[[!url]].</td>
 							<td><a href="#value-array">Array</a> of <a href="#value-literal">Literals</a></td>
 							<td><a
 									href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#terms-conformsTo"
@@ -2990,8 +2991,8 @@ dictionary LocalizableString {
 						<li>If <var>manifest["conformsTo"]</var> does not include a URL of a profile it is capable of
 							processing and/or rendering, this is a <a>fatal error</a>. Return failure.</li>
 						<li>If <var>manifest["conformsTo"]</var> includes the URLs of more than one profile it is
-							capable of processing and rendering, the user agent can select which to give precedence to
-							in the case of conflicting requirements.</li>
+							capable of processing and rendering, the user agent MUST select the first in the array in
+							the case of conflicting requirements.</li>
 						<li>Otherwise, the publication is an instance of the profile defined by the recognized URL.</li>
 					</ol>
 					<details>
