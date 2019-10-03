@@ -140,7 +140,7 @@
 					</dd>
 
 					<dt>
-						<dfn>Profile</dfn>
+						<dfn data-lt="profiles|profile(s)">Profile</dfn>
 					</dt>
 					<dd>
 						<p>Profiles are publication formats (e.g., audiobooks) that use the <a>manifest</a> format
@@ -1239,7 +1239,6 @@ dictionary LocalizableString {
 			</section>
 
 			<section id="profile-conformance">
-
 				<h3>Profile Conformance</h3>
 
 				<p>A <a>digital publication</a> indicates the <a>profile</a> its manifest and content are in conformance
@@ -1264,7 +1263,7 @@ dictionary LocalizableString {
 							</td>
 							<td>URL of the profile.</td>
 							<td>A valid URL string&#160;[[!url]].</td>
-							<td><a href="#value-array">Array</a> of <a href="#value-url">URLs</a></td>
+							<td><a href="#value-array">Array</a> of <a href="#value-literal">Literals</a></td>
 							<td><a
 									href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#terms-conformsTo"
 									>conformsTo</a></td>
@@ -2983,22 +2982,22 @@ dictionary LocalizableString {
 				</li>
 
 				<li id="processing-conformance">
-					<p>(<a href="#profile-conformance"></a>) Determine the <a>profile</a> the manifest conforms to as
+					<p>(<a href="#profile-conformance"></a>) Determine the <a>profile(s)</a> the manifest conforms to as
 						follows:</p>
 					<ol>
 						<li>If <var>manifest["conformsTo"]</var> is not set, this is a <a>fatal error</a>. Return
 							failure.</li>
-						<li>If <var>manifest["conformsTo"]</var> does not include a URL of a recognized profile, this is
-							a <a>fatal error</a>. Return failure.</li>
-						<li>If <var>manifest["conformsTo"]</var> includes the URLs of more than one recognized profile,
-							this is a <a>validation error</a>. The user agent can select which to give precedence
-							to.</li>
+						<li>If <var>manifest["conformsTo"]</var> does not include a URL of a profile it is capable of
+							processing and/or rendering, this is a <a>fatal error</a>. Return failure.</li>
+						<li>If <var>manifest["conformsTo"]</var> includes the URLs of more than one profile it is
+							capable of processing and rendering, the user agent can select which to give precedence to
+							in the case of conflicting requirements.</li>
 						<li>Otherwise, the publication is an instance of the profile defined by the recognized URL.</li>
 					</ol>
 					<details>
 						<summary>Explanation</summary>
-						<p>The profile the publication conforms to is used to determine any additional extension steps
-							that have to be performed during processing.</p>
+						<p>The profile(s) the publication conforms to determines any additional extension steps that
+							have to be performed during processing.</p>
 					</details>
 				</li>
 
