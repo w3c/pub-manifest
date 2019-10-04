@@ -7,11 +7,20 @@
 		<script src="common/js/biblio.js" class="remove"></script>
 		<script src="common/js/pub.js" class="remove"></script>
 		<script src="common/js/idllink.js" class="remove"></script>
+		<script src="https://unpkg.com/reqlist/lib/reqlist.js" class="remove"></script>
+		<link href="https://unpkg.com/reqlist/lib/reqlist.css" class="remove" rel="stylesheet" type="text/css" />
 		<link href="common/css/common.css" rel="stylesheet" type="text/css" />
 		<script class="remove">
 			// <![CDATA[
 			var respecConfig = {
-				postProcess: [create_manifest, convert_dfn_to_link],
+				preProcess: [
+					prepare_reqlist
+				],
+				postProcess: [
+					create_manifest,
+					convert_dfn_to_link,
+					add_reqlist_button
+				],
 				wg: "Publishing Working Group",
 				specStatus: "ED",
 				shortName: "pub-manifest",
