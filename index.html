@@ -1112,9 +1112,9 @@ dictionary LocalizableString {
 						The default language for natural language manifest properties is set by including a global language and/or a global base direction declaration in the context using the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords" ><code>language</code></a>, respectively the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"><code>direction</code></a>, keywords&nbsp;[[!json-ld11]]. It is used to expand simple string values into <a href="#value-localizable-string">localizable strings</a> during the <a href="#manifest-processing">processing of the manifest</a>, as well as to provide a language and the base direction for localizable strings that omit one.
 					</p>
 
-					<p>The value of <code>language</code> MUST be a <a
-						href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
-					tag</a>&#160;[[!bcp47]].</p>
+					<p>
+						The value of <code>language</code> MUST be a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language tag</a>&#160;[[!bcp47]].
+					</p>
 
 					<p>The value of <code>direction</code> MUST have one of the following
 						values:</p>
@@ -1124,7 +1124,6 @@ dictionary LocalizableString {
 							set to left-to-right text;</li>
 						<li><code><dfn>"rtl"</dfn></code>: indicates that the textual values are explicitly directionally
 							set to right-to-left text;</li>
-						<li><code><dfn>null</dfn></code>: indicates that no explicit base direction is set.</li>
 					</ul>
 
 					<aside class="example" title="Declaring French as the default language for the manifest.">
@@ -1223,10 +1222,14 @@ dictionary LocalizableString {
 					</div>
 
 					<p>
-						The possible values of the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords" ><code>language</code></a> and <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"><code>direction</code></a> keywords&nbsp;[[!json-ld11]] are the same as for the <a href="#manifest-lang-dir-global">global declaration</a>. 
+						The possible values of the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords" ><code>language</code></a> and <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"><code>direction</code></a> keywords&nbsp;[[!json-ld11]] are the same as for the <a href="#manifest-lang-dir-global">global declaration</a>. Furthermore, both values can also be the (JSON) value of <code>null</code>, indicating that no explicit language, respectively direction, is set. 
 					</p>
 
-					<p>A local language declaration takes precedence over a <a href="#manifest-lang-dir-global">global declaration</a>.</p>
+					<p class=note>
+						Setting the value of <code>language</code> to <code>null</code> can be useful if a value (e.g., the name of an organization) is commonly used without any associated language (e.g., "Google").
+					</p>
+
+					<p>A local declaration of the language, respectively the base direction, takes precedence over a <a href="#manifest-lang-dir-global">global declaration</a>.</p>
 
 				</section>
 			</section>
@@ -3047,14 +3050,15 @@ dictionary LocalizableString {
 				<li id="processing-language">
 					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>lang</var> be the value of the last instance
 						of the <var>language</var> keyword in an object in the <var>manifest["@context"]</var> array. If
-						no instances of <var>language</var> exist, set <var>lang</var> to <code>null</code>.</p>
-					<p>If the value of <var>lang</var> is not a <a
-							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
-						language tag, this is a <a>validation error</a>. Set <code>lang</code> to <code>null</code>.</p>
+						no instances of <var>language</var> exist, set <var>lang</var> to <code>undefined</code>.
+					</p>
+					<p>
+						If the value of <var>lang</var> is not a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]] language tag, this is a <a>validation error</a>. Set <code>lang</code> to <code>undefined</code>.
+					</p>
 	
 					<details>
 						<summary>Explanation</summary>
-						<p>The global language declaration obtained here is used to set the language and base direction for localizable
+						<p>The global language declaration obtained here is used to set the language for localizable
 							strings without a declaration.</p>
 					</details>
 				</li>
@@ -3062,8 +3066,13 @@ dictionary LocalizableString {
 				<li id="processing-direction">	
 					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>dir</var> be the value of the last instance
 						of the <var>direction</var> keyword in an object in the <var>manifest["@context"]</var> array. If
-						no instances of <var>direction</var> exist, set <var>dir</var> to <code>null</code>.</p>
-					<p>If the value of <var>dir</var> is not "<code>ltr</code>", "<code>rtl</code>", or <code>null</code> this is a <a>validation error</a>. Set <code>dir</code> to <code>null</code>.</p>
+						no instances of <var>direction</var> exist, set <var>dir</var> to <code>undefined</code>.</p>
+					<p>If the value of <var>dir</var> is not "<code>ltr</code>" or "<code>rtl</code>" this is a <a>validation error</a>. Set <code>dir</code> to <code>undefined</code>.</p>
+					<details>
+						<summary>Explanation</summary>
+						<p>The global language declaration obtained here is used to set the base direction for localizable
+							strings without a declaration.</p>
+					</details>
 				</li>
 
 				<li id="processing-expansion">
@@ -3150,12 +3159,10 @@ dictionary LocalizableString {
 									<p><var>value</var> &#8211; set to <var>str</var>; and</p>
 								</li>
 								<li>
-									<p><var>language</var> &#8211; set to the value of <var>lang</var> when not
-											<code>null</code>; otherwise, omitted.</p>
+									<p><var>language</var> &#8211; set to the value of <var>lang</var> when not <code>undefined</code>; otherwise, omitted.</p>
 								</li>
 								<li>
-									<p><var>direction</var> &#8211; set to the value of <var>dir</var> when not
-											<code>null</code>; otherwise, omitted.</p>
+									<p><var>direction</var> &#8211; set to the value of <var>dir</var> when not <code>undefined</code>; otherwise, omitted.</p>
 								</li>
 								</ul>
 							<p>If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this
@@ -3211,6 +3218,75 @@ dictionary LocalizableString {
 }</pre>
 							</details>
 						</li>
+
+						<li id="final-language-and-direction-setting">
+							<p>(<a href="#manifest-lang-dir-local"></a>) If <var>term</var> expects a <a
+								href="#value-localizable-string">localizable string</a>, update the <code>language</code> and <code>direction</code> values of <var>current</var> as follows:</p>
+							<ul>
+								<li>Set the final language tag:
+									<ul>
+										<li>if <var>current[language]</var> is not defined set <var>current[language]</var> to <var>lang</var> unless that value is <code>undefined</code>.</li>
+										<li>otherwise, if <var>current[language]</var> is <code>null</code>, remove <var>current[language]</var>.</li>
+									</ul>
+								</li>
+								<li>Set the final base direction:
+									<ul>
+										<li>if <var>current[direction]</var> is not defined set <var>current[direction]</var> to <var>dir</var> unless that value is <code>undefined</code>.</li>
+										<li>otherwise, if <var>current[direction]</var> is <code>null</code>, remove <var>current[direction]</var>.</li>
+									</ul>
+								</li>
+							</ul>
+							<p>
+								If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this step on each element of the array.
+							</p>
+
+							<details>
+								<summary>Explanation</summary>
+								<p>These steps uses the global language/direction values to set the language/direction for <code>LocalizableString</code>, unless the local setting is present or a local <code>null</code> value prevents the global value to take effect.</p>
+<pre class="example">{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context", 
+        {"language":"fr"}
+    ],
+    …
+    "name" : [{
+        "value" : "La Comédie humaine"
+    }],
+    "publisher" : [{
+        "type":["Organization"],
+        "name":[{
+            "value": "Hachette",
+            "language": null
+        }]
+    }],
+    …
+}</pre>
+													
+								<p>yields:</p>
+<pre class="example">{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context", 
+        {"language":"fr"}
+    ],
+    …
+    "name" : [{
+        "value" : "La Comédie humaine",
+        "language": "fr"
+	}],
+    "publisher" : [{
+        "type":["Organization"],
+        "name":[{
+            "value": "Hachette",
+        }]
+    }],
+    …
+}</pre>
+							</details>	
+						</li>
+			
+
 						<li id="processing-expansion-links">
 							<p>(<a href="#value-linked-resource"></a>) If <var>term</var> is a <a
 									href="#resource-categorization-properties">resource categorization property</a> or
@@ -3360,6 +3436,7 @@ dictionary LocalizableString {
 						</li>
 					</ol>
 				</li>
+
 
 				<li id="processing-checks">
 					<p>Perform data integrity checks on the following properties in <var>processed</var>:</p>
