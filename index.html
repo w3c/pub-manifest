@@ -1111,6 +1111,10 @@ dictionary LocalizableString {
 					The digital publication manifest provides the ability to set both these concepts <a href="#manifest-lang-dir-global">globally</a> as well as on <a href="#manifest-lang-dir-local">individual items</a> to aid user agents in interpreting and presenting the metadata.
 				</p>
 
+				<p class=note>
+					The ability to set the base direction is a JSON-LD&nbsp;1.1&nbsp;[[json-ld11]] feature. In other words, the Publication Manifest has a dependency on that version of the JSON-LD specification (as opposed to the earlier 1.0&nbsp;[[json-ld10]] version).
+				</p>
+
 				<section id="manifest-lang-dir-global">
 					<h4>Global Declarations</h4>
 
@@ -4655,18 +4659,6 @@ dictionary LocalizableString {
 					</tr>
 				</tbody>
 			</table>
-		</section>
-		<section id="json-ld-1.1-1.0" class="appendix informative">
-			<h4>JSON-LD 1.1 Dependency</h4>
-			<p>
-				This specification depends on [[json-ld11]], which is, at the time of finalizing this specification, the latest version of JSON-LD. I.e., a JSON-LD&nbsp;1.0&nbsp;[[json-ld10]] processor raises errors if it processes a manifest as defined in this document.
-			</p>
-			<p>
-				However, the 1.1 dependency is restricted to the usage of the <a>direction</a> term, defined in <a href="#value-localizable-string"></a>. If the manifest does not use this feature, it can be processed by a JSON-LD&nbsp;1.0 processor provided the context reference <code>https://www.w3.org/ns/pub-context</code> (see <a href="#manifest-context"></a>) is replaced by <code>https://www.w3.org/ns/pub-context-jsonld10</code>.
-			</p>
-			<p>
-				Note that this is relevant if and only if the manifest is indeed processed by a JSON-LD processor. As emphasized in <a href="#manifest-jsonld"></a>, a user agent is not required to be based on such a processor, in which case this dependency does not create any problems.
-			</p>
 		</section>
 		<section id="ack" data-include="common/html/acknowledgements.html" data-include-replace="true"></section>
 	</body>
