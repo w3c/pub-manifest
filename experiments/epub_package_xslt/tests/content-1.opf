@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package version="3.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<meta name="cover" content="x1.png" />
+		<meta property="ibooks:specified-fonts">true</meta>
+		<dc:title>E-books for all. Towards an accessible digital publishing ecosystem</dc:title>
+		<dc:creator>Fondazione LIA</dc:creator>
+		<dc:contributor>Gregorio Pellegrino</dc:contributor>
+		<dc:contributor>Cristina Mussinelli</dc:contributor>
+		<dc:contributor>Elisa Molinari</dc:contributor>
+		<dc:date>2019-05-21T09:03:38Z</dc:date>
+		<dc:language>en-US</dc:language>
+		<meta property="dcterms:modified">2019-05-21T09:03:38Z</meta>
+		<dc:identifier id="bookid">urn:isbn:9788894033526</dc:identifier>
+		<dc:source id="src-id">urn:isbn:9788894033519</dc:source>
+		<meta refines="#src-id" property="source-of">pagination</meta>
+		<meta property="schema:accessibilitySummary">
+		   This publication conforms to the EPUB Accessibility specification at WCAG Level AA.
+		</meta>
+		<meta property="schema:accessMode">textual</meta>
+		<meta property="schema:accessMode">visual</meta>
+		<meta property="schema:accessModeSufficient">textual,visual</meta>
+		<meta property="schema:accessModeSufficient">textual</meta>
+		<meta property="schema:accessibilityFeature">alternativeText</meta>
+		<meta property="schema:accessibilityFeature">displayTransformability</meta>
+		<meta property="schema:accessibilityFeature">structuralNavigation</meta>
+		<meta property="a11y:certifiedBy">Fondazione LIA</meta>
+	</metadata>
+	<manifest>
+		<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati" href="Paper_metadati.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-1" href="Paper_metadati-1.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-2" href="Paper_metadati-2.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-3" href="Paper_metadati-3.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-4" href="Paper_metadati-4.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-5" href="Paper_metadati-5.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-6" href="Paper_metadati-6.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-7" href="Paper_metadati-7.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-8" href="Paper_metadati-8.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-9" href="Paper_metadati-9.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-10" href="Paper_metadati-10.xhtml" media-type="application/xhtml+xml" />
+		<item id="Paper_metadati-11" href="Paper_metadati-11.xhtml" media-type="application/xhtml+xml" />
+		<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+		<item id="toc" href="toc.xhtml" media-type="application/xhtml+xml" properties="nav" />
+		<item id="idGeneratedStyles.css" href="css/idGeneratedStyles.css" media-type="text/css" />
+		<item id="AnonymousPro.ttf" href="font/AnonymousPro.ttf" media-type="application/vnd.ms-opentype" />
+		<item id="Arial-BoldMT.ttf" href="font/Arial-BoldMT.ttf" media-type="application/vnd.ms-opentype" />
+		<item id="Verdana-Bold.ttf" href="font/Verdana-Bold.ttf" media-type="application/vnd.ms-opentype" />
+		<item id="Verdana-Italic.ttf" href="font/Verdana-Italic.ttf" media-type="application/vnd.ms-opentype" />
+		<item id="Verdana.ttf" href="font/Verdana.ttf" media-type="application/vnd.ms-opentype" />
+		<item id="x1.png" href="image/1.png" media-type="image/png" properties="cover-image" />
+		<item id="Bollino.JPG.png" href="image/Bollino.JPG.png" media-type="image/png" />
+		<item id="bollinoLIA_big.png" href="image/bollinoLIA_big.png" media-type="image/png" />
+		<item id="bollinoLIA_big1.png" href="image/bollinoLIA_big1.png" media-type="image/png" />
+		<item id="checked.png" href="image/checked.png" media-type="image/png" />
+		<item id="epub_solo_verde.png" href="image/epub_solo_verde.png" media-type="image/png" />
+		<item id="lia_shelf.png" href="image/lia_shelf.png" media-type="image/png" />
+		<item id="logo_LIA_1.png" href="image/logo_LIA_1.png" media-type="image/png" />
+		<item id="logo_LIA.png" href="image/logo_LIA.png" media-type="image/png" />
+		<item id="mlol_1.png" href="image/mlol_1.png" media-type="image/png" />
+		<item id="mlol_2.png" href="image/mlol_2.png" media-type="image/png" />
+		<item id="mlol4.png" href="image/mlol4.png" media-type="image/png" />
+		<item id="one-finger-tap-gesture-of-outlined-hand-symbol.png" href="image/one-finger-tap-gesture-of-outlined-hand-symbol.png" media-type="image/png" />
+		<item id="pagina_13.png" href="image/pagina_13.png" media-type="image/png" />
+		<item id="pagina_14.png" href="image/pagina_14.png" media-type="image/png" />
+		<item id="pagina_19.png" href="image/pagina_19.png" media-type="image/png" />
+		<item id="pagina_24.png" href="image/pagina_24.png" media-type="image/png" />
+		<item id="question.png" href="image/question.png" media-type="image/png" />
+		<item id="report.png" href="image/report.png" media-type="image/png" />
+		<item id="shield.png" href="image/shield.png" media-type="image/png" />
+	</manifest>
+	<spine toc="ncx">
+		<itemref idref="cover" linear="no" />
+		<itemref idref="Paper_metadati" />
+		<itemref idref="Paper_metadati-1" />
+		<itemref idref="Paper_metadati-2" />
+		<itemref idref="Paper_metadati-3" />
+		<itemref idref="Paper_metadati-4" />
+		<itemref idref="Paper_metadati-5" />
+		<itemref idref="Paper_metadati-6" />
+		<itemref idref="Paper_metadati-7" />
+		<itemref idref="Paper_metadati-8" />
+		<itemref idref="Paper_metadati-9" />
+		<itemref idref="Paper_metadati-10" />
+		<itemref idref="Paper_metadati-11" />
+	</spine>
+	<guide>
+		<reference type="cover" href="cover.xhtml" title="Cover" />
+		<reference type="toc" href="Paper_metadati-2.xhtml#_idContainer007" title="Table of Contents" />
+		<reference type="text" href="Paper_metadati-3.xhtml#_idContainer008" title="Beginning" />
+	</guide>
+</package>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package version="3.0" unique-identifier="bookid" xmlns="http://www.idpf.org/2007/opf" prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <meta name="generator" content="Adobe InDesign 13.1" />
+    <meta name="cover" content="cover.jpg" />
+    <meta property="schema:accessibilitySummary">This publication conforms to WCAG 2.0 Level AA.</meta>
+    <meta property="ibooks:specified-fonts">true</meta>
+    <meta property="schema:accessMode">textual</meta>
+    <meta property="schema:accessMode">visual</meta>
+    <meta property="schema:accessModeSufficient">textual,visual</meta>
+    <meta property="schema:accessModeSufficient">textual</meta>
+    <meta property="schema:accessibilityFeature">audioDescription</meta>
+    <dc:title>Pinocchio</dc:title>
+    <dc:creator>Luca Minardi</dc:creator>
+    <dc:description>Parte della storia di Carlo Collodi, in particolare l'avventura di Pinocchio al Paese dei Balocchi</dc:description>
+    <dc:publisher>Fondazione Lia</dc:publisher>
+    <dc:date>2018-12-22T16:35:58Z</dc:date>
+    <dc:rights>Progetto Gutemberg</dc:rights>
+    <dc:language>ar-SA</dc:language>
+    <dc:language>it-IT</dc:language>
+    <meta property="dcterms:modified">2019-02-10T18:38:39Z</meta>
+    <dc:identifier id="bookid">urn:uuid:3b06928a-ebae-4abd-813f-f3c08c34b0d7</dc:identifier>
+    <meta name="Sigil version" content="0.9.7" />
+  </metadata>
+  <manifest>
+    <item id="cover" href="Text/cover.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Pinocchio-1" href="Text/Pinocchio-1.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="Pinocchio-2" href="Text/Pinocchio-2.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="Pinocchio-3" href="Text/Pinocchio-3.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="Pinocchio-4" href="Text/Pinocchio-4.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="Pinocchio-5" href="Text/Pinocchio-5.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="Pinocchio-6" href="Text/Pinocchio-6.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="Pinocchio-7" href="Text/Pinocchio-7.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="Pinocchio-8" href="Text/Pinocchio-8.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+    <item id="toc" href="Text/toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="Effetti_sonori_applausi_4.mp3" href="Audio/Effetti_sonori_applausi_4.mp3" media-type="audio/mpeg"/>
+    <item id="EFFETTO_SONORO_PUGNO.mp3" href="Audio/EFFETTO_SONORO_PUGNO.mp3" media-type="audio/mpeg"/>
+    <item id="giusto.mp3" href="Audio/giusto.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_1.mp3" href="Audio/Immagine_1.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_2.mp3" href="Audio/Immagine_2.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_3.mp3" href="Audio/Immagine_3.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_4.mp3" href="Audio/Immagine_4.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_5.mp3" href="Audio/Immagine_5.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_6.mp3" href="Audio/Immagine_6.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_7.mp3" href="Audio/Immagine_7.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_8.mp3" href="Audio/Immagine_8.mp3" media-type="audio/mpeg"/>
+    <item id="Immagine_9.mp3" href="Audio/Immagine_9.mp3" media-type="audio/mpeg"/>
+    <item id="LAsino_Stonato.mp3" href="Audio/LAsino_Stonato.mp3" media-type="audio/mpeg"/>
+    <item id="sbagliato.mp3" href="Audio/sbagliato.mp3" media-type="audio/mpeg"/>
+    <item id="Suono_della_trombetta.mp3" href="Audio/Suono_della_trombetta.mp3" media-type="audio/mpeg"/>
+    <item id="idGeneratedStyles.css" href="Styles/idGeneratedStyles.css" media-type="text/css"/>
+    <item id="Arial-BoldMT.ttf" href="Fonts/Arial-BoldMT.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="Arial-ItalicMT.ttf" href="Fonts/Arial-ItalicMT.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="TimesNewRomanPS-BoldMT.ttf" href="Fonts/TimesNewRomanPS-BoldMT.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="TimesNewRomanPS-ItalicMT.ttf" href="Fonts/TimesNewRomanPS-ItalicMT.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="TimesNewRomanPSMT.ttf" href="Fonts/TimesNewRomanPSMT.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="x1.png" href="Images/1.png" media-type="image/png"/>
+    <item id="x10.png" href="Images/10.png" media-type="image/png"/>
+    <item id="x11.png" href="Images/11.png" media-type="image/png"/>
+    <item id="x12.png" href="Images/12.png" media-type="image/png"/>
+    <item id="x13.png" href="Images/13.png" media-type="image/png"/>
+    <item id="x14.png" href="Images/14.png" media-type="image/png"/>
+    <item id="x15.png" href="Images/15.png" media-type="image/png"/>
+    <item id="x16.png" href="Images/16.png" media-type="image/png"/>
+    <item id="x17.png" href="Images/17.png" media-type="image/png"/>
+    <item id="x18.png" href="Images/18.png" media-type="image/png"/>
+    <item id="x19.png" href="Images/19.png" media-type="image/png"/>
+    <item id="x2.png" href="Images/2.png" media-type="image/png"/>
+    <item id="x20.png" href="Images/20.png" media-type="image/png"/>
+    <item id="x21.png" href="Images/21.png" media-type="image/png"/>
+    <item id="x22.png" href="Images/22.png" media-type="image/png"/>
+    <item id="x3.png" href="Images/3.png" media-type="image/png"/>
+    <item id="x4.png" href="Images/4.png" media-type="image/png"/>
+    <item id="x5.png" href="Images/5.png" media-type="image/png"/>
+    <item id="x6.png" href="Images/6.png" media-type="image/png"/>
+    <item id="x7.png" href="Images/7.png" media-type="image/png"/>
+    <item id="x8.png" href="Images/8.png" media-type="image/png"/>
+    <item id="x9.png" href="Images/9.png" media-type="image/png"/>
+    <item id="cover.jpg" href="Images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
+    <item id="ill236.jpg" href="Images/ill236.jpg" media-type="image/jpeg"/>
+    <item id="Immagine285.jpg" href="Images/Immagine285.jpg" media-type="image/jpeg"/>
+    <item id="Immagine293.jpg" href="Images/Immagine293.jpg" media-type="image/jpeg"/>
+    <item id="Immagine303.jpg" href="Images/Immagine303.jpg" media-type="image/jpeg"/>
+    <item id="Immagine312.jpg" href="Images/Immagine312.jpg" media-type="image/jpeg"/>
+    <item id="Immagine320.jpg" href="Images/Immagine320.jpg" media-type="image/jpeg"/>
+    <item id="Immagine329.jpg" href="Images/Immagine329.jpg" media-type="image/jpeg"/>
+    <item id="Immagine339.jpg" href="Images/Immagine339.jpg" media-type="image/jpeg"/>
+    <item id="Immagine347.jpg" href="Images/Immagine347.jpg" media-type="image/jpeg"/>
+    <item id="AggiornaNome.js" href="Misc/AggiornaNome.js" media-type="text/javascript"/>
+    <item id="Controlla.js" href="Misc/Controlla.js" media-type="text/javascript"/>
+    <item id="Form.js" href="Misc/Form.js" media-type="text/javascript"/>
+    <item id="VisioneComplessa.js" href="Misc/VisioneComplessa.js" media-type="text/javascript"/>
+    <item id="VisioneSemplice.js" href="Misc/VisioneSemplice.js" media-type="text/javascript"/>
+    <item id="jquery-3.1.1.slim.min.js" href="Misc/jquery-3.1.1.slim.min.js" media-type="text/javascript"/>
+    <item id="x562d4414-5a46-4068-9fdd-79df90301abf" href="Audio/EFFETTI%20SONORI%20-%20Risata%20pubblico.mp3" media-type="audio/mpeg"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover" linear="no"/>
+    <itemref idref="Pinocchio-1"/>
+    <itemref idref="Pinocchio-4"/>
+    <itemref idref="Pinocchio-2"/>
+    <itemref idref="Pinocchio-5"/>
+    <itemref idref="Pinocchio-3"/>
+    <itemref idref="Pinocchio-6"/>
+    <itemref idref="Pinocchio-7"/>
+    <itemref idref="Pinocchio-8"/>
+    <itemref idref="toc"/>
+  </spine>
+  <guide>
+    <reference type="cover" title="Cover" href="Text/cover.xhtml"/>
+  </guide>
+</package>
