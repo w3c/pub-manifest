@@ -12,7 +12,6 @@
 		<xsl:text>{
     "@context": [
         "https://schema.org",
-        
         "https://www.w3.org/ns/pub-context"</xsl:text>
 		
 		<!-- add manifest language -->
@@ -108,7 +107,7 @@
 		<xsl:for-each select="$a11y/a11y">
 			<xsl:variable name="a11yName" select="concat('schema:',current())"/>
 			<xsl:call-template name="add-property">
-				<xsl:with-param name="property" select="current()"/>
+				<xsl:with-param name="property" select="normalize-space(current())"/>
 				<xsl:with-param name="elem" select="$a11yProperties[@property=$a11yName]"/>
 			</xsl:call-template>
 		</xsl:for-each>
@@ -224,7 +223,7 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>,
-		"</xsl:text><xsl:value-of select="$property"/><xsl:text>" : "</xsl:text><xsl:value-of select="$elem"/><xsl:text>"</xsl:text>
+		"</xsl:text><xsl:value-of select="$property"/><xsl:text>" : "</xsl:text><xsl:value-of select="normalize-space($elem)"/><xsl:text>"</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
