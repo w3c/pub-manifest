@@ -132,14 +132,6 @@
             "type": "string",
             "pattern": "^P(?!$)((\\d+Y)|(\\d+\\.\\d+Y$))?((\\d+M)|(\\d+\\.\\d+M$))?((\\d+W)|(\\d+\\.\\d+W$))?((\\d+D)|(\\d+\\.\\d+D$))?(T(?=\\d)((\\d+H)|(\\d+\\.\\d+H$))?((\\d+M)|(\\d+\\.\\d+M$))?(\\d+(\\.\\d+)?S)?)??$"
         },
-        "direction": {
-            "type": "string",
-            "enum": [
-                "rtl",
-                "ltr",
-                "auto"
-            ]
-        },
         "inLanguage": {
             "oneOf": [
                 {

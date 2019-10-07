@@ -47,6 +47,7 @@
 				includePermalinks: false,
 				permalinkEdge:     true,
 				permalinkHide:     false,
+				pluralize:         true,
 				diffTool:          "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
 				wgURI:             "https://www.w3.org/publishing/groups/publ-wg/",
 				wgPublicList:      "public-publ-wg",
@@ -71,7 +72,7 @@
 		<section id="abstract">
 			<p>This specification defines a general manifest format for expressing information about a digital
 				publication. It uses [[schema.org]] metadata augmented to include various structural properties about
-				publications, serialized in [[JSON-LD]], to enable interoperability between publishing formats while
+				publications, serialized in [[json-ld11]], to enable interoperability between publishing formats while
 				accommodating variances in the information that needs to be expressed.</p>
 		</section>
 		<section id="sotd"></section>
@@ -175,7 +176,7 @@
 					<h4>Manifest Format</h4>
 
 					<p>A <a>digital publication</a> is described by its <a>manifest</a>, which provides a set of
-						properties expressed using a specific shape of JSON-LD&#160;[[json-ld]] (a variant of
+						properties expressed using a specific shape of JSON-LD&#160;[[json-ld11]] (a variant of
 						JSON&#160;[[ecma-404]] for linked data).</p>
 
 					<p>The manifest is what enables user agents to understand the <a>bounds</a> of <a>digital
@@ -244,7 +245,7 @@
 				<section id="manifest-jsonld">
 					<h4>JSON-LD Authoring and Processing</h4>
 
-					<p>This specification defines the publication manifest as a specific "shape" of [[!json-ld]]. This
+					<p>This specification defines the publication manifest as a specific "shape" of [[!json-ld11]]. This
 						means that the manifest SHOULD be expressed using only the syntactic constructions defined in
 						this specification, as opposed to all the possibilities offered by the JSON-LD syntax.</p>
 
@@ -317,7 +318,7 @@
 			<section id="webidl">
 				<h3>Web IDL</h3>
 
-				<p>Although a <a>digital publication</a>'s manifest is authored as [[!json-ld]], a user agent <a
+				<p>Although a <a>digital publication</a>'s manifest is authored as [[!json-ld11]], a user agent <a
 						href="#manifest-processing">processes this information</a> into the <a>internal
 						representation</a>, which can be in any language, in order to utilize the properties.</p>
 
@@ -369,11 +370,10 @@ dictionary PublicationManifest {
              sequence&lt;Entity>            translator;
              sequence&lt;DOMString>         url;
              DOMString                   duration;
-             TextDirection               direction;
              sequence&lt;DOMString>         inLanguage;
              DOMString                   dateModified;
              DOMString                   datePublished;
-             ProgressionDirection        readingProgression = "ltr";
+             TextDirection               readingProgression = "ltr";
     required sequence&lt;LocalizableString> name;
     required sequence&lt;LinkedResource>    readingOrder;
              sequence&lt;LinkedResource>    resources;
@@ -381,12 +381,6 @@ dictionary PublicationManifest {
 };
 
 enum TextDirection {
-    "ltr",
-    "rtl",
-    "auto"
-};
-
-enum ProgressionDirection {
     "ltr",
     "rtl"
 };
@@ -428,6 +422,7 @@ dictionary Entity {
 dictionary LocalizableString {
     required DOMString                   value;
              DOMString                   language;
+             TextDirection               direction;
 };
 </pre>
 					</section>
@@ -532,13 +527,57 @@ dictionary LocalizableString {
 									<td><a href="#value-literal">Literal</a></td>
 									<td>(None)</td>
 								</tr>
+								<tr>
+									<td>
+										<code>
+											<dfn>direction</dfn>
+										</code>
+									</td>
+									<td>The base direction of the value. OPTIONAL.</td>
+									<td><code>ltr</code> or <code>rtl</code></td>
+									<td><a href="#value-literal">Literal</a></td>
+									<td>(None)</td>
+								</tr>
 							</tbody>
 						</table>
 
-						<pre class="example">{
-    "value"    : "",
-    "language" : ""
+						<p>The meaning of the base <dfn>direction</dfn> values are:</p>
+
+						<ul data-dfn-for="TextDirection">
+							<li><code><dfn>ltr</dfn></code>: indicates that the textual value is explicitly directionally set to left-to-right text;</li>
+							<li><code><dfn>rtl</dfn></code>: indicates that the textual value is explicitly directionally set to right-to-left text;</li>
+						</ul>
+
+						<p>
+							A missing base direction value means that that the textual value is explicitly directionally set to the direction of the first character with a strong directionality, following the rules of the Unicode Bidirectional Algorithm&#160;[[!bidi]].</li>
+						</p>	
+
+						<aside class="example" title="Set the language of a string">
+						<pre>{
+    "value"     : "孔子",
+    "language"  : "zh"
 }</pre>
+						</aside>
+						<aside  class="example" title="Set the language and the base direction of a string">
+<pre>{
+    "value"     : "<bdo dir="ltr">HTML היא שפת סימון.</bdo>",
+    "language"  : "he",
+    "direction" : "rtl"
+}</pre>
+					</aside>
+					<div class=note>
+						<p>
+							If the base direction value were not set in the last example, the text would be displayed, following the Unicode Bidirectional Algorithm&nbsp;[[bidi]] and due to the presence of a Latin character starting the string, as:
+						</p>
+						<p dir="ltr">HTML היא שפת סימון.</p>		
+						<p>
+							However, that would be incorrect. The extra <code>direction</code> value is necessary to control the display to yield:
+						</p>
+						<p dir="rtl">HTML היא שפת סימון.</p> 
+						<p>See also the [[string-meta]] document for further explanations and examples.</p>
+					</div>
+
+
 					</section>
 
 					<section id="value-entity">
@@ -954,7 +993,7 @@ dictionary LocalizableString {
 					<ul>
 						<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, it is the <a
 								href="https://www.w3.org/TR/json-ld11/#inheriting-base-iri-from-html-s-base-element"
-								>document base URL of the embedding document</a>&#160;[[!json-ld]];</li>
+								>document base URL of the embedding document</a>&#160;[[!json-ld11]];</li>
 						<li>In the case of a <a href="#manifest-link">linked manifest</a>, it is the URL of the manifest
 							resource.</li>
 						<li>In the case of a digital publication format that uses <a href="#manifest-other-discovery"
@@ -1018,7 +1057,7 @@ dictionary LocalizableString {
 			<section id="manifest-context">
 				<h3>Manifest Contexts</h3>
 
-				<p>A <a>manifest</a> MUST set its JSON-LD context&#160;[[!json-ld]] with the following two components,
+				<p>A <a>manifest</a> MUST set its JSON-LD context&#160;[[!json-ld11]] with the following two components,
 					in the specified order:</p>
 
 				<ol>
@@ -1068,133 +1107,136 @@ dictionary LocalizableString {
 					Chinese). It also has a natural <dfn>base direction</dfn> in which it is written — the display
 					direction, either left-to-right or right-to-left.</p>
 
-				<p>The digital publication manifest provides the ability to set both these concepts <a
-						href="#manifest-lang-dir-global">globally</a> &#8212; and, for language, on <a
-						href="#manifest-lang-dir-local">individual items</a> &#8212; to aid user agents in interpreting
-					and presenting the metadata.</p>
+				<p>
+					The digital publication manifest provides the ability to set both these concepts <a href="#manifest-lang-dir-global">globally</a> as well as on <a href="#manifest-lang-dir-local">individual items</a> to aid user agents in interpreting and presenting the metadata.
+				</p>
 
 				<section id="manifest-lang-dir-global">
 					<h4>Global Declarations</h4>
 
-					<p>The default language for natural language manifest properties is set by including a global
-						language declaration in the context using the <a
-							href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"
-								><code>language</code> keyword</a>&#160;[[!json-ld]]. It is used to expand simple string
-						values into <a href="#value-localizable-string">localizable strings</a> during the <a
-							href="#manifest-processing">processing of the manifest</a>, as well as to provide a language
-						for localizable strings that omit one.</p>
+					<p>
+						The default language for natural language manifest properties is set by including a global language and/or a global base direction declaration in the context using the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords" ><code>language</code></a>, respectively the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"><code>direction</code></a>, keywords&nbsp;[[!json-ld11]]. It is used to expand simple string values into <a href="#value-localizable-string">localizable strings</a> during the <a href="#manifest-processing">processing of the manifest</a>, as well as to provide a language and the base direction for localizable strings that omit one.
+					</p>
 
+					<p>
+						The value of <code>language</code> MUST be a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language tag</a>&#160;[[!bcp47]].
+					</p>
+
+					<p>The value of <code>direction</code> MUST have one of the following
+						values:</p>
+
+					<ul>
+						<li><code><dfn>"ltr"</dfn></code>: indicates that the textual values are explicitly directionally
+							set to left-to-right text;</li>
+						<li><code><dfn>"rtl"</dfn></code>: indicates that the textual values are explicitly directionally
+							set to right-to-left text;</li>
+					</ul>
 
 					<aside class="example" title="Declaring French as the default language for the manifest.">
 						<pre>{
     "@context": [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context", 
-        {"language":"fr"}
+        {
+            "language": "fr"
+        }
     ],
     …
 }</pre>
 					</aside>
 
-					<p>The value of <code>language</code> MUST be a <a
-							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
-						tag</a>&#160;[[!bcp47]].</p>
-
-					<p>The global language declaration, when present, MUST follow the <a>publication context</a>.</p>
-
-					<p>Unlike the default language, the default text direction cannot be specified in the context as
-						JSON-LD does not currently include facilities for this. As an interim measure, this
-						specification defines a <code>direction</code> property for defining the global text
-						direction.</p>
-
-					<table class="zebra">
-						<thead>
-							<tr>
-								<th>Term</th>
-								<th>Description</th>
-								<th>Required Value</th>
-								<th>Value Category</th>
-								<th>[[!schema.org]] Mapping</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<code data-dfn-for="PublicationManifest">
-										<dfn>direction</dfn>
-									</code>
-								</td>
-								<td>Default <a>base direction</a> for textual manifest values</td>
-								<td>One of: <code>ltr</code>, <code>rtl</code>, or <code>auto</code>.</td>
-								<td>
-									<a href="#value-literal">Literal</a>
-								</td>
-								<td>(None)</td>
-							</tr>
-						</tbody>
-					</table>
-
-					<p>The <dfn data-lt="TextDirection">base language direction</dfn> MUST have one of the following
-						values:</p>
-
-					<ul data-dfn-for="TextDirection">
-						<li><code><dfn>ltr</dfn></code>: indicates that the textual values are explicitly directionally
-							set to left-to-right text;</li>
-						<li><code><dfn>rtl</dfn></code>: indicates that the textual values are explicitly directionally
-							set to right-to-left text;</li>
-						<li><code><dfn>auto</dfn></code>: indicates that the textual values are explicitly directionally
-							set to the direction of the first character with a strong directionality, following the
-							rules of the Unicode Bidirectional Algorithm&#160;[[!bidi]].</li>
-					</ul>
-
-					<pre class="example" title="Setting the global text directionality to right-to-left.">{
-    "@context"  : [
+					<aside class="example" title="Declaring Azeri as the default language and with the base direction to right-to-left.">
+							<pre>{
+    "@context": [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context", 
-        {"language":"he"}
+        {
+            "language": "az",
+            "direction": "rtl"
+        }
     ],
-    "direction" : "rtl"
+    …
 }</pre>
+						</aside>
+	
 
-					<p>Default values are not specified for the global language and base direction declarations.</p>
+					<p>The global language and base direction declaration, when present, MUST follow the <a>publication context</a>.</p>
+
+					<p>Default values are not specified for the global language or base direction.</p>
 				</section>
 
 				<section id="manifest-lang-dir-local">
 					<h4>Item-Specific Declarations</h4>
 
-					<p>It is possible to set the language locally for any natural language value in the manifest using a
+					<p>It is possible to set the language or a base direction locally for any natural language value in the manifest using a
 							<a href="#LocalizableString">localizable string</a>:</p>
 
-					<pre class="example" title="Providing the author name in English for a Chinese publication.">{
+
+<aside class="example" title="Providing the author name in English for a Chinese publication.">
+<pre>{
     "@context" : [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context",
-        {"language": "zh"}
+        {
+            "language": "zh"
+        }
     ],
     "type"     : "Book",
     &#8230;
-    "author"   : {
-        "type  : "Person",
+    "author" : {
+        "type" : "Person"
         "name" : [
             "孔子",
             {
-                "value"    : "Confucius",
-                "language" : "en"
+                "value" : "Confucius",
+                "language" : "en"				
             }
         ]
     }
 }
 </pre>
-					<p>The value of the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"
-								><code>language</code> keyword</a>&#160;[[!json-ld]] MUST be a <a
-							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
-						tag</a>&#160;[[!bcp47]].</p>
+							</aside>
+						
 
-					<p>A local language declaration takes precedence over a <a href="#manifest-lang-dir-global">global
-							declaration</a>.</p>
+				<aside class="example" title="A publication in Arabic with the title also given in English.">
+<pre>{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context",
+        {
+            "language": "ar"
+        }
+    ],
+    "type"     : "Book",
+    &#8230;
+    "name" : [
+        {
+            "value": "<span lang='ar' dir='rtl'>HTML و CSS: تصميم و إنشاء مواقع الويب</span>",
+            "direction": "rtl"
+        }
+        {
+            "value"    : "HTML and CSS: Design and Build Websites",
+            "language" : "en"
+        }
+    ]
+}
+</pre>
+					</aside>
+					<div class=note>
+						<p>The extra base direction setting for the Arabic title is necessary to yield the correct display, i.e.,:</p>
+						<p lang='ar' dir='rtl'>HTML و CSS: تصميم و إنشاء مواقع الويب</p>
+					</div>
 
-					<p class="note">It is <em>not</em> possible to set the direction explicitly for a specific value.
-						For more information, refer to <a href="#app-bidi-directionality"></a>.</p>
+					<p>
+						The possible values of the <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords" ><code>language</code></a> and <a href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"><code>direction</code></a> keywords&nbsp;[[!json-ld11]] are the same as for the <a href="#manifest-lang-dir-global">global declaration</a>. Furthermore, both values can also be the (JSON) value of <code>null</code>, indicating that no explicit language, respectively direction, is set. 
+					</p>
+
+					<p class=note>
+						Setting the value of <code>language</code> to <code>null</code> can be useful if a value (e.g., the name of an organization) is commonly used without any associated language (e.g., "Google").
+					</p>
+
+					<p>A local declaration of the language, respectively the base direction, takes precedence over a <a href="#manifest-lang-dir-global">global declaration</a>.</p>
+
 				</section>
 			</section>
 
@@ -1203,7 +1245,7 @@ dictionary LocalizableString {
 
 				<p>A <a>digital publication's</a>
 					<a>manifest</a> defines its <dfn>Publication Type</dfn> using the <code
-						data-dfn-for="PublicationManifest"><dfn>type</dfn></code> keyword&#160;[[!json-ld]]. The type
+						data-dfn-for="PublicationManifest"><dfn>type</dfn></code> keyword&#160;[[!json-ld11]]. The type
 					MAY be mapped onto any [[!schema.org]] type, but <a href="https://schema.org/CreativeWork"
 							><code>CreativeWork</code></a> is <a href="#processing-checks-type">assumed as the
 						default</a> when no type is specified.</p>
@@ -2550,7 +2592,7 @@ dictionary LocalizableString {
 							properties be taken from public schemes like [[schema.org]] or [[dcterms]] and use values
 							from controlled vocabularies whenever possible. Proprietary terms MAY be used, but it is
 							RECOMMENDED that such terms be included using <a
-								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld]],
+								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld11]],
 							with prefixes defined as part of the context.</p>
 
 						<pre class="example" title="Extending the basic data set using a vocabulary prefix declaration.">{
@@ -2907,7 +2949,7 @@ dictionary LocalizableString {
 						href="https://www.w3.org/TR/html5/semantics-scripting.html#the-script-element"
 							><code>script</code> element</a>&#160;[[!html]] whose <a
 						href="https://www.w3.org/TR/json-ld11/#embedding-json-ld-in-html-documents"><code>type</code>
-						attribute is set to <code>application/ld+json</code></a>&#160;[[!json-ld]].</p>
+						attribute is set to <code>application/ld+json</code></a>&#160;[[!json-ld11]].</p>
 
 				<pre class="example" title="Script tag for a publication manifest embedded in an HTML document.">
 &lt;script type="application/ld+json"&gt;
@@ -3013,14 +3055,28 @@ dictionary LocalizableString {
 
 				<li id="processing-language">
 					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>lang</var> be the value of the last instance
-						of the <var>language</var> keyword in an object in the <var>manifest[@context]</var> array. If
-						no instances of <var>language</var> exist, set <var>lang</var> to <code>null</code>.</p>
-					<p>If the value of <var>lang</var> is not a <a
-							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
-						language tag, this is a <a>validation error</a>. Set <code>lang</code> to <code>null</code>.</p>
+						of the <var>language</var> keyword in an object in the <var>manifest["@context"]</var> array. If
+						no instances of <var>language</var> exist, set <var>lang</var> to <code>undefined</code>.
+					</p>
+					<p>
+						If the value of <var>lang</var> is not a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]] language tag, this is a <a>validation error</a>. Set <code>lang</code> to <code>undefined</code>.
+					</p>
+	
 					<details>
 						<summary>Explanation</summary>
 						<p>The global language declaration obtained here is used to set the language for localizable
+							strings without a declaration.</p>
+					</details>
+				</li>
+
+				<li id="processing-direction">	
+					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>dir</var> be the value of the last instance
+						of the <var>direction</var> keyword in an object in the <var>manifest["@context"]</var> array. If
+						no instances of <var>direction</var> exist, set <var>dir</var> to <code>undefined</code>.</p>
+					<p>If the value of <var>dir</var> is not "<code>ltr</code>" or "<code>rtl</code>" this is a <a>validation error</a>. Set <code>dir</code> to <code>undefined</code>.</p>
+					<details>
+						<summary>Explanation</summary>
+						<p>The global language declaration obtained here is used to set the base direction for localizable
 							strings without a declaration.</p>
 					</details>
 				</li>
@@ -3109,10 +3165,12 @@ dictionary LocalizableString {
 									<p><var>value</var> &#8211; set to <var>str</var>; and</p>
 								</li>
 								<li>
-									<p><var>language</var> &#8211; set to the value of <var>lang</var> when not
-											<code>null</code>; otherwise, omitted.</p>
+									<p><var>language</var> &#8211; set to the value of <var>lang</var> when not <code>undefined</code>; otherwise, omitted.</p>
 								</li>
-							</ul>
+								<li>
+									<p><var>direction</var> &#8211; set to the value of <var>dir</var> when not <code>undefined</code>; otherwise, omitted.</p>
+								</li>
+								</ul>
 							<p>If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this
 								step on each element of the array.</p>
 							<p>If typeof(<var>current</var>) is <code>Object</code>&#160;[[!ecmascript]], perform this
@@ -3166,6 +3224,75 @@ dictionary LocalizableString {
 }</pre>
 							</details>
 						</li>
+
+						<li id="final-language-and-direction-setting">
+							<p>(<a href="#manifest-lang-dir-local"></a>) If <var>term</var> expects a <a
+								href="#value-localizable-string">localizable string</a>, update the <code>language</code> and <code>direction</code> values of <var>current</var> as follows:</p>
+							<ul>
+								<li>Set the final language tag:
+									<ul>
+										<li>if <var>current[language]</var> is not defined set <var>current[language]</var> to <var>lang</var> unless that value is <code>undefined</code>.</li>
+										<li>otherwise, if <var>current[language]</var> is <code>null</code>, remove <var>current[language]</var>.</li>
+									</ul>
+								</li>
+								<li>Set the final base direction:
+									<ul>
+										<li>if <var>current[direction]</var> is not defined set <var>current[direction]</var> to <var>dir</var> unless that value is <code>undefined</code>.</li>
+										<li>otherwise, if <var>current[direction]</var> is <code>null</code>, remove <var>current[direction]</var>.</li>
+									</ul>
+								</li>
+							</ul>
+							<p>
+								If typeof(<var>current</var>) is <code>Array</code>&#160;[[!ecmascript]], perform this step on each element of the array.
+							</p>
+
+							<details>
+								<summary>Explanation</summary>
+								<p>These steps uses the global language/direction values to set the language/direction for <code>LocalizableString</code>, unless the local setting is present or a local <code>null</code> value prevents the global value to take effect.</p>
+<pre class="example">{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context", 
+        {"language":"fr"}
+    ],
+    …
+    "name" : [{
+        "value" : "La Comédie humaine"
+    }],
+    "publisher" : [{
+        "type":["Organization"],
+        "name":[{
+            "value": "Hachette",
+            "language": null
+        }]
+    }],
+    …
+}</pre>
+													
+								<p>yields:</p>
+<pre class="example">{
+    "@context" : [
+        "https://schema.org",
+        "https://www.w3.org/ns/pub-context", 
+        {"language":"fr"}
+    ],
+    …
+    "name" : [{
+        "value" : "La Comédie humaine",
+        "language": "fr"
+	}],
+    "publisher" : [{
+        "type":["Organization"],
+        "name":[{
+            "value": "Hachette",
+        }]
+    }],
+    …
+}</pre>
+							</details>	
+						</li>
+			
+
 						<li id="processing-expansion-links">
 							<p>(<a href="#value-linked-resource"></a>) If <var>term</var> is a <a
 									href="#resource-categorization-properties">resource categorization property</a> or
@@ -3243,13 +3370,9 @@ dictionary LocalizableString {
 									<p>Create a new object <var>title</var>:</p>
 									<ul>
 										<li>
-											<p>if the <a data-cite="html#the-title-element"><code>title</code></a>
-												element&#160;[[!html]] of <var>document</var> is set and its contains is
-												not empty, set <var>title["value"]</var> to the text content of the
-													<code>title</code> element and, if applicable, set
-													<var>title["language"]</var> to the <a
-													data-cite="html#the-lang-and-xml:lang-attributes"
-												>language</a>&#160;[[!html]].</p>
+											<p>
+												if the <a data-cite="html#the-title-element"><code>title</code></a> element&#160;[[!html]] of <var>document</var> is set and its contains is not empty, set <var>title["value"]</var> to the text content of the <code>title</code> element. Set <var>title["language"]</var> to the <a data-cite="html#the-lang-and-xml:lang-attributes">language</a>&#160;[[!html]], if available, and the <var>title["direction"]</var> to the <a data-cite="html#the-dir-attribute">base direction</a>&#160;[[!html]] if that value is available and its value is either "<code>ltr</code>" or "<code>rtl</code>".
+											</p>
 										</li>
 										<li>
 											<p>otherwise, generate a value for <var>title["value"]</var> (see the <a
@@ -3320,6 +3443,7 @@ dictionary LocalizableString {
 					</ol>
 				</li>
 
+
 				<li id="processing-checks">
 					<p>Perform data integrity checks on the following properties in <var>processed</var>:</p>
 					<ol style="list-style-type: lower-alpha;">
@@ -3347,9 +3471,9 @@ dictionary LocalizableString {
 						</li>
 
 						<li id="processing-checks-direction">
-							<p>(<a href="#manifest-lang-dir-global"></a>) If <var>processed["direction"]</var> is set
-								and its value is not one of the <a href="#manifest-lang-dir-global">required directional
-									values</a>, this is a <a>validation error</a>.</p>
+							<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"></a>)
+								Recursively check that every <var>direction</var> property in <var>processed</var> has the value of "<code>ltr</code>" or "<code>rtl</code>". If not, this is <a>validation error</a>.
+							</p>
 						</li>
 
 						<li id="processing-checks-type">
@@ -3474,7 +3598,7 @@ dictionary LocalizableString {
 
 			<p>As the manifest is expressed using JSON-LD, the <a href="https://www.w3.org/TR/json-ld11/#privacy"
 					>privacy</a> and <a href="https://www.w3.org/TR/json-ld11/#iana-considerations">security
-					considerations</a> [[!json-ld]] detailed in that specification are applicable to all <a
+					considerations</a> [[!json-ld11]] detailed in that specification are applicable to all <a
 					href="#extensions">profiles</a> of the manifest.</p>
 
 			<p>Some additional general considerations for profiles include:</p>
@@ -4183,7 +4307,7 @@ dictionary LocalizableString {
 				<pre class="example" data-include="experiments/audiobook/flatland.json" data-include-format="text"></pre>
 			</section>
 		</section>
-		<section id="app-bidi" data-include="common/html/bidi-example-table.html" data-include-replace="true"></section>
+		<!-- <section id="app-bidi" data-include="common/html/bidi-example-table.html" data-include-replace="true"></section> -->
 		<section id="properties-index" class="appendix informative">
 			<h4>Properties Index</h4>
 
@@ -4531,6 +4655,18 @@ dictionary LocalizableString {
 					</tr>
 				</tbody>
 			</table>
+		</section>
+		<section id="json-ld-1.1-1.0" class="appendix informative">
+			<h4>JSON-LD 1.1 Dependency</h4>
+			<p>
+				This specification depends on [[json-ld11]], which is, at the time of finalizing this specification, the latest version of JSON-LD. I.e., a JSON-LD&nbsp;1.0&nbsp;[[json-ld10]] processor raises errors if it processes a manifest as defined in this document.
+			</p>
+			<p>
+				However, the 1.1 dependency is restricted to the usage of the <a>direction</a> term, defined in <a href="#value-localizable-string"></a>. If the manifest does not use this feature, it can be processed by a JSON-LD&nbsp;1.0 processor provided the context reference <code>https://www.w3.org/ns/pub-context</code> (see <a href="#manifest-context"></a>) is replaced by <code>https://www.w3.org/ns/pub-context-jsonld10</code>.
+			</p>
+			<p>
+				Note that this is relevant if and only if the manifest is indeed processed by a JSON-LD processor. As emphasized in <a href="#manifest-jsonld"></a>, a user agent is not required to be based on such a processor, in which case this dependency does not create any problems.
+			</p>
 		</section>
 		<section id="ack" data-include="common/html/acknowledgements.html" data-include-replace="true"></section>
 	</body>

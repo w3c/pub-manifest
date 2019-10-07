@@ -103,6 +103,15 @@ var biblio = {
       ],
       "date": "2017-12-01"
     },
+    "json-ld10": {
+      "title": "JSON-LD 1.0",
+      "authors": [
+        "Manu Sporny", "Gregg Kellogg", "Markus Langhaler"
+      ],
+      "status": "W3C Recommendation",
+      "date": "2014-01-16",
+      "href": "https://www.w3.org/TR/2014/REC-json-ld-20140116/"
+    },
     "schema.org": {
         "title": "Schema.org",
         "href": "https://schema.org"
