@@ -260,7 +260,7 @@
 						expressions. For example, it is not always required that object types be explicitly authored, as
 						these are automatically generated during processing when missing (see <a href="#value-objects"
 						></a> for more information). An <a>internal representation</a> of the manifest data is defined
-						separately; see the separate section on <a href="#internal-rep-visualization"></a> for further
+						separately; see the separate section on <a href="#internal-rep-data-model"></a> for further
 						details.</p>
 
 					<p>As a consequence, a user agent does not have to be a full JSON-LD processor. User agents only
@@ -315,7 +315,7 @@
 					format.</p>
 
 				<p class="note">Some properties are implicitly required, as they are compiled from alternative
-					information when not explicitly authored. See <a href="#internal-rep-visualization"></a> for more
+					information when not explicitly authored. See <a href="#internal-rep-data-model"></a> for more
 					information.</p>
 			</section>
 
@@ -2882,221 +2882,215 @@
 		<section id="manifest-processing">
 			<h2>Processing a Manifest</h2>
 
-			<section id="manifest-processing-algorithm">
-				<h3>User Agent Processing</h3>
+			<p><em>This section depends on the Infra Standard [[!infra]].</em></p>
 
-				<p>Although a <a>digital publication</a>'s manifest is authored as [[!json-ld11]], a user agent <a
-						href="#manifest-processing">processes this information</a> into its <a>internal
-						representation</a>, which can be in any language, in order to utilize the properties.</p>
+			<p>Although a <a>digital publication</a>'s manifest is authored as [[!json-ld11]], the <dfn
+					data-lt="processing the manifest|processing a manifest|process a manifest">steps for processing a
+					manifest</dfn> detailed in this section describe how a user agent <a href="#manifest-processing"
+					>processes the manifest</a> into its <a>internal representation</a> of the data. The algorithm
+				describes the process using the terminology and data types defined in [[!infra]], and, if successful
+				results in an [[!infra]] <a href="https://infra.spec.whatwg.org/#ordered-map">map</a> of the data being
+				returned.</p>
 
-				<p>The <dfn data-lt="processing the manifest|processing a manifest|process a manifest">steps for
-						processing a manifest</dfn> into its <a>internal representation</a> are given by the following
-					algorithm.</p>
+			<p class="note">An actual implementation of this algorithm will use the corresponding constructs and data
+				types of whatever language is used.</p>
 
-				<p class="note">A <a href="#internal-rep-visualization">visualization of the resulting internal data
-						structure</a> is provided in the next section.</p>
+			<p>The following error types are used in this algorithm:</p>
 
-				<p>The following error types are used in this algorithm:</p>
+			<ul>
+				<li><dfn data-lt="validation errors">validation error</dfn> &#8212; a non-terminating error that occurs
+					when the <a href="https://infra.spec.whatwg.org/#map-value">value</a> of a <a
+						href="https://infra.spec.whatwg.org/#map-key">key</a> does match its expected input.</li>
+				<li><dfn data-lt="fatal errors">fatal error</dfn> &#8212; a terminating error that results, for example,
+					when a manifest cannot be processed or does not match critical validity constraints.</li>
+			</ul>
 
-				<ul>
-					<li><dfn data-lt="validation errors">validation error</dfn> &#8212; a non-terminating error that
-						occurs when the <a href="https://infra.spec.whatwg.org/#map-value">value</a> of a <a
-							href="https://infra.spec.whatwg.org/#map-key">key</a> does match its expected input.</li>
-					<li><dfn data-lt="fatal errors">fatal error</dfn> &#8212; a terminating error that results, for
-						example, when a manifest cannot be processed or does not match critical validity
-						constraints.</li>
-				</ul>
+			<p>User agents SHOULD expose both validation and fatal errors, but this specification does not prescribe the
+				manner in which this is done.</p>
 
-				<p>User agents SHOULD expose both validation and fatal errors, but this specification does not prescribe
-					the manner in which this is done.</p>
+			<p>User agents SHOULD NOT include in their internal representation any value that generates a <a>validation
+					error</a>.</p>
 
-				<p>User agents SHOULD NOT include in their internal representation any value that generates a
-						<a>validation error</a>.</p>
+			<p>The algorithm takes the following arguments:</p>
 
-				<p>The algorithm takes the following arguments:</p>
+			<ul>
+				<li><var>text</var>: a UTF-8 string containing the manifest;</li>
+				<li><var>base</var>: a URL string that represents the base URL for the manifest.</li>
+				<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM)
+					Node</a>&#160;[[!html]] of the document that <a href="#manifest-discovery">references the
+						manifest</a>, when available.</li>
+			</ul>
 
-				<ul>
-					<li><var>text</var>: a UTF-8 string containing the manifest;</li>
-					<li><var>base</var>: a URL string that represents the base URL for the manifest.</li>
-					<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM)
-						Node</a>&#160;[[!html]] of the document that <a href="#manifest-discovery">references the
-							manifest</a>, when available.</li>
-				</ul>
+			<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
+				which to do so are defined by each <a>digital publication</a> format.</p>
 
-				<p>If successful, the algorithm returns a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
-					containing the internal representation of the data.</p>
+			<p class="note">For illustrative purposes, the examples in this section show the structure of internal
+				representation as JavaScript objects. See also <a href="#internal-rep-data-model"></a> for a
+				visualization of the resulting structure.</p>
 
-				<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
-					which to do so are defined by each <a>digital publication</a> format.</p>
+			<ol>
+				<li id="processing-init">
+					<p>Let <var>processed</var> be a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
+						containing the <a href="#dfn-internal-representation">internal representation</a> of the
+						manifest.</p>
+				</li>
 
-				<p class="note">For illustrative purposes, the examples in this section show the structure of internal
-					representation as JavaScript objects.</p>
+				<li id="processing-json-infra">
+					<p>Let <var>manifest</var> be the result of parsing <a
+							href="https://infra.spec.whatwg.org/#parse-json-into-infra-values">JSON into Infra
+							values</a> given <var>text</var>. If <var>manifest</var> is not a <a
+							href="https://infra.spec.whatwg.org/#ordered-map">map</a>, this is a <a>fatal error</a>.
+						Return failure.</p>
+				</li>
 
-				<ol>
-					<li id="processing-init">
-						<p>Let <var>processed</var> be a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
-							containing the <a href="#dfn-internal-representation">internal representation</a> of the
-							manifest.</p>
-					</li>
+				<li id="processing-context">
+					<p>(<a href="#manifest-context"></a>) If the first and second <a
+							href="https://infra.spec.whatwg.org/#struct-item">items</a> in
+							<var>manifest["@context"]</var> are not the <a href="https://infra.spec.whatwg.org/#string"
+							>string</a> values "<code>https://schema.org</code>" and
+							"<code>https://www.w3.org/ns/pub-context</code>", in this order, this is a <a>fatal
+							error</a>. Return failure.</p>
+				</li>
 
-					<li id="processing-json-infra">
-						<p>Let <var>manifest</var> be the result of parsing <a
-								href="https://infra.spec.whatwg.org/#parse-json-into-infra-values">JSON into Infra
-								values</a> given <var>text</var>. If <var>manifest</var> is not a <a
-								href="https://infra.spec.whatwg.org/#ordered-map">map</a>, this is a <a>fatal error</a>.
-							Return failure.</p>
-					</li>
+				<li id="processing-conformance">
+					<p>(<a href="#profile-conformance"></a>) Determine the <a>profile(s)</a> the manifest conforms to as
+						follows:</p>
+					<ol>
+						<li>If <var>manifest["conformsTo"]</var> is not set, this is a <a>fatal error</a>. Return
+							failure.</li>
+						<li>If <var>manifest["conformsTo"]</var> does not include a URL of a profile the user agent is
+							capable of processing and/or rendering, this is a <a>fatal error</a>. Return failure.</li>
+						<li>If <var>manifest["conformsTo"]</var> includes the URLs of more than one profile the user
+							agent is capable of processing and rendering, the user agent MUST select the first in the
+							array in the case of conflicting requirements.</li>
+						<li>Otherwise, the publication is an instance of the profile defined by the recognized URL.</li>
+					</ol>
+					<details>
+						<summary>Explanation</summary>
+						<p>The profile(s) the publication conforms to determines any additional extension steps that
+							have to be performed during processing.</p>
+					</details>
+				</li>
 
-					<li id="processing-context">
-						<p>(<a href="#manifest-context"></a>) If the first and second <a
-								href="https://infra.spec.whatwg.org/#struct-item">items</a> in
-								<var>manifest["@context"]</var> are not the <a
-								href="https://infra.spec.whatwg.org/#string">string</a> values
-								"<code>https://schema.org</code>" and "<code>https://www.w3.org/ns/pub-context</code>",
-							in this order, this is a <a>fatal error</a>. Return failure.</p>
-					</li>
+				<li id="processing-lang-dir">
+					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>lang</var> be the global language and
+							<var>dir</var> be the global direction obtained from this step. Set each initially to an
+						empty <a href="https://infra.spec.whatwg.org/#string">string</a>.</p>
+					<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
+						<var>context</var> in <var>manifest["@context"]</var>, moving from the last <a
+							href="https://infra.spec.whatwg.org/#struct-item">item</a> to the first:</p>
+					<ol>
+						<li>if <var>lang</var> is an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
+							and <var>context</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
+							that contains a <var>language</var>
+							<a href="https://infra.spec.whatwg.org/#map-key">key</a>, set <var>lang</var> to
+								<var>context["language"]</var>;</li>
+						<li>if <var>dir</var> is an empty <a href="https://infra.spec.whatwg.org/#string">string</a> and
+								<var>context</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
+							that contains a <var>direction</var>
+							<a href="https://infra.spec.whatwg.org/#map-key">key</a>, set <var>dir</var> to
+								<var>context["direction"]</var>;</li>
+						<li>if both <var>lang</var> and <var>dir</var> are not empty <a
+								href="https://infra.spec.whatwg.org/#string">strings</a>, then <a
+								href="https://infra.spec.whatwg.org/#iteration-break">break</a>.</li>
+					</ol>
+					<p>If the value of <var>lang</var> is neither an empty <a
+							href="https://infra.spec.whatwg.org/#string">string</a> nor a <a
+							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
+						language tag, this is a <a>validation error</a>. Set <var>lang</var> to an empty string.</p>
+					<p>If the value of <var>dir</var> is neither an empty <a
+							href="https://infra.spec.whatwg.org/#string">string</a> nor one of the values
+							"<code>ltr</code>" or "<code>rtl</code>", this is a <a>validation error</a>. Set
+							<var>dir</var> to an empty string.</p>
+					<details>
+						<summary>Explanation</summary>
+						<p>The global language and direction declarations obtained here are used to set the language and
+							base direction, respectively, for localizable strings without a declaration.</p>
+					</details>
+				</li>
 
-					<li id="processing-conformance">
-						<p>(<a href="#profile-conformance"></a>) Determine the <a>profile(s)</a> the manifest conforms
-							to as follows:</p>
-						<ol>
-							<li>If <var>manifest["conformsTo"]</var> is not set, this is a <a>fatal error</a>. Return
-								failure.</li>
-							<li>If <var>manifest["conformsTo"]</var> does not include a URL of a profile it is capable
-								of processing and/or rendering, this is a <a>fatal error</a>. Return failure.</li>
-							<li>If <var>manifest["conformsTo"]</var> includes the URLs of more than one profile it is
-								capable of processing and rendering, the user agent MUST select the first in the array
-								in the case of conflicting requirements.</li>
-							<li>Otherwise, the publication is an instance of the profile defined by the recognized
-								URL.</li>
-						</ol>
-						<details>
-							<summary>Explanation</summary>
-							<p>The profile(s) the publication conforms to determines any additional extension steps that
-								have to be performed during processing.</p>
-						</details>
-					</li>
+				<li id="processing-normalize">
+					<p>Normalize <var>manifest</var> as follows.</p>
+					<p>For the purposes of this step, a <dfn>single value</dfn> refers to any of a <a
+							href="https://infra.spec.whatwg.org/#string">string</a>, <a
+							href="https://infra.spec.whatwg.org/#boolean">boolean</a>, number or <a
+							href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
+					<p class="note">The following steps depend on the expected value category of a <var>term</var>.
+						Exercise caution when processing terms as value categories depend not only on the name of the
+						term, but also on the object it is used with. For example, the value category for the term
+							<code>url</code> is an <a href="#value-array">Array</a> (of URLs) when used for the
+							<code>PublicationManifest</code> object, but a single URL literal otherwise.</p>
+					<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
+						<var>term</var> → <var>termValue</var> of <var>manifest</var>:</p>
+					<ol>
+						<li id="processing-normalize-init">
+							<p>Let <var>normalized</var> be the value of <var>termValue</var>.</p>
+						</li>
 
-					<li id="processing-lang-dir">
-						<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>lang</var> be the global language and
-								<var>dir</var> be the global direction obtained from this step. Set each initially to an
-							empty <a href="https://infra.spec.whatwg.org/#string">string</a>.</p>
-						<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
-							<var>context</var> in <var>manifest["@context"]</var>, moving from the last <a
-								href="https://infra.spec.whatwg.org/#struct-item">item</a> to the first:</p>
-						<ol>
-							<li>if <var>lang</var> is an empty <a href="https://infra.spec.whatwg.org/#string"
-									>string</a> and <var>context</var> is a <a
-									href="https://infra.spec.whatwg.org/#ordered-map">map</a> that contains a
-									<var>language</var>
-								<a href="https://infra.spec.whatwg.org/#map-key">key</a>, set <var>lang</var> to
-									<var>context["language"]</var>;</li>
-							<li>if <var>dir</var> is an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
-								and <var>context</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
-								that contains a <var>direction</var>
-								<a href="https://infra.spec.whatwg.org/#map-key">key</a>, set <var>dir</var> to
-									<var>context["direction"]</var>;</li>
-							<li>if both <var>lang</var> and <var>dir</var> are not empty <a
-									href="https://infra.spec.whatwg.org/#string">strings</a>, then <a
-									href="https://infra.spec.whatwg.org/#iteration-break">break</a>.</li>
-						</ol>
-						<p>If the value of <var>lang</var> is neither an empty <a
-								href="https://infra.spec.whatwg.org/#string">string</a> nor a <a
-								href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
-							language tag, this is a <a>validation error</a>. Set <var>lang</var> to an empty string.</p>
-						<p>If the value of <var>dir</var> is neither an empty <a
-								href="https://infra.spec.whatwg.org/#string">string</a> nor one of the values
-								"<code>ltr</code>" or "<code>rtl</code>", this is a <a>validation error</a>. Set
-								<var>dir</var> to an empty string.</p>
-						<details>
-							<summary>Explanation</summary>
-							<p>The global language and direction declarations obtained here are used to set the language
-								and base direction, respectively, for localizable strings without a declaration.</p>
-						</details>
-					</li>
-
-					<li id="processing-normalize">
-						<p>Normalize <var>manifest</var> as follows.</p>
-						<p>For the purposes of this step, a <dfn>single value</dfn> refers to any of a <a
-								href="https://infra.spec.whatwg.org/#string">string</a>, <a
-								href="https://infra.spec.whatwg.org/#boolean">boolean</a>, number or <a
-								href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
-						<p class="note">The following steps depend on the expected value category of a <var>term</var>.
-							Exercise caution when processing terms as value categories depend not only on the name of
-							the term, but also on the object it is used with. For example, the value category for the
-							term <code>url</code> is an <a href="#value-array">Array</a> (of URLs) when used for the
-								<code>PublicationManifest</code> object, but a single URL literal otherwise.</p>
-						<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
-							<var>term</var> → <var>termValue</var> of <var>manifest</var>:</p>
-						<ol>
-							<li id="processing-normalize-init">
-								<p>Let <var>normalized</var> be the value of <var>termValue</var>.</p>
-							</li>
-
-							<li id="processing-normalize-arrays">
-								<p>(<a href="#value-array"></a>) If <var>term</var> expects an <a href="#value-array"
-										>array</a> and <var>termValue</var> is a <a>single value</a> or <a
-										href="https://infra.spec.whatwg.org/#ordered-map">map</a>, set
-										<var>normalized</var> to «&#160;<var>termValue</var>&#160;».</p>
-								<details>
-									<summary>Explanation</summary>
-									<p>A number of terms require their values to be arrays, but, for the sake of
-										convenience, authors are allowed to use a single value instead of a one element
-										array. For example,</p>
-									<pre class="example">{
+						<li id="processing-normalize-arrays">
+							<p>(<a href="#value-array"></a>) If <var>term</var> expects an <a href="#value-array"
+									>array</a> and <var>termValue</var> is a <a>single value</a> or <a
+									href="https://infra.spec.whatwg.org/#ordered-map">map</a>, set <var>normalized</var>
+								to «&#160;<var>termValue</var>&#160;».</p>
+							<details>
+								<summary>Explanation</summary>
+								<p>A number of terms require their values to be arrays, but, for the sake of
+									convenience, authors are allowed to use a single value instead of a one element
+									array. For example,</p>
+								<pre class="example">{
     …
     "name"   : "Et dukkehjem",
     "author" : "Henrik Ibsen",
     …
 }</pre>
-									<p>yields:</p>
-									<pre class="example">{
+								<p>yields:</p>
+								<pre class="example">{
     …
     "name"   : ["Et dukkehjem"],
     "author" : ["Henrik Ibsen"],
     …
 }</pre>
-								</details>
-							</li>
+							</details>
+						</li>
 
-							<li id="processing-normalize-entities">
-								<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a href="#value-entity"
-										>entity</a>:</p>
-								<ol>
-									<li>
-										<p>if <var>termValue</var> is a <a>single value</a>, set <var>normalized</var>
-											to the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
-										<pre>«[
+						<li id="processing-normalize-entities">
+							<p>(<a href="#value-entity"></a>) If <var>term</var> expects a single <a
+									href="#value-entity">entity</a> or <a href="#value-array">array</a> of entities:</p>
+							<ol>
+								<li>
+									<p>if <var>termValue</var> is a <a>single value</a>, set <var>normalized</var> to
+										the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
+									<pre>«[
     "type" → « "Person" »,
     "name" → <var>termValue</var>
 ]»</pre>
-										<p>If <var>termValue</var> is a number, <a
-												href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
-												href="https://infra.spec.whatwg.org/#nulls">null</a>, this is a
-												<a>validation error</a>.</p>
-									</li>
-									<li>
-										<p>otherwise, if <var>termValue</var> is a <a
-												href="https://infra.spec.whatwg.org/#list">list</a>, set
-												<var>normalized</var> to the value of <var>termValue</var> after running
-												<a href="#processing-normalize-entities">this step</a> on each <a
-												href="https://infra.spec.whatwg.org/#struct-item">item</a> in
-												<var>termValue</var>.</p>
-									</li>
-								</ol>
-								<details>
-									<summary>Explanation</summary>
-									<p>Authors, editors, etc., are expected to be explicitly designed as an object of
-										type <code>Person</code>, but, for the sake of convenience, only their name has
-										to be specified. For example:</p>
-									<pre class="example">{
+									<p>If <var>termValue</var> is a number, <a
+											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
+											href="https://infra.spec.whatwg.org/#nulls">null</a>, this is a
+											<a>validation error</a>.</p>
+								</li>
+								<li>
+									<p>otherwise, if <var>termValue</var> is a <a
+											href="https://infra.spec.whatwg.org/#list">list</a>, set
+											<var>normalized</var> to the value of <var>termValue</var> after running <a
+											href="#processing-normalize-entities">this step</a> on each <a
+											href="https://infra.spec.whatwg.org/#struct-item">item</a> in
+											<var>termValue</var>.</p>
+								</li>
+							</ol>
+							<details>
+								<summary>Explanation</summary>
+								<p>Authors, editors, etc., are expected to be explicitly designed as an object of type
+										<code>Person</code>, but, for the sake of convenience, only their name has to be
+									specified. For example:</p>
+								<pre class="example">{
     …
     "author" : ["Ralph Ellison"],
     …
 }</pre>
-									<p>This rule converts the string values to objects, yielding the following for the
-										preceding example:</p>
-									<pre class="example">{
+								<p>This rule converts the string values to objects, yielding the following for the
+									preceding example:</p>
+								<pre class="example">{
     …
     "author" : [
         {
@@ -3106,78 +3100,76 @@
     ],
     …
 }</pre>
-									<p class="note">For simplicity, the conversion of <var>name</var> to a localizable
-										string is described by a later step.</p>
-								</details>
-							</li>
+								<p class="note">For simplicity, the conversion of <var>name</var> to a localizable
+									string is described by a later step.</p>
+							</details>
+						</li>
 
-							<li id="processing-normalize-localizable-strings">
-								<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects a <a
-										href="#value-localizable-string">localizable string</a>:</p>
-								<ol>
-									<li id="ls-value-normalize">
-										<p>if <var>termValue</var> contains a <a>single value</a>, set
-												<var>normalized</var> to the <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
-										<pre>«[
+						<li id="processing-normalize-localizable-strings">
+							<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects a <a
+									href="#value-localizable-string">localizable string</a>:</p>
+							<ol>
+								<li id="ls-value-normalize">
+									<p>if <var>termValue</var> contains a <a>single value</a>, set <var>normalized</var>
+										to the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
+									<pre>«[
     "value" → <var>termValue</var>,
     "language" → <var>lang</var>,
     "direction" → <var>dir</var>
 ]»</pre>
-										<p>If the value of <var>lang</var> or <var>dir</var> is an empty <a
-												href="https://infra.spec.whatwg.org/#string">string</a>, remove
-												<var>normalized["language"]</var> or <var>normalized["direction"]</var>,
-											respectively, from the <a href="https://infra.spec.whatwg.org/#ordered-map"
-												>map</a>.</p>
-									</li>
-									<li id="ls-map-normalize">
-										<p>otherwise, if <var>termValue</var> is a <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
-										<ul>
-											<li>
-												<p>if <var>termValue["language"]</var> is not set, set it to the value
-													of <var>lang</var> when <var>lang</var> is not an empty <a
-														href="https://infra.spec.whatwg.org/#string">string</a>.</p>
-											</li>
-											<li>
-												<p>otherwise, if the value of <var>termValue["language"]</var> is <a
-														href="https://infra.spec.whatwg.org/#nulls">null</a>, remove
-														<var>language</var> from <var>termValue</var>.</p>
-											</li>
-											<li>
-												<p>if <var>termValue["direction"]</var> is not set, set it to the value
-													of <var>dir</var> when <var>dir</var> is not an empty <a
-														href="https://infra.spec.whatwg.org/#string">string</a>.</p>
-											</li>
-											<li>
-												<p>otherwise, if the value of <var>termValue["direction"]</var> is <a
-														href="https://infra.spec.whatwg.org/#nulls">null</a>, remove
-														<var>direction</var> from <var>termValue</var>.</p>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<p>otherwise, if <var>value</var> is a <a
-												href="https://infra.spec.whatwg.org/#list">list</a>, process each <a
-												href="https://infra.spec.whatwg.org/#struct-item">item</a> per its
-											respective <a href="#ls-value-normalize">single-value normalization</a> or
-												<a href="#ls-map-normalize">map normalization</a> step. Process each
-											nested list encountered in the same way.</p>
-									</li>
-								</ol>
-								<details>
-									<summary>Explanation</summary>
-									<p>Natural language text values are expected to be explicitly designed as
-										localizable string objects, but, for the sake of convenience, can be simple
-										strings. For example, if no language information has been provided via the <a
-											href="#manifest-lang-dir-global">global language declaration</a> then:</p>
-									<pre class="example">{
+									<p>If the value of <var>lang</var> or <var>dir</var> is an empty <a
+											href="https://infra.spec.whatwg.org/#string">string</a>, remove
+											<var>normalized["language"]</var> or <var>normalized["direction"]</var>,
+										respectively, from the <a href="https://infra.spec.whatwg.org/#ordered-map"
+											>map</a>.</p>
+								</li>
+								<li id="ls-map-normalize">
+									<p>otherwise, if <var>termValue</var> is a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
+									<ul>
+										<li>
+											<p>if <var>termValue["language"]</var> is not set, set it to the value of
+													<var>lang</var> when <var>lang</var> is not an empty <a
+													href="https://infra.spec.whatwg.org/#string">string</a>.</p>
+										</li>
+										<li>
+											<p>otherwise, if the value of <var>termValue["language"]</var> is <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a>, remove
+													<var>language</var> from <var>termValue</var>.</p>
+										</li>
+										<li>
+											<p>if <var>termValue["direction"]</var> is not set, set it to the value of
+													<var>dir</var> when <var>dir</var> is not an empty <a
+													href="https://infra.spec.whatwg.org/#string">string</a>.</p>
+										</li>
+										<li>
+											<p>otherwise, if the value of <var>termValue["direction"]</var> is <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a>, remove
+													<var>direction</var> from <var>termValue</var>.</p>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<p>otherwise, if <var>value</var> is a <a href="https://infra.spec.whatwg.org/#list"
+											>list</a>, process each <a href="https://infra.spec.whatwg.org/#struct-item"
+											>item</a> per its respective <a href="#ls-value-normalize">single-value
+											normalization</a> or <a href="#ls-map-normalize">map normalization</a> step.
+										Process each nested list encountered in the same way.</p>
+								</li>
+							</ol>
+							<details>
+								<summary>Explanation</summary>
+								<p>Natural language text values are expected to be explicitly designed as localizable
+									string objects, but, for the sake of convenience, can be simple strings. For
+									example, if no language information has been provided via the <a
+										href="#manifest-lang-dir-global">global language declaration</a> then:</p>
+								<pre class="example">{
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"     : ["La Comédie humaine"],
     …
 }</pre>
-									<p>yields:</p>
-									<pre class="example">{
+								<p>yields:</p>
+								<pre class="example">{
     "@context" : ["https://schema.org","https://www.w3.org/ns/pub-context"],
     "name"     : [
         {
@@ -3186,9 +3178,9 @@
     ],
     …
 }</pre>
-									<p>If, however, an explicit language has been provided in the manifest, that
-										language is added to the localizable string object. For example,</p>
-									<pre class="example">{
+								<p>If, however, an explicit language has been provided in the manifest, that language is
+									added to the localizable string object. For example,</p>
+								<pre class="example">{
     "@context" : [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context",
@@ -3197,8 +3189,8 @@
     "name"     : ["La Comédie humaine"],
     …
 }</pre>
-									<p>yields:</p>
-									<pre class="example">{
+								<p>yields:</p>
+								<pre class="example">{
     "@context" : [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context",
@@ -3212,57 +3204,54 @@
     ],
     …
 }</pre>
-								</details>
-							</li>
+							</details>
+						</li>
 
-							<li id="processing-normalize-localizable-string-global">
-								<p>(<a href="#manifest-lang-dir-local"></a>) If <var>term</var> does not expect a <a
-										href="#value-localizable-string">localizable string</a> but is a <a
-										href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
-										href="https://infra.spec.whatwg.org/#list">list</a>:</p>
-								<ol>
-									<li>
-										<p>If <var>normalized</var> is a <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
-												href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-											<var>key</var> → <var>keyValue</var> of <var>normalized</var>:</p>
-										<ol>
-											<li>if <var>normalized[key]</var> expects a localizable string, process
-													<var>normalized[key]</var> as defined in the <a
-													href="#processing-normalize-localizable-strings">previous
+						<li id="processing-normalize-localizable-string-global">
+							<p>(<a href="#manifest-lang-dir-local"></a>) If <var>term</var> does not expect a <a
+									href="#value-localizable-string">localizable string</a> but is a <a
+									href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
+									href="https://infra.spec.whatwg.org/#list">list</a>:</p>
+							<ol>
+								<li>
+									<p>If <var>normalized</var> is a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
+											href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
+										<var>key</var> → <var>keyValue</var> of <var>normalized</var>:</p>
+									<ol>
+										<li>if <var>normalized[key]</var> expects a localizable string, process
+												<var>normalized[key]</var> as defined in the <a
+												href="#processing-normalize-localizable-strings">previous step</a>.</li>
+										<li>otherwise, if <var>normalized[key]</var> is a <a
+												href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
+												href="https://infra.spec.whatwg.org/#list">list</a>, process it as
+											defined by <a href="#processing-normalize-localizable-string-global">this
 												step</a>.</li>
-											<li>otherwise, if <var>normalized[key]</var> is a <a
-													href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
-													href="https://infra.spec.whatwg.org/#list">list</a>, process it as
-												defined by <a href="#processing-normalize-localizable-string-global"
-													>this step</a>.</li>
-										</ol>
-									</li>
-									<li>
-										<p>If <var>normalized</var> is an array, <a
-												href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-											<a href="https://infra.spec.whatwg.org/#struct-item">item</a>
-											<var>listValue</var> of <var>normalized</var>:</p>
-										<ol>
-											<li>if <var>normalized[listValue]</var> expects a localizable string,
-												process <var>normalized[key]</var> as defined in the <a
-													href="#processing-normalize-localizable-strings">previous
+									</ol>
+								</li>
+								<li>
+									<p>If <var>normalized</var> is an array, <a
+											href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
+										<a href="https://infra.spec.whatwg.org/#struct-item">item</a>
+										<var>listValue</var> of <var>normalized</var>:</p>
+									<ol>
+										<li>if <var>normalized[listValue]</var> expects a localizable string, process
+												<var>normalized[key]</var> as defined in the <a
+												href="#processing-normalize-localizable-strings">previous step</a>.</li>
+										<li>otherwise, if <var>normalized[key]</var> is a <a
+												href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
+												href="https://infra.spec.whatwg.org/#list">list</a>, process it as
+											defined by <a href="#processing-normalize-localizable-string-global">this
 												step</a>.</li>
-											<li>otherwise, if <var>normalized[key]</var> is a <a
-													href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
-													href="https://infra.spec.whatwg.org/#list">list</a>, process it as
-												defined by <a href="#processing-normalize-localizable-string-global"
-													>this step</a>.</li>
-										</ol>
-									</li>
-								</ol>
-								<details>
-									<summary>Explanation</summary>
-									<p>These steps uses the global language/direction values to set the
-										language/direction for <code>LocalizableString</code>, unless the local setting
-										is present or a local <code>null</code> value prevents the global value to take
-										effect.</p>
-									<pre class="example">{
+									</ol>
+								</li>
+							</ol>
+							<details>
+								<summary>Explanation</summary>
+								<p>These steps uses the global language/direction values to set the language/direction
+									for <code>LocalizableString</code>, unless the local setting is present or a local
+										<code>null</code> value prevents the global value to take effect.</p>
+								<pre class="example">{
     "@context" : [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context", 
@@ -3281,8 +3270,8 @@
     }],
     …
 }</pre>
-									<p>yields:</p>
-									<pre class="example">{
+								<p>yields:</p>
+								<pre class="example">{
     "@context" : [
         "https://schema.org",
         "https://www.w3.org/ns/pub-context", 
@@ -3301,40 +3290,40 @@
     }],
     …
 }</pre>
-								</details>
-							</li>
+							</details>
+						</li>
 
-							<li id="processing-normalize-links">
-								<p>(<a href="#value-linked-resource"></a>) If <var>term</var> is a <a
-										href="#resource-categorization-properties">resource categorization property</a>,
-										<a href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-									<a href="https://infra.spec.whatwg.org/#struct-item">item</a>
-									<var>resource</var> in <var>normalized</var>:</p>
-								<ol>
-									<li>
-										<p>if <var>resource</var> is a string, convert <var>resource</var> to the <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
-										<pre>«[
+						<li id="processing-normalize-links">
+							<p>(<a href="#value-linked-resource"></a>) If <var>term</var> is a <a
+									href="#resource-categorization-properties">resource categorization property</a>, <a
+									href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
+								<a href="https://infra.spec.whatwg.org/#struct-item">item</a>
+								<var>resource</var> in <var>normalized</var>:</p>
+							<ol>
+								<li>
+									<p>if <var>resource</var> is a string, convert <var>resource</var> to the <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
+									<pre>«[
     "type" → « "LinkedResource" »,
     "url" → <var>resource</var>
 ]»</pre>
-									</li>
-									<li>
-										<p>otherwise, if <var>resource</var> is a <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a> and contains
-											an <a href="#dom-linkedresource-alternate"><code>alternate</code></a>
-											<a href="https://infra.spec.whatwg.org/#map-key">key</a>, run <a
-												href="#processing-normalize-links">this step</a> on each <a
-												href="https://infra.spec.whatwg.org/#struct-item">item</a> in
-												<var>resource["alternate"]</var> to convert any string values. </p>
-									</li>
-								</ol>
-								<details>
-									<summary>Explanation</summary>
-									<p>Resource links are expected to be explicitly designed as an object of type
-											<code>LinkedResource</code>, but, for the sake of convenience, only their
-										absolute or relative URL has to be specified. For example,</p>
-									<pre class="example">{
+								</li>
+								<li>
+									<p>otherwise, if <var>resource</var> is a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a> and contains an <a
+											href="#dom-linkedresource-alternate"><code>alternate</code></a>
+										<a href="https://infra.spec.whatwg.org/#map-key">key</a>, run <a
+											href="#processing-normalize-links">this step</a> on each <a
+											href="https://infra.spec.whatwg.org/#struct-item">item</a> in
+											<var>resource["alternate"]</var> to convert any string values. </p>
+								</li>
+							</ol>
+							<details>
+								<summary>Explanation</summary>
+								<p>Resource links are expected to be explicitly designed as an object of type
+										<code>LinkedResource</code>, but, for the sake of convenience, only their
+									absolute or relative URL has to be specified. For example,</p>
+								<pre class="example">{
     …
     "resources" : [
         "css/book.css",
@@ -3342,9 +3331,9 @@
     ],
     …
 }</pre>
-									<p>This step converts the string values to objects, yielding the following for the
-										preceding example:</p>
-									<pre class="example">{
+								<p>This step converts the string values to objects, yielding the following for the
+									preceding example:</p>
+								<pre class="example">{
     …
     "resources" : [
         {
@@ -3355,101 +3344,98 @@
     ],
     …
 }</pre>
-									<p class="note">For simplicity, the conversion of relative paths to absolute is
-										described by a later step.</p>
-								</details>
-							</li>
+								<p class="note">For simplicity, the conversion of relative paths to absolute is
+									described by a later step.</p>
+							</details>
+						</li>
 
-							<li id="processing-normalize-urls">
-								<p>(<a href="#value-url"></a>) If <var>term</var> expects a <a href="#value-url"
-									>URL</a></p>
-								<ol>
-									<li>
-										<p>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#string"
-												>string</a> that is not an <a data-cite="!url/#absolute-url-string"
-												>absolute URL string</a>, resolve it to an absolute URL string using the
-											value of <var>base</var>&#160;[[!rfc1808]].</p>
-									</li>
-									<li>
-										<p>otherwise, if <var>normalized</var> is a number, <a
-												href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
-												href="https://infra.spec.whatwg.org/#nulls">null</a>, this is a
-												<a>validation error</a>.</p>
-									</li>
-									<li>
-										<p>otherwise, if <var>normalized</var> is a <a
-												href="https://infra.spec.whatwg.org/#list">list</a>, perform this step
-											on each <a href="https://infra.spec.whatwg.org/#struct-item">item</a> of the
-											list.</p>
-									</li>
-									<li>
-										<p>otherwise, if <var>normalized</var> is a <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>, perform this
-											step on each <a href="https://infra.spec.whatwg.org/#map-key">key</a> of the
-											map.</p>
-									</li>
-								</ol>
-								<details>
-									<summary>Explanation</summary>
-									<p>All relative URLs in the publication manifest must be resolved against the base
-										value to yield absolute URLs.</p>
-								</details>
-							</li>
+						<li id="processing-normalize-urls">
+							<p>(<a href="#value-url"></a>) If <var>term</var> expects a <a href="#value-url">URL</a></p>
+							<ol>
+								<li>
+									<p>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#string"
+											>string</a> that is not an <a data-cite="!url/#absolute-url-string">absolute
+											URL string</a>, resolve it to an absolute URL string using the value of
+											<var>base</var>&#160;[[!rfc1808]].</p>
+								</li>
+								<li>
+									<p>otherwise, if <var>normalized</var> is a number, <a
+											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
+											href="https://infra.spec.whatwg.org/#nulls">null</a>, this is a
+											<a>validation error</a>.</p>
+								</li>
+								<li>
+									<p>otherwise, if <var>normalized</var> is a <a
+											href="https://infra.spec.whatwg.org/#list">list</a>, perform this step on
+										each <a href="https://infra.spec.whatwg.org/#struct-item">item</a> of the
+										list.</p>
+								</li>
+								<li>
+									<p>otherwise, if <var>normalized</var> is a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, perform this step
+										on each <a href="https://infra.spec.whatwg.org/#map-key">key</a> of the map.</p>
+								</li>
+							</ol>
+							<details>
+								<summary>Explanation</summary>
+								<p>All relative URLs in the publication manifest must be resolved against the base value
+									to yield absolute URLs.</p>
+							</details>
+						</li>
 
-							<li id="processing-normalize-extension">
-								<p>(<a href="#extensions"></a>, extension point) if a <a>profile</a> defines processing
-									steps for profile-specific terms, those steps are executed at this point.</p>
-							</li>
+						<li id="processing-normalize-extension">
+							<p>(<a href="#extensions"></a>, extension point) if a <a>profile</a> defines processing
+								steps for profile-specific terms, those steps are executed at this point.</p>
+						</li>
 
-							<li id="processing-normalize-end">
-								<p>Set <var>processed[term]</var> to the value of <var>normalized</var>.</p>
-							</li>
-						</ol>
-					</li>
+						<li id="processing-normalize-end">
+							<p>Set <var>processed[term]</var> to the value of <var>normalized</var>.</p>
+						</li>
+					</ol>
+				</li>
 
-					<li id="processing-defaults">
-						<p>Add defaults from <var>document</var> for the following properties, when applicable:</p>
-						<ol>
-							<li id="processing-defaults-title">
-								<p>(<a href="#pub-title"></a>) If <var>processed["name"]</var> is not set, or its value
-									is an empty <a href="https://infra.spec.whatwg.org/#string">string</a>:</p>
-								<ul>
-									<li>
-										<p>Let <var>title</var> be an empty <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>. Set its
-											values as follows:</p>
-										<ul>
-											<li>
-												<p> if the <a data-cite="html#the-title-element"><code>title</code></a>
-													element&#160;[[!html]] of <var>document</var> is set and its
-													contains is not empty, set <var>title["value"]</var> to the text
-													content of the <code>title</code> element. Set
-														<var>title["language"]</var> to the <a
-														data-cite="html#the-lang-and-xml:lang-attributes"
-													>language</a>&#160;[[!html]], if available, and
-														<var>title["direction"]</var> to the <a
-														data-cite="html#the-dir-attribute">base
-													direction</a>&#160;[[!html]] if that value is available and its
-													value is either "<code>ltr</code>" or "<code>rtl</code>". </p>
-											</li>
-											<li>
-												<p>otherwise, generate a value for <var>title["value"]</var> (see the <a
-														href="#generate_title">separate note for details</a>). This is a
-														<a>validation error</a>.</p>
-											</li>
-										</ul>
-									</li>
-									<li>Set <var>processed["name"]</var> to an empty <a
-											href="https://infra.spec.whatwg.org/#list">list</a> and <a
-											href="https://infra.spec.whatwg.org/#stack-push">push</a>
-										<var>title</var> onto it.</li>
-								</ul>
-								<details>
-									<summary>Explanation</summary>
-									<p>This step adds the content of the <code>title</code> element of
-											<var>document</var> when the <code>name</code> property is not specified in
-										the manifest. For example:</p>
-									<pre class="example">&lt;html&gt;
+				<li id="processing-defaults">
+					<p>Add defaults from <var>document</var> for the following properties, when applicable:</p>
+					<ol>
+						<li id="processing-defaults-title">
+							<p>(<a href="#pub-title"></a>) If <var>processed["name"]</var> is not set, or its value is
+								an empty <a href="https://infra.spec.whatwg.org/#string">string</a>:</p>
+							<ul>
+								<li>
+									<p>Let <var>title</var> be an empty <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>. Set its values as
+										follows:</p>
+									<ul>
+										<li>
+											<p> if the <a data-cite="html#the-title-element"><code>title</code></a>
+												element&#160;[[!html]] of <var>document</var> is set and its contains is
+												not empty, set <var>title["value"]</var> to the text content of the
+													<code>title</code> element. Set <var>title["language"]</var> to the
+													<a data-cite="html#the-lang-and-xml:lang-attributes"
+												>language</a>&#160;[[!html]], if available, and
+													<var>title["direction"]</var> to the <a
+													data-cite="html#the-dir-attribute">base direction</a>&#160;[[!html]]
+												if that value is available and its value is either "<code>ltr</code>" or
+													"<code>rtl</code>". </p>
+										</li>
+										<li>
+											<p>otherwise, generate a value for <var>title["value"]</var> (see the <a
+													href="#generate_title">separate note for details</a>). This is a
+													<a>validation error</a>.</p>
+										</li>
+									</ul>
+								</li>
+								<li>Set <var>processed["name"]</var> to an empty <a
+										href="https://infra.spec.whatwg.org/#list">list</a> and <a
+										href="https://infra.spec.whatwg.org/#stack-push">push</a>
+									<var>title</var> onto it.</li>
+							</ul>
+							<details>
+								<summary>Explanation</summary>
+								<p>This step adds the content of the <code>title</code> element of <var>document</var>
+									when the <code>name</code> property is not specified in the manifest. For
+									example:</p>
+								<pre class="example">&lt;html&gt;
 &lt;head lang="en"&gt;
     &lt;title&gt;The Golden Bough&lt;/title&gt;
     …
@@ -3459,8 +3445,8 @@
         …
     }
     &lt;/script&gt;</pre>
-									<p>yields:</p>
-									<pre class="example">{
+								<p>yields:</p>
+								<pre class="example">{
     …
     "name" : [
         {
@@ -3470,198 +3456,256 @@
     ],
     …
 }</pre>
-								</details>
-							</li>
+							</details>
+						</li>
 
-							<li id="processing-defaults-reading-order">
-								<p>(<a href="#default-reading-order"></a>) If <var>processed["readingOrder"]</var> is
-									not set or its value is an empty <a href="https://infra.spec.whatwg.org/#string"
-										>string</a> or <a href="https://infra.spec.whatwg.org/#list">list</a>:</p>
-								<ul>
-									<li>
-										<p>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, this
-											is a <a>fatal error</a>. Return failure.</p>
-									</li>
-									<li>
-										<p>otherwise, set <var>processed["readingOrder"]</var> to an empty <a
-												href="https://infra.spec.whatwg.org/#list">list</a> and <a
-												href="https://infra.spec.whatwg.org/#stack-push">push</a> the <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>
-											<code>«[&#160;"url" → <a data-cite="!dom#concept-document-url"
-													>document.URL</a>&#160;]»</code> onto it.</p>
-									</li>
-								</ul>
-								<details>
-									<summary>Explanation</summary>
-									<p> If the Digital Publication consists only of the referencing document, the
-										default reading order can be omitted; it will consist, automatically, of that
-										single resource. </p>
-								</details>
-							</li>
+						<li id="processing-defaults-reading-order">
+							<p>(<a href="#default-reading-order"></a>) If <var>processed["readingOrder"]</var> is not
+								set or its value is an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
+								or <a href="https://infra.spec.whatwg.org/#list">list</a>:</p>
+							<ul>
+								<li>
+									<p>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, this is
+										a <a>fatal error</a>. Return failure.</p>
+								</li>
+								<li>
+									<p>otherwise, set <var>processed["readingOrder"]</var> to an empty <a
+											href="https://infra.spec.whatwg.org/#list">list</a> and <a
+											href="https://infra.spec.whatwg.org/#stack-push">push</a> the <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>
+										<code>«[&#160;"url" → <a data-cite="!dom#concept-document-url"
+											>document.URL</a>&#160;]»</code> onto it.</p>
+								</li>
+							</ul>
+							<details>
+								<summary>Explanation</summary>
+								<p> If the Digital Publication consists only of the referencing document, the default
+									reading order can be omitted; it will consist, automatically, of that single
+									resource. </p>
+							</details>
+						</li>
 
-							<li id="processing-defaults-extension">
-								<p>If a <a>profile</a> specifies <var>document</var> fallbacks, those steps are executed
-									at this point.</p>
-							</li>
-						</ol>
-					</li>
+						<li id="processing-defaults-extension">
+							<p>If a <a>profile</a> specifies <var>document</var> fallbacks, those steps are executed at
+								this point.</p>
+						</li>
+					</ol>
+				</li>
 
-					<li id="processing-checks">
-						<p>Perform data integrity checks on <var>processed</var> as follows:</p>
-						<ol>
-							<li id="processing-checks-general">
-								<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
-									<var>term</var> → <var>termValue</var> in <var>processed</var>:</p>
-								<ol>
-									<li id="processing-checks-values">
-										<p>(<a href="#properties-value-categories"></a>) If <var>term</var> has a known
-												<a href="#properties-value-categories">value type</a>, and
-												<var>termValue</var> does not match the expected type, this is a
-												<a>validation error</a></p>
-									</li>
+				<li id="processing-checks">
+					<p>Perform data integrity checks on <var>processed</var> as follows:</p>
+					<ol>
+						<li id="processing-checks-general">
+							<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
+								<var>term</var> → <var>termValue</var> in <var>processed</var>:</p>
+							<ol>
+								<li id="processing-checks-values">
+									<p>(<a href="#properties-value-categories"></a>) If <var>term</var> has a known <a
+											href="#properties-value-categories">value type</a>, and <var>termValue</var>
+										does not match the expected type, this is a <a>validation error</a></p>
+								</li>
 
-									<li id="processing-checks-entities">
-										<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a
-												href="#value-array">array</a> of <a href="#value-entity">entities</a>,
-											check whether each <a href="https://infra.spec.whatwg.org/#ordered-map"
-												>map</a> in <var>termValue</var> has a <var>name</var>
-											<a href="https://infra.spec.whatwg.org/#map-key">key</a>. Each item without
-											a <var>name</var> is a <a>validation error</a>.</p>
-									</li>
+								<li id="processing-checks-entities">
+									<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a
+											href="#value-array">array</a> of <a href="#value-entity">entities</a>, check
+										whether each <a href="https://infra.spec.whatwg.org/#ordered-map">map</a> in
+											<var>termValue</var> has a <var>name</var>
+										<a href="https://infra.spec.whatwg.org/#map-key">key</a>. Each item without a
+											<var>name</var> is a <a>validation error</a>.</p>
+								</li>
 
-									<li id="processing-checks-language">
-										<p>(<a href="#manifest-lang-dir-global"></a> and <a
-												href="#manifest-lang-dir-local"></a>) If <var>termValue</var> is a <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
-										<ul>
-											<li>
-												<p>if it has a <var>language</var>
-													<a href="https://infra.spec.whatwg.org/#map-key">key</a>, and
-														<var>termValue["language"]</var> is not <a
-														href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-														>well-formed</a>&#160;[[!bcp47]], this is a <a>validation
-														error</a>.</p>
-												<p>if it has a <var>direction</var>
-													<a href="https://infra.spec.whatwg.org/#map-key">key</a>, and
-														<var>termValue["direction"]</var> is not one of
-														"<code>ltr</code>" or "<code>rtl</code>", this is a
-														<a>validation error</a>.</p>
-											</li>
-										</ul>
-									</li>
+								<li id="processing-checks-language">
+									<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"
+										></a>) If <var>termValue</var> is a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
+									<ul>
+										<li>
+											<p>if it has a <var>language</var>
+												<a href="https://infra.spec.whatwg.org/#map-key">key</a>, and
+													<var>termValue["language"]</var> is not <a
+													href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+													>well-formed</a>&#160;[[!bcp47]], this is a <a>validation
+												error</a>.</p>
+											<p>if it has a <var>direction</var>
+												<a href="https://infra.spec.whatwg.org/#map-key">key</a>, and
+													<var>termValue["direction"]</var> is not one of "<code>ltr</code>"
+												or "<code>rtl</code>", this is a <a>validation error</a>.</p>
+										</li>
+									</ul>
+								</li>
 
-									<li id="processing-checks-urls">
-										<p>(<a href="#resource-categorization-properties"></a>) If <var>processed</var>
-											is a <a href="#resource-categorization-properties">resource categorization
-												property</a>, check that each item in <var>termValue</var>:</p>
-										<ul>
-											<li>
-												<p>if it does not have a <var>url</var>
-													<a href="https://infra.spec.whatwg.org/#ordered-map">key</a>, this
-													is a <a>validation error</a>.</p>
-											</li>
-											<li>
-												<p>otherwise, if <var>url</var> is not a valid URL&#160;[[!url]], this
-													is a <a>validation error</a>.</p>
-											</li>
-										</ul>
-									</li>
+								<li id="processing-checks-urls">
+									<p>(<a href="#resource-categorization-properties"></a>) If <var>processed</var> is a
+											<a href="#resource-categorization-properties">resource categorization
+											property</a>, check that each item in <var>termValue</var>:</p>
+									<ul>
+										<li>
+											<p>if it does not have a <var>url</var>
+												<a href="https://infra.spec.whatwg.org/#ordered-map">key</a>, this is a
+													<a>validation error</a>.</p>
+										</li>
+										<li>
+											<p>otherwise, if <var>url</var> is not a valid URL&#160;[[!url]], this is a
+													<a>validation error</a>.</p>
+										</li>
+									</ul>
+								</li>
 
-									<li id="processing-checks-length">
-										<p>(<a href="#LinkedResource"></a>) If <var>processed[term]</var> expects type
-												<a>LinkedResource</a> and its <var>termValue["length"]</var>
-											<a href="https://infra.spec.whatwg.org/#map-key">key</a> is set and is not a
-											valid number, this is a <a>validation error</a>.</p>
-									</li>
+								<li id="processing-checks-length">
+									<p>(<a href="#LinkedResource"></a>) If <var>processed[term]</var> expects type <a
+											href="#value-linked-resource">LinkedResource</a> and its
+											<var>termValue["length"]</var>
+										<a href="https://infra.spec.whatwg.org/#map-key">key</a> is set and is not a
+										non-number number, this is a <a>validation error</a>.</p>
+								</li>
 
-									<li id="processing-checks-recursion">
-										<p>If <var>term</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
-												>map</a> or <a href="https://infra.spec.whatwg.org/#list">list</a>,
-											process its <a href="https://infra.spec.whatwg.org/#map-key">keys</a> or <a
-												href="https://infra.spec.whatwg.org/#struct-item">items</a>,
-											respectively as defined by <a href="#processing-checks-general">this
-												iterator</a>.</p>
-									</li>
-								</ol>
-							</li>
+								<li id="processing-checks-recursion">
+									<p>If <var>term</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
+											>map</a> or <a href="https://infra.spec.whatwg.org/#list">list</a>, process
+										its <a href="https://infra.spec.whatwg.org/#map-key">keys</a> or <a
+											href="https://infra.spec.whatwg.org/#struct-item">items</a>, respectively as
+										defined by <a href="#processing-checks-general">this iterator</a>.</p>
+								</li>
+							</ol>
+						</li>
 
-							<li id="processing-checks-type">
-								<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or
-									contains an empty value, this is a <a>validation error</a>. Set it to
-										<code>«&#160;"CreativeWork"&#160;»</code>.</p>
-							</li>
+						<li id="processing-checks-type">
+							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or
+								contains an empty value, this is a <a>validation error</a>. Set it to
+									<code>«&#160;"CreativeWork"&#160;»</code>.</p>
+						</li>
 
-							<li id="processing-checks-abridged">
-								<p>(<a href="#abridged"></a>) If <var>processed["abridged"]</var> is set and is not a <a
-										href="https://infra.spec.whatwg.org/#boolean">boolean</a>, this is a
-										<a>validation error</a>.</p>
-							</li>
+						<li id="processing-checks-abridged">
+							<p>(<a href="#abridged"></a>) If <var>processed["abridged"]</var> is set and is not a <a
+									href="https://infra.spec.whatwg.org/#boolean">boolean</a>, this is a <a>validation
+									error</a>.</p>
+						</li>
 
-							<li id="processing-checks-duration">
-								<p>(<a href="#duration"></a>) If <var>processed["duration"]</var> is set and is not a
-									valid duration value, per&#160;[[!iso8601]], this is a <a>validation error</a>.</p>
-							</li>
+						<li id="processing-checks-duration">
+							<p>(<a href="#duration"></a>) If <var>processed["duration"]</var> is set and is not a valid
+								duration value, per&#160;[[!iso8601]], this is a <a>validation error</a>.</p>
+						</li>
 
-							<li id="processing-checks-last-mod">
-								<p>(<a href="#last-modification-date"></a>) If <var>processed["dateModified"]</var> is
-									set and is not a valid date or date-time per&#160;[[!iso8601]], this is a
-										<a>validation error</a>.</p>
-							</li>
+						<li id="processing-checks-last-mod">
+							<p>(<a href="#last-modification-date"></a>) If <var>processed["dateModified"]</var> is set
+								and is not a valid date or date-time per&#160;[[!iso8601]], this is a <a>validation
+									error</a>.</p>
+						</li>
 
-							<li id="processing-checks-pub-date">
-								<p>(<a href="#publication-date"></a>) If <var>processed["datePublished"]</var> is set
-									and is not a valid date or date-time per&#160;[[!iso8601]], this is a <a>validation
-										error</a>.</p>
-							</li>
+						<li id="processing-checks-pub-date">
+							<p>(<a href="#publication-date"></a>) If <var>processed["datePublished"]</var> is set and is
+								not a valid date or date-time per&#160;[[!iso8601]], this is a <a>validation
+								error</a>.</p>
+						</li>
 
-							<li id="processing-checks-inlanguage">
-								<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set,
-									check that each item in <var>processed["inLanguage"]</var> is <a
-										href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-									>well-formed</a>&#160;[[!bcp47]]. Each non well-formed item is a <a>validation
-										error</a>.</p>
-							</li>
+						<li id="processing-checks-inlanguage">
+							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
+								that each item in <var>processed["inLanguage"]</var> is <a
+									href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed</a>&#160;[[!bcp47]]. Each non well-formed item is a <a>validation
+								error</a>.</p>
+						</li>
 
-							<li id="processing-checks-progression-dir">
-								<p>(<a href="#reading-progression-direction"></a>) If
-										<var>processed["readingProgression"]</var> is set and is not one of the <a
-										href="#reading-progression-direction">required directional values</a>, this is a
-										<a>validation error</a>.</p>
-								<p>If <var>processed["readingProgession"]</var> is not set, set it to the value
-										"<code>ltr</code>".</p>
-							</li>
+						<li id="processing-checks-progression-dir">
+							<p>(<a href="#reading-progression-direction"></a>) If
+									<var>processed["readingProgression"]</var> is set and is not one of the <a
+									href="#reading-progression-direction">required directional values</a>, this is a
+									<a>validation error</a>.</p>
+							<p>If <var>processed["readingProgession"]</var> is not set, set it to the value
+									"<code>ltr</code>".</p>
+						</li>
 
-							<li id="processing-checks-extension">
-								<p>If a <a>profile</a> specifies data validation checks, those steps are executed at
-									this point.</p>
-							</li>
-						</ol>
-					</li>
+						<li id="processing-checks-extension">
+							<p>If a <a>profile</a> specifies data validation checks, those steps are executed at this
+								point.</p>
+						</li>
+					</ol>
+				</li>
 
-					<li id="processing-end">
-						<p>Return <var>processed</var>.</p>
-					</li>
-				</ol>
-			</section>
+				<li id="processing-end">
+					<p>Return <var>processed</var>.</p>
+				</li>
+			</ol>
+		</section>
+		<section id="extensions">
+			<h2>Modular Extensions</h2>
 
-			<section id="internal-rep-visualization">
-				<h3>Data Visualization</h3>
+			<p>The manifest format defined in this specification is designed to be implemented and extended by
+				publishing communities in the production of new <a>profiles</a> (e.g., audiobooks and scholarly
+				publications). The flexibility the manifest format offers allows it to be tailored to each community's
+				specific needs while also providing a common base for user agents that need to process the profiles
+				(i.e., minimizing the differences between each profile and simplifying interoperability).</p>
 
-				<p>To simplify the manifest format for developers, this specification defines an abstract representation
-					of the data structures employed by the manifest using the Web Interface Definition Language (Web
-					IDL)&#160;[[!webidl-1]] — <a href="#webidl-wpm">the <code>PublicationManifest</code>
-					dictionary</a>.</p>
+			<p>In order for a profile to be compatible with this specification, the following conditions MUST be met: </p>
+
+			<ol>
+				<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
+					></a>.</li>
+				<li>It MUST define a unique conformance URL and require that conforming publications include this URL in
+					their <a href="conforms-to"><code>conformsTo</code> property</a>.</li>
+				<li>One or both <a href="#manifest-link">linking methods</a> MUST be used in the discovery of the
+					manifest.</li>
+				<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid for
+					the extended manifest. To achieve this, and if new terms are added to the general manifest, then: <ul>
+						<li>The term SHOULD be categorized, if applicable, to one or more of the general term categories
+							used in the algorithm (e.g., <a href="#value-array">array</a> or <a
+								href="#value-localizable-string">localizable string</a>). This means the relevant
+							processing steps will be automatically executed for those terms </li>
+						<li>If necessary, the profile MAY define its own processing step(s), to be executed at the
+							designated extension points within the <a href="#manifest-processing">processing
+								algorithm</a>. Such extra steps MUST NOT invalidate the results of any of the steps
+							defined for the <a href="#manifest-processing">processing algorithm</a> in general.</li>
+					</ul>
+				</li>
+			</ol>
+			<p class="ednote"> Adding an example of a term added by, e.g., the audiobook profile would be a good idea,
+				when available. </p>
+		</section>
+		<section id="security-privacy">
+			<h2>Security and Privacy Considerations</h2>
+
+			<p>As the manifest is expressed using JSON-LD, the <a href="https://www.w3.org/TR/json-ld11/#privacy"
+					>privacy</a> and <a href="https://www.w3.org/TR/json-ld11/#iana-considerations">security
+					considerations</a> [[!json-ld11]] detailed in that specification are applicable to all <a
+					href="#extensions">profiles</a> of the manifest.</p>
+
+			<p>Some additional general considerations for profiles include:</p>
+
+			<ul>
+				<li>The location of resources is not defined at the manifest level, so profiles that allow references to
+					remotely hosted resources will need to be concerned with Web security principles (e.g., cross-origin
+					resource sharing).</li>
+				<li>The ability to <a href="#links">link to external resources</a> potentially exposes users to
+					malicious content.</li>
+				<li>The manifest allows personally identifiable information about a digital publication's creator(s)
+					(e.g., names, identifying URLs) to be included, so authoring tools could expose unexpected
+					information if explicit author approval of metadata is not required.</li>
+			</ul>
+
+			<p>More specific security and privacy considerations are left to each profile to detail, as these will vary
+				depending on the nature of the <a>digital publication</a> format.</p>
+		</section>
+		<section id="internal-rep-data-model" class="informative">
+			<h2>Internal Representation Data Models</h2>
+
+			<p>The manifest includes a number of authoring conveniences, such as default values, the ability to use
+				strings where objects would normally be required, and the automatic compilation of information from
+				other sources (e.g., for the <a href="#pub-title">title</a> and <a href="#default-reading-order">reading
+					order</a>). The <a href="#manifest-processing">processing of the manifest</a> normalizes these
+				conveniences and results in a consistent data set for user agents (the <a>internal representation</a>),
+				but this set is not easily visualized from the processing algorithm.</p>
+
+			<p>This appendix provides informative abstract data models that describe the resulting data structure. The
+				choice of representations is only for illustrative purposes. User agents are not required to use the
+				associated technologies.</p>
+
+			<section id="webidl">
+				<h3>WebIDL</h3>
 
 				<p>This definition expresses the expected names, datatypes, and possible restrictions for each member of
-					the manifest. Unlike a typical Web IDL definition, however, user agents are not expected to expose
-					the information in the manifest as an API. The Web IDL language is chosen solely to provide an
-					abstraction of the data model.</p>
-
-				<p>The required members of the <code>PublicationManifest</code> dictionary do not exactly match <a
-						href="#manifest-requirements">the required members of the manifest</a> as user agents are
-					expected to compile information from other sources in the absence of an explicit declaration for
-					some properties (e.g., for the <a href="#pub-title">title</a> and <a href="#default-reading-order"
-						>reading order</a>).</p>
+					the manifest after <a href="#manifest-processing">processing</a> using [[!WebIDL]].</p>
+				
+				<p class="note">This specification does not define an API for exposing the manifest data.</p>
 
 				<section id="webidl-wpm">
 					<h4>The <dfn><code>PublicationManifest</code></dfn> Dictionary</h4>
@@ -3750,64 +3794,6 @@ dictionary LocalizableString {
 					</section>
 				</section>
 			</section>
-		</section>
-		<section id="extensions">
-			<h2>Modular Extensions</h2>
-
-			<p>The manifest format defined in this specification is designed to be implemented and extended by
-				publishing communities in the production of new <a>profiles</a> (e.g., audiobooks and scholarly
-				publications). The flexibility the manifest format offers allows it to be tailored to each community's
-				specific needs while also providing a common base for user agents that need to process the profiles
-				(i.e., minimizing the differences between each profile and simplifying interoperability).</p>
-
-			<p>In order for a profile to be compatible with this specification, the following conditions MUST be met: </p>
-
-			<ol>
-				<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
-					></a>.</li>
-				<li>It MUST define a unique conformance URL and require that conforming publications include this URL in
-					their <a href="conforms-to"><code>conformsTo</code> property</a>.</li>
-				<li>One or both <a href="#manifest-link">linking methods</a> MUST be used in the discovery of the
-					manifest.</li>
-				<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid for
-					the extended manifest. To achieve this, and if new terms are added to the general manifest, then: <ul>
-						<li>The term SHOULD be categorized, if applicable, to one or more of the general term categories
-							used in the algorithm (e.g., <a href="#value-array">array</a> or <a
-								href="#value-localizable-string">localizable string</a>). This means the relevant
-							processing steps will be automatically executed for those terms </li>
-						<li>If necessary, the profile MAY define its own processing step(s), to be executed at the
-							designated extension points within the <a href="#manifest-processing">processing
-								algorithm</a>. Such extra steps MUST NOT invalidate the results of any of the steps
-							defined for the <a href="#manifest-processing">processing algorithm</a> in general.</li>
-					</ul>
-				</li>
-			</ol>
-			<p class="ednote"> Adding an example of a term added by, e.g., the audiobook profile would be a good idea,
-				when available. </p>
-		</section>
-		<section id="security-privacy">
-			<h2>Security and Privacy Considerations</h2>
-
-			<p>As the manifest is expressed using JSON-LD, the <a href="https://www.w3.org/TR/json-ld11/#privacy"
-					>privacy</a> and <a href="https://www.w3.org/TR/json-ld11/#iana-considerations">security
-					considerations</a> [[!json-ld11]] detailed in that specification are applicable to all <a
-					href="#extensions">profiles</a> of the manifest.</p>
-
-			<p>Some additional general considerations for profiles include:</p>
-
-			<ul>
-				<li>The location of resources is not defined at the manifest level, so profiles that allow references to
-					remotely hosted resources will need to be concerned with Web security principles (e.g., cross-origin
-					resource sharing).</li>
-				<li>The ability to <a href="#links">link to external resources</a> potentially exposes users to
-					malicious content.</li>
-				<li>The manifest allows personally identifiable information about a digital publication's creator(s)
-					(e.g., names, identifying URLs) to be included, so authoring tools could expose unexpected
-					information if explicit author approval of metadata is not required.</li>
-			</ul>
-
-			<p>More specific security and privacy considerations are left to each profile to detail, as these will vary
-				depending on the nature of the <a>digital publication</a> format.</p>
 		</section>
 		<section id="app-toc-structure" class="appendix">
 			<h2>Machine-Processable Table of Contents</h2>
