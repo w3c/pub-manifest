@@ -2908,9 +2908,6 @@
 			<p>User agents SHOULD expose both validation and fatal errors, but this specification does not prescribe the
 				manner in which this is done.</p>
 
-			<p>User agents SHOULD NOT include in their internal representation any value that generates a <a>validation
-					error</a>.</p>
-
 			<p>The algorithm takes the following arguments:</p>
 
 			<ul>
@@ -2945,11 +2942,10 @@
 
 				<li id="processing-context">
 					<p>(<a href="#manifest-context"></a>) If the first and second <a
-							href="https://infra.spec.whatwg.org/#struct-item">items</a> in
-							<var>manifest["@context"]</var> are not the <a href="https://infra.spec.whatwg.org/#string"
-							>string</a> values "<code>https://schema.org</code>" and
-							"<code>https://www.w3.org/ns/pub-context</code>", in this order, this is a <a>fatal
-							error</a>. Return failure.</p>
+							href="https://infra.spec.whatwg.org/#list-item">items</a> in <var>manifest["@context"]</var>
+						are not the <a href="https://infra.spec.whatwg.org/#string">string</a> values
+							"<code>https://schema.org</code>" and "<code>https://www.w3.org/ns/pub-context</code>", in
+						this order, this is a <a>fatal error</a>. Return failure.</p>
 				</li>
 
 				<li id="processing-conformance">
@@ -2961,9 +2957,10 @@
 						<li>If <var>manifest["conformsTo"]</var> does not include a URL of a profile the user agent is
 							capable of processing and/or rendering, this is a <a>fatal error</a>. Return failure.</li>
 						<li>If <var>manifest["conformsTo"]</var> includes the URLs of more than one profile the user
-							agent is capable of processing and rendering, the user agent MUST select the first in the
+							agent is capable of processing and/or rendering, the user agent MUST select the first in the
 							array in the case of conflicting requirements.</li>
-						<li>Otherwise, the publication is an instance of the profile defined by the recognized URL.</li>
+						<li>Otherwise, the publication is an instance of the profile defined by the URL the user agent
+							is capable of processing and/or rendering.</li>
 					</ol>
 					<details>
 						<summary>Explanation</summary>
@@ -2976,9 +2973,9 @@
 					<p>(<a href="#manifest-lang-dir-global"></a>) Let <var>lang</var> be the global language and
 							<var>dir</var> be the global direction obtained from this step. Set each initially to an
 						empty <a href="https://infra.spec.whatwg.org/#string">string</a>.</p>
-					<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
-						<var>context</var> in <var>manifest["@context"]</var>, moving from the last <a
-							href="https://infra.spec.whatwg.org/#struct-item">item</a> to the first:</p>
+					<p><a href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
+						<var>context</var> of <var>manifest["@context"]</var>, moving from the last <a
+							href="https://infra.spec.whatwg.org/#list-item">item</a> to the first:</p>
 					<ol>
 						<li>if <var>lang</var> is an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
 							and <var>context</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
@@ -2997,11 +2994,11 @@
 					<p>If the value of <var>lang</var> is neither an empty <a
 							href="https://infra.spec.whatwg.org/#string">string</a> nor a <a
 							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
-						language tag, this is a <a>validation error</a>. Set <var>lang</var> to an empty string.</p>
+						language tag, <a>validation error</a>, set <var>lang</var> to an empty string.</p>
 					<p>If the value of <var>dir</var> is neither an empty <a
 							href="https://infra.spec.whatwg.org/#string">string</a> nor one of the values
-							"<code>ltr</code>" or "<code>rtl</code>", this is a <a>validation error</a>. Set
-							<var>dir</var> to an empty string.</p>
+							"<code>ltr</code>" or "<code>rtl</code>", <a>validation error</a>, set <var>dir</var> to an
+						empty string.</p>
 					<details>
 						<summary>Explanation</summary>
 						<p>The global language and direction declarations obtained here are used to set the language and
@@ -3011,10 +3008,6 @@
 
 				<li id="processing-normalize">
 					<p>Normalize <var>manifest</var> as follows.</p>
-					<p>For the purposes of this step, a <dfn>single value</dfn> refers to any of a <a
-							href="https://infra.spec.whatwg.org/#string">string</a>, <a
-							href="https://infra.spec.whatwg.org/#boolean">boolean</a>, number or <a
-							href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 					<p class="note">The following steps depend on the expected value category of a <var>term</var>.
 						Exercise caution when processing terms as value categories depend not only on the name of the
 						term, but also on the object it is used with. For example, the value category for the term
@@ -3029,7 +3022,9 @@
 
 						<li id="processing-normalize-arrays">
 							<p>(<a href="#value-array"></a>) If <var>term</var> expects an <a href="#value-array"
-									>array</a> and <var>termValue</var> is a <a>single value</a> or <a
+									>array</a> and <var>termValue</var> is a <a
+									href="https://infra.spec.whatwg.org/#string">string</a>, <a
+									href="https://infra.spec.whatwg.org/#boolean">boolean</a>, number, or <a
 									href="https://infra.spec.whatwg.org/#ordered-map">map</a>, set <var>normalized</var>
 								to «&#160;<var>termValue</var>&#160;».</p>
 							<details>
@@ -3058,23 +3053,27 @@
 									href="#value-entity">entity</a> or <a href="#value-array">array</a> of entities:</p>
 							<ol>
 								<li>
-									<p>if <var>termValue</var> is a <a>single value</a>, set <var>normalized</var> to
-										the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
+									<p>if <var>termValue</var> is a <a href="https://infra.spec.whatwg.org/#string"
+											>string</a>, set <var>normalized</var> to the <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 									<pre>«[
     "type" → « "Person" »,
     "name" → <var>termValue</var>
 ]»</pre>
-									<p>If <var>termValue</var> is a number, <a
+								</li>
+								<li>
+									<p>otherwise, if <var>termValue</var> is number, <a
 											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
-											href="https://infra.spec.whatwg.org/#nulls">null</a>, this is a
-											<a>validation error</a>.</p>
+											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
+											error</a>, then <a href="https://infra.spec.whatwg.org/#iteration-continue"
+											>continue</a>.</p>
 								</li>
 								<li>
 									<p>otherwise, if <var>termValue</var> is a <a
 											href="https://infra.spec.whatwg.org/#list">list</a>, set
 											<var>normalized</var> to the value of <var>termValue</var> after running <a
 											href="#processing-normalize-entities">this step</a> on each <a
-											href="https://infra.spec.whatwg.org/#struct-item">item</a> in
+											href="https://infra.spec.whatwg.org/#list-item">item</a> in
 											<var>termValue</var>.</p>
 								</li>
 							</ol>
@@ -3110,8 +3109,9 @@
 									href="#value-localizable-string">localizable string</a>:</p>
 							<ol>
 								<li id="ls-value-normalize">
-									<p>if <var>termValue</var> contains a <a>single value</a>, set <var>normalized</var>
-										to the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
+									<p>if <var>termValue</var> is a <a href="https://infra.spec.whatwg.org/#string"
+											>string</a>, set <var>normalized</var> to the <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 									<pre>«[
     "value" → <var>termValue</var>,
     "language" → <var>lang</var>,
@@ -3122,6 +3122,13 @@
 											<var>normalized["language"]</var> or <var>normalized["direction"]</var>,
 										respectively, from the <a href="https://infra.spec.whatwg.org/#ordered-map"
 											>map</a>.</p>
+								</li>
+								<li>
+									<p>otherwise, if <var>termValue</var> is number, <a
+											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
+											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
+											error</a> then <a href="https://infra.spec.whatwg.org/#iteration-continue"
+											>continue</a>.</p>
 								</li>
 								<li id="ls-map-normalize">
 									<p>otherwise, if <var>termValue</var> is a <a
@@ -3151,7 +3158,7 @@
 								</li>
 								<li>
 									<p>otherwise, if <var>value</var> is a <a href="https://infra.spec.whatwg.org/#list"
-											>list</a>, process each <a href="https://infra.spec.whatwg.org/#struct-item"
+											>list</a>, process each <a href="https://infra.spec.whatwg.org/#list-item"
 											>item</a> per its respective <a href="#ls-value-normalize">single-value
 											normalization</a> or <a href="#ls-map-normalize">map normalization</a> step.
 										Process each nested list encountered in the same way.</p>
@@ -3231,8 +3238,7 @@
 								</li>
 								<li>
 									<p>If <var>normalized</var> is an array, <a
-											href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-										<a href="https://infra.spec.whatwg.org/#struct-item">item</a>
+											href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 										<var>listValue</var> of <var>normalized</var>:</p>
 									<ol>
 										<li>if <var>normalized[listValue]</var> expects a localizable string, process
@@ -3296,9 +3302,8 @@
 						<li id="processing-normalize-links">
 							<p>(<a href="#value-linked-resource"></a>) If <var>term</var> is a <a
 									href="#resource-categorization-properties">resource categorization property</a>, <a
-									href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-								<a href="https://infra.spec.whatwg.org/#struct-item">item</a>
-								<var>resource</var> in <var>normalized</var>:</p>
+									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+								<var>resource</var> of <var>normalized</var>:</p>
 							<ol>
 								<li>
 									<p>if <var>resource</var> is a string, convert <var>resource</var> to the <a
@@ -3314,7 +3319,7 @@
 											href="#dom-linkedresource-alternate"><code>alternate</code></a>
 										<a href="https://infra.spec.whatwg.org/#map-key">key</a>, run <a
 											href="#processing-normalize-links">this step</a> on each <a
-											href="https://infra.spec.whatwg.org/#struct-item">item</a> in
+											href="https://infra.spec.whatwg.org/#list-item">item</a> in
 											<var>resource["alternate"]</var> to convert any string values. </p>
 								</li>
 							</ol>
@@ -3361,13 +3366,14 @@
 								<li>
 									<p>otherwise, if <var>normalized</var> is a number, <a
 											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
-											href="https://infra.spec.whatwg.org/#nulls">null</a>, this is a
-											<a>validation error</a>.</p>
+											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
+											error</a>, then <a href="https://infra.spec.whatwg.org/#iteration-continue"
+											>continue</a>.</p>
 								</li>
 								<li>
 									<p>otherwise, if <var>normalized</var> is a <a
 											href="https://infra.spec.whatwg.org/#list">list</a>, perform this step on
-										each <a href="https://infra.spec.whatwg.org/#struct-item">item</a> of the
+										each <a href="https://infra.spec.whatwg.org/#list-item">item</a> of the
 										list.</p>
 								</li>
 								<li>
@@ -3419,16 +3425,13 @@
 													"<code>rtl</code>". </p>
 										</li>
 										<li>
-											<p>otherwise, generate a value for <var>title["value"]</var> (see the <a
-													href="#generate_title">separate note for details</a>). This is a
-													<a>validation error</a>.</p>
+											<p>otherwise, <a>validation error</a>, generate a value for
+													<var>title["value"]</var> (see the <a href="#generate_title"
+													>separate note for details</a>).</p>
 										</li>
 									</ul>
 								</li>
-								<li>Set <var>processed["name"]</var> to an empty <a
-										href="https://infra.spec.whatwg.org/#list">list</a> and <a
-										href="https://infra.spec.whatwg.org/#stack-push">push</a>
-									<var>title</var> onto it.</li>
+								<li>Set <var>processed["name"]</var> to <pre>«&#160;<var>title</var>&#160;»</pre>.</li>
 							</ul>
 							<details>
 								<summary>Explanation</summary>
@@ -3471,10 +3474,10 @@
 								<li>
 									<p>otherwise, set <var>processed["readingOrder"]</var> to an empty <a
 											href="https://infra.spec.whatwg.org/#list">list</a> and <a
-											href="https://infra.spec.whatwg.org/#stack-push">push</a> the <a
+											href="https://infra.spec.whatwg.org/#list-append">append</a> the <a
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>
 										<code>«[&#160;"url" → <a data-cite="!dom#concept-document-url"
-											>document.URL</a>&#160;]»</code> onto it.</p>
+											>document.URL</a>&#160;]»</code>.</p>
 								</li>
 							</ul>
 							<details>
@@ -3502,16 +3505,19 @@
 								<li id="processing-checks-values">
 									<p>(<a href="#properties-value-categories"></a>) If <var>term</var> has a known <a
 											href="#properties-value-categories">value type</a>, and <var>termValue</var>
-										does not match the expected type, this is a <a>validation error</a></p>
+										does not match the expected type, <a>validation error</a>, <a
+											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+										<var>processed[term]</var>.</p>
 								</li>
 
 								<li id="processing-checks-entities">
 									<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a
-											href="#value-array">array</a> of <a href="#value-entity">entities</a>, check
-										whether each <a href="https://infra.spec.whatwg.org/#ordered-map">map</a> in
-											<var>termValue</var> has a <var>name</var>
-										<a href="https://infra.spec.whatwg.org/#map-key">key</a>. Each item without a
-											<var>name</var> is a <a>validation error</a>.</p>
+											href="#value-array">array</a> of <a href="#value-entity">entities</a>, <a
+											href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+										<var>item</var> of <var>termValue</var>, check whether <var>item["name"]</var>
+										is set. If not, <a>validation error</a>, <a
+											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+										<var>item</var> from <var>termValue</var>.</p>
 								</li>
 
 								<li id="processing-checks-language">
@@ -3524,94 +3530,111 @@
 												<a href="https://infra.spec.whatwg.org/#map-key">key</a>, and
 													<var>termValue["language"]</var> is not <a
 													href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-													>well-formed</a>&#160;[[!bcp47]], this is a <a>validation
-												error</a>.</p>
+													>well-formed</a>&#160;[[!bcp47]], <a>validation error</a>, <a
+													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+												<var>termValue["language"]</var>.</p>
 											<p>if it has a <var>direction</var>
 												<a href="https://infra.spec.whatwg.org/#map-key">key</a>, and
 													<var>termValue["direction"]</var> is not one of "<code>ltr</code>"
-												or "<code>rtl</code>", this is a <a>validation error</a>.</p>
+												or "<code>rtl</code>", <a>validation error</a>, <a
+													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+												<var>termValue["direction"]</var>.</p>
 										</li>
 									</ul>
 								</li>
 
 								<li id="processing-checks-urls">
-									<p>(<a href="#resource-categorization-properties"></a>) If <var>processed</var> is a
-											<a href="#resource-categorization-properties">resource categorization
-											property</a>, check that each item in <var>termValue</var>:</p>
+									<p>(<a href="#resource-categorization-properties"></a>) If <var>term</var> is a <a
+											href="#resource-categorization-properties">resource categorization
+											property</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for
+											each</a>
+										<var>item</var> of <var>termValue</var>:</p>
 									<ul>
 										<li>
-											<p>if it does not have a <var>url</var>
-												<a href="https://infra.spec.whatwg.org/#ordered-map">key</a>, this is a
-													<a>validation error</a>.</p>
+											<p>if <var>item</var> does not have a <var>url</var>
+												<a href="https://infra.spec.whatwg.org/#ordered-map">key</a>,
+													<a>validation error</a>, <a
+													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+												<var>item</var> from <var>termValue</var>.</p>
 										</li>
 										<li>
-											<p>otherwise, if <var>url</var> is not a valid URL&#160;[[!url]], this is a
-													<a>validation error</a>.</p>
+											<p>otherwise, if <var>url</var> is not a valid URL&#160;[[!url]],
+													<a>validation error</a>, <a
+													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+												<var>item</var> from <var>termValue</var>.</p>
 										</li>
 									</ul>
 								</li>
 
 								<li id="processing-checks-length">
 									<p>(<a href="#LinkedResource"></a>) If <var>processed[term]</var> expects type <a
-											href="#value-linked-resource">LinkedResource</a> and its
-											<var>termValue["length"]</var>
-										<a href="https://infra.spec.whatwg.org/#map-key">key</a> is set and is not a
-										non-number number, this is a <a>validation error</a>.</p>
+											href="#value-linked-resource">LinkedResource</a> and
+											<var>termValue["length"]</var> is set and is not a number, or is a negative
+										number, <a>validation error</a>, <a
+											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+										<var>termValue["length"]</var>.</p>
 								</li>
 
 								<li id="processing-checks-recursion">
 									<p>If <var>term</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
 											>map</a> or <a href="https://infra.spec.whatwg.org/#list">list</a>, process
 										its <a href="https://infra.spec.whatwg.org/#map-key">keys</a> or <a
-											href="https://infra.spec.whatwg.org/#struct-item">items</a>, respectively as
+											href="https://infra.spec.whatwg.org/#list-item">items</a>, respectively as
 										defined by <a href="#processing-checks-general">this iterator</a>.</p>
 								</li>
 							</ol>
 						</li>
 
 						<li id="processing-checks-type">
-							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or
-								contains an empty value, this is a <a>validation error</a>. Set it to
-									<code>«&#160;"CreativeWork"&#160;»</code>.</p>
+							<p>(<a href="#publication-types"></a>) If <var>processed["type"]</var> is not set or is an
+								empty <a href="https://infra.spec.whatwg.org/#list">list</a>, <a>validation error</a>,
+								set to <code>«&#160;"CreativeWork"&#160;»</code>.</p>
 						</li>
 
 						<li id="processing-checks-abridged">
 							<p>(<a href="#abridged"></a>) If <var>processed["abridged"]</var> is set and is not a <a
-									href="https://infra.spec.whatwg.org/#boolean">boolean</a>, this is a <a>validation
-									error</a>.</p>
+									href="https://infra.spec.whatwg.org/#boolean">boolean</a>, <a>validation error</a>,
+									<a href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+								<var>processed["abridged"]</var>.</p>
 						</li>
 
 						<li id="processing-checks-duration">
 							<p>(<a href="#duration"></a>) If <var>processed["duration"]</var> is set and is not a valid
-								duration value, per&#160;[[!iso8601]], this is a <a>validation error</a>.</p>
+								duration value, per&#160;[[!iso8601]], <a>validation error</a>, <a
+									href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+								<var>processed["duration"]</var>.</p>
 						</li>
 
 						<li id="processing-checks-last-mod">
 							<p>(<a href="#last-modification-date"></a>) If <var>processed["dateModified"]</var> is set
-								and is not a valid date or date-time per&#160;[[!iso8601]], this is a <a>validation
-									error</a>.</p>
+								and is not a valid date or date-time per&#160;[[!iso8601]], <a>validation error</a>, <a
+									href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+								<var>processed["dateModified"]</var>.</p>
 						</li>
 
 						<li id="processing-checks-pub-date">
 							<p>(<a href="#publication-date"></a>) If <var>processed["datePublished"]</var> is set and is
-								not a valid date or date-time per&#160;[[!iso8601]], this is a <a>validation
-								error</a>.</p>
+								not a valid date or date-time per&#160;[[!iso8601]], <a>validation error</a>, <a
+									href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+								<var>processed["datePublished"]</var>.</p>
 						</li>
 
 						<li id="processing-checks-inlanguage">
-							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, check
-								that each item in <var>processed["inLanguage"]</var> is <a
+							<p>(<a href="#language-and-dir"></a>) If <var>processed["inLanguage"]</var> is set, <a
+									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+								<var>item</var> of <var>processed["inLanguage"]</var>, if <var>item</var> is not <a
 									href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-								>well-formed</a>&#160;[[!bcp47]]. Each non well-formed item is a <a>validation
-								error</a>.</p>
+								>well-formed</a>&#160;[[!bcp47]], <a>validation error</a>, <a
+									href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+								<var>item</var> from <var>processed["inLanguage"]</var>.</p>
 						</li>
 
 						<li id="processing-checks-progression-dir">
 							<p>(<a href="#reading-progression-direction"></a>) If
 									<var>processed["readingProgression"]</var> is set and is not one of the <a
-									href="#reading-progression-direction">required directional values</a>, this is a
-									<a>validation error</a>.</p>
-							<p>If <var>processed["readingProgession"]</var> is not set, set it to the value
+									href="#reading-progression-direction">required directional values</a>, <a>validation
+									error</a>, set it to "<code>ltr</code>".</p>
+							<p>Otherwise, if <var>processed["readingProgession"]</var> is not set, set it to
 									"<code>ltr</code>".</p>
 						</li>
 
@@ -3703,8 +3726,8 @@
 				<h3>WebIDL</h3>
 
 				<p>This definition expresses the expected names, datatypes, and possible restrictions for each member of
-					the manifest after <a href="#manifest-processing">processing</a> using [[!WebIDL]].</p>
-				
+					the manifest after <a href="#manifest-processing">processing</a> using [[WebIDL]].</p>
+
 				<p class="note">This specification does not define an API for exposing the manifest data.</p>
 
 				<section id="webidl-wpm">
