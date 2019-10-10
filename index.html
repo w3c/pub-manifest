@@ -214,9 +214,10 @@
 
 					<p>The <a>manifest</a> also identifies key resources of a digital publication through the use of
 						link relations. These relations are applied to the <a href="#dom-linkedresource-rel"
-								><code>rel</code> property</a> of <a href="#LinkedResource"><code>LinkedResource</code>
-							objects</a> (e.g., the links found in the <a href="#pub-table-of-contents">table of
-							contents</a> and <a href="#resource-list">resource list</a>).</p>
+								><code>rel</code> property</a> of <a href="#LinkedResource-def"
+								><code>LinkedResource</code> objects</a> (e.g., the links found in the <a
+							href="#pub-table-of-contents">table of contents</a> and <a href="#resource-list">resource
+							list</a>).</p>
 
 					<p>The types of resources these relations identify are categorized as follows:</p>
 
@@ -619,13 +620,13 @@
 						<ol>
 							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
 								encoding the <a>URL</a> of the resources; or</li>
-							<li>an instance of a <code>LinkedResource</code>.</li>
+							<li>an instance of a <a href="LinkedResource-def"><code>LinkedResource</code></a>.</li>
 						</ol>
 
 						<p>A string value represents an implied <code>LinkedResource</code> object whose
 								<code>url</code> property is set to the string value.</p>
 
-						<p id="publication-link-def">A <code>LinkedResource</code> object is defined as follows:</p>
+						<p id="LinkedResource-def">A <code>LinkedResource</code> object is defined as follows:</p>
 
 						<table class="zebra" data-dfn-for="LinkedResource">
 							<thead>
@@ -2190,7 +2191,7 @@
 									</td>
 									<td>Order of progression through the resources of a digital publication.</td>
 									<td>
-										<p>One or more <a href="#publication-link-def"
+										<p>One or more <a href="#LinkedResource-def"
 											><code>LinkedResource</code></a>.</p>
 									</td>
 									<td>
@@ -2207,7 +2208,7 @@
 						<ul>
 							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
 								representing the <a>URL</a> of the resource; or</li>
-							<li>an instance of a <a href="#publication-link-def"><code>LinkedResource</code></a>
+							<li>an instance of a <a href="#LinkedResource-def"><code>LinkedResource</code></a>
 								object.</li>
 						</ul>
 
@@ -2282,7 +2283,7 @@
 									<td>List of additional publication resources used in the processing or rendering of
 										a publication.</td>
 									<td>
-										<p>One or more <a href="#publication-link-def"
+										<p>One or more <a href="#LinkedResource-def"
 											><code>LinkedResource</code></a>.</p>
 									</td>
 									<td>
@@ -2299,7 +2300,7 @@
 						<ul>
 							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
 								representing the <a>URL</a> of the resource; or</li>
-							<li>an instance of a <a href="#publication-link-def"><code>LinkedResource</code></a>
+							<li>an instance of a <a href="#LinkedResource-def"><code>LinkedResource</code></a>
 								object.</li>
 						</ul>
 
@@ -2374,7 +2375,7 @@
 									<td>List of resources associated with a publication but not required for its
 										processing or rendering.</td>
 									<td>
-										<p>One or more <a href="#publication-link-def"
+										<p>One or more <a href="#LinkedResource-def"
 											><code>LinkedResource</code></a>.</p>
 									</td>
 									<td>
@@ -2391,7 +2392,7 @@
 						<ul>
 							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
 								representing the <a>URL</a> of the resource; or</li>
-							<li>an instance of a <a href="#publication-link-def"><code>LinkedResource</code></a>
+							<li>an instance of a <a href="#LinkedResource-def"><code>LinkedResource</code></a>
 								object.</li>
 						</ul>
 
@@ -2461,13 +2462,13 @@
 						<h4>Linked records</h4>
 
 						<p>Extending the manifest through links to a record, such as an ONIX&#160;[[onix]] or
-							BibTeX&#160;[[bibtex]] file, MUST be expressed using a <a href="#publication-link-def"
+							BibTeX&#160;[[bibtex]] file, MUST be expressed using a <a href="#LinkedResource-def"
 									><code>LinkedResource</code></a> object, where:</p>
 						<ul>
-							<li>the <code>rel</code> value of the <a href="#publication-link-def"
-										><code>LinkedResource</code></a> SHOULD include a relevant identifier defined by
-								IANA or by other organizations; if the link record contains descriptive metadata it MUST
-								include the <code>describedby</code> (IANA) identifier; </li>
+							<li>the <a href="#dom-linkedresource-rel"><code>rel</code> property</a> of the
+									<code>LinkedResource</code> SHOULD include a relevant identifier defined by IANA or
+								by other organizations; if the link record contains descriptive metadata it MUST include
+								the <code>describedby</code> (IANA) identifier; </li>
 							<li>the value of the <code>encodingFormat</code> in the link MUST use the MIME media
 								type&#160;[[!rfc2046]] defined for that particular type of record, if applicable.</li>
 						</ul>
@@ -3431,7 +3432,8 @@
 										</li>
 									</ul>
 								</li>
-								<li>Set <var>processed["name"]</var> to <pre>«&#160;<var>title</var>&#160;»</pre>.</li>
+								<li>Set <var>processed["name"]</var> to
+									<code>«&#160;<var>title</var>&#160;»</code>.</li>
 							</ul>
 							<details>
 								<summary>Explanation</summary>
@@ -3567,8 +3569,8 @@
 								</li>
 
 								<li id="processing-checks-length">
-									<p>(<a href="#LinkedResource"></a>) If <var>processed[term]</var> expects type <a
-											href="#value-linked-resource">LinkedResource</a> and
+									<p>(<a href="#value-linked-resource"></a>) If <var>processed[term]</var> expects
+										type <a href="#LinkedResource-def">LinkedResource</a> and
 											<var>termValue["length"]</var> is set and is not a number, or is a negative
 										number, <a>validation error</a>, <a
 											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
@@ -3708,7 +3710,7 @@
 			<p>More specific security and privacy considerations are left to each profile to detail, as these will vary
 				depending on the nature of the <a>digital publication</a> format.</p>
 		</section>
-		<section id="internal-rep-data-model" class="informative">
+		<section id="internal-rep-data-model" class="appendix informative">
 			<h2>Internal Representation Data Models</h2>
 
 			<p>The manifest includes a number of authoring conveniences, such as default values, the ability to use
