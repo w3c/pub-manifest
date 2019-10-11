@@ -880,7 +880,7 @@
 							href="https://url.spec.whatwg.org/#absolute-url-string">absolute-URL strings</a> using a <a
 							href="https://url.spec.whatwg.org/#concept-base-url">base URL</a>&#160;[[!url]].</p>
 
-					<p>The base URL for relative-URL strings is determined as follows:</p>
+					<p id="manifest-base-url">The base URL for relative-URL strings is determined as follows:</p>
 
 					<ul>
 						<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, it is the <a
@@ -2913,7 +2913,8 @@
 
 			<ul>
 				<li><var>text</var>: a UTF-8 string containing the manifest;</li>
-				<li><var>base</var>: a URL string that represents the base URL for the manifest.</li>
+				<li><var>base</var>: a URL string that represents the <a href="#manifest-base-url">base URL for the
+						manifest</a>.</li>
 				<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM)
 					Node</a>&#160;[[!html]] of the document that <a href="#manifest-discovery">references the
 						manifest</a>, when available.</li>
@@ -2937,8 +2938,8 @@
 					<p>Let <var>manifest</var> be the result of parsing <a
 							href="https://infra.spec.whatwg.org/#parse-json-into-infra-values">JSON into Infra
 							values</a> given <var>text</var>. If <var>manifest</var> is not a <a
-							href="https://infra.spec.whatwg.org/#ordered-map">map</a>, this is a <a>fatal error</a>.
-						Return failure.</p>
+							href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a>fatal error</a>, return
+						failure.</p>
 				</li>
 
 				<li id="processing-context">
@@ -2946,17 +2947,17 @@
 							href="https://infra.spec.whatwg.org/#list-item">items</a> in <var>manifest["@context"]</var>
 						are not the <a href="https://infra.spec.whatwg.org/#string">string</a> values
 							"<code>https://schema.org</code>" and "<code>https://www.w3.org/ns/pub-context</code>", in
-						this order, this is a <a>fatal error</a>. Return failure.</p>
+						this order, <a>fatal error</a>, return failure.</p>
 				</li>
 
 				<li id="processing-conformance">
 					<p>(<a href="#profile-conformance"></a>) Determine the <a>profile(s)</a> the manifest conforms to as
 						follows:</p>
 					<ol>
-						<li>If <var>manifest["conformsTo"]</var> is not set, this is a <a>fatal error</a>. Return
-							failure.</li>
+						<li>If <var>manifest["conformsTo"]</var> is not set, <a>validation error</a>, set to
+								<code>«&#160;"https://www.w3.org/TR/pub-manifest"&#160;»</code>.</li>
 						<li>If <var>manifest["conformsTo"]</var> does not include a URL of a profile the user agent is
-							capable of processing and/or rendering, this is a <a>fatal error</a>. Return failure.</li>
+							capable of processing and/or rendering, <a>fatal error</a>, return failure.</li>
 						<li>If <var>manifest["conformsTo"]</var> includes the URLs of more than one profile the user
 							agent is capable of processing and/or rendering, the user agent MUST select the first in the
 							array in the case of conflicting requirements.</li>
@@ -3314,15 +3315,6 @@
     "url" → <var>resource</var>
 ]»</pre>
 								</li>
-								<li>
-									<p>otherwise, if <var>resource</var> is a <a
-											href="https://infra.spec.whatwg.org/#ordered-map">map</a> and contains an <a
-											href="#dom-linkedresource-alternate"><code>alternate</code></a>
-										<a href="https://infra.spec.whatwg.org/#map-key">key</a>, run <a
-											href="#processing-normalize-links">this step</a> on each <a
-											href="https://infra.spec.whatwg.org/#list-item">item</a> in
-											<var>resource["alternate"]</var> to convert any string values. </p>
-								</li>
 							</ol>
 							<details>
 								<summary>Explanation</summary>
@@ -3360,9 +3352,9 @@
 							<ol>
 								<li>
 									<p>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#string"
-											>string</a> that is not an <a data-cite="!url/#absolute-url-string">absolute
-											URL string</a>, resolve it to an absolute URL string using the value of
-											<var>base</var>&#160;[[!rfc1808]].</p>
+											>string</a>, set <var>normalized</var> to the result of running the <a
+											href="https://url.spec.whatwg.org/#concept-url-parser">URL parser</a> with
+											<var>normalized</var> as input and <var>base</var> as the base URL.</p>
 								</li>
 								<li>
 									<p>otherwise, if <var>normalized</var> is a number, <a
@@ -3370,17 +3362,6 @@
 											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
 											error</a>, then <a href="https://infra.spec.whatwg.org/#iteration-continue"
 											>continue</a>.</p>
-								</li>
-								<li>
-									<p>otherwise, if <var>normalized</var> is a <a
-											href="https://infra.spec.whatwg.org/#list">list</a>, perform this step on
-										each <a href="https://infra.spec.whatwg.org/#list-item">item</a> of the
-										list.</p>
-								</li>
-								<li>
-									<p>otherwise, if <var>normalized</var> is a <a
-											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, perform this step
-										on each <a href="https://infra.spec.whatwg.org/#map-key">key</a> of the map.</p>
 								</li>
 							</ol>
 							<details>
@@ -3393,6 +3374,17 @@
 						<li id="processing-normalize-extension">
 							<p>(<a href="#extensions"></a>, extension point) if a <a>profile</a> defines processing
 								steps for profile-specific terms, those steps are executed at this point.</p>
+						</li>
+
+						<li id="processing-normalize-recurse-lists">
+							<p>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#list">list</a>,
+								perform <a href="#processing-normalize">this step</a> on each <a
+									href="https://infra.spec.whatwg.org/#list-item">item</a> of the list.</p>
+						</li>
+						<li id="processing-normalize-recurse-maps">
+							<p>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
+									>map</a>, perform <a href="#processing-normalize">this step</a> on each <a
+									href="https://infra.spec.whatwg.org/#map-key">key</a> of the map.</p>
 						</li>
 
 						<li id="processing-normalize-end">
@@ -3568,13 +3560,31 @@
 									</ul>
 								</li>
 
-								<li id="processing-checks-length">
+								<li id="processing-checks-linkedresource">
 									<p>(<a href="#value-linked-resource"></a>) If <var>processed[term]</var> expects
-										type <a href="#LinkedResource-def">LinkedResource</a> and
-											<var>termValue["length"]</var> is set and is not a number, or is a negative
-										number, <a>validation error</a>, <a
-											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
-										<var>termValue["length"]</var>.</p>
+										type <a href="#LinkedResource-def">LinkedResource</a>.</p>
+									<ul>
+										<li>
+											<p>if <a href="#dom-linkedresource-length"
+													><var>termValue["length"]</var></a> is set and is not a number, or
+												is a negative number, <a>validation error</a>, <a
+													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+												<var>termValue["length"]</var>.</p>
+										</li>
+										<li>
+											<p>if <a href="#dom-linkedresource-alternate"
+														><var>termValue["alternate"]</var></a> is set, <a
+													href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+												<var>alternate</var> of <var>termValue["alterate"]</var> if
+													<var>alternate</var> is not a <a
+													href="https://infra.spec.whatwg.org/#ordered-map">map</a>, or either
+													<var>alternate["url"]</var> or
+													<var>alternate["encodingFormat"]</var> is not set, <a>validation
+													error</a>, <a href="https://infra.spec.whatwg.org/#list-remove"
+													>remove</a>
+												<var>alternate</var>.</p>
+										</li>
+									</ul>
 								</li>
 
 								<li id="processing-checks-recursion">
@@ -3633,11 +3643,9 @@
 
 						<li id="processing-checks-progression-dir">
 							<p>(<a href="#reading-progression-direction"></a>) If
-									<var>processed["readingProgression"]</var> is set and is not one of the <a
+									<var>processed["readingProgression"]</var> is not set, or is not one of the <a
 									href="#reading-progression-direction">required directional values</a>, <a>validation
-									error</a>, set it to "<code>ltr</code>".</p>
-							<p>Otherwise, if <var>processed["readingProgession"]</var> is not set, set it to
-									"<code>ltr</code>".</p>
+									error</a>, set to "<code>ltr</code>".</p>
 						</li>
 
 						<li id="processing-checks-extension">
@@ -3737,8 +3745,8 @@
 
 					<pre class="idl" id="wpm">
 dictionary PublicationManifest {
-             sequence&lt;DOMString>         type = "CreativeWork";
-    required sequence&lt;DOMString>         conformsTo;
+    required sequence&lt;DOMString>         type = "CreativeWork";
+    required sequence&lt;DOMString>         conformsTo = "https://www.w3.org/TR/pub-manifest";
              DOMString                   id;
              boolean                     abridged;
              sequence&lt;DOMString>         accessMode;
@@ -3764,7 +3772,7 @@ dictionary PublicationManifest {
              sequence&lt;DOMString>         inLanguage;
              DOMString                   dateModified;
              DOMString                   datePublished;
-             TextDirection               readingProgression = "ltr";
+    required TextDirection               readingProgression = "ltr";
     required sequence&lt;LocalizableString> name;
     required sequence&lt;LinkedResource>    readingOrder;
              sequence&lt;LinkedResource>    resources;
