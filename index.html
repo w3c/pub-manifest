@@ -384,7 +384,7 @@
 								href="https://tools.ietf.org/html/rfc4627#section-2.2">object</a> consisting of the
 							following properties:</p>
 
-						<table class="zebra" data-dfn-for="LocalizableString">
+						<table class="zebra">
 							<thead>
 								<tr>
 									<th>Term</th>
@@ -397,9 +397,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code>
-											<dfn>value</dfn>
-										</code>
+										<code> value </code>
 									</td>
 									<td>The value of the localizable string. REQUIRED.</td>
 									<td>Text.</td>
@@ -408,9 +406,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>language</dfn>
-										</code>
+										<code> language </code>
 									</td>
 									<td>The language of the value. OPTIONAL.</td>
 									<td>A <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
@@ -420,9 +416,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>direction</dfn>
-										</code>
+										<code> direction </code>
 									</td>
 									<td>The base direction of the value. OPTIONAL.</td>
 									<td><code>ltr</code> or <code>rtl</code></td>
@@ -432,13 +426,13 @@
 							</tbody>
 						</table>
 
-						<p>The meaning of the base <dfn>direction</dfn> values are:</p>
+						<p>The meaning of the base direction values are:</p>
 
-						<ul data-dfn-for="TextDirection">
-							<li><code><dfn>ltr</dfn></code>: indicates that the textual value is explicitly
-								directionally set to left-to-right text;</li>
-							<li><code><dfn>rtl</dfn></code>: indicates that the textual value is explicitly
-								directionally set to right-to-left text;</li>
+						<ul>
+							<li><code>ltr</code>: indicates that the textual value is explicitly directionally set to
+								left-to-right text;</li>
+							<li><code>rtl</code>: indicates that the textual value is explicitly directionally set to
+								right-to-left text;</li>
 						</ul>
 
 						<p> A missing base direction value means that that the textual value is explicitly directionally
@@ -494,7 +488,7 @@
 								href="https://schema.org/Organization"><code>Organization</code></a> type with the
 							following minimal property set:</p>
 
-						<table class="zebra" data-dfn-for="Entity">
+						<table class="zebra">
 							<thead>
 								<tr>
 									<th>Term</th>
@@ -507,9 +501,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code>
-											<dfn>type</dfn>
-										</code>
+										<code> type </code>
 									</td>
 									<td>The type of creator. OPTIONAL</td>
 									<td>One or more Text. Sequence MUST include "<code>Person</code>" or
@@ -521,9 +513,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>name</dfn>
-										</code>
+										<code> name </code>
 									</td>
 									<td>Name of the creator. REQUIRED.</td>
 									<td>One or more Text.</td>
@@ -539,9 +529,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>id</dfn>
-										</code>
+										<code> id </code>
 									</td>
 									<td>A canonical identifier associated with the creator. OPTIONAL.</td>
 									<td>A URL record&#160;[[!url]].</td>
@@ -552,9 +540,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>url</dfn>
-										</code>
+										<code> url </code>
 									</td>
 									<td>An address associated with the creator. OPTIONAL.</td>
 									<td>A valid URL string&#160;[[!url]].</td>
@@ -569,9 +555,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>identifier</dfn>
-										</code>
+										<code> identifier </code>
 									</td>
 									<td>An identifier associated with the creator (e.g., ORCID). OPTIONAL.</td>
 									<td>One or more text(s).</td>
@@ -628,7 +612,7 @@
 
 						<p id="LinkedResource-def">A <code>LinkedResource</code> object is defined as follows:</p>
 
-						<table class="zebra" data-dfn-for="LinkedResource">
+						<table class="zebra">
 							<thead>
 								<tr>
 									<th>Term</th>
@@ -641,9 +625,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code>
-											<dfn>type</dfn>
-										</code>
+										<code> type </code>
 									</td>
 									<td>The type of resource. OPTIONAL</td>
 									<td>One or more Text. Sequence MUST include "<code>LinkedResource</code>".</td>
@@ -654,9 +636,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>url</dfn>
-										</code>
+										<code> url </code>
 									</td>
 									<td>Location of the resource. REQUIRED.</td>
 									<td>A valid URL string&#160;[[!url]]. Refer to the property definitions that accept
@@ -672,9 +652,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>encodingFormat</dfn>
-										</code>
+										<code> encodingFormat </code>
 									</td>
 									<td>Media type of the resource (e.g., <code>text/html</code>). OPTIONAL.</td>
 									<td>MIME Media Type&#160;[[!rfc2046]].</td>
@@ -689,9 +667,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>name</dfn>
-										</code>
+										<code> name </code>
 									</td>
 									<td>Name of the item. OPTIONAL.</td>
 									<td>One or more Text items.</td>
@@ -707,9 +683,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>description</dfn>
-										</code>
+										<code> description </code>
 									</td>
 									<td>Description of the item. OPTIONAL.</td>
 									<td>Text.</td>
@@ -724,9 +698,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>rel</dfn>
-										</code>
+										<code> rel </code>
 									</td>
 									<td>The relation of the resource to the publication. OPTIONAL.</td>
 									<td>
@@ -742,7 +714,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code><dfn>integrity</dfn></code>
+										<code>integrity</code>
 									</td>
 									<td>A cryptographic hashing of the resource that allows its integrity to be
 										verified. OPTIONAL.</td>
@@ -763,9 +735,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>length</dfn>
-										</code>
+										<code> length </code>
 									</td>
 									<td>The total length of a time-based media resource in (possibly fractional)
 										seconds. OPTIONAL</td>
@@ -777,9 +747,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code>
-											<dfn>alternate</dfn>
-										</code>
+										<code> alternate </code>
 									</td>
 									<td>
 										<p>References to one or more reformulation(s) of the resource in alternative
@@ -1027,10 +995,10 @@
 					<p>The value of <code>direction</code> MUST have one of the following values:</p>
 
 					<ul>
-						<li><code><dfn>"ltr"</dfn></code>: indicates that the textual values are explicitly
-							directionally set to left-to-right text;</li>
-						<li><code><dfn>"rtl"</dfn></code>: indicates that the textual values are explicitly
-							directionally set to right-to-left text;</li>
+						<li><code>"ltr"</code>: indicates that the textual values are explicitly directionally set to
+							left-to-right text;</li>
+						<li><code>"rtl"</code>: indicates that the textual values are explicitly directionally set to
+							right-to-left text;</li>
 					</ul>
 
 					<aside class="example" title="Declaring French as the default language for the manifest.">
@@ -1154,11 +1122,10 @@
 				<h4>Publication Types</h4>
 
 				<p>A <a>digital publication's</a>
-					<a>manifest</a> defines its <dfn>Publication Type</dfn> using the <code
-						data-dfn-for="PublicationManifest"><dfn>type</dfn></code> keyword&#160;[[!json-ld11]]. The type
-					MAY be mapped onto any [[!schema.org]] type, but <a href="https://schema.org/CreativeWork"
-							><code>CreativeWork</code></a> is <a href="#processing-checks-type">assumed as the
-						default</a> when no type is specified.</p>
+					<a>manifest</a> defines its <dfn>Publication Type</dfn> using the <code>type</code>
+					keyword&#160;[[!json-ld11]]. The type MAY be mapped onto any [[!schema.org]] type, but <a
+						href="https://schema.org/CreativeWork"><code>CreativeWork</code></a> is <a
+						href="#processing-checks-type">assumed as the default</a> when no type is specified.</p>
 
 				<pre class="example" title="Setting a publication's type to CreativeWork.">{
     "@context" : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
@@ -1218,9 +1185,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<code data-dfn-for="PublicationManifest">
-									<dfn>conformsTo</dfn>
-								</code>
+								<code> conformsTo </code>
 							</td>
 							<td>URL of the profile.</td>
 							<td>An <a href="https://url.spec.whatwg.org/#absolute-url-with-fragment-string"
@@ -1270,9 +1235,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>abridged</dfn>
-										</code>
+										<code> abridged </code>
 									</td>
 									<td>Indicates whether the book is an abridged edition.</td>
 									<td>Either <code>true</code> or <code>false</code>.</td>
@@ -1314,9 +1277,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>accessMode</dfn>
-										</code>
+										<code> accessMode </code>
 									</td>
 									<td>The human sensory perceptual system or cognitive faculty through which a person
 										may process or perceive information. </td>
@@ -1330,9 +1291,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>accessModeSufficient</dfn>
-										</code>
+										<code> accessModeSufficient </code>
 									</td>
 									<td> A list of single or combined access modes that are sufficient to understand all
 										the intellectual content of a resource. </td>
@@ -1347,9 +1306,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>accessibilityFeature</dfn>
-										</code>
+										<code> accessibilityFeature </code>
 									</td>
 									<td> Content features of the resource, such as accessible media, alternatives and
 										supported enhancements for accessibility. </td>
@@ -1364,9 +1321,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>accessibilityHazard</dfn>
-										</code>
+										<code> accessibilityHazard </code>
 									</td>
 									<td> A characteristic of the described resource that is physiologically dangerous to
 										some users. </td>
@@ -1381,9 +1336,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>accessibilitySummary</dfn>
-										</code>
+										<code> accessibilitySummary </code>
 									</td>
 									<td>A human-readable summary of specific accessibility features or deficiencies that
 										is consistent with the other accessibility metadata. </td>
@@ -1444,9 +1397,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>url</dfn>
-										</code>
+										<code> url </code>
 									</td>
 									<td>URL of the publication.</td>
 									<td>A valid URL string&#160;[[!url]].</td>
@@ -1491,9 +1442,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>id</dfn>
-										</code>
+										<code> id </code>
 									</td>
 									<td>Preferred version of the publication.</td>
 									<td>A URL record&#160;[[!url]].</td>
@@ -1551,9 +1500,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>artist</dfn>
-										</code>
+										<code> artist </code>
 									</td>
 									<td>The primary artist for the publication, in a medium other than pencils or
 										digital line art.</td>
@@ -1567,9 +1514,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>author</dfn>
-										</code>
+										<code> author </code>
 									</td>
 									<td>The author of the publication.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a> and/or
@@ -1584,9 +1529,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>colorist</dfn>
-										</code>
+										<code> colorist </code>
 									</td>
 									<td>The individual who adds color to inked drawings.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a>.</td>
@@ -1599,9 +1542,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>contributor</dfn>
-										</code>
+										<code> contributor </code>
 									</td>
 									<td>Contributor whose role does not fit to one of the other roles in this
 										table.</td>
@@ -1617,9 +1558,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>creator</dfn>
-										</code>
+										<code> creator </code>
 									</td>
 									<td>The creator of the publication.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a> and/or
@@ -1634,9 +1573,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>editor</dfn>
-										</code>
+										<code> editor </code>
 									</td>
 									<td>The editor of the publication.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a>.</td>
@@ -1649,9 +1586,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>illustrator</dfn>
-										</code>
+										<code> illustrator </code>
 									</td>
 									<td>The illustrator of the publication.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a>.</td>
@@ -1664,9 +1599,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inker</dfn>
-										</code>
+										<code> inker </code>
 									</td>
 									<td>The individual who traces over the pencil drawings in ink.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a>.</td>
@@ -1679,9 +1612,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>letterer</dfn>
-										</code>
+										<code> letterer </code>
 									</td>
 									<td>The individual who adds lettering, including speech balloons and sound effects,
 										to artwork.</td>
@@ -1695,9 +1626,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>penciler</dfn>
-										</code>
+										<code> penciler </code>
 									</td>
 									<td>The individual who draws the primary narrative artwork.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a>.</td>
@@ -1710,9 +1639,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>publisher</dfn>
-										</code>
+										<code> publisher </code>
 									</td>
 									<td>The publisher of the publication.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a> and/or
@@ -1727,9 +1654,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>readBy</dfn>
-										</code>
+										<code> readBy </code>
 									</td>
 									<td>A person who reads (performs) the publication (for audiobooks).</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a>. </td>
@@ -1742,9 +1667,7 @@
 								</tr>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>translator</dfn>
-										</code>
+										<code> translator </code>
 									</td>
 									<td>The translator of the publication.</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a> and/or
@@ -1841,9 +1764,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>duration</dfn>
-										</code>
+										<code> duration </code>
 									</td>
 									<td>Overall duration of a time-based publication.</td>
 									<td>Duration value as defined by&#160;[[!iso8601]].</td>
@@ -1892,9 +1813,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>dateModified</dfn>
-										</code>
+										<code> dateModified </code>
 									</td>
 									<td>Last modification date of the publication.</td>
 									<td>A <a href="https://schema.org/Date"><code>Date</code></a> or <a
@@ -1943,9 +1862,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>datePublished</dfn>
-										</code>
+										<code> datePublished </code>
 									</td>
 									<td>Creation date of the publication.</td>
 									<td>A <a href="https://schema.org/Date"><code>Date</code></a> or <a
@@ -1994,9 +1911,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>inLanguage</dfn>
-										</code>
+										<code> inLanguage </code>
 									</td>
 									<td>Default <a>language</a> for the publication.</td>
 									<td>One or more <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
@@ -2061,9 +1976,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>readingProgression</dfn>
-										</code>
+										<code> readingProgression </code>
 									</td>
 									<td>Reading progression direction from one resource to the other.</td>
 									<td>One of: <code>ltr</code> or <code>rtl</code>.</td>
@@ -2077,9 +1990,9 @@
 
 						<p>The value of this property MUST be either:</p>
 
-						<ul data-dfn-for="ProgressionDirection">
-							<li><code><dfn>ltr</dfn></code>: left-to-right;</li>
-							<li><code><dfn>rtl</dfn></code>: right-to-left.</li>
+						<ul>
+							<li><code>ltr</code>: left-to-right;</li>
+							<li><code>rtl</code>: right-to-left.</li>
 						</ul>
 
 						<p>The default value is <code>ltr</code>. If the <code>readingProgression</code> is not set,
@@ -2115,9 +2028,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>name</dfn>
-										</code>
+										<code> name </code>
 									</td>
 									<td>Human-readable title of the publication.</td>
 									<td>One or more text items for the title.</td>
@@ -2185,9 +2096,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>readingOrder</dfn>
-										</code>
+										<code> readingOrder </code>
 									</td>
 									<td>Order of progression through the resources of a digital publication.</td>
 									<td>
@@ -2276,9 +2185,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>resources</dfn>
-										</code>
+										<code> resources </code>
 									</td>
 									<td>List of additional publication resources used in the processing or rendering of
 										a publication.</td>
@@ -2368,9 +2275,7 @@
 							<tbody>
 								<tr>
 									<td>
-										<code data-dfn-for="PublicationManifest">
-											<dfn>links</dfn>
-										</code>
+										<code> links </code>
 									</td>
 									<td>List of resources associated with a publication but not required for its
 										processing or rendering.</td>
@@ -3741,12 +3646,12 @@
 				<p class="note">This specification does not define an API for exposing the manifest data.</p>
 
 				<section id="webidl-wpm">
-					<h4>The <dfn><code>PublicationManifest</code></dfn> Dictionary</h4>
+					<h4>The <code>PublicationManifest</code> Dictionary</h4>
 
 					<pre class="idl" id="wpm">
 dictionary PublicationManifest {
-    required sequence&lt;DOMString>         type = "CreativeWork";
-    required sequence&lt;DOMString>         conformsTo = "https://www.w3.org/TR/pub-manifest";
+             sequence&lt;DOMString>         type = "CreativeWork";
+             sequence&lt;DOMString>         conformsTo = "https://www.w3.org/TR/pub-manifest";
              DOMString                   id;
              boolean                     abridged;
              sequence&lt;DOMString>         accessMode;
@@ -3772,7 +3677,7 @@ dictionary PublicationManifest {
              sequence&lt;DOMString>         inLanguage;
              DOMString                   dateModified;
              DOMString                   datePublished;
-    required TextDirection               readingProgression = "ltr";
+             TextDirection               readingProgression = "ltr";
     required sequence&lt;LocalizableString> name;
     required sequence&lt;LinkedResource>    readingOrder;
              sequence&lt;LinkedResource>    resources;
