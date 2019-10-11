@@ -3220,6 +3220,15 @@
     "url" → <var>resource</var>
 ]»</pre>
 								</li>
+								<li>
+									<p>otherwise, if <var>resource</var> is a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a> and contains an <a
+											href="#dom-linkedresource-alternate"><code>alternate</code></a>
+										<a href="https://infra.spec.whatwg.org/#map-key">key</a>, run <a
+											href="#processing-normalize-links">this step</a> on each <a
+											href="https://infra.spec.whatwg.org/#list-item">item</a> in
+											<var>resource["alternate"]</var> to convert any string values. </p>
+								</li>
 							</ol>
 							<details>
 								<summary>Explanation</summary>
@@ -3480,14 +3489,9 @@
 											<p>if <a href="#dom-linkedresource-alternate"
 														><var>termValue["alternate"]</var></a> is set, <a
 													href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-												<var>alternate</var> of <var>termValue["alterate"]</var> if
-													<var>alternate</var> is not a <a
-													href="https://infra.spec.whatwg.org/#ordered-map">map</a>, or either
-													<var>alternate["url"]</var> or
+												<var>alternate</var> of <var>termValue["alterate"]</var>, if
 													<var>alternate["encodingFormat"]</var> is not set, <a>validation
-													error</a>, <a href="https://infra.spec.whatwg.org/#list-remove"
-													>remove</a>
-												<var>alternate</var>.</p>
+													error</a>.</p>
 										</li>
 									</ul>
 								</li>
