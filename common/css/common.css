@@ -91,14 +91,14 @@ summary {
 	font-size: small;
 }
 
-#manifest-processing-algorithm > ol > li > ol  {
+#manifest-processing > ol > li > ol  {
 	list-style-type: lower-alpha;
 }
 
-#manifest-processing-algorithm > ol > li > ol > li > ol  {
+#manifest-processing > ol > li > ol > li > ol  {
 	list-style-type: lower-roman;
 }
 
-#manifest-processing-algorithm > ol > li > ol > li > ol > li > ol {
+#manifest-processing > ol > li > ol > li > ol > li > ol {
 	list-style-type: decimal;
 }
