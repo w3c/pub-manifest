@@ -2958,12 +2958,13 @@
 						</li>
 
 						<li id="processing-normalize-entities">
-							<p>(<a href="#value-entity"></a>) If <var>term</var> expects a single <a
-									href="#value-entity">entity</a> or <a href="#value-array">array</a> of entities:</p>
+							<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a href="#value-array"
+									>array</a> of <a href="#value-entity">entities</a>, <a>for each</a>
+								<var>entity</var> in <var>normalized</var>:</p>
 							<ol>
 								<li>
-									<p>if <var>termValue</var> is a <a href="https://infra.spec.whatwg.org/#string"
-											>string</a>, set <var>normalized</var> to the <a
+									<p>if <var>entity</var> is a <a href="https://infra.spec.whatwg.org/#string"
+											>string</a>, set <var>entity</var> to the <a
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 									<pre>«[
     "type" → « "Person" »,
@@ -2971,19 +2972,11 @@
 ]»</pre>
 								</li>
 								<li>
-									<p>otherwise, if <var>termValue</var> is number, <a
+									<p>otherwise, if <var>entity</var> is number, <a
 											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
 											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
-											error</a>, then <a href="https://infra.spec.whatwg.org/#iteration-continue"
-											>continue</a>.</p>
-								</li>
-								<li>
-									<p>otherwise, if <var>termValue</var> is a <a
-											href="https://infra.spec.whatwg.org/#list">list</a>, set
-											<var>normalized</var> to the value of <var>termValue</var> after running <a
-											href="#processing-normalize-entities">this step</a> on each <a
-											href="https://infra.spec.whatwg.org/#list-item">item</a> in
-											<var>termValue</var>.</p>
+											error</a>, <a href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+										<var>entity</var> from <var>normalized</var>.</p>
 								</li>
 							</ol>
 							<details>
@@ -3027,8 +3020,9 @@
     "direction" → <var>dir</var>
 ]»</pre>
 									<p>If the value of <var>lang</var> or <var>dir</var> is an empty <a
-											href="https://infra.spec.whatwg.org/#string">string</a>, remove
-											<var>normalized["language"]</var> or <var>normalized["direction"]</var>,
+											href="https://infra.spec.whatwg.org/#string">string</a>, <a
+											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+										<var>normalized["language"]</var> or <var>normalized["direction"]</var>,
 										respectively, from the <a href="https://infra.spec.whatwg.org/#ordered-map"
 											>map</a>.</p>
 								</li>
@@ -3050,8 +3044,9 @@
 										</li>
 										<li>
 											<p>otherwise, if the value of <var>termValue["language"]</var> is <a
-													href="https://infra.spec.whatwg.org/#nulls">null</a>, remove
-													<var>language</var> from <var>termValue</var>.</p>
+													href="https://infra.spec.whatwg.org/#nulls">null</a>, <a
+													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+												<var>termValue["language"]</var>.</p>
 										</li>
 										<li>
 											<p>if <var>termValue["direction"]</var> is not set, set it to the value of
@@ -3060,8 +3055,9 @@
 										</li>
 										<li>
 											<p>otherwise, if the value of <var>termValue["direction"]</var> is <a
-													href="https://infra.spec.whatwg.org/#nulls">null</a>, remove
-													<var>direction</var> from <var>termValue</var>.</p>
+													href="https://infra.spec.whatwg.org/#nulls">null</a>, <a
+													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+												<var>termValue["direction"]</var>.</p>
 										</li>
 									</ul>
 								</li>
@@ -3120,52 +3116,8 @@
     ],
     …
 }</pre>
-							</details>
-						</li>
-
-						<li id="processing-normalize-localizable-string-global">
-							<p>(<a href="#manifest-lang-dir-local"></a>) If <var>term</var> does not expect a <a
-									href="#value-localizable-string">localizable string</a> but is a <a
-									href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
-									href="https://infra.spec.whatwg.org/#list">list</a>:</p>
-							<ol>
-								<li>
-									<p>If <var>normalized</var> is a <a
-											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
-											href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-										<var>key</var> → <var>keyValue</var> of <var>normalized</var>:</p>
-									<ol>
-										<li>if <var>normalized[key]</var> expects a localizable string, process
-												<var>normalized[key]</var> as defined in the <a
-												href="#processing-normalize-localizable-strings">previous step</a>.</li>
-										<li>otherwise, if <var>normalized[key]</var> is a <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
-												href="https://infra.spec.whatwg.org/#list">list</a>, process it as
-											defined by <a href="#processing-normalize-localizable-string-global">this
-												step</a>.</li>
-									</ol>
-								</li>
-								<li>
-									<p>If <var>normalized</var> is an array, <a
-											href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-										<var>listValue</var> of <var>normalized</var>:</p>
-									<ol>
-										<li>if <var>normalized[listValue]</var> expects a localizable string, process
-												<var>normalized[key]</var> as defined in the <a
-												href="#processing-normalize-localizable-strings">previous step</a>.</li>
-										<li>otherwise, if <var>normalized[key]</var> is a <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a> or <a
-												href="https://infra.spec.whatwg.org/#list">list</a>, process it as
-											defined by <a href="#processing-normalize-localizable-string-global">this
-												step</a>.</li>
-									</ol>
-								</li>
-							</ol>
-							<details>
-								<summary>Explanation</summary>
-								<p>These steps uses the global language/direction values to set the language/direction
-									for <code>LocalizableString</code>, unless the local setting is present or a local
-										<code>null</code> value prevents the global value to take effect.</p>
+								<p>A local setting or a local <code>null</code> value prevents the global value from
+									taking effect.</p>
 								<pre class="example">{
     "@context" : [
         "https://schema.org",
