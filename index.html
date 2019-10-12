@@ -213,7 +213,7 @@
 					</dl>
 
 					<p>The <a>manifest</a> also identifies key resources of a digital publication through the use of
-						link relations. These relations are applied to the <a href="#dom-linkedresource-rel"
+						link relations. These relations are applied to the <a href="#linkedresource-rel"
 								><code>rel</code> property</a> of <a href="#LinkedResource-def"
 								><code>LinkedResource</code> objects</a> (e.g., the links found in the <a
 							href="#pub-table-of-contents">table of contents</a> and <a href="#resource-list">resource
@@ -500,8 +500,8 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>
-										<code> type </code>
+									<td id="entity-type">
+										<code>type</code>
 									</td>
 									<td>The type of creator. OPTIONAL</td>
 									<td>One or more Text. Sequence MUST include "<code>Person</code>" or
@@ -512,8 +512,8 @@
 									<td>(None)</td>
 								</tr>
 								<tr>
-									<td>
-										<code> name </code>
+									<td id="entity-name">
+										<code>name</code>
 									</td>
 									<td>Name of the creator. REQUIRED.</td>
 									<td>One or more Text.</td>
@@ -528,19 +528,19 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<code> id </code>
+									<td id="entity-id">
+										<code>id</code>
 									</td>
 									<td>A canonical identifier associated with the creator. OPTIONAL.</td>
 									<td>A URL record&#160;[[!url]].</td>
 									<td>
 										<a href="#value-id">Identifier</a>
 									</td>
-									<td> (None) </td>
+									<td>(None)</td>
 								</tr>
 								<tr>
-									<td>
-										<code> url </code>
+									<td id="entity-url">
+										<code>url</code>
 									</td>
 									<td>An address associated with the creator. OPTIONAL.</td>
 									<td>A valid URL string&#160;[[!url]].</td>
@@ -554,8 +554,8 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<code> identifier </code>
+									<td id="entity-identifier">
+										<code>identifier</code>
 									</td>
 									<td>An identifier associated with the creator (e.g., ORCID). OPTIONAL.</td>
 									<td>One or more text(s).</td>
@@ -624,8 +624,8 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>
-										<code> type </code>
+									<td id="linkedresource-type">
+										<code>type</code>
 									</td>
 									<td>The type of resource. OPTIONAL</td>
 									<td>One or more Text. Sequence MUST include "<code>LinkedResource</code>".</td>
@@ -635,8 +635,8 @@
 									<td>(None)</td>
 								</tr>
 								<tr>
-									<td>
-										<code> url </code>
+									<td id="linkedresource-url">
+										<code>url</code>
 									</td>
 									<td>Location of the resource. REQUIRED.</td>
 									<td>A valid URL string&#160;[[!url]]. Refer to the property definitions that accept
@@ -651,8 +651,8 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<code> encodingFormat </code>
+									<td id="linkedresource-encodingformat">
+										<code>encodingFormat</code>
 									</td>
 									<td>Media type of the resource (e.g., <code>text/html</code>). OPTIONAL.</td>
 									<td>MIME Media Type&#160;[[!rfc2046]].</td>
@@ -666,8 +666,8 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<code> name </code>
+									<td id="linkedresource-name">
+										<code>name</code>
 									</td>
 									<td>Name of the item. OPTIONAL.</td>
 									<td>One or more Text items.</td>
@@ -682,8 +682,8 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
-										<code> description </code>
+									<td id="linkedresource-description">
+										<code>description</code>
 									</td>
 									<td>Description of the item. OPTIONAL.</td>
 									<td>Text.</td>
@@ -697,7 +697,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td>
+									<td id="linkedresource-rel">
 										<code> rel </code>
 									</td>
 									<td>The relation of the resource to the publication. OPTIONAL.</td>
@@ -713,7 +713,7 @@
 									<td>(None)</td>
 								</tr>
 								<tr>
-									<td>
+									<td id="linkedresource-integrity">
 										<code>integrity</code>
 									</td>
 									<td>A cryptographic hashing of the resource that allows its integrity to be
@@ -734,8 +734,8 @@
 									<td>(None)</td>
 								</tr>
 								<tr>
-									<td>
-										<code> length </code>
+									<td id="linkedresource-length">
+										<code>length</code>
 									</td>
 									<td>The total length of a time-based media resource in (possibly fractional)
 										seconds. OPTIONAL</td>
@@ -746,8 +746,8 @@
 									<td>(None)</td>
 								</tr>
 								<tr>
-									<td>
-										<code> alternate </code>
+									<td id="linkedresource-alternate">
+										<code>alternate</code>
 									</td>
 									<td>
 										<p>References to one or more reformulation(s) of the resource in alternative
@@ -2370,7 +2370,7 @@
 							BibTeX&#160;[[bibtex]] file, MUST be expressed using a <a href="#LinkedResource-def"
 									><code>LinkedResource</code></a> object, where:</p>
 						<ul>
-							<li>the <a href="#dom-linkedresource-rel"><code>rel</code> property</a> of the
+							<li>the <a href="#linkedresource-rel"><code>rel</code> property</a> of the
 									<code>LinkedResource</code> SHOULD include a relevant identifier defined by IANA or
 								by other organizations; if the link record contains descriptive metadata it MUST include
 								the <code>describedby</code> (IANA) identifier; </li>
@@ -2705,7 +2705,7 @@
 					<h4>Extensions</h4>
 
 					<p>If additional relations beyond those defined in this specification need to be expressed, the <a
-							href="#dom-linkedresource-rel"><code>rel</code> property</a> can be extended in one of the
+							href="#linkedresource-rel"><code>rel</code> property</a> can be extended in one of the
 						following ways:</p>
 
 					<ul>
@@ -3225,7 +3225,7 @@
 								<li>
 									<p>otherwise, if <var>resource</var> is a <a
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a> and contains an <a
-											href="#dom-linkedresource-alternate"><code>alternate</code></a>
+											href="#linkedresource-alternate"><code>alternate</code></a>
 										<a href="https://infra.spec.whatwg.org/#map-key">key</a>, run <a
 											href="#processing-normalize-links">this step</a> on each <a
 											href="https://infra.spec.whatwg.org/#list-item">item</a> in
@@ -3488,15 +3488,15 @@
 										type <a href="#LinkedResource-def">LinkedResource</a>.</p>
 									<ul>
 										<li>
-											<p>if <a href="#dom-linkedresource-length"
-													><var>termValue["length"]</var></a> is set and is not a number, or
-												is a negative number, <a>validation error</a>, <a
-													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+											<p>if <a href="#linkedresource-length"><var>termValue["length"]</var></a> is
+												set and is not a number, or is a negative number, <a>validation
+													error</a>, <a href="https://infra.spec.whatwg.org/#map-remove"
+													>remove</a>
 												<var>termValue["length"]</var>.</p>
 										</li>
 										<li>
-											<p>if <a href="#dom-linkedresource-alternate"
-														><var>termValue["alternate"]</var></a> is set, <a
+											<p>if <a href="#linkedresource-alternate"
+													><var>termValue["alternate"]</var></a> is set, <a
 													href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 												<var>alternate</var> of <var>termValue["alterate"]</var>, if
 													<var>alternate["encodingFormat"]</var> is not set, <a>validation
