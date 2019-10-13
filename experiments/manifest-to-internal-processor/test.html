@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Manifest Internal Conversion Test</title>
+		<link id="manifest-link" href="manifest.json" rel="publication">
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script id="manifest" type="application/json+ld">
+			// alternate for testing
+		</script>
+	</head>
+	<body>
+		<h1>Result of Processing <a id="manifest-view">Manifest</a></h1>
+		<pre id="internalRepresentation"></pre>
+
+		<script src="manifestProcessor.js"></script>
+		<script>
+			var manifest_link = document.getElementById('manifest-link');
+			var manifest_view = document.getElementById('manifest-view');
+			manifest_view.href = manifest_link.href;
+			
+			manifestProcessor.generateInternalRep();
+		</script>
+	</body>
+</html>
