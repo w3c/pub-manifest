@@ -3384,9 +3384,19 @@
 											href="#value-array">array</a> of <a href="#value-entity">entities</a>, <a
 											href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 										<var>item</var> of <var>termValue</var>, check whether <var>item["name"]</var>
-										is set. If not, <a>validation error</a>, <a
-											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-										<var>item</var> from <var>termValue</var>.</p>
+										is set:</p>
+									<ul>
+										<li>
+											<p>If not, <a>validation error</a>, <a
+													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+												<var>item</var> from <var>termValue</var>.</p>
+										</li>
+										<li>If so, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+											<var>name</var> of <var>item["name"]</var>, if <var>name["value"]</var> is
+											not set, or is an empty string, <a
+												href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+											<var>name</var> from <var>item["name"]</var>.</li>
+									</ul>
 								</li>
 
 								<li id="processing-checks-language">
@@ -3395,62 +3405,48 @@
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 									<ul>
 										<li>
-											<p>if it has a <var>language</var>
-												<a href="https://infra.spec.whatwg.org/#map-key">key</a>, and
-													<var>termValue["language"]</var> is not <a
+											<p>if it <var>termValue["language"]</var> is set and its value is not <a
 													href="https://tools.ietf.org/html/bcp47#section-2.2.9"
 													>well-formed</a>&#160;[[!bcp47]], <a>validation error</a>, <a
 													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 												<var>termValue["language"]</var>.</p>
-											<p>if it has a <var>direction</var>
-												<a href="https://infra.spec.whatwg.org/#map-key">key</a>, and
-													<var>termValue["direction"]</var> is not one of "<code>ltr</code>"
-												or "<code>rtl</code>", <a>validation error</a>, <a
-													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+											<p>if <var>termValue["direction"]</var> is set and its value is not one of
+													"<code>ltr</code>" or "<code>rtl</code>", <a>validation error</a>,
+													<a href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 												<var>termValue["direction"]</var>.</p>
 										</li>
 									</ul>
 								</li>
 
-								<li id="processing-checks-urls">
-									<p>(<a href="#resource-categorization-properties"></a>) If <var>term</var> is a <a
-											href="#resource-categorization-properties">resource categorization
-											property</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for
-											each</a>
-										<var>item</var> of <var>termValue</var>:</p>
-									<ul>
-										<li>
-											<p>if <var>item</var> does not have a <var>url</var>
-												<a href="https://infra.spec.whatwg.org/#ordered-map">key</a>,
-													<a>validation error</a>, <a
-													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-												<var>item</var> from <var>termValue</var>.</p>
-										</li>
-										<li>
-											<p>otherwise, if <var>url</var> is not a valid URL&#160;[[!url]],
-													<a>validation error</a>, <a
-													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-												<var>item</var> from <var>termValue</var>.</p>
-										</li>
-									</ul>
-								</li>
-
 								<li id="processing-checks-linkedresource">
-									<p>(<a href="#value-linked-resource"></a>) If <var>processed[term]</var> expects
-										type <a href="#LinkedResource-def">LinkedResource</a>.</p>
+									<p>(<a href="#value-linked-resource"></a>) If <var>processed[term]</var> expects an
+											<a href="#value-array">array</a> of <a href="#LinkedResource-def"
+											>LinkedResource</a>, <a href="https://infra.spec.whatwg.org/#list-iterate"
+											>for each</a>
+										<var>resource</var> of <var>termValue</var>:</p>
 									<ul>
 										<li>
-											<p>if <a href="#linkedresource-length"><var>termValue["length"]</var></a> is
+											<p>if <var>resource["url"]</var> is not set, or its value is an empty
+												string, <a>validation error</a>, <a
+													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+												<var>item</var> from <var>termValue</var>.</p>
+											<p>Otherwise, if <var>resource["url"]</var> is not a valid
+												URL&#160;[[!url]], <a>validation error</a>, <a
+													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+												<var>item</var> from <var>termValue</var>.</p>
+										</li>
+										<li>
+											<p>if <a href="#linkedresource-length"><var>resource["length"]</var></a> is
 												set and is not a number, or is a negative number, <a>validation
 													error</a>, <a href="https://infra.spec.whatwg.org/#map-remove"
 													>remove</a>
-												<var>termValue["length"]</var>.</p>
+												<var>resource["length"]</var>.</p>
 										</li>
 										<li>
 											<p>if <a href="#linkedresource-alternate"
-													><var>termValue["alternate"]</var></a> is set, <a
+													><var>resource["alternate"]</var></a> is set, <a
 													href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-												<var>alternate</var> of <var>termValue["alterate"]</var>, if
+												<var>alternate</var> of <var>resource["alterate"]</var>, if
 													<var>alternate["encodingFormat"]</var> is not set, <a>validation
 													error</a>.</p>
 										</li>
