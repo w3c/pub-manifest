@@ -26,6 +26,7 @@ var manifestProcessor = (function() {
 	var expectsArray = {
 		'type': 1,
 		'inLanguage': 1,
+		'conformsTo': 1,
 		'name': 1,
 		'address': 1,
 		'accessMode': 1,
