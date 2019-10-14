@@ -90,3 +90,15 @@ details {
 summary {
 	font-size: small;
 }
+
+#manifest-processing > ol > li > ol  {
+	list-style-type: lower-alpha;
+}
+
+#manifest-processing > ol > li > ol > li > ol  {
+	list-style-type: lower-roman;
+}
+
+#manifest-processing > ol > li > ol > li > ol > li > ol {
+	list-style-type: decimal;
+}
