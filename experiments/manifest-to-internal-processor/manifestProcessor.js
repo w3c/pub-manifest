@@ -127,9 +127,9 @@ var manifestProcessor = (function() {
 		'length': 1
 	}
 	
-	function generateInternalRep() {
+	function generateInternalRep(manifest_link) {
 		
-		getManifest()
+		getManifest(manifest_link)
 			.then(function(data) {
 				
 				if (!data) {
@@ -149,12 +149,10 @@ var manifestProcessor = (function() {
 		});
 	}
 	
-	function getManifest() {
+	function getManifest(manifest_link) {
 		
 		return new Promise(function(resolve, reject) {
 		
-			var manifest_link = document.querySelector('link[rel="publication"]');
-			
 			if (manifest_link) {
 				if (manifest_link.href.indexOf('#') > 0) {
 					var script = document.getElementById(manifest_link.href.substring(manifest_link.href.indexOf('#')+1));
@@ -700,8 +698,8 @@ var manifestProcessor = (function() {
 
 
 	return {
-		generateInternalRep: function() {
-			generateInternalRep();
+		generateInternalRep: function(manifest_link) {
+			generateInternalRep(manifest_link);
 		}
 	}
 

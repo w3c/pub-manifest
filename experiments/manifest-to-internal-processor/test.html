@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Manifest to Internal Representation Processor</title>
-		<link id="manifest-link" href="manifest.json" rel="publication">
+		<link href="manifest.json" rel="publication">
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 		<script id="manifest" type="application/json+ld">
 			// alternate for testing
@@ -45,11 +45,11 @@
 
 		<script src="manifestProcessor.js"></script>
 		<script>
-			var manifest_link = document.getElementById('manifest-link');
+			var manifest_link = document.querySelector('link[rel="publication"]');
 			var manifest_view = document.getElementById('manifest-view');
 			manifest_view.href = manifest_link.href;
 			
-			manifestProcessor.generateInternalRep();
+			manifestProcessor.generateInternalRep(manifest_link);
 		</script>
 	</body>
 </html>
