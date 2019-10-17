@@ -3309,37 +3309,36 @@
 						</li>
 					</ol>
 
-				</section>
-
-				<section id="absolute-url-check">
-					<h4>Absolute URL Check</h4>
-
-					<p>To perform an <dfn>absolute URL check</dfn> on <var>data</var>, with a base URL <var>base</var>,
-						run the following steps:</p>
-
-					<ol>
-						<li>
-							<p>if <var>data</var> is a <a href="https://infra.spec.whatwg.org/#string">string</a>, set
+					<section id="absolute-url-check">
+						<h4>Absolute URL Check</h4>
+						
+						<p>To perform an <dfn>absolute URL check</dfn> on <var>data</var>, with a base URL <var>base</var>,
+							run the following steps:</p>
+						
+						<ol>
+							<li>
+								<p>if <var>data</var> is a <a href="https://infra.spec.whatwg.org/#string">string</a>, set
 									<var>data</var> to the result of running the <a
-									href="https://url.spec.whatwg.org/#concept-url-parser">URL parser</a> with
+										href="https://url.spec.whatwg.org/#concept-url-parser">URL parser</a> with
 									<var>data</var> as input and <var>base</var> as the base URL.</p>
-						</li>
-						<li>
-							<p>otherwise, if <var>data</var> is a <a href="https://infra.spec.whatwg.org/#list"
-								>list</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-								<var>item</var> of <var>data</var>, set <var>item</var> to the result of runing
+							</li>
+							<li>
+								<p>otherwise, if <var>data</var> is a <a href="https://infra.spec.whatwg.org/#list"
+									>list</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+									<var>item</var> of <var>data</var>, set <var>item</var> to the result of runing
 									<a>absolute URL check</a>, when successful, given <var>item</var> and
 									<var>base</var>. Otherwise, <a href="https://infra.spec.whatwg.org/#list-remove"
-									>remove</a>
-								<var>item</var> from <var>data</var>.</p>
-						</li>
-						<li>
-							<p>otherwise, <a>validation error</a>, return failure.</p>
-						</li>
-						<li>
-							<p>Return <var>data</var>.</p>
-						</li>
-					</ol>
+										>remove</a>
+									<var>item</var> from <var>data</var>.</p>
+							</li>
+							<li>
+								<p>otherwise, <a>validation error</a>, return failure.</p>
+							</li>
+							<li>
+								<p>Return <var>data</var>.</p>
+							</li>
+						</ol>
+					</section>
 				</section>
 
 				<section id="validate-data">
@@ -3440,217 +3439,217 @@
 							<p>Return <var>data</var>.</p>
 						</li>
 					</ol>
-				</section>
-
-				<section id="common-data-checks">
-					<h4>Common Data Checks</h4>
-
-					<p>To process the <dfn>common data checks</dfn> on a property <var>term</var>'s <var>value</var>,
-						run these steps:</p>
-
-					<ol>
-						<li id="common-checks-value-categories">
-							<p>(<a href="#properties-value-categories"></a>) If <var>term</var> has a known <a
+					
+					<section id="common-data-checks">
+						<h4>Common Data Checks</h4>
+						
+						<p>To process the <dfn>common data checks</dfn> on a property <var>term</var>'s <var>value</var>,
+							run these steps:</p>
+						
+						<ol>
+							<li id="common-checks-value-categories">
+								<p>(<a href="#properties-value-categories"></a>) If <var>term</var> has a known <a
 									href="#properties-value-categories">value category</a>, set <var>value</var> to the
-								result of calling <a>check category type</a>, when successful, given the variables
+									result of calling <a>check category type</a>, when successful, given the variables
 									<var>term</var> and <var>value</var>. Otherwise, return failure.</p>
-						</li>
-						<li id="common-checks-entities">
-							<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a href="#value-array"
+							</li>
+							<li id="common-checks-entities">
+								<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a href="#value-array"
 									>array</a> of <a href="#value-entity">entities</a>, <a
-									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-								<var>item</var> of <var>value</var>, check whether <var>item["name"]</var> is set:</p>
-							<ul>
-								<li>
-									<p>If not, <a>validation error</a>, <a
+										href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+									<var>item</var> of <var>value</var>, check whether <var>item["name"]</var> is set:</p>
+								<ul>
+									<li>
+										<p>If not, <a>validation error</a>, <a
 											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-										<var>item</var> from <var>value</var>.</p>
-								</li>
-								<li>If so, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-									<var>name</var> of <var>item["name"]</var>, if <var>name["value"]</var> is not set,
-									or is an empty string, <a href="https://infra.spec.whatwg.org/#list-remove"
-										>remove</a>
-									<var>name</var> from <var>item["name"]</var>.</li>
-							</ul>
-						</li>
-
-						<li id="common-checks-language">
-							<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"></a>) If
+											<var>item</var> from <var>value</var>.</p>
+									</li>
+									<li>If so, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+										<var>name</var> of <var>item["name"]</var>, if <var>name["value"]</var> is not set,
+										or is an empty string, <a href="https://infra.spec.whatwg.org/#list-remove"
+											>remove</a>
+										<var>name</var> from <var>item["name"]</var>.</li>
+								</ul>
+							</li>
+							
+							<li id="common-checks-language">
+								<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"></a>) If
 									<var>value</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
-								>map</a>:</p>
-							<ul>
-								<li>
-									<p>if <var>value["language"]</var> is set and its value is not <a
+										>map</a>:</p>
+								<ul>
+									<li>
+										<p>if <var>value["language"]</var> is set and its value is not <a
 											href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-										>well-formed</a>&#160;[[!bcp47]], <a>validation error</a>, <a
-											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
-										<var>value["language"]</var>.</p>
-									<p>if <var>value["direction"]</var> is set and its value is not one of
+											>well-formed</a>&#160;[[!bcp47]], <a>validation error</a>, <a
+												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+											<var>value["language"]</var>.</p>
+										<p>if <var>value["direction"]</var> is set and its value is not one of
 											"<code>ltr</code>" or "<code>rtl</code>", <a>validation error</a>, <a
-											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
-										<var>value["direction"]</var>.</p>
-								</li>
-							</ul>
-						</li>
-
-						<li id="common-checks-linkedresource">
-							<p>(<a href="#value-linked-resource"></a>) If <var>term</var> expects an <a
+												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+											<var>value["direction"]</var>.</p>
+									</li>
+								</ul>
+							</li>
+							
+							<li id="common-checks-linkedresource">
+								<p>(<a href="#value-linked-resource"></a>) If <var>term</var> expects an <a
 									href="#value-array">array</a> of <a href="#LinkedResource-def">LinkedResources</a>,
 									<a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-								<var>resource</var> of <var>value</var>:</p>
-							<ul>
-								<li>
-									<p>if <var>resource["url"]</var> is not set, or its value is an empty string,
+									<var>resource</var> of <var>value</var>:</p>
+								<ul>
+									<li>
+										<p>if <var>resource["url"]</var> is not set, or its value is an empty string,
 											<a>validation error</a>, <a
-											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-										<var>resource</var> from <var>value</var>, then <a
-											href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
-									<p>Otherwise, if <var>resource["url"]</var> is not a valid URL&#160;[[!url]],
+												href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+											<var>resource</var> from <var>value</var>, then <a
+												href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
+										<p>Otherwise, if <var>resource["url"]</var> is not a valid URL&#160;[[!url]],
 											<a>validation error</a>, <a
-											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-										<var>resource</var> from <var>value</var>, then <a
-											href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
-								</li>
-								<li>
-									<p>if <a href="#linkedresource-length"><var>resource["length"]</var></a> is set and
-										is not a number, or is a negative number, <a>validation error</a>, <a
-											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
-										<var>resource["length"]</var>.</p>
-								</li>
-								<li>
-									<p>if <a href="#linkedresource-alternate"><var>resource["alternate"]</var></a> is
-										set, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-										<var>alternate</var> of <var>resource["alterate"]</var>, if
+												href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+											<var>resource</var> from <var>value</var>, then <a
+												href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
+									</li>
+									<li>
+										<p>if <a href="#linkedresource-length"><var>resource["length"]</var></a> is set and
+											is not a number, or is a negative number, <a>validation error</a>, <a
+												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+											<var>resource["length"]</var>.</p>
+									</li>
+									<li>
+										<p>if <a href="#linkedresource-alternate"><var>resource["alternate"]</var></a> is
+											set, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+											<var>alternate</var> of <var>resource["alterate"]</var>, if
 											<var>alternate["encodingFormat"]</var> is not set, <a>validation
-										error</a>.</p>
-								</li>
-							</ul>
-						</li>
-
-						<li id="common-checks-recurse-maps">
-							<p>If <var>value</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
+												error</a>.</p>
+									</li>
+								</ul>
+							</li>
+							
+							<li id="common-checks-recurse-maps">
+								<p>If <var>value</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
 									href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-								<var>key</var> → <var>keyValue</var> of <var>value</var>, set <var>value[key]</var> to
-								the result of running <a>common data checks</a> given <var>key</var> and
+									<var>key</var> → <var>keyValue</var> of <var>value</var>, set <var>value[key]</var> to
+									the result of running <a>common data checks</a> given <var>key</var> and
 									<var>keyValue</var>.</p>
-						</li>
-
-						<li id="common-checks-recurse-lists">
-							<p>If <var>value</var> is a <a href="https://infra.spec.whatwg.org/#list">list</a>, <a
+							</li>
+							
+							<li id="common-checks-recurse-lists">
+								<p>If <var>value</var> is a <a href="https://infra.spec.whatwg.org/#list">list</a>, <a
 									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-								<var>item</var> of <var>value</var>, if <var>item</var> is a <a
-									href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
-									href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-								<var>key</var> → <var>keyValue</var> of <var>value</var>, set <var>value[key]</var> to
-								the result of running <a>common data checks</a> given <var>key</var> and
+									<var>item</var> of <var>value</var>, if <var>item</var> is a <a
+										href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
+											href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
+									<var>key</var> → <var>keyValue</var> of <var>value</var>, set <var>value[key]</var> to
+									the result of running <a>common data checks</a> given <var>key</var> and
 									<var>keyValue</var>.</p>
-						</li>
-
-						<li id="common-check-end">
-							<p>Return <var>value</var>.</p>
-						</li>
-					</ol>
-				</section>
-
-				<section id="category-check">
-					<h4>Value Category Check</h4>
-
-					<p>To <dfn>check category type</dfn> of a property <var>term</var>'s <var>value</var>, run these
-						steps:</p>
-
-					<ol>
-						<li>
-							<p>If <var>term</var> expects an <a href="#value-array">array</a>:</p>
-							<ol>
-								<li>
-									<p>if <var>value</var> is not a <a href="https://infra.spec.whatwg.org/#list"
+							</li>
+							
+							<li id="common-check-end">
+								<p>Return <var>value</var>.</p>
+							</li>
+						</ol>
+					</section>
+					
+					<section id="category-check">
+						<h4>Check Category Type</h4>
+						
+						<p>To <dfn>check category type</dfn> of a property <var>term</var>'s <var>value</var>, run these
+							steps:</p>
+						
+						<ol>
+							<li>
+								<p>If <var>term</var> expects an <a href="#value-array">array</a>:</p>
+								<ol>
+									<li>
+										<p>if <var>value</var> is not a <a href="https://infra.spec.whatwg.org/#list"
 											>list</a>, <a>validation error</a>, return failure.</p>
-								</li>
-								<li>
-									<p>otherwise, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-										<var>item</var> of <var>value</var>:</p>
-									<ol>
-										<li>
-											<p>if <var>item</var> does not match the expected type of the array,
+									</li>
+									<li>
+										<p>otherwise, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+											<var>item</var> of <var>value</var>:</p>
+										<ol>
+											<li>
+												<p>if <var>item</var> does not match the expected type of the array,
 													<a>validation error</a>, <a
-													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-												<var>item</var> from <var>value</var>, then <a
-													href="https://infra.spec.whatwg.org/#iteration-continue"
-													>continue</a>.</p>
-										</li>
-										<li>
-											<p>if <var>item</var> is a <a
+														href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+													<var>item</var> from <var>value</var>, then <a
+														href="https://infra.spec.whatwg.org/#iteration-continue"
+														>continue</a>.</p>
+											</li>
+											<li>
+												<p>if <var>item</var> is a <a
 													href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
-													href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-												<var>key</var> → <var>keyValue</var> of <var>item</var>, if
+														href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
+													<var>key</var> → <var>keyValue</var> of <var>item</var>, if
 													<var>key</var> has an expected type, set <var>key</var> to the
-												result of running <a>check category type</a> given the variables
+													result of running <a>check category type</a> given the variables
 													<var>key</var> and <var>keyValue</var>. If the result of processing
 													<var>item</var> is an empty <a
-													href="https://infra.spec.whatwg.org/#ordered-map">map</a>,
+														href="https://infra.spec.whatwg.org/#ordered-map">map</a>,
 													<a>validation error</a>, <a
-													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-												<var>item</var> from <var>value</var>.</p>
-										</li>
-									</ol>
-									<p>If the result of processing <var>value</var> is an empty <a href="#value-array"
+														href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+													<var>item</var> from <var>value</var>.</p>
+											</li>
+										</ol>
+										<p>If the result of processing <var>value</var> is an empty <a href="#value-array"
 											>array</a>, <a>validation error</a>, return failure.</p>
-								</li>
-							</ol>
-						</li>
-						<li>
-							<p>Otherwise, if <var>term</var> expects a <a
+									</li>
+								</ol>
+							</li>
+							<li>
+								<p>Otherwise, if <var>term</var> expects a <a
 									href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
-							<ol>
-								<li>
-									<p>if <var>value</var> is not a <a href="https://infra.spec.whatwg.org/#ordered-map"
+								<ol>
+									<li>
+										<p>if <var>value</var> is not a <a href="https://infra.spec.whatwg.org/#ordered-map"
 											>map</a>, <a>validation error</a>, return failure.</p>
-								</li>
-								<li>
-									<p>otherwise, <a href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-										<var>key</var> → <var>keyValue</var> of <var>value</var>, if <var>key</var> has
-										an expected type, set <var>key</var> to the result of running <a>check category
-											type</a> given <var>key</var> and <var>keyValue</var>. If the result of
-										processing <var>value</var> is an empty <a
-											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a>validation
-											error</a>, return failure.</p>
-								</li>
-							</ol>
-						</li>
-						<li>
-							<p>Otherwise, if <var>value</var> does not have the expected type of <var>term</var>,
+									</li>
+									<li>
+										<p>otherwise, <a href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
+											<var>key</var> → <var>keyValue</var> of <var>value</var>, if <var>key</var> has
+											an expected type, set <var>key</var> to the result of running <a>check category
+												type</a> given <var>key</var> and <var>keyValue</var>. If the result of
+											processing <var>value</var> is an empty <a
+												href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a>validation
+													error</a>, return failure.</p>
+									</li>
+								</ol>
+							</li>
+							<li>
+								<p>Otherwise, if <var>value</var> does not have the expected type of <var>term</var>,
 									<a>validation error</a>, return failure.</p>
-						</li>
-						<li>
-							<p>Return <var>value</var>.</p>
-						</li>
-					</ol>
-				</section>
-
-				<section id="remove-empty-arrays">
-					<h4>Remove Empty Arrays</h4>
-
-					<p>To <dfn>remove empty arrays</dfn> from a property <var>term</var>'s <var>value</var>, run these
-						steps:</p>
-
-					<ol>
-						<li>
-							<p>If <var>value</var> is an empty <a href="https://infra.spec.whatwg.org/#list">list</a>,
-								return failure.</p>
-						</li>
-						<li>
-							<p>Otherwise, if <var>value</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
+							</li>
+							<li>
+								<p>Return <var>value</var>.</p>
+							</li>
+						</ol>
+					</section>
+					
+					<section id="remove-empty-arrays">
+						<h4>Remove Empty Arrays</h4>
+						
+						<p>To <dfn>remove empty arrays</dfn> from a property <var>term</var>'s <var>value</var>, run these
+							steps:</p>
+						
+						<ol>
+							<li>
+								<p>If <var>value</var> is an empty <a href="https://infra.spec.whatwg.org/#list">list</a>,
+									return failure.</p>
+							</li>
+							<li>
+								<p>Otherwise, if <var>value</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
 									>map</a>, <a href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-								<var>key</var> → <var>keyValue</var> of <var>value</var>, if running <a>remove empty
-									arrays</a> given <var>key</var> and <var>keyValue</var> returns failure, <a
-									href="https://infra.spec.whatwg.org/#map-remove">remove</a>
-								<var>value[key]</var>.</p>
-						</li>
-					</ol>
+									<var>key</var> → <var>keyValue</var> of <var>value</var>, if running <a>remove empty
+										arrays</a> given <var>key</var> and <var>keyValue</var> returns failure, <a
+											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+									<var>value[key]</var>.</p>
+							</li>
+						</ol>
+					</section>
 				</section>
 
 				<section id="add-html-defaults">
-					<h3>Add HTML Default Values</h3>
+					<h3>Add HTML Defaults</h3>
 
 					<p>To <dfn>add HTML defaults</dfn> for missing properties in <a
 							href="https://infra.spec.whatwg.org/#ordered-map">map</a>
