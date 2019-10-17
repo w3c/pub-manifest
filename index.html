@@ -2959,13 +2959,13 @@
 						<p>Set <var>processed</var> to the result of running <a>data validation</a> given
 								<var>processed</var>.</p>
 					</li>
-					
+
 					<li id="processing-defaults">
 						<p>Set <var>processed</var> to the result of running <a>add HTML defaults</a>, when successful,
 							given <var>processed</var> and <var>document</var>. Otherwise, terminate processing, return
 							failure.</p>
 					</li>
-					
+
 					<li id="processing-end">
 						<p>Return <var>processed</var>.</p>
 					</li>
@@ -3421,21 +3421,21 @@
 							<p>If a <a>profile</a> specifies data validation checks, those steps are executed at this
 								point.</p>
 						</li>
-						
+
 						<li id="processing-remove-empty-arrays">
 							<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
 								<var>term</var> → <var>value</var> of <var>data</var>, if running <a>remove empty
-									arrays</a> given the variables <var>term</var> and <var>value</var> returns failure, <a
-										href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+									arrays</a> given the variables <var>term</var> and <var>value</var> returns failure,
+									<a href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 								<var>data["term"]</var>.</p>
 							<details>
 								<summary>Explanation</summary>
-								<p>As the processing of the manifest involves removing invalid values at various stages, the
-									final data structure might end up with some lists that not no longer contain any values.
-									This step iterates back over the data and removes any such empty lists.</p>
+								<p>As the processing of the manifest involves removing invalid values at various stages,
+									the final data structure might end up with some lists that not no longer contain any
+									values. This step iterates back over the data and removes any such empty lists.</p>
 							</details>
 						</li>
-						
+
 						<li id="validate-end">
 							<p>Return <var>data</var>.</p>
 						</li>
@@ -3452,8 +3452,8 @@
 						<li id="common-checks-value-categories">
 							<p>(<a href="#properties-value-categories"></a>) If <var>term</var> has a known <a
 									href="#properties-value-categories">value category</a>, set <var>value</var> to the
-								result of calling <a href="#category-check">value category check</a>, when successful,
-								given the variables <var>term</var> and <var>value</var>. Otherwise, return failure.</p>
+								result of calling <a>check category type</a>, when successful, given the variables
+									<var>term</var> and <var>value</var>. Otherwise, return failure.</p>
 						</li>
 						<li id="common-checks-entities">
 							<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a href="#value-array"
@@ -3555,7 +3555,7 @@
 				<section id="category-check">
 					<h4>Value Category Check</h4>
 
-					<p>To <dfn>check the category</dfn> of a property <var>term</var>'s <var>value</var>, run these
+					<p>To <dfn>check category type</dfn> of a property <var>term</var>'s <var>value</var>, run these
 						steps:</p>
 
 					<ol>
@@ -3584,9 +3584,9 @@
 													href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 												<var>key</var> → <var>keyValue</var> of <var>item</var>, if
 													<var>key</var> has an expected type, set <var>key</var> to the
-												result of running <a href="#category-check">check category type</a>
-												given the variables <var>key</var> and <var>keyValue</var>. If the
-												result of processing <var>item</var> is an empty <a
+												result of running <a>check category type</a> given the variables
+													<var>key</var> and <var>keyValue</var>. If the result of processing
+													<var>item</var> is an empty <a
 													href="https://infra.spec.whatwg.org/#ordered-map">map</a>,
 													<a>validation error</a>, <a
 													href="https://infra.spec.whatwg.org/#list-remove">remove</a>
@@ -3609,11 +3609,11 @@
 								<li>
 									<p>otherwise, <a href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 										<var>key</var> → <var>keyValue</var> of <var>value</var>, if <var>key</var> has
-										an expected type, set <var>key</var> to the result of running <a
-											href="#category-check">check category type</a> given <var>key</var> and
-											<var>keyValue</var>. If the result of processing <var>value</var> is an
-										empty <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>,
-											<a>validation error</a>, return failure.</p>
+										an expected type, set <var>key</var> to the result of running <a>check category
+											type</a> given <var>key</var> and <var>keyValue</var>. If the result of
+										processing <var>value</var> is an empty <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a>validation
+											error</a>, return failure.</p>
 								</li>
 							</ol>
 						</li>
@@ -3648,14 +3648,14 @@
 						</li>
 					</ol>
 				</section>
-				
+
 				<section id="add-html-defaults">
 					<h3>Add HTML Default Values</h3>
-					
+
 					<p>To <dfn>add HTML defaults</dfn> for missing properties in <a
-						href="https://infra.spec.whatwg.org/#ordered-map">map</a>
+							href="https://infra.spec.whatwg.org/#ordered-map">map</a>
 						<var>data</var> with a HTML document node <var>document</var>, run the following steps:</p>
-					
+
 					<ol>
 						<li id="processing-defaults-title">
 							<p>(<a href="#pub-title"></a>) If <var>data["name"]</var> is not set, or its value is an
@@ -3663,25 +3663,25 @@
 							<ul>
 								<li>
 									<p>Let <var>title</var> be an empty <a
-										href="https://infra.spec.whatwg.org/#ordered-map">map</a>. Set its values as
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>. Set its values as
 										follows:</p>
 									<ul>
 										<li>
 											<p>if the <a data-cite="html#the-title-element"><code>title</code></a>
 												element&#160;[[!html]] of <var>document</var> is set and its contains is
 												not empty, set <var>title["value"]</var> to the text content of the
-												<code>title</code> element.</p>
+													<code>title</code> element.</p>
 											<p>Set <var>title["language"]</var> to the <a
-												data-cite="html#the-lang-and-xml:lang-attributes"
+													data-cite="html#the-lang-and-xml:lang-attributes"
 												>language</a>&#160;[[!html]], if available, and
-												<var>title["direction"]</var> to the <a
+													<var>title["direction"]</var> to the <a
 													data-cite="html#the-dir-attribute">base direction</a>&#160;[[!html]]
 												if that value is available and its value is either "<code>ltr</code>" or
-												"<code>rtl</code>". </p>
+													"<code>rtl</code>". </p>
 										</li>
 										<li>
 											<p>otherwise, <a>validation error</a>, generate a value for
-												<var>title["value"]</var> (see the <a href="#generate_title"
+													<var>title["value"]</var> (see the <a href="#generate_title"
 													>separate note for details</a>). Set <var>title["language"]</var>
 												and <var>title["direction"]</var> as approrpriate for the generated
 												title.</p>
@@ -3718,7 +3718,7 @@
 }</pre>
 							</details>
 						</li>
-						
+
 						<li id="processing-defaults-reading-order">
 							<p>(<a href="#default-reading-order"></a>) If <var>data["readingOrder"]</var> is not set or
 								its value is an empty <a href="https://infra.spec.whatwg.org/#string">string</a> or <a
@@ -3730,9 +3730,9 @@
 								</li>
 								<li>
 									<p>otherwise, set <var>data["readingOrder"]</var> to an empty <a
-										href="https://infra.spec.whatwg.org/#list">list</a> and <a
+											href="https://infra.spec.whatwg.org/#list">list</a> and <a
 											href="https://infra.spec.whatwg.org/#list-append">append</a> the <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>
 										<code>«[&#160;"url" → <a data-cite="!dom#concept-document-url"
 											>document.URL</a>&#160;]»</code>.</p>
 								</li>
@@ -3744,12 +3744,12 @@
 									resource. </p>
 							</details>
 						</li>
-						
+
 						<li id="processing-defaults-extension">
 							<p>If a <a>profile</a> specifies <var>document</var> fallbacks, those steps are executed at
 								this point.</p>
 						</li>
-						
+
 						<li>
 							<p>Return <var>data</var>.</p>
 						</li>
