@@ -371,13 +371,17 @@
 							as its value, the value MUST be expressed either as:</p>
 
 						<ul>
-							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a> value;
-								or</li>
-							<li>A <a><code>LocalizableString</code></a>.</li>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
+								value;</li>
+							<li>a <a><code>LocalizableString</code></a>; or</li>
+							<li>an <a href="#value-array">Array</a> of <a><code>LocalizableStrings</code></a>.</li>
 						</ul>
 
 						<p>A single string value represents an implied object whose <code>value</code> property is the
 							string's text and whose language is determined from other information in the manifest.</p>
+
+						<p>Although only a single string or object has to be authored, properties that accept
+							localizable strings are always converted to <a href="#value-array">arrays</a>.</p>
 
 						<p>A <dfn data-lt="LocalizableStrings|localizable string"><code>LocalizableString</code></dfn>
 							is a [[!json]]&#160;<a href="https://tools.ietf.org/html/rfc4627#section-2.2">object</a>
