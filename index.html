@@ -3033,6 +3033,17 @@
 							</details>
 						</li>
 
+						<li id="normalize-context">
+							<p>(<a href="#publication-context"></a>) If <var>term</var> is <var>@context</var>, return
+								failure.</p>
+							<details>
+								<summary>Explanation</summary>
+								<p><var>@context</var> provides information for the initial processing of the manifest,
+									but is not retained in the internal data representation. Returning a failure signals
+									to remove the term.</p>
+							</details>
+						</li>
+
 						<li id="normalize-arrays">
 							<p>(<a href="#value-array"></a>) If, depending on <var>context</var>, <var>term</var>
 								expects an <a href="#value-array">array</a> and <var>value</var> is a <a
@@ -3077,10 +3088,11 @@
 ]»</pre>
 								</li>
 								<li>
-									<p>otherwise, if <var>entity</var> is number, <a
-											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
-											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
-											error</a>, <a href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+									<p>otherwise, if <var>entity</var> is <a href="https://infra.spec.whatwg.org/#list"
+											>list</a>, number, <a href="https://infra.spec.whatwg.org/#boolean"
+											>boolean</a> or <a href="https://infra.spec.whatwg.org/#nulls">null</a>,
+											<a>validation error</a>, <a
+											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 										<var>entity</var> from <var>normalized</var>.</p>
 								</li>
 							</ol>
@@ -3345,10 +3357,11 @@
 										<var>item</var> of <var>normalized</var> that is a <a
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
 											href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-										<var>key</var> → <var>keyValue</var> of <var>normalized</var>, set
-											<var>key</var> to the result of running <a href="#processing-normalize"
-											>normalize data</a> given <var>key</var>, <var>keyValue</var>,
-											<var>lang</var>, <var>dir</var>, <var>base</var> and <var>context</var>.</p>
+										<var>key</var> → <var>keyValue</var> of <var>item</var>, set <var>key</var> to
+										the result of running <a href="#processing-normalize">normalize data</a> given
+											<var>key</var>, <var>keyValue</var>, <var>lang</var>, <var>dir</var>,
+											<var>base</var> and using <var>key</var> as the context. If failure is
+										returned, remove <var>key</var> from <var>item</var>.</p>
 								</li>
 								<li>
 									<p>if <var>normalized</var> is a <a
@@ -3357,7 +3370,9 @@
 										<var>key</var> → <var>keyValue</var> of <var>normalized</var>, set
 											<var>key</var> to the result of running <a href="#processing-normalize"
 											>normalize data</a> given <var>key</var>, <var>keyValue</var>,
-											<var>lang</var>, <var>dir</var>, <var>base</var> and <var>context</var>.</p>
+											<var>lang</var>, <var>dir</var>, <var>base</var> and using <var>key</var> as
+										the context. If failure is returned, remove <var>key</var> from
+											<var>normalized</var>.</p>
 								</li>
 							</ol>
 							<details>
@@ -3366,6 +3381,7 @@
 									recursively checks <var>normalized</var> for additional map entries to process. If
 										<var>normalized</var> is a list, each item is inspected to determine if it is a
 									map that can be processed.</p>
+								<p>If a failure is returned, the item is removed from the map.</p>
 							</details>
 						</li>
 
@@ -3427,7 +3443,7 @@
 							<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
 								<var>term</var> → <var>value</var> of <var>data</var>, set <var>term</var> to the result
 								of running the <a>global data checks</a>, when successful, given <var>term</var> and
-									<var>value</var>, and using <var>term</var> as the context. If a failure occurs,
+									<var>value</var>, and using <var>term</var> as the context. If failure is returned,
 								remove <var>data[term]</var>.</p>
 							<details>
 								<summary>Explanation</summary>
