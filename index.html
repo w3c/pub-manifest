@@ -3938,12 +3938,8 @@ dictionary LocalizableString {
 
 				<ol>
 					<li id="toc-initialize-toc">
-						<p>Let <var>toc</var> be an empty <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
-							that represents the table of contents and initialize it as follows:</p>
-						<pre>«[
-    "name"    → "",
-    "entries" → « »
-]»</pre>
+						<p>Let <var>toc</var> be the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
+							<code>«[ "name" → "", "entries" → « » ]»</code> representing the table of contents.</p>
 						<details>
 							<summary>Explanation</summary>
 							<p>This step initializes the map that will store the title and the branches of the table of
@@ -4243,7 +4239,7 @@ dictionary LocalizableString {
 										<p>Otherwise:</p>
 										<ol>
 											<li>
-												<p>Set the <var>current_toc_branch["name"]</var> to one of the
+												<p>Set <var>current_toc_branch["name"]</var> to one of the
 													following:</p>
 												<ul>
 													<li>the descendant content of the anchor element (to preserve any
