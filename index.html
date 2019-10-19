@@ -3509,8 +3509,9 @@
 
 						<li id="validate-progression-dir">
 							<p>(<a href="#reading-progression-direction"></a>) If <var>data["readingProgression"]</var>
-								is not set, or is not one of the <a href="#reading-progression-direction">required
-									directional values</a>, <a>validation error</a>, set to "<code>ltr</code>".</p>
+								is not set, set to "<code>ltr</code>". Otherwise, if it is not one of the <a
+									href="#reading-progression-direction">required directional values</a>, <a>validation
+									error</a>, set to "<code>ltr</code>".</p>
 						</li>
 
 						<li id="validate-extension">
@@ -3588,8 +3589,7 @@
 
 							<li id="global-language">
 								<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"
-									></a>) If <var>value</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
-										>map</a>:</p>
+									></a>) If <var>term</var> expects a <a><code>LocalizableString</code></a>:</p>
 								<ul>
 									<li>
 										<p>if <var>value["language"]</var> is set and its value is not <a
