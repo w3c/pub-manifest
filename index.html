@@ -4318,6 +4318,8 @@ dictionary LocalizableString {
 			<section id="app-toc-ua">
 				<h3>User Agent Processing</h3>
 
+				<p><em>This section depends on the Infra Standard [[!infra]].</em></p>
+
 				<p>This section defines an algorithm for extracting a table of contents from a <code>nav</code> element.
 					It is defined in terms of a walk over the nodes of a DOM tree, in <a
 						href="https://www.w3.org/TR/html/infrastructure.html#tree-order">tree order</a>, with each node
@@ -4326,9 +4328,8 @@ dictionary LocalizableString {
 					steps, user agents are provided a choice in how to process the content to provide flexibility for
 					different presentation models.</p>
 
-				<p class="note">For illustrative purposes, the examples in this section show the structure of the table
-					of contents as JavaScript objects. User agents can process and internalize the resulting structure
-					in whatever language and form is appropriate.</p>
+				<p class="note">User agents can process and internalize the resulting structure in whatever language and
+					form is appropriate.</p>
 
 				<p>For the purposes of this algorithm, a <dfn>list element</dfn> is defined as either an
 						[[!html]]&#160;<a href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"
@@ -4341,29 +4342,23 @@ dictionary LocalizableString {
 						<code>doc-toc</code>. All explanations are <em>informative</em>.</p>
 
 				<ol>
-					<li>
-						<p>Let <em>toc</em> be a object that represents the table of contents and initialize it as
-							follows:</p>
-						<ol>
-							<li>Create a <code>name</code> property for <em>toc</em> that represents the title of the
-								table of contents and set to an empty string.</li>
-
-							<li>Create an <code>entries</code> property for <em>toc</em> that represents all the
-								branches of the table of contents and set to an empty array.</li>
-						</ol>
+					<li id="toc-initialize-toc">
+						<p>Let <var>toc</var> be the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
+							<code>«[ "name" → "", "entries" → « » ]»</code> representing the table of contents.</p>
 						<details>
 							<summary>Explanation</summary>
-							<p>This step initializes the <em>toc</em> object that will store the title and the branches
-								of the table of contents.</p>
-							<pre class="example" title="Visualization of the default toc object.">{
-    "name"    : '',
-    "entries" : []
-}</pre>
+							<p>This step initializes the map that will store the title and the branches of the table of
+								contents. In this map:</p>
+							<ol>
+								<li><var>toc["name"]</var> represents the title of the table of contents.</li>
+								<li><var>toc["entries"]</var> represents the branches of the table of contents.</li>
+							</ol>
 						</details>
 					</li>
 
-					<li>
-						<p>Initialize a stack.</p>
+					<li id="toc-initialize-branches">
+						<p>Initialize the <a href="https://infra.spec.whatwg.org/#stack">stack</a>
+							<var>branches</var> to hold branches of the table of contents as they are created.</p>
 						<details>
 							<summary>Explanation</summary>
 							<p>The stack is used to hold branches that are not yet complete. As a new sub-branch is
@@ -4371,22 +4366,23 @@ dictionary LocalizableString {
 						</details>
 					</li>
 
-					<li>
-						<p>Let <em>current toc branch</em> be a variable set to <code>null</code>.</p>
+					<li id="toc-initialize-current">
+						<p>Let <var>current_toc_branch</var> be a variable set to <a
+								href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 						<details>
 							<summary>Explanation</summary>
-							<p><em>current toc branch</em> is used to hold the object that represents the branch of the
+							<p><var>current_toc_branch</var> is used to hold the map that represents the branch of the
 								table of contents that is currently being processed.</p>
 						</details>
 					</li>
 
-					<li>
+					<li id="toc-walk-dom">
 						<p>Walk over the DOM in <a href="https://www.w3.org/TR/html/infrastructure.html#tree-order">tree
 								order</a>, starting with the <code>nav</code> element the table of contents is being
 							built from, and trigger the first relevant step below for each element as the walk enters
 							and exits it.</p>
 						<ol>
-							<li>
+							<li id="toc-dom-enter-heading">
 								<p>
 									<strong>When entering a <a
 											href="https://www.w3.org/TR/html/dom.html#heading-content-2">heading
@@ -4395,9 +4391,9 @@ dictionary LocalizableString {
 								<p>Run these steps:</p>
 								<ol>
 									<li>
-										<p>If the stack is empty, and the <code>name</code> property of <em>toc</em> is
-											an empty string, set the <code>name</code> property to one of the
-											following:</p>
+										<p>If <var>branches</var> is empty, and <var>toc["name"]</var> is an empty <a
+												href="https://infra.spec.whatwg.org/#string">string</a>, set
+												<var>toc["name"]</var> to one of the following:</p>
 										<ul>
 											<li>the descendant content of the element (to preserve any HTML tags);</li>
 											<li>the text string obtained from the descendant content (e.g., by
@@ -4405,67 +4401,75 @@ dictionary LocalizableString {
 													href="https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te"
 													>accessible name</a>&#160;[[accname-1.1]] of the element).</li>
 										</ul>
-										<p>If the resulting value of <code>name</code> is an empty string (e.g., after
+										<p>If the resulting value of <var>toc["name"]</var> is an empty <a
+												href="https://infra.spec.whatwg.org/#string">string</a> (e.g., after
 											removing any presentational elements and trimming all leading and trailing
-											whitespace), set the <code>name</code> property either to a placeholder
-											value or to <code>null</code>.</p>
+											whitespace), set <var>toc["name"]</var> either to a placeholder value or to
+												<a href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 									</li>
 									<li>Exit the element and continue processing with the next element.</li>
 								</ol>
 								<details>
 									<summary>Explanation</summary>
 									<p>This step identifies the heading for the table of contents. A heading is only
-										processed if the value of the <em>toc</em>
-										<code>name</code> property is an empty string (i.e., no headings have yet been
-										encountered).</p>
-									<p>Whether a user agent sets the <code>name</code> to the descendant content of the
+										processed if the value of <var>toc["name"]</var> is an empty string (i.e., no
+										headings have yet been encountered).</p>
+									<p>Whether a user agent sets <var>name</var> to the descendant content of the
 										heading element, or generates a text string from it, depends on whether it will
 										re-use any descendant tagging in the presentation (e.g., to retain images,
 										MathML, ruby and other content that does not translate to text easily).</p>
-									<pre class="example" title="Visualization of the toc object with a heading.">{
-    "name"    : "Contents",
-    "entries" : []
-}</pre>
-									<p>If the <code>name</code> is not an empty string, or is <code>null</code>, then a
+									<pre class="example" title="Visualization of the toc object with a heading.">«[
+    "name"    → "Contents",
+    "entries" → « »
+]»</pre>
+									<p>If <var>name</var> is not an empty string, or is <code>null</code>, then a
 										previous heading has already been encountered or content has been encountered
 										that indicates the <code>nav</code> element does not have a heading (e.g., a
 										list has already been processed, since the heading would not follow the list of
 										links).</p>
-									<pre class="example" title="Visualization of the toc object without a heading.">{
-    "name"    : null,
-    "entries" : []
-}</pre>
+									<pre class="example" title="Visualization of the toc object without a heading.">«[
+    "name"    → null,
+    "entries" → « »
+]»</pre>
 									<p>If a heading is not specified, the user agent can provide its own for later
 										use.</p>
 								</details>
 							</li>
 
-							<li>
+							<li id="toc-dom-enter-list">
 								<p>
 									<strong>When entering a <a>list element</a>:</strong>
 								</p>
 								<p>Run these steps:</p>
 								<ol>
 									<li>
-										<p>If the <code>name</code> property of <em>toc</em> is an empty string, set
-												<code>name</code> to <code>null</code>.</p>
+										<p>If the <var>toc["name"]</var> is an empty <a
+												href="https://infra.spec.whatwg.org/#string">string</a>, set
+												<var>toc["name"]</var> to <a href="https://infra.spec.whatwg.org/#nulls"
+												>null</a>.</p>
 									</li>
 									<li>
-										<p>If <em>current toc branch</em> is not <code>null</code>:</p>
+										<p>If <em>current_toc_branch</em> is not <a
+												href="https://infra.spec.whatwg.org/#nulls">null</a>:</p>
 										<ol>
-											<li>If the <code>entries</code> property of <em>current toc branch</em> is
-													<code>null</code> or a non-empty array, exit the element and
-												continue processing with the next element.</li>
-											<li>Otherwise, push the object in <em>current toc branch</em> onto the stack
-												and set <em>current toc branch</em> to <code>null</code>.</li>
+											<li>If <var>current_toc_branch["entries"]</var> is <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a> or a non-empty
+													<a href="https://infra.spec.whatwg.org/#list">list</a>, exit the
+												element and continue processing with the next element.</li>
+											<li>Otherwise, <a href="https://infra.spec.whatwg.org/#stack-push">push</a>
+												the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a> in
+													<var>current_toc_branch</var> onto <var>branches</var> and set
+													<var>current_toc_branch</var> to <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
 										</ol>
 									</li>
 									<li>
-										<p>Otherwise, if the stack is empty:</p>
+										<p>Otherwise, if <var>branches</var> is empty:</p>
 										<ol>
-											<li>If the <code>entries</code> property of <em>toc</em> is
-													<code>null</code> or a non-empty array, exit the element and
-												continue processing with the next element.</li>
+											<li>If <var>toc["entries"]</var> is <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a> or a non-empty
+													<a href="https://infra.spec.whatwg.org/#list">list</a>, exit the
+												element and continue processing with the next element.</li>
 											<li>Otherwise, do nothing.</li>
 										</ol>
 									</li>
@@ -4474,65 +4478,59 @@ dictionary LocalizableString {
 									<summary>Explanation</summary>
 									<p>This algorithm does not process multiple lists in a single branch or at the root
 										of the <code>nav</code> element, so if a list has already been encountered (the
-											<code>entries</code> property contains one or more branches or is set to
-											<code>null</code>), this list is skipped.</p>
+											<code>entries</code> property contains one or more branches or is set to <a
+											href="https://infra.spec.whatwg.org/#nulls">null</a>), this list is
+										skipped.</p>
 									<p>If a list is encountered and the table of contents (<code>toc</code>) still does
 										not have a name (i.e., no heading element has been encountered), the table of
 										contents is assumed to not have a heading (i.e., the heading for the table of
 										contents cannot appear after the first list of entries). The value of the
-											<code>name</code> property is changed from an empty string to
-											<code>null</code> as no further headings encountered apply, either.</p>
+											<code>name</code> property is changed from an empty string to <a
+											href="https://infra.spec.whatwg.org/#nulls">null</a> as no further headings
+										encountered apply, either.</p>
 								</details>
 							</li>
 
-							<li>
+							<li id="toc-dom-exit-list">
 								<p>
 									<strong>When exiting a <a>list element</a>:</strong>
 								</p>
-								<p>If the stack is not empty, pop the top object off the stack and set <em>current toc
-										branch</em> to it.</p>
+								<p>If <var>branches</var> is not empty, <a
+										href="https://infra.spec.whatwg.org/#stack-pop">pop</a> the top <a
+										href="https://infra.spec.whatwg.org/#ordered-map">map</a> from
+										<var>branches</var> and set <var>current_toc_branch</var> to it.</p>
 								<details>
 									<summary>Explanation</summary>
-									<p>This resets <em>current toc branch</em> back to the parent object after all of
+									<p>This resets <var>current_toc_branch</var> back to the parent object after all of
 										its child branches have been processed.</p>
 								</details>
 							</li>
 
-							<li>
+							<li id="toc-dom-enter-li">
 								<p>
 									<strong>When entering a <a
 											href="https://www.w3.org/TR/html/grouping-content.html#the-li-element">list
-											item</a> element:</strong>
+											item</a> element, set <var>current_toc_branch</var> to the following <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
 								</p>
-								<p>Run these steps:</p>
-								<ol>
-									<li>Set <em>current toc branch</em> to a new object.</li>
-
-									<li>Create <code>name</code>, <code>url</code>, <code>type</code>, and
-											<code>rel</code> properties for the object and set them to empty
-										strings.</li>
-
-									<li>Create an <code>entries</code> property for the object and set it to an empty
-										array.</li>
-								</ol>
+								<pre>«[
+    "name" → "",
+    "url"  → "",
+    "type" → "",
+    "rel"  → "",
+    "entries" → « »
+]»</pre>
 								<details>
 									<summary>Explanation</summary>
 									<p>Each list item represents a possible new branch in the table of contents, so
-										whenever one is encountered a new blank object is created in <em>current toc
-											branch</em>.</p>
-									<pre class="example" title="Visualization of a new branch object.">{
-    "name"    : '',
-    "url"     : '',
-    "type"    : '',
-    "rel"     : '',
-    "entries" : []
-}</pre>
+										whenever one is encountered a new blank object is created in
+											<var>current_toc_branch</var>.</p>
 									<p>This object gets populated with information as a descendant <code>a</code>
 										element and list are encountered.</p>
 								</details>
 							</li>
 
-							<li>
+							<li id="toc-dom-exist-list">
 								<p>
 									<strong>When exiting a <a
 											href="https://www.w3.org/TR/html/grouping-content.html#the-li-element">list
@@ -4541,103 +4539,113 @@ dictionary LocalizableString {
 								<p>Run these steps:</p>
 								<ol>
 									<li>
-										<p>If <code>entries</code> property of <em>current toc branch</em> contains an
-											empty array, set its value to <code>null</code>.</p>
+										<p>If <var>current_toc_branch["entries"]</var> contains an empty <a
+												href="https://infra.spec.whatwg.org/#list">list</a>, set it to <a
+												href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 									</li>
 									<li>
-										<p>If the stack contains one or more entries:</p>
+										<p>If <var>branches</var> is not empty:</p>
 										<ol>
-											<li>If the <code>entries</code> property of <em>current toc branch</em>
-												contains a non-empty array, and its <code>name</code> property is an
-												empty string, set its <code>name</code> to a placeholder value or
-													<code>null</code>;</li>
-											<li>If the <code>entries</code> property of <em>current toc branch</em>
-												contains an empty array, and its <code>name</code> property is an empty
-												string, set <em>current toc branch</em> to null and exit this processing
-												step.</li>
+											<li>If the <var>current_toc_branch["entries"]</var> contains a non-empty <a
+													href="https://infra.spec.whatwg.org/#list">list</a>, and
+													<var>current_toc_branch["name"]</var> is an empty string, set
+													<var>current_toc_branch["name"]</var> to a placeholder value or <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a>;</li>
+											<li>If the <var>current_toc_branch["entries"]</var> contains an empty <a
+													href="https://infra.spec.whatwg.org/#list">list</a>, and
+													<code>current_toc_branch["name"]</code> is an empty <a
+													href="https://infra.spec.whatwg.org/#string">string</a>, set
+													<var>current_toc_branch</var> to <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a> and exit this
+												processing step.</li>
 										</ol>
-										<p>Add <em>current toc branch</em> to the array in the <code>entries</code>
-											property of the object at the top of the stack.</p>
+										<p><a href="https://infra.spec.whatwg.org/#list-append">Append</a> the <a
+												href="https://infra.spec.whatwg.org/#ordered-map">map</a> in
+												<var>current_toc_branch</var> to the <var>entries</var> property of the
+												<a href="https://infra.spec.whatwg.org/#ordered-map">map</a> at the top
+											of <var>branches</var>.</p>
 									</li>
 									<li>
-										<p>Otherwise, add the object in <em>current toc branch</em> to the
-												<code>entries</code> array of <em>toc</em>.</p>
+										<p>Otherwise, <a href="https://infra.spec.whatwg.org/#list-append">append</a>
+											the <a href="https://infra.spec.whatwg.org/#ordered-map">map</a> in
+												<var>current_toc_branch</var> to <var>toc["entries"]</var>.</p>
 									</li>
 
 									<li>
-										<p>Set <em>current toc branch</em> to <code>null</code>.</p>
+										<p>Set <var>current_toc_branch</var> to <a
+												href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 									</li>
 								</ol>
 								<details>
 									<summary>Explanation</summary>
 									<p>Exiting a list item indicates that processing of the current branch is complete.
-										Before adding this branch to its parent's <code>entries</code> array, the branch
+										Before adding this branch to its parent's <var>entries</var> array, the branch
 										needs to be tested to see if it has a name and/or any sub-branches. If it does
 										not have a name but has sub-branches, the branch is kept. The user agent can
 										either supply a placeholder value of its own creation or set the value to null.
 										If it does not have a name or any branches, it is invalid and is discarded.</p>
 									<p>To determine where to merge the branch, the stack is checked. If there are no
-										objects in the stack, it is added into the <code>entries</code> property of the
+										items in the stack, it is added into the <code>entries</code> property of the
 										root <em>toc</em> object (i.e., it is a top-level branch). Otherwise, it gets
 										added into the <code>entries</code> property of the object immediately preceding
 										it in the stack.</p>
-									<p>As a final step, <em>current toc branch</em> is reset back to
+									<p>As a final step, <var>current_toc_branch</var> is reset back to
 										<code>null</code>.</p>
 									<aside class="example" title="Visualization of a branch merge.">
-										<p>If the following two objects are in <em>current toc branch</em></p>
-										<pre>{
-    "name"    : "Section 1",
-    "url"     : "http://example.com/contents.html#s1",
-    "type"    : "text/html",
-    "rel"     : null,
-    "entries" : []
-},
-{
-    "name"    : "Section 1.1",
-    "url"     : "http://example.com/contents.html#s1.1",
-    "type"    : "text/html",
-    "rel"     : null,
-    "entries" : null
-}</pre>
+										<p>If the following two maps are in <var>current_toc_branch</var></p>
+										<pre>«[
+    "name"    → "Section 1",
+    "url"     → "http://example.com/contents.html#s1",
+    "type"    → "text/html",
+    "rel"     → null,
+    "entries" → « »
+]»,
+«[
+    "name"    → "Section 1.1",
+    "url"     → "http://example.com/contents.html#s1.1",
+    "type"    → "text/html",
+    "rel"     → null,
+    "entries" → null
+]»</pre>
 										<p>Then only the following single object remains after merging:</p>
-										<pre>{
-    "name"    : "Section 1",
-    "url"     : "http://example.com/contents.html#s1",
-    "type"    : "text/html",
-    "rel"     : null,
-    "entries" : [
-        {
-            "name"    : "Section 1.1",
-            "url"     : "http://example.com/contents.html#s1.1",
-            "type"    : "text/html",
-            "rel"     : null,
-            "entries" : null
-        }
-    ]
-}</pre>
+										<pre>«[
+    "name"    → "Section 1",
+    "url"     → "http://example.com/contents.html#s1",
+    "type"    → "text/html",
+    "rel"     → null,
+    "entries" → «
+        «[
+            "name"    → "Section 1.1",
+            "url"     → "http://example.com/contents.html#s1.1",
+            "type"    → "text/html",
+            "rel"     → null,
+            "entries" → null
+        ]»
+    »
+]»</pre>
 									</aside>
 								</details>
 							</li>
 
-							<li>
+							<li id="toc-dom-enter-a">
 								<p>
 									<strong>When entering an <a
 											href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"
-											>anchor</a> element and <em>current toc branch</em> is not
-										<code>null</code>:</strong>
+											>anchor</a> element and <var>current_toc_branch</var> is not <a
+											href="https://infra.spec.whatwg.org/#nulls">null</a>:</strong>
 								</p>
 								<p>Run these steps:</p>
 								<ol>
 									<li>
-										<p>If the <code>name</code> property of <em>current toc branch</em> is not an
-											empty string, do nothing.</p>
+										<p>If <var>current_toc_branch["name"]</var> is not an empty <a
+												href="https://infra.spec.whatwg.org/#string">string</a>, do nothing.</p>
 									</li>
 									<li>
 										<p>Otherwise:</p>
 										<ol>
 											<li>
-												<p>Set the <code>name</code> property of <em>current toc branch</em> to
-													one of the following:</p>
+												<p>Set <var>current_toc_branch["name"]</var> to one of the
+													following:</p>
 												<ul>
 													<li>the descendant content of the anchor element (to preserve any
 														HTML tags);</li>
@@ -4647,26 +4655,27 @@ dictionary LocalizableString {
 															>accessible name</a>&#160;[[accname-1.1]] of the
 														element).</li>
 												</ul>
-												<p>If the resulting value of <code>name</code> is an empty string (e.g.,
-													after removing any presentational elements and trimming all leading
-													and trailing whitespace), set the <code>name</code> property to
-														<code>null</code>.</p>
+												<p>If the resulting value of <code>current_toc_branch["name"]</code> is
+													an empty string (e.g., after removing any presentational elements
+													and trimming all leading and trailing whitespace), set
+														<code>current_toc_branch["name"]</code> property to <a
+														href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 											</li>
 											<li>If the element has an <code>href</code> attribute and the URL in the
 												attribute resolves to a resource in the <a>default reading order</a> or
-													<a>resource list</a>, set the <code>url</code> property of
-													<em>current toc branch</em> to the value. Otherwise, set the
-												property to <code>null</code>.</li>
+													<a>resource list</a>, set <var>current_toc_branch["url"]</var> to
+												the value. Otherwise, set <var>current_toc_branch["url"]</var> to <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
 											<li>If the element has a <code>type</code> attribute, and the value of the
 												attribute is not an empty string after trimming leading and trailing
-												white space, set the <code>type</code> property of <em>current toc
-													branch</em> to its value. Otherwise, set the property to
-													<code>null</code>.</li>
+												white space, set <var>current_toc_branch["type"]</var> to the trimmed
+												value. Otherwise, set <var>current_toc_branch["type"]</var> to <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
 											<li>If the element has a <code>rel</code> attribute, and the value of the
 												attribute is not an empty string after trimming leading and trailing
-												white space, set the <code>rel</code> property of <em>current toc
-													branch</em> to its value. Otherwise, set the property to
-													<code>null</code>.</li>
+												white space, set <var>current_toc_branch["rel"]</var> to the trimmed
+												value. Otherwise, set <var>current_toc_branch["rel"]</var> to <a
+													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
 										</ol>
 										<p>Exit the element and continue processing with the next element.</p>
 									</li>
@@ -4689,17 +4698,17 @@ dictionary LocalizableString {
 										entry will not be linkable.</p>
 									<p>Additional information about the target of the link — the type of resource and
 										its relation — is also retained.</p>
-									<pre class="example" title="Visualization of a link to an SVG image.">{
-    "name"    : "In the Beginning",
-    "url"     : "http://example.com/page1.svg",
-    "type"    : "image/svg",
-    "rel"     : null,
-    "entries" : []
-},</pre>
+									<pre class="example" title="Visualization of a link to an SVG image.">«[
+    "name"    → "In the Beginning",
+    "url"     → "http://example.com/page1.svg",
+    "type"    → "image/svg",
+    "rel"     → null,
+    "entries" → « »
+]»</pre>
 								</details>
 							</li>
 
-							<li>
+							<li id="toc-dom-enter-sectioning">
 								<p>
 									<strong>When entering a <a
 											href="https://www.w3.org/TR/html/dom.html#sectioning-content-2">sectioning
@@ -4720,7 +4729,7 @@ dictionary LocalizableString {
 								</details>
 							</li>
 
-							<li>
+							<li id="toc-dom-skip">
 								<p>
 									<strong>Otherwise: do nothing.</strong>
 								</p>
@@ -4732,9 +4741,11 @@ dictionary LocalizableString {
 							</li>
 						</ol>
 					</li>
-					<li>
-						<p>After completing the DOM walk, if the <em>entries</em> property of <em>toc</em> contains a
-							non-empty array, <em>toc</em> represents the machine-processed table of contents.</p>
+
+					<li id="toc-finish">
+						<p>After completing the DOM walk, if <var>toc["entries"]</var> contains a non-empty <a
+								href="https://infra.spec.whatwg.org/#list">list</a>, <var>toc</var> represents the
+							machine-processed table of contents.</p>
 						<p>Otherwise, the digital publication does not have a table of contents that can be used for
 							machine rendering purposes.</p>
 						<details>
