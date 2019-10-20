@@ -3084,7 +3084,7 @@
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 									<pre>«[
     "type" → « "Person" »,
-    "name" → <var>value</var>
+    "name" → <var>entity</var>
 ]»</pre>
 								</li>
 								<li>
@@ -3094,6 +3094,9 @@
 											<a>validation error</a>, <a
 											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 										<var>entity</var> from <var>normalized</var>.</p>
+								</li>
+								<li>
+									<p>otherwise, do nothing.</p>
 								</li>
 							</ol>
 							<details>
@@ -3130,11 +3133,11 @@
 								<var>item</var> of <var>normalized</var>:</p>
 							<ol>
 								<li id="ls-value-normalize">
-									<p>if <var>itemString</var> is a <a href="https://infra.spec.whatwg.org/#string"
+									<p>if <var>item</var> is a <a href="https://infra.spec.whatwg.org/#string"
 											>string</a>, set <var>item</var> to the <a
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 									<pre>«[
-    "value" → <var>value</var>,
+    "value" → <var>item</var>,
     "language" → <var>lang</var>,
     "direction" → <var>dir</var>
 ]»</pre>
@@ -3151,23 +3154,23 @@
 										<var>normalized</var>.</p>
 								</li>
 								<li id="ls-map-normalize">
-									<p>otherwise, if <var>item</var> is a <a
-											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
+									<p>otherwise, process the <a href="https://infra.spec.whatwg.org/#ordered-map"
+											>map</a> in <var>item</var> as follows:</p>
 									<ol>
 										<li>
-											<p>if <var>item["language"]</var> is not set, set it to the value of
+											<p>If <var>item["language"]</var> is not set, set it to the value of
 													<var>lang</var> when <var>lang</var> is set and is not an empty <a
 													href="https://infra.spec.whatwg.org/#string">string</a>.</p>
-											<p>otherwise, if <var>item["language"]</var> is <a
+											<p>Otherwise, if <var>item["language"]</var> is <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a>, <a
 													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 												<var>item["language"]</var>.</p>
 										</li>
 										<li>
-											<p>if <var>item["direction"]</var> is not set, set it to the value of
+											<p>If <var>item["direction"]</var> is not set, set it to the value of
 													<var>dir</var> when <var>dir</var> is set and is not an empty <a
 													href="https://infra.spec.whatwg.org/#string">string</a>.</p>
-											<p>otherwise, if <var>item["direction"]</var> is <a
+											<p>Otherwise, if <var>item["direction"]</var> is <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a>, <a
 													href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 												<var>item["direction"]</var>.</p>
@@ -3293,6 +3296,9 @@
 											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
 											error</a>, remove <var>resource</var> from <var>normalized</var>.</p>
 								</li>
+								<li>
+									<p>otherwise, do nothing.</p>
+								</li>
 							</ol>
 							<details>
 								<summary>Explanation</summary>
@@ -3327,9 +3333,18 @@
 
 						<li id="normalize-urls">
 							<p>(<a href="#value-url"></a>) If <var>term</var> expects a <a href="#value-url">URL</a> or
-									<a href="#value-array">array</a> of URLs, set <var>normalized</var> to the result of
-								running <a>convert to absolute URL</a>, when successful, given <var>normalized</var>.
-								Otherwise, return failure.</p>
+									<a href="#value-array">array</a> of URLs:</p>
+							<ol>
+								<li>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#list"
+									>list</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+									<var>item</var> of <var>normalized</var>, set <var>item</var> to the result of
+									running <a>convert to absolute URL</a>, when successful, given
+									<var>normalized</var>. Otherwise, <a>remove</a>
+									<var>item</var> from <var>normalized</var>.</li>
+								<li>otherwise, set <var>normalized</var> to the result of running <a
+										href="https://infra.spec.whatwg.org/#list-remove">convert to absolute URL</a>,
+									when successful, given <var>normalized</var>. Otherwise, return failure.</li>
+							</ol>
 							<details>
 								<summary>Explanation</summary>
 								<p>Relative URLs in the manifest are resolved against the base value to obtain absolute
@@ -3358,10 +3373,11 @@
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
 											href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 										<var>key</var> → <var>keyValue</var> of <var>item</var>, set <var>key</var> to
-										the result of running <a href="#processing-normalize">normalize data</a> given
-											<var>key</var>, <var>keyValue</var>, <var>lang</var>, <var>dir</var>,
-											<var>base</var> and using <var>key</var> as the context. If failure is
-										returned, remove <var>key</var> from <var>item</var>.</p>
+										the result of running <a href="#processing-normalize">normalize data</a>, when
+										successful, given <var>key</var>, <var>keyValue</var>, <var>lang</var>,
+											<var>dir</var>, <var>base</var> and using <var>key</var> as the context.
+										Otherwise, <a href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+										<var>key</var> from <var>item</var>.</p>
 								</li>
 								<li>
 									<p>if <var>normalized</var> is a <a
@@ -3369,10 +3385,11 @@
 											href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 										<var>key</var> → <var>keyValue</var> of <var>normalized</var>, set
 											<var>key</var> to the result of running <a href="#processing-normalize"
-											>normalize data</a> given <var>key</var>, <var>keyValue</var>,
-											<var>lang</var>, <var>dir</var>, <var>base</var> and using <var>key</var> as
-										the context. If failure is returned, remove <var>key</var> from
-											<var>normalized</var>.</p>
+											>normalize data</a>, when successful, given <var>key</var>,
+											<var>keyValue</var>, <var>lang</var>, <var>dir</var>, <var>base</var> and
+										using <var>key</var> as the context. Otherwise, <a
+											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+										<var>key</var> from <var>normalized</var>.</p>
 								</li>
 							</ol>
 							<details>
@@ -3400,33 +3417,24 @@
 							<li id="abs-url-convert">
 								<p>if <var>value</var> is a <a href="https://infra.spec.whatwg.org/#string">string</a>,
 									set <var>value</var> to the result of running the <a
-										href="https://url.spec.whatwg.org/#concept-url-parser">URL parser</a> with
-										<var>value</var> as input and <var>base</var> as the base URL.</p>
-							</li>
-							<li id="abs-url-recurse">
-								<p>otherwise, if <var>value</var> is a <a href="https://infra.spec.whatwg.org/#list"
-										>list</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-									<var>item</var> of <var>value</var>, set <var>item</var> to the result of runing
-										<a>convert to absolute URL</a>, when successful, given <var>item</var> and
-										<var>base</var>. Otherwise, <a href="https://infra.spec.whatwg.org/#list-remove"
-										>remove</a>
-									<var>item</var> from <var>value</var>.</p>
+										href="https://url.spec.whatwg.org/#concept-url-parser">URL
+									parser</a>&#160;[[!url]], when successful, with <var>value</var> as input and
+										<var>base</var> as the base URL. Otherwise, <a>validation error</a>, return
+									failure.</p>
 							</li>
 							<li id="abs-url-error">
 								<p>otherwise, <a>validation error</a>, return failure.</p>
 							</li>
 							<li id="abs-url-return">
-								<p>Return <var>value</var>.</p>
+								<p>return <var>value</var>.</p>
 							</li>
 						</ol>
 						<details>
 							<summary>Explanation</summary>
 							<p>This function checks if the value sent into it is a relative URL, and, if so, converts it
-								to an absolute URL. If the value is a <a href="https://infra.spec.whatwg.org/#list"
-									>list</a>, each item in the list is recursively passed to this function to inspect
-								it.</p>
-							<p>If the value passed to the function is not a string or a list, a failure is returned.
-								Otherwise, the updated value is returned.</p>
+								to an absolute URL.</p>
+							<p>If the value passed to the function is not a string, a failure is returned. Otherwise,
+								the updated value is returned.</p>
 						</details>
 					</section>
 				</section>
@@ -3443,8 +3451,8 @@
 							<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
 								<var>term</var> → <var>value</var> of <var>data</var>, set <var>term</var> to the result
 								of running the <a>global data checks</a>, when successful, given <var>term</var> and
-									<var>value</var>, and using <var>term</var> as the context. If failure is returned,
-								remove <var>data[term]</var>.</p>
+									<var>value</var>, and using <var>term</var> as the context. Otherwise, remove
+									<var>data[term]</var>.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>This step passes each entry to a set of global validation checks that need to be run
@@ -3470,10 +3478,10 @@
 						<li id="validate-ams">
 							<p>(<a href="#accessibility"></a>) If <var>data["accessModeSufficient"]</var> is set, <a
 									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-								<var>ams</var> of <var>data["accessModeSufficient"]</var>, if <var>ams["type"]</var> is
-								not set or is not "<code>ItemList</code>", <a
+								<var>item</var> of <var>data["accessModeSufficient"]</var>, if <var>item["type"]</var>
+								is not set or is not "<code>ItemList</code>", <a
 									href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-								<var>ams</var> from <var>data["accessModeSufficient"]</var>.</p>
+								<var>item</var> from <var>data["accessModeSufficient"]</var>.</p>
 						</li>
 
 						<li id="validate-duration">
@@ -3562,6 +3570,80 @@
 								</details>
 							</li>
 
+							<li id="global-recurse">
+								<p>Recursively descend into <var>value</var> as follows to check any sub-properties
+									first:</p>
+								<ol>
+									<li id="global-recurse-maps">
+										<p>if <var>value</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
+												>map</a>, <a href="https://infra.spec.whatwg.org/#map-iterate">for
+												each</a>
+											<var>key</var> → <var>keyValue</var> of <var>value</var>, set
+												<var>value[key]</var> to the result of running <a>global data checks</a>
+											given <var>key</var> and <var>keyValue</var>.</p>
+									</li>
+
+									<li id="global-recurse-lists">
+										<p>otherwise, if <var>value</var> is a <a
+												href="https://infra.spec.whatwg.org/#list">list</a>, <a
+												href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+											<var>item</var> of <var>value</var>, if <var>item</var> is a <a
+												href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
+												href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
+											<var>key</var> → <var>keyValue</var> of <var>value</var>, set
+												<var>value[key]</var> to the result of running <a>global data checks</a>
+											given <var>key</var> and <var>keyValue</var>.</p>
+									</li>
+									<li id="global-recurse-ignore">
+										<p>otherwise, do nothing.</p>
+									</li>
+								</ol>
+								<details>
+									<summary>Explanation</summary>
+									<p>In order to ensure that all the properties in the manifest get processed, this
+										step recursively checks each entry for additional map entries to process. If the
+										value is a list, each item is inspected to determine if it is a map that can be
+										processed.</p>
+									<p>Its placement also ensures that all subproperties are checked first, so that the
+										higher-level checks later in the step are tested after any invalid values are
+										removed.</p>
+								</details>
+							</li>
+
+							<li id="global-language">
+								<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"
+									></a>) If <var>term</var> expects an <a href="#value-array">array</a> of
+											<a><code>LocalizableStrings</code></a>, <a
+										href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+									<var>item</var> of <var>value</var>:</p>
+								<ul>
+									<li>
+										<p>if <var>item["value"]</var> is not set, <a
+												href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+											<var>item</var> from <var>value</var>.</p>
+									</li>
+									<li>
+										<p>if <var>item["language"]</var> is set and its value is not <a
+												href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+											>well-formed</a>&#160;[[!bcp47]], <a>validation error</a>, <a
+												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+											<var>item["language"]</var>.</p>
+									</li>
+									<li>
+										<p>if <var>item["direction"]</var> is set and its value is not one of
+												"<code>ltr</code>" or "<code>rtl</code>", <a>validation error</a>, <a
+												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+											<var>item["direction"]</var>.</p>
+									</li>
+								</ul>
+								<details>
+									<summary>Explanation</summary>
+									<p>This step checks that localizable strings have values, that their language
+										declarations are well formed, and that their direction declarations have either
+										the value "ltr" or "rtl".</p>
+								</details>
+							</li>
+
 							<li id="global-entities">
 								<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a href="#value-array"
 										>array</a> of <a href="#value-entity">entities</a>, <a
@@ -3584,31 +3666,6 @@
 									<summary>Explanation</summary>
 									<p>This step ensures that all entities have a name. Entities without a name are
 										removed.</p>
-								</details>
-							</li>
-
-							<li id="global-language">
-								<p>(<a href="#manifest-lang-dir-global"></a> and <a href="#manifest-lang-dir-local"
-									></a>) If <var>term</var> expects a <a><code>LocalizableString</code></a>:</p>
-								<ul>
-									<li>
-										<p>if <var>value["language"]</var> is set and its value is not <a
-												href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-											>well-formed</a>&#160;[[!bcp47]], <a>validation error</a>, <a
-												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
-											<var>value["language"]</var>.</p>
-										<p>if <var>value["direction"]</var> is set and its value is not one of
-												"<code>ltr</code>" or "<code>rtl</code>", <a>validation error</a>, <a
-												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
-											<var>value["direction"]</var>.</p>
-									</li>
-								</ul>
-								<details>
-									<summary>Explanation</summary>
-									<p>This step checks is language declarations are well formed, and removes them if
-										not.</p>
-									<p>Similarly, it checks that all direction declarations have either the value "ltr"
-										or "rtl".</p>
 								</details>
 							</li>
 
@@ -3659,40 +3716,6 @@
 												<code>LinkedResource</code>, each is inspected to see if its media type
 											is specified.</li>
 									</ol>
-								</details>
-							</li>
-
-							<li id="global-recurse">
-								<p>Recursively check <var>value</var> as follows to ensure that all properties are
-									verified:</p>
-								<ol>
-									<li id="global-recurse-maps">
-										<p>If <var>value</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
-												>map</a>, <a href="https://infra.spec.whatwg.org/#map-iterate">for
-												each</a>
-											<var>key</var> → <var>keyValue</var> of <var>value</var>, set
-												<var>value[key]</var> to the result of running <a>global data checks</a>
-											given <var>key</var> and <var>keyValue</var>.</p>
-									</li>
-
-									<li id="global-recurse-lists">
-										<p>If <var>value</var> is a <a href="https://infra.spec.whatwg.org/#list"
-												>list</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for
-												each</a>
-											<var>item</var> of <var>value</var>, if <var>item</var> is a <a
-												href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
-												href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
-											<var>key</var> → <var>keyValue</var> of <var>value</var>, set
-												<var>value[key]</var> to the result of running <a>global data checks</a>
-											given <var>key</var> and <var>keyValue</var>.</p>
-									</li>
-								</ol>
-								<details>
-									<summary>Explanation</summary>
-									<p>In order to ensure that all the properties in the manifest get processed, this
-										step recursively checks each entry for additional map entries to process. If the
-										value is a list, each item is inspected to determine if it is a map that can be
-										processed.</p>
 								</details>
 							</li>
 
