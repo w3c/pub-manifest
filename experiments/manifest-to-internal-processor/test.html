@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Manifest to Internal Representation Processor</title>
+		<link href="manifest.json" rel="publication">
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script id="manifest" type="application/json+ld">
+			// alternate for testing
+		</script>
+		<style>
+			body {
+				font-family: Arial,sans-serif;
+				font-size: 62.5%;
+				background-color: rgb(245,245,245);
+			}
+			h1 {
+				font-size: 1.6rem;
+			}
+			p {
+				font-size: 1rem;
+				max-width: 60rem;
+			}
+			pre {
+				font-size: 0.8rem;
+				background-color: rgb(255,255,250);
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Manifest to Internal Representation Processor</h1>
+		
+		<p>This app shows the result of converting a Publication Manifest into the expected internal representation.
+			The processor is written in JavaScript and is structured to match the <a 
+				href="https://www.w3.org/TR/pub-manifest/#manifest-processing">processing algorithm</a> defined in
+			the Publication Manifest specification.</p>
+		
+		<p>This page needs to be hosted from a web server in order to work. To test other manifests, modify the
+			<code>manifest.json</code> file in this directory and refresh this page. Use the developer console
+			in your browser to view any errors and warnings that result from processing.</p>
+		
+		<h2>Result of Processing <a id="manifest-view">Manifest</a>:</h2>
+		
+		<pre id="internalRepresentation"></pre>
+
+		<script src="manifestProcessor.js"></script>
+		<script>
+			var manifest_link = document.querySelector('link[rel="publication"]');
+			var manifest_view = document.getElementById('manifest-view');
+			manifest_view.href = manifest_link.href;
+			
+			manifestProcessor.generateInternalRep(manifest_link);
+		</script>
+	</body>
+</html>
