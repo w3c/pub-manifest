@@ -499,7 +499,7 @@ var manifestProcessor = (function() {
 		
 		if (data.hasOwnProperty('accessModeSufficient')) {
 			for (var i = data['accessModeSufficient'].length - 1; i >= 0; i--) {
-				if (!data['accessModeSufficient'].hasOwnProperty('type') || data['accessModeSufficient']['type'] != 'Itemlist') {
+				if (!data['accessModeSufficient'][i].hasOwnProperty('type') || data['accessModeSufficient'][i]['type'] != 'ItemList') {
 					console.warn('accessModeSufficient must only contain ItemList objects.');
 					data['accessModeSufficient'].splice(i,1);
 				}
