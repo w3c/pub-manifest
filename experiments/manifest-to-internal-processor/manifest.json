@@ -10,12 +10,7 @@
   "url": "https://w3c.github.io/wpub/experiments/audiobook/",
   "name": "Flatland: A Romance of Many Dimensions",
   "abridged": true,
-  "author": [
-  	{
-  		"type": "Person", 
-  		"name" : [{"languge": "es"}]
-  	}
-  ],
+  "author": "Edwin Abbott Abbott",
   "readBy": "Ruth Golding",
   "publisher": "Librivox",
   "inLanguage": "en",
