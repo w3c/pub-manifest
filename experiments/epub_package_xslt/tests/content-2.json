@@ -1,170 +1,328 @@
 {
     "@context": [
         "https://schema.org",
-        "https://www.w3.org/ns/pub-context"],
-		"conformsTo" : "https://www.w3.org/publishing/epub3/",
-		"id" : "urn:uuid:3b06928a-ebae-4abd-813f-f3c08c34b0d7",
-		"type" : "CreativeWork",
-		"name" : "Pinocchio",
-			"inLanguage" : ["ar-SA","it-IT"],
-		"creator" : "Luca Minardi",
-		"publisher" : "Fondazione Lia",
-		"datePublished" : "2018-12-22T16:35:58Z",
-		"dateModified" : "2019-02-10T18:38:39Z",
-			"accessMode" : ["textual","visual"],
-		"accessibilityFeature" : "audioDescription",
-		"accessibilitySummary" : "This publication conforms to WCAG 2.0 Level AA.",
-			"accessModeSufficient" : [{
-					"type" : "ItemList",
-					"itemListElement" : ["textual","visual"]
-				},{
-					"type" : "ItemList",
-					"itemListElement" : ["textual"]
-				}],
-		"resources" : [{
-			    "url" : "Text/cover.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "toc.ncx",
-				"encodingFormat" : "application/x-dtbncx+xml"},{
-			    "url" : "Audio/Effetti_sonori_applausi_4.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/EFFETTO_SONORO_PUGNO.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/giusto.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_1.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_2.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_3.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_4.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_5.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_6.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_7.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_8.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Immagine_9.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/LAsino_Stonato.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/sbagliato.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Audio/Suono_della_trombetta.mp3",
-				"encodingFormat" : "audio/mpeg"},{
-			    "url" : "Styles/idGeneratedStyles.css",
-				"encodingFormat" : "text/css"},{
-			    "url" : "Fonts/Arial-BoldMT.ttf",
-				"encodingFormat" : "application/vnd.ms-opentype"},{
-			    "url" : "Fonts/Arial-ItalicMT.ttf",
-				"encodingFormat" : "application/vnd.ms-opentype"},{
-			    "url" : "Fonts/TimesNewRomanPS-BoldMT.ttf",
-				"encodingFormat" : "application/vnd.ms-opentype"},{
-			    "url" : "Fonts/TimesNewRomanPS-ItalicMT.ttf",
-				"encodingFormat" : "application/vnd.ms-opentype"},{
-			    "url" : "Fonts/TimesNewRomanPSMT.ttf",
-				"encodingFormat" : "application/vnd.ms-opentype"},{
-			    "url" : "Images/1.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/10.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/11.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/12.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/13.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/14.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/15.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/16.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/17.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/18.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/19.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/2.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/20.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/21.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/22.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/3.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/4.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/5.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/6.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/7.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/8.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/9.png",
-				"encodingFormat" : "image/png"},{
-			    "url" : "Images/cover.jpg",
-				"encodingFormat" : "image/jpeg",
-			"rel" : "cover-image"},{
-			    "url" : "Images/ill236.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Images/Immagine285.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Images/Immagine293.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Images/Immagine303.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Images/Immagine312.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Images/Immagine320.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Images/Immagine329.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Images/Immagine339.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Images/Immagine347.jpg",
-				"encodingFormat" : "image/jpeg"},{
-			    "url" : "Misc/AggiornaNome.js",
-				"encodingFormat" : "text/javascript"},{
-			    "url" : "Misc/Controlla.js",
-				"encodingFormat" : "text/javascript"},{
-			    "url" : "Misc/Form.js",
-				"encodingFormat" : "text/javascript"},{
-			    "url" : "Misc/VisioneComplessa.js",
-				"encodingFormat" : "text/javascript"},{
-			    "url" : "Misc/VisioneSemplice.js",
-				"encodingFormat" : "text/javascript"},{
-			    "url" : "Misc/jquery-3.1.1.slim.min.js",
-				"encodingFormat" : "text/javascript"},{
-			    "url" : "Audio/EFFETTI%20SONORI%20-%20Risata%20pubblico.mp3",
-				"encodingFormat" : "audio/mpeg"}],
-		"readingOrder" : [{
-			    "url" : "Text/Pinocchio-1.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "Text/Pinocchio-4.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "Text/Pinocchio-2.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "Text/Pinocchio-5.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "Text/Pinocchio-3.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "Text/Pinocchio-6.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "Text/Pinocchio-7.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "Text/Pinocchio-8.xhtml",
-				"encodingFormat" : "application/xhtml+xml"},{
-			    "url" : "Text/toc.xhtml",
-				"encodingFormat" : "application/xhtml+xml",
-			"rel" : "contents"}],
-			"readingProgression" : "ltr"}
+        "https://www.w3.org/ns/pub-context"
+    ],
+    "conformsTo": "https://www.w3.org/publishing/epub3/",
+    "id": "urn:uuid:3b06928a-ebae-4abd-813f-f3c08c34b0d7",
+    "type": "CreativeWork",
+    "name": "Pinocchio",
+    "inLanguage": [
+        "ar-SA",
+        "it-IT"
+    ],
+    "creator": "Luca Minardi",
+    "publisher": "Fondazione Lia",
+    "datePublished": "2018-12-22T16:35:58Z",
+    "dateModified": "2019-02-10T18:38:39Z",
+    "accessMode": [
+        "textual",
+        "visual"
+    ],
+    "accessibilityFeature": "audioDescription",
+    "accessibilitySummary": "This publication conforms to WCAG 2.0 Level AA.",
+    "accessModeSufficient": [
+        {
+            "type": "ItemList",
+            "itemListElement": [
+                "textual",
+                "visual"
+            ]
+        },
+        {
+            "type": "ItemList",
+            "itemListElement": ["textual"]
+        }
+    ],
+    "resources": [
+        {
+            "url": "Text/cover.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "toc.ncx",
+            "encodingFormat": "application/x-dtbncx+xml"
+        },
+        {
+            "url": "Audio/Effetti_sonori_applausi_4.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/EFFETTO_SONORO_PUGNO.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/giusto.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_1.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_2.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_3.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_4.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_5.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_6.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_7.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_8.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Immagine_9.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/LAsino_Stonato.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/sbagliato.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Audio/Suono_della_trombetta.mp3",
+            "encodingFormat": "audio/mpeg"
+        },
+        {
+            "url": "Styles/idGeneratedStyles.css",
+            "encodingFormat": "text/css"
+        },
+        {
+            "url": "Fonts/Arial-BoldMT.ttf",
+            "encodingFormat": "application/vnd.ms-opentype"
+        },
+        {
+            "url": "Fonts/Arial-ItalicMT.ttf",
+            "encodingFormat": "application/vnd.ms-opentype"
+        },
+        {
+            "url": "Fonts/TimesNewRomanPS-BoldMT.ttf",
+            "encodingFormat": "application/vnd.ms-opentype"
+        },
+        {
+            "url": "Fonts/TimesNewRomanPS-ItalicMT.ttf",
+            "encodingFormat": "application/vnd.ms-opentype"
+        },
+        {
+            "url": "Fonts/TimesNewRomanPSMT.ttf",
+            "encodingFormat": "application/vnd.ms-opentype"
+        },
+        {
+            "url": "Images/1.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/10.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/11.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/12.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/13.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/14.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/15.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/16.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/17.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/18.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/19.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/2.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/20.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/21.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/22.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/3.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/4.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/5.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/6.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/7.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/8.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/9.png",
+            "encodingFormat": "image/png"
+        },
+        {
+            "url": "Images/cover.jpg",
+            "encodingFormat": "image/jpeg",
+            "rel": "cover-image"
+        },
+        {
+            "url": "Images/ill236.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Images/Immagine285.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Images/Immagine293.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Images/Immagine303.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Images/Immagine312.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Images/Immagine320.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Images/Immagine329.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Images/Immagine339.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Images/Immagine347.jpg",
+            "encodingFormat": "image/jpeg"
+        },
+        {
+            "url": "Misc/AggiornaNome.js",
+            "encodingFormat": "text/javascript"
+        },
+        {
+            "url": "Misc/Controlla.js",
+            "encodingFormat": "text/javascript"
+        },
+        {
+            "url": "Misc/Form.js",
+            "encodingFormat": "text/javascript"
+        },
+        {
+            "url": "Misc/VisioneComplessa.js",
+            "encodingFormat": "text/javascript"
+        },
+        {
+            "url": "Misc/VisioneSemplice.js",
+            "encodingFormat": "text/javascript"
+        },
+        {
+            "url": "Misc/jquery-3.1.1.slim.min.js",
+            "encodingFormat": "text/javascript"
+        },
+        {
+            "url": "Audio/EFFETTI%20SONORI%20-%20Risata%20pubblico.mp3",
+            "encodingFormat": "audio/mpeg"
+        }
+    ],
+    "readingOrder": [
+        {
+            "url": "Text/Pinocchio-1.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "Text/Pinocchio-4.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "Text/Pinocchio-2.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "Text/Pinocchio-5.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "Text/Pinocchio-3.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "Text/Pinocchio-6.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "Text/Pinocchio-7.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "Text/Pinocchio-8.xhtml",
+            "encodingFormat": "application/xhtml+xml"
+        },
+        {
+            "url": "Text/toc.xhtml",
+            "encodingFormat": "application/xhtml+xml",
+            "rel": "contents"
+        }
+    ],
+    "readingProgression": "ltr"
+}
