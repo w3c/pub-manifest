@@ -171,19 +171,26 @@ var manifestProcessor = (function() {
 	
 	function processManifest(text, base, doc) {
 	
-		// step 1 - parse json
+		// step 1 - create processed
+		
+		var processed = {};
+		
+		// step 2 - parse json
 		
 		var manifest;
 		
 		try {
 			manifest = JSON.parse(text);
+			if (Array.isArray(manifest) || typeof(manifest) !== 'object') {
+				throw new Error('The manifest must be a JSON object.');
+			}
 		}
 		
 		catch (e) {
 			throw new Error('Error parsing manifest: ' + e);
 		}
 		
-		// step 2 - manifest contexts
+		// step 3 - manifest contexts
 		
 		if (!manifest.hasOwnProperty('@context')) {
 			throw new Error('@context not set.');
@@ -197,9 +204,7 @@ var manifestProcessor = (function() {
 			throw new Error('First two declartaions in @context must be "https://schema.org" and "https://www.w3.org/ns/pub-context"');
 		}
 		
-		// step 3 - profile conformance
-		
-		var profile = '';
+		// step 4 - profile conformance
 		
 		if (!manifest.hasOwnProperty('conformsTo')) {
 			console.error('No profile specified. (No testing for compatible profiles in this processor.)');
@@ -220,13 +225,13 @@ var manifestProcessor = (function() {
 			}
 			
 			else {
-				profile = matches[0];
+				processed['profile'] = matches[0];
 			}
 		}
 		
 		else {
 			if (knownProfiles.hasOwnProperty(manifest['conformsTo'])) {
-				profile = manifest['conformsTo'];
+				processed['profile'] = manifest['conformsTo'];
 			}
 			else {
 				console.error('Profile not recognized. (No testing for compatible profiles in this processor.)');
@@ -234,7 +239,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 4 - global language/direction 
+		// step 5 - global language/direction 
 		
 		var lang = '';
 		var dir = '';
@@ -262,10 +267,6 @@ var manifestProcessor = (function() {
 				dir = '';
 			}
 		}
-		
-		// step 5 - create processed
-		
-		var processed = {};
 		
 		// step 6 - add normalized data to processed
 		
@@ -304,7 +305,13 @@ var manifestProcessor = (function() {
 		
 		var normalized = value;
 		
-		// step 2 - create arrays
+		// step 2 - remove @context
+		
+		if (key == '@context') {
+			throw new Error();
+		}
+		
+		// step 3 - create arrays
 		
 		if (expectsArray.hasOwnProperty(key)) {
 			if (!Array.isArray(value)) {
@@ -312,7 +319,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// steb 3 - expand entity names
+		// steb 4 - expand entity names
 		
 		if (expectsEntity.hasOwnProperty(key)) {
 			for (var i = normalized.length - 1; i >= 0; i--) {
@@ -335,7 +342,7 @@ var manifestProcessor = (function() {
 		}
 		
 		
-		// step 4 - localizable strings
+		// step 5 - localizable strings
 		
 		if (expectsLocalizableString.hasOwnProperty(key)) {
 			for (var i = normalized.length - 1; i >= 0; i--) {
@@ -380,7 +387,7 @@ var manifestProcessor = (function() {
 			for (var i = normalized.length - 1; i >= 0; i--) {
 				var type = typeof(normalized[i]);
 				if (type === 'string') {
-					normalized[i] = {"url": normalized[i]};
+					normalized[i] = {"type": "LinkedResource", "url": normalized[i]};
 				}
 				else if (Array.isArray(normalized[i]) || type !== 'object') {
 					console.warn(key + ' requires only strings or objects in its array. Found ' + type + '. Removing from array.');
@@ -392,11 +399,29 @@ var manifestProcessor = (function() {
 		// step 6 - convert relative URLs
 		
 		if (expectsURL.hasOwnProperty(key)) {
-			try {
-				normalized = checkAbsoluteURL(normalized,base);
+			var type = typeof(normalized);
+			
+			if (type == 'string') {
+				try {
+					normalized = checkAbsoluteURL(normalized, base);
+				}
+				catch (e) {
+					throw new Error();
+				}
+				
 			}
-			catch (e) {
-				throw new Error();
+			else if (Array.isArray(data)) {
+				for (var i = normalized.length - 1; i >= 0; i--) {
+					try {
+						normalized[i] = checkAbsoluteURL(normalized[i], base);
+					}
+					catch (e) {
+						normalized.splice(i,1);
+					}
+				}
+			}
+			else {
+				throw new Error('Invalid data type "' + type + '" for URL.');
 			}
 		}
 		
@@ -441,16 +466,7 @@ var manifestProcessor = (function() {
 			if (!absolute_url.test(data)) {
 				data = base + data;
 			}
-		}
-		else if (Array.isArray(data)) {
-			for (var i = 0; i < data.length; i++) {
-				try {
-					data[i] = checkAbsoluteURL(data[i], base);
-				}
-				catch (e) {
-					throw new Error();
-				}
-			}
+			// need a check for the validty of the result
 		}
 		else {
 			throw new Error(key + ' requires a string. Found ' + type + '.');
@@ -479,14 +495,6 @@ var manifestProcessor = (function() {
 			data['type'] = ['CreativeWork'];
 		}
 		
-		/* step 3 - abridged is boolean
-		
-		if (data.hasOwnProperty('abridged') && typeof(data['abridged']) !== 'boolean') {
-			console.warn('The abridged property must be a boolean value.');
-			delete(data['abridged']);
-		}
-		*/
-		
 		// step 3 - validate accessModeSufficient itemlists
 		
 		if (data.hasOwnProperty('accessModeSufficient')) {
@@ -498,7 +506,13 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 4 - valid duration
+		// step 4 - canonical id
+		
+		if (!data.hasOwnProperty('id') || !data['id']) {
+			console.warn('A canonical identifier should be specified.');
+		}
+		
+		// step 5 - valid duration
 		
 		if (data.hasOwnProperty('duration')) {
 			if (!duration.test(data['duration'])) {
@@ -507,7 +521,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 5 - valid modification date
+		// step 6 - valid modification date
 		
 		if (data.hasOwnProperty('dateModified')) {
 			if (!dateTime.test(data['dateModified'])) {
@@ -516,7 +530,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 6 - valid publication date
+		// step 7 - valid publication date
 
 		if (data.hasOwnProperty('datePublished')) {
 			if (!dateTime.test(data['datePublished'])) {
@@ -525,7 +539,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 7 - well-formed languages
+		// step 8 - well-formed languages
 		
 		if (data.hasOwnProperty('inLanguage')) {
 			for (var i = data['inLanguage'].length - 1; i >= 0; i--) {
@@ -536,7 +550,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 8 - valid reading progression
+		// step 9 - valid reading progression
 		
 		if (data.hasOwnProperty('readingProgression')) {
 			if (data['readingProgression'] != 'ltr' && data['readingProgression'] != 'rtl') {
@@ -544,10 +558,13 @@ var manifestProcessor = (function() {
 				data['readingProgression'] = 'ltr';
 			}
 		}
+		else {
+			data['readingProgression'] = 'ltr'
+		}
 		
-		// step 9 - no profile extensions
+		// step 10 - no profile extensions
 		
-		// step 10 - remove empty arrays
+		// step 11 - remove empty arrays
 		
 		for (var term in data) {
 			try {
@@ -558,7 +575,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 11 - return data
+		// step 12 - return data
 		
 		return data;
 	}
@@ -577,20 +594,29 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 2 - entity names
 		
-		if (expectsEntity.hasOwnProperty(key) && value.length > 0) {
-			for (var i = value.length - 1; i >= 0; i--) {
-				if (!value[i].hasOwnProperty('name')) {
-					console.warn('Item ' + i + ' in ' + key + ' does not have a name');
-					value.splice(i,1);
+		// step 2 - recursively check value
+		
+		if (!Array.isArray(value) && typeof(value) === 'object') {
+			for (var subkey in value) {
+				try {
+					value[subkey] = commonDataChecks(subkey, value[subkey]);
 				}
-				else {
-					if (value[i]['name'].length > 0) {
-						for (var j = value[i]['name'].length - 1; j >= 0; j--) {
-							if (!value[i]['name'][j].hasOwnProperty('value') || !value[i]['name'][j]['value']) {
-								value[i]['name'].splice(j,1);
-							}
+				catch(e) {
+					delete(value[subkey]);
+				}
+			}
+		}
+		
+		if (Array.isArray(value)) {
+			for (var i = 0; i < value.length; i++) {
+				if (!Array.isArray(value[i]) && typeof(value[i]) === 'object') {
+					for (var subkey in value[i]) {
+						try {
+							value[i][subkey] = commonDataChecks(subkey, value[i][subkey]);
+						}
+						catch (e) {
+							delete(value[i][subkey]);
 						}
 					}
 				}
@@ -599,22 +625,39 @@ var manifestProcessor = (function() {
 		
 		// step 3 - valid language and direction
 		
-		if (!Array.isArray(value) && typeof(value) === 'object') {
-			if (value.hasOwnProperty('language')) {
-				if (!bcp47.test(value['language'])) {
-					console.warn('Language tag is not well formed.');
-					delete(value['language']);
+		if (expectsLocalizableString.hasOwnProperty(key)) {
+			for (var i = value.length - 1; i >= 0; i--) {
+				if (!value[i].hasOwnProperty('value')) {
+					value.splice(i,1);
 				}
-			}
-			if (value.hasOwnProperty('direction')) {
-				if (value['direction'] != 'ltr' && value['direction'] != 'rtl') {
-					console.warn('Direction must be "ltr" or "rtl".');
-					delete(value['direction']);
+				
+				if (value[i].hasOwnProperty('language')) {
+					if (!bcp47.test(value[i]['language'])) {
+						console.warn('Language tag is not well formed.');
+						delete(value[i]['language']);
+					}
+				}
+				if (value[i].hasOwnProperty('direction')) {
+					if (value[i]['direction'] != 'ltr' && value[i]['direction'] != 'rtl') {
+						console.warn('Direction must be "ltr" or "rtl".');
+						delete(value[i]['direction']);
+					}
+				}
+			} 
+		}
+		
+		// step 4 - entity names
+		
+		if (expectsEntity.hasOwnProperty(key) && value.length > 0) {
+			for (var i = value.length - 1; i >= 0; i--) {
+				if (!value[i].hasOwnProperty('name') || value[i]['name'].length == 0) {
+					console.warn('Item ' + i + ' in ' + key + ' does not have a name');
+					value.splice(i,1);
 				}
 			}
 		}
 		
-		// step 4 - linkedresources have url, duration and encodingFormat
+		// step 5 - linkedresources have url, duration and encodingFormat
 		
 		if (expectsLinkedResource.hasOwnProperty(key)) {
 			
@@ -654,37 +697,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 5 - recursively check maps
-		
-		if (!Array.isArray(value) && typeof(value) === 'object') {
-			for (var subkey in value) {
-				try {
-					value[subkey] = commonDataChecks(subkey, value[subkey]);
-				}
-				catch(e) {
-					delete(value[subkey]);
-				}
-			}
-		}
-		
-		// step 6 - recursively check arrays
-		
-		if (Array.isArray(value)) {
-			for (var i = 0; i < value.length; i++) {
-				if (!Array.isArray(value[i]) && typeof(value[i]) === 'object') {
-					for (var subkey in value[i]) {
-						try {
-							value[i][subkey] = commonDataChecks(subkey, value[i][subkey]);
-						}
-						catch (e) {
-							delete(value[i][subkey]);
-						}
-					}
-				}
-			}
-		}
-		
-		// step7 - return value
+		// step 6 - return value
 		
 		return value;
 	}
