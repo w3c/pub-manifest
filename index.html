@@ -3375,8 +3375,9 @@
 										<var>key</var> → <var>keyValue</var> of <var>item</var>, set <var>key</var> to
 										the result of running <a href="#processing-normalize">normalize data</a>, when
 										successful, given <var>key</var>, <var>keyValue</var>, <var>lang</var>,
-											<var>dir</var>, <var>base</var> and using <var>key</var> as the context.
-										Otherwise, <a href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+											<var>dir</var>, <var>base</var> and using <var>key</var> as the context. If
+										failure is returned, <a href="https://infra.spec.whatwg.org/#list-remove"
+											>remove</a>
 										<var>key</var> from <var>item</var>.</p>
 								</li>
 								<li>
@@ -3387,7 +3388,7 @@
 											<var>key</var> to the result of running <a href="#processing-normalize"
 											>normalize data</a>, when successful, given <var>key</var>,
 											<var>keyValue</var>, <var>lang</var>, <var>dir</var>, <var>base</var> and
-										using <var>key</var> as the context. Otherwise, <a
+										using <var>key</var> as the context. If failure is returned, <a
 											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 										<var>key</var> from <var>normalized</var>.</p>
 								</li>
@@ -3451,8 +3452,8 @@
 							<p><a href="https://infra.spec.whatwg.org/#map-iterate">For each</a>
 								<var>term</var> → <var>value</var> of <var>data</var>, set <var>term</var> to the result
 								of running the <a>global data checks</a>, when successful, given <var>term</var> and
-									<var>value</var>, and using <var>term</var> as the context. Otherwise, remove
-									<var>data[term]</var>.</p>
+									<var>value</var>, and using <var>term</var> as the context. If failure is returned,
+								remove <var>data[term]</var>.</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>This step passes each entry to a set of global validation checks that need to be run
@@ -3558,8 +3559,9 @@
 								<p>(<a href="#properties-value-categories"></a>) If <var>term</var> has a known <a
 										href="#properties-value-categories">value category</a>, set <var>value</var> to
 									the result of calling <a>verify value category</a>, when successful, given the
-									variables <var>term</var>, <var>value</var> and <var>context</var>. Otherwise,
-									return failure.</p>
+									variables <var>term</var>, <var>value</var> and <var>context</var>. If failure is
+									returned, return failure.</p>
+								<p>Otherwise, reutrn <var>value</var>;</p>
 								<details>
 									<summary>Explanation</summary>
 									<p>This step verifies that the value of the term matches the expected category
@@ -3567,6 +3569,8 @@
 										so any other value used with the term will result in a failure.</p>
 									<p>If a failure occurs calling the function, this step also returns a failure so
 										that the property is removed from the final data set.</p>
+									<p>Terms without a known value category are not processed, so the incoming value is
+										returned.</p>
 								</details>
 							</li>
 
