@@ -1,0 +1,25 @@
+{
+  "name": "@w3c/pub-manifest",
+  "description": "Testing material for the Publication Manifest format.",
+  "homepage": "https://www.w3.org/TR/pub-manifest/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w3c/pub-manifest.git"
+  },
+  "license": "W3C-20150513",
+  "author": "W3C Publishing Working Group Participants",
+  "scripts": {
+    "test": "cross-env BABEL_ENV=test mocha test/**/*.js"
+  },
+  "devDependencies": {
+    "ajv": "^6.10.2",
+    "chai": "^4.2.0",
+    "cross-env": "^6.0.0",
+    "mocha": "^6.2.0",
+    "node-fetch": "^2.5.0",
+    "resolve": "^1.12.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
