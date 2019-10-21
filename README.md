@@ -16,3 +16,12 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md), about licensing contributions.
 ## Code of Conduct
 
 W3C functions under a [code of conduct](https://www.w3.org/Consortium/cepc/).
+
+
+## Testing Publication Manifests
+
+```sh
+$ npm i
+$ npm test -- --url path/to/file
+$ npm test -- --url https://example.com/publication.manifest
+```
