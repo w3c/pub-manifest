@@ -20,13 +20,14 @@
 
 /* global process */
 
-import fs from 'fs';
-import URL from 'url';
+const fs = require('fs');
+const URL = require('url');
 
-import Ajv from 'ajv';
-import META_SCHEMA from 'ajv/lib/refs/json-schema-draft-04.json';
-import fetch from 'node-fetch';
-import resolve from 'resolve';
+const Ajv = require('ajv');
+const chai = require('chai');
+const expect = chai.expect;
+const fetch = require('node-fetch');
+const resolve = require('resolve');
 
 // file or URL location
 let url = '';
@@ -44,7 +45,7 @@ process.argv.forEach((val, index) => {
   }
 });
 
-function readSchema(schemaPath, base = 'web-annotation-tests/') {
+function readSchema(schemaPath, base = '../schema/') {
   const resolverOptions = { extensions: ['.json', '.test'] };
   const resolvedPath = resolve.sync(`${base}${schemaPath}`, resolverOptions);
   const schemaUnparsed = fs.readFileSync(resolvedPath);
@@ -52,19 +53,20 @@ function readSchema(schemaPath, base = 'web-annotation-tests/') {
 }
 
 const DEFINITIONS = [
-  'annotations',
-  'bodyTarget',
-  'choiceSet',
-  'collections',
-  'id',
-  'otherProperties',
-  'specificResource',
-].map(name => readSchema(`definitions/${name}`));
+  'bcp.schema',
+  'contributor-object.schema',
+  'contributor.schema',
+  'link.schema',
+  'localizable-object.schema',
+  'localizable.schema',
+  'resource.categorization.schema',
+  'url.schema',
+].map(name => readSchema(`${name}`));
 
-const MUSTS = readSchema('annotations/annotationMusts');
+// TODO: bring back a test manifest similar to the one at https://github.com/w3c/web-annotation-tests/blob/master/annotations/annotationMusts.test
+//const MUSTS = readSchema('annotations/annotationMusts');
 
-const ajv = new Ajv({ schemaId: 'auto' });
-ajv.addMetaSchema(META_SCHEMA);
+const ajv = new Ajv({ schemaId: 'auto', allErrors: true });
 DEFINITIONS.forEach(schema => ajv.addSchema(schema));
 
 describe('Test JSON against Schemas', () => {
@@ -89,11 +91,12 @@ describe('Test JSON against Schemas', () => {
     }
   });
 
-  MUSTS.assertions.forEach(schemaPath => {
-    const schema = readSchema(schemaPath);
+// TODO: bring back a test manifest outer loop to test various sections
+  //MUSTS.assertions.forEach(schemaPath => {
+    const schema = readSchema('publication.schema');
     it(schema.title, () => {
       let valid = ajv.validate(schema, data);
-      assert.isOk(valid, ajv.errorsText());
+      assert.isOk(valid, ajv.errorsText().replace('data', 'The manifest'));
     });
-  });
+  //});
 });

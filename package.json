@@ -9,7 +9,7 @@
   "license": "W3C-20150513",
   "author": "W3C Publishing Working Group Participants",
   "scripts": {
-    "test": "cross-env BABEL_ENV=test mocha test/**/*.js"
+    "test": "cross-env mocha test/**/*.js"
   },
   "devDependencies": {
     "ajv": "^6.10.2",
