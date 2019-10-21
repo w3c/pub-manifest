@@ -3,7 +3,7 @@
   "profile": "https://www.w3.org/TR/audiobooks",
   "type": ["Audiobook"],
   "id": "https://librivox.org/flatland-a-romance-of-many-dimensions-by-edwin-abbott-abbott/",
-  "url": "https://w3c.github.io/wpub/experiments/audiobook/",
+  "url": ["https://w3c.github.io/wpub/experiments/audiobook/"],
   "name": [
     {
       "value": "Flatland: A Romance of Many Dimensions",
@@ -43,6 +43,7 @@
       "type": "Organization"
     }
   ],
+  "inLanguage": ["en"],
   "dateModified": "2018-06-14T19:32:18Z",
   "datePublished": "2008-10-12",
   "duration": "PT15153S",
