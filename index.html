@@ -3415,28 +3415,45 @@
 							<var>value</var>, with a base URL <var>base</var>, run the following steps:</p>
 
 						<ol>
+							<li id="abs-url-check-values">
+								<p>If <var>value</var> or <var>base</var> is not a <a
+										href="https://infra.spec.whatwg.org/#string">string</a>, or is an empty string,
+										<a>validation error</a>, return failure.</p>
+								<details>
+									<summary>Explanation</summary>
+									<p>This step checks that both <var>value</var> and <var>base</var> are non-empty
+										strings before attempting to use them.</p>
+								</details>
+							</li>
 							<li id="abs-url-convert">
-								<p>if <var>value</var> is a <a href="https://infra.spec.whatwg.org/#string">string</a>,
-									set <var>value</var> to the result of running the <a
+								<p>Set <var>value</var> to the result of running the <a
 										href="https://url.spec.whatwg.org/#concept-url-parser">URL
 									parser</a>&#160;[[!url]], when successful, with <var>value</var> as input and
-										<var>base</var> as the base URL. Otherwise, <a>validation error</a>, return
-									failure.</p>
+										<var>base</var> as the base URL. If failure is returned, <a>validation
+									error</a>, return failure.</p>
+								<details>
+									<summary>Explanation</summary>
+									<p>This step calls the URL parser function on the incoming value. If the value is
+										not an absolute URL, the parser converts it to one using the base URL.</p>
+									<p>If parsing returns a failure, a failure is returned to the caller to indicate to
+										remove the URL.</p>
+								</details>
 							</li>
-							<li id="abs-url-error">
-								<p>otherwise, <a>validation error</a>, return failure.</p>
+							<li id="abs-url-scheme">
+								<p>If the <var>value</var> does not have the scheme <code>http</code> or
+										<code>https</code>
+									<a>validation error</a>, return failure.</p>
+								<details>
+									<summary>Explanation</summary>
+									<p>URLs in the publication manifest are restricted to the <code>http</code> and
+											<code>https</code> schemes, but this is not enforced by the URL parser. This
+										additional step is necessary to ensure that other schemes are not used.</p>
+								</details>
 							</li>
 							<li id="abs-url-return">
-								<p>return <var>value</var>.</p>
+								<p>Return <var>value</var>.</p>
 							</li>
 						</ol>
-						<details>
-							<summary>Explanation</summary>
-							<p>This function checks if the value sent into it is a relative URL, and, if so, converts it
-								to an absolute URL.</p>
-							<p>If the value passed to the function is not a string, a failure is returned. Otherwise,
-								the updated value is returned.</p>
-						</details>
 					</section>
 				</section>
 
@@ -3561,7 +3578,7 @@
 									the result of calling <a>verify value category</a>, when successful, given the
 									variables <var>term</var>, <var>value</var> and <var>context</var>. If failure is
 									returned, return failure.</p>
-								<p>Otherwise, reutrn <var>value</var>;</p>
+								<p>Otherwise, return <var>value</var>;</p>
 								<details>
 									<summary>Explanation</summary>
 									<p>This step verifies that the value of the term matches the expected category
@@ -3727,10 +3744,6 @@
 								<p>Return <var>value</var>.</p>
 							</li>
 						</ol>
-
-						<details>
-							<summary>Explanation</summary>
-						</details>
 					</section>
 
 					<section id="verify-value-category">
