@@ -3636,8 +3636,11 @@
 														href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 													<var>key</var> → <var>keyValue</var> of <var>value</var>, set
 														<var>value[key]</var> to the result of running <a>global data
-														checks</a> given <var>key</var>, <var>keyValue</var> and using
-														<var>value["type"]</var> as the context.</p>
+														checks</a>, when successful, given <var>key</var>,
+														<var>keyValue</var> and using <var>value["type"]</var> as the
+													context. If failure is returned, <a
+														href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+													<var>value[key]</var>.</p>
 											</li>
 											<li>
 												<p>otherwise, do nothing.</p>
@@ -3656,9 +3659,12 @@
 												<p>if <var>item["type"]</var> includes a <a>recognized type</a>, <a
 														href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 													<var>key</var> → <var>keyValue</var> of <var>item</var>, set
-														<var>value[key]</var> to the result of running <a>global data
-														checks</a> given <var>key</var>, <var>keyValue</var> and using
-														<var>item["type"]</var> as the context.</p>
+														<var>item[key]</var> to the result of running <a>global data
+														checks</a>, when successful, given <var>key</var>,
+														<var>keyValue</var> and using <var>item["type"]</var> as the
+													context. If failure is returned, <a
+														href="https://infra.spec.whatwg.org/#map-remove">remove</a>
+													<var>item[key]</var>.</p>
 											</li>
 											<li>
 												<p>otherwise, do nothing.</p>
@@ -3846,9 +3852,8 @@
 								</ol>
 							</li>
 							<li id="verify-map">
-								<p>Otherwise, if, depending on the <var>context</var>
-									<var>term</var> expects a <a href="https://infra.spec.whatwg.org/#ordered-map"
-										>map</a>:</p>
+								<p>Otherwise, if, depending on the <var>context</var>, <var>term</var> expects a <a
+										href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 								<ol>
 									<li id="verify-map-invalid">
 										<p>if <var>value</var> is not a <a
