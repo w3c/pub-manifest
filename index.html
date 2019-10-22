@@ -108,8 +108,9 @@
 					</dt>
 					<dd>
 						<p>A <a>digital publication</a> consists of a finite set of resources that represent its
-							content. This extent is known as its bounds and is defined within its manifest as described
-							in <a href="#publication-resources"></a>.</p>
+							content. This extent is known as its bounds and is defined within its manifest — it is
+							obtained from the union of resources listed in the <a href="#default-reading-order">default
+								reading order</a> and <a href="#resource-list">resource list</a>.</p>
 					</dd>
 
 					<dt>
@@ -2737,28 +2738,6 @@
 				</section>
 			</section>
 		</section>
-		<section id="publication-resources">
-			<h2>Publication Resources</h2>
-
-			<p>The list of resources belonging to a <a>digital publication</a> &#8212; its <a>bounds</a> &#8212; is
-				obtained from the union of resources listed in the <a href="#default-reading-order"
-						><code>readingOrder</code></a> and <a href="#resource-list"><code>resources</code></a>,
-				including any <a href="#linkedresource-alternate"><code>alternate</code></a> resources. The process for
-				obtaining this list is described in <a href="#processing-pub-resources"></a>.</p>
-
-			<p>All other resources are outside the bounds of the digital publication (e.g., resources listed in the
-						<a><code>links</code></a> section and hyperlinks in the content to external resources on the
-				Web).</p>
-
-			<p>The only restriction this specification places on publication resources is that they be obtainable by a
-				URL that uses either the <code>http</code> or <code>https</code> scheme (see <a href="#value-url"></a>).
-					<a>Profiles</a> of this specification, however, MAY restrict both the content type and location of
-				resources.</p>
-
-			<p>User agents MAY opt to process and render resources differently depending on whether or not they are
-				within the bounds of a digital publication (e.g., exclude external resources from an offline or packaged
-				version of a publication).</p>
-		</section>
 		<section id="manifest-discovery">
 			<h2>Manifest Discovery</h2>
 
@@ -4073,34 +4052,6 @@
 						</li>
 					</ol>
 				</section>
-			</section>
-
-			<section id="processing-pub-resources">
-				<h3>Obtain a List of Publication Resources</h3>
-
-				<p>To <dfn>obtain a list of publication resources</dfn> from the <a>internal representation</a> of the
-					manifest <var>internal_rep</var> generated from running <a>processing the manifest</a>, run the
-					following steps:</p>
-
-				<ol>
-					<li>
-						<p>Let <var>resources</var> be an empty <a href="https://infra.spec.whatwg.org/#ordered-set"
-								>ordered set</a>.</p>
-					</li>
-					<li>
-						<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-							<var>resource</var> of <var>internal_rep["readingOrder"]</var>, <a>append</a>
-							<var>resource["url"]</var> to <var>resources</var>.</p>
-					</li>
-					<li>
-						<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-							<var>resource</var> of <var>internal_rep["resources"]</var>, <a>append</a>
-							<var>resource["url"]</var> to <var>resources</var>.</p>
-					</li>
-					<li>
-						<p>Return <var>resources</var>.</p>
-					</li>
-				</ol>
 			</section>
 		</section>
 		<section id="extensions">
