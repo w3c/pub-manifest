@@ -4089,15 +4089,37 @@
 					</li>
 					<li>
 						<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-							<var>resource</var> of <var>internal_rep["readingOrder"]</var>, <a
-								href="https://infra.spec.whatwg.org/#set-append">append</a>
-							<var>resource["url"]</var> to <var>resources</var>.</p>
+							<var>resource</var> of <var>internal_rep["readingOrder"]</var>:</p>
+						<ol>
+							<li>
+								<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
+									<var>resource["url"]</var> to <var>resources</var>.</p>
+							</li>
+							<li>
+								<p>if <var>resource["alternate"]</var> is set, <a
+										href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+									<var>alternate</var> of <var>resource["alternate"]</var>, <a
+										href="https://infra.spec.whatwg.org/#set-append">append</a>
+									<var>alternate["url"]</var> to <var>resources</var>.</p>
+							</li>
+						</ol>
 					</li>
 					<li>
 						<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-							<var>resource</var> of <var>internal_rep["resources"]</var>, <a
-								href="https://infra.spec.whatwg.org/#set-append">append</a>
-							<var>resource["url"]</var> to <var>resources</var>.</p>
+							<var>resource</var> of <var>internal_rep["resources"]</var>:</p>
+						<ol>
+							<li>
+								<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
+									<var>resource["url"]</var> to <var>resources</var>.</p>
+							</li>
+							<li>
+								<p>if <var>resource["alternate"]</var> is set, <a
+										href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+									<var>alternate</var> of <var>resource["alternate"]</var>, <a
+										href="https://infra.spec.whatwg.org/#set-append">append</a>
+									<var>alternate["url"]</var> to <var>resources</var>.</p>
+							</li>
+						</ol>
 					</li>
 					<li>
 						<p>Return <var>resources</var>.</p>
