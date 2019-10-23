@@ -4084,7 +4084,7 @@
 
 				<ol>
 					<li>
-						<p>Let <var>resources</var> be an empty <a href="https://infra.spec.whatwg.org/#ordered-set"
+						<p>Let <var>resource_list</var> be an empty <a href="https://infra.spec.whatwg.org/#ordered-set"
 								>ordered set</a>.</p>
 					</li>
 					<li>
@@ -4093,14 +4093,14 @@
 						<ol>
 							<li>
 								<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>resource["url"]</var> to <var>resources</var>.</p>
+									<var>resource["url"]</var> to <var>resource_list</var>.</p>
 							</li>
 							<li>
 								<p>if <var>resource["alternate"]</var> is set, <a
 										href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 									<var>alternate</var> of <var>resource["alternate"]</var>, <a
 										href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>alternate["url"]</var> to <var>resources</var>.</p>
+									<var>alternate["url"]</var> to <var>resource_list</var>.</p>
 							</li>
 						</ol>
 					</li>
@@ -4110,19 +4110,19 @@
 						<ol>
 							<li>
 								<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>resource["url"]</var> to <var>resources</var>.</p>
+									<var>resource["url"]</var> to <var>resource_list</var>.</p>
 							</li>
 							<li>
 								<p>if <var>resource["alternate"]</var> is set, <a
 										href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 									<var>alternate</var> of <var>resource["alternate"]</var>, <a
 										href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>alternate["url"]</var> to <var>resources</var>.</p>
+									<var>alternate["url"]</var> to <var>resource_list</var>.</p>
 							</li>
 						</ol>
 					</li>
 					<li>
-						<p>Return <var>resources</var>.</p>
+						<p>Return <var>resource_list</var>.</p>
 					</li>
 				</ol>
 			</section>
