@@ -1,7 +1,6 @@
 
 'use strict';
 
-
 var manifestProcessor = (function() {
 
 	var absolute_url = new RegExp('^https?://', 'i');
@@ -16,98 +15,103 @@ var manifestProcessor = (function() {
 	};
 	
 	var expectsObject = {
-		'accessModeSufficient': 1
+		'accessModeSufficient': ['']
 	};
 	
 	var expectsArray = {
-		'type': 1,
-		'inLanguage': 1,
-		'conformsTo': 1,
-		'name': 1,
-		'address': 1,
-		'accessMode': 1,
-		'accessModeSufficient': 1,
-		'accessibilityFeature': 1,
-		'accessibilityHazard': 1,
-		'artist': 1,
-		'author': 1,
-		'colorist': 1,
-		'contributor': 1,
-		'creator': 1,
-		'editor': 1,
-		'illustrator': 1,
-		'inker': 1,
-		'letterer': 1,
-		'penciler': 1,
-		'publisher': 1,
-		'readBy': 1,
-		'translator': 1,
-		'readingOrder': 1,
-		'resources': 1,
-		'links': 1,
-		'alternate': 1
+		'url': [''],
+		'type': ['', 'Person', 'Organization', 'LinkedResource'],
+		'inLanguage': [''],
+		'conformsTo': [''],
+		'name': ['', 'Person', 'Organization', 'LinkedResource'],
+		'identifier': ['Person', 'Organization'],
+		'address': [''],
+		'accessMode': [''],
+		'accessModeSufficient': [''],
+		'accessibilityFeature': [''],
+		'accessibilityHazard': [''],
+		'artist': [''],
+		'author': [''],
+		'colorist': [''],
+		'contributor': [''],
+		'creator': [''],
+		'editor': [''],
+		'illustrator': [''],
+		'inker': [''],
+		'letterer': [''],
+		'penciler': [''],
+		'publisher': [''],
+		'readBy': [''],
+		'translator': [''],
+		'readingOrder': [''],
+		'resources': [''],
+		'links': [''],
+		'alternate': ['LinkedResource'],
+		'description': ['LinkedResource'],
+		'rel': ['LinkedResource']
 	};
 	
 	var expectsEntity = {
-		'artist': 1,
-		'author': 1,
-		'colorist': 1,
-		'contributor': 1,
-		'creator': 1,
-		'editor': 1,
-		'illustrator': 1,
-		'inker': 1,
-		'letterer': 1,
-		'penciler': 1,
-		'publisher': 1,
-		'readBy': 1,
-		'translator': 1
+		'artist': [''],
+		'author': [''],
+		'colorist': [''],
+		'contributor': [''],
+		'creator': [''],
+		'editor': [''],
+		'illustrator': [''],
+		'inker': [''],
+		'letterer': [''],
+		'penciler': [''],
+		'publisher': [''],
+		'readBy': [''],
+		'translator': ['']
 	};
 	
 	var expectsLocalizableString = {
-		'name': 1,
-		'accessibilitySummary': 1,
-		'description': 1
+		'name': ['', 'Person', 'Organization', 'LinkedResource'],
+		'accessibilitySummary': [''],
+		'description': ['LinkedResource']
 	}
 	
 	var expectsLinkedResource = {
-		'readingOrder': 1,
-		'resources': 1,
-		'links': 1,
-		'alternate': 1
+		'readingOrder': [''],
+		'resources': [''],
+		'links': [''],
+		'alternate': ['']
 	};
 	
 	var expectsURL = {
-		'url': 1,
-		'address': 1
+		'url': ['', 'Person', 'Organization', 'LinkedResource'],
+		'address': ['']
 	};
 	
 	var expectsLiteral = {
-		'type': 1,
-		'encodingFormat': 1,
-		'rel': 1,
-		'integrity': 1,
-		'accessMode': 1,
-		'accessibilityHazard': 1,
-		'accessibilityFeature': 1,
-		'duration': 1,
-		'dateModified': 1,
-		'datePublished': 1,
-		'inLanguage': 1,
-		'readingProgression': 1,
-		'identifier': 1
+		'type': [''],
+		'encodingFormat': ['LinkedResource'],
+		'rel': ['LinkedResource'],
+		'integrity': ['LinkedResource'],
+		'accessMode': [''],
+		'accessibilityHazard': [''],
+		'accessibilityFeature': [''],
+		'duration': [''],
+		'dateModified': [''],
+		'datePublished': [''],
+		'inLanguage': [''],
+		'readingProgression': [''],
+		'url': ['LinkedResource'],
+		'identifier': ['Person', 'Organization']
 	};
 	
 	var expectsIdentifier = {
-		'id': 1
+		'id': ['', 'Person', 'Organization']
 	}
 	
 	var expectsBoolean = {
-		'abridged': 1
+		'abridged': ['']
 	};
 	
 	var expectsNumber = {
-		'length': 1
+		'length': ['LinkedResource']
 	}
 	
 	function generateInternalRep(manifest_link) {
@@ -272,7 +276,7 @@ var manifestProcessor = (function() {
 		
 		for (var key in manifest) {
 			try {
-				processed[key] = normalizeData(key, manifest[key], lang, dir, base);
+				processed[key] = normalizeData(key, manifest[key], lang, dir, base, '');
 			}
 			catch(e) {
 				// don't add key to processed
@@ -299,7 +303,7 @@ var manifestProcessor = (function() {
 	}
 	
 	
-	function normalizeData(key, value, lang, dir, base) {
+	function normalizeData(key, value, lang, dir, base, context) {
 		
 		// step 1 - set normalized to the incoming value
 		
@@ -313,7 +317,7 @@ var manifestProcessor = (function() {
 		
 		// step 3 - create arrays
 		
-		if (expectsArray.hasOwnProperty(key)) {
+		if (checkExpectsArray(key,context)) {
 			if (!Array.isArray(value)) {
 				normalized = [value];
 			}
@@ -337,6 +341,23 @@ var manifestProcessor = (function() {
 				else if (typeof(normalized[i]) !== 'object') {
 					console.warn(key + 'requires a string or entity. Found ' + typeof(normalized[i] + '. Removing from array.'));
 					normalized.splice(i,1);
+				}
+				else {
+					if (normalized[i].hasOwnProperty('type')) {
+						var hasType = false;
+						for (var j = 0; j < normalized[i]['type'].length; j++) {
+							if (normalized[i]['type'][j] == 'Person' || normalized[i]['type'][j] == 'Organization') {
+								hasType = true;
+								break;
+							}
+						}
+						if (!hasType) {
+							normalized[i]['type'].push('Person');
+						}
+					}
+					else {
+						normalized[i]['type'] = ['Person'];
+					}
 				}
 			}
 		}
@@ -393,27 +414,44 @@ var manifestProcessor = (function() {
 					console.warn(key + ' requires only strings or objects in its array. Found ' + type + '. Removing from array.');
 					normalized.splice(i,1);
 				}
+				else {
+					if (normalized[i].hasOwnProperty('type')) {
+						var hasType = false;
+						for (var j = 0; j < normalized[i]['type'].length; j++) {
+							if (normalized[i]['type'][j] == 'LinkedResource') {
+								hasType = true;
+								break;
+							}
+						}
+						if (!hasType) {
+							normalized[i]['type'].push('LinkedResource');
+						}
+					}
+					else {
+						normalized[i]['type'] = ['LinkedResource'];
+					}
+				}
 			}
 		}
 		
 		// step 6 - convert relative URLs
-		
+
 		if (expectsURL.hasOwnProperty(key)) {
 			var type = typeof(normalized);
 			
 			if (type == 'string') {
 				try {
-					normalized = checkAbsoluteURL(normalized, base);
+					normalized = convertAbsoluteURL(normalized, base);
 				}
 				catch (e) {
 					throw new Error();
 				}
 				
 			}
-			else if (Array.isArray(data)) {
+			else if (Array.isArray(normalized)) {
 				for (var i = normalized.length - 1; i >= 0; i--) {
 					try {
-						normalized[i] = checkAbsoluteURL(normalized[i], base);
+						normalized[i] = convertAbsoluteURL(normalized[i], base);
 					}
 					catch (e) {
 						normalized.splice(i,1);
@@ -423,7 +461,7 @@ var manifestProcessor = (function() {
 			else {
 				throw new Error('Invalid data type "' + type + '" for URL.');
 			}
-		}
+		};
 		
 		// step 7 - no extension steps
 		
@@ -432,9 +470,10 @@ var manifestProcessor = (function() {
 		if (Array.isArray(normalized)) {
 			for (var i = 0; i < normalized.length; i++) {
 				if (typeof(normalized[i]) === 'object') {
+					var obj_context = getContext(normalized[i]);
 					for (var key in normalized[i]) {
 						try {
-							normalized[i][key] = normalizeData(key, normalized[i][key], lang, dir, base);
+							normalized[i][key] = normalizeData(key, normalized[i][key], lang, dir, base, obj_context);
 						}
 						catch(e) {
 							delete(normalized[i][key]);
@@ -445,9 +484,10 @@ var manifestProcessor = (function() {
 		}
 		
 		else if (typeof(normalize) === 'object') {
+			var obj_context = getContext(normalized);
 			for (var key in normalize) {
 				try {
-					normalized[key] = normalizeData(key, normalized[key], lang, dir, base);
+					normalized[key] = normalizeData(key, normalized[key], lang, dir, base, obj_context);
 				}
 				catch(e) {
 					delete(normalized[key]);
@@ -461,7 +501,7 @@ var manifestProcessor = (function() {
 	}
 	
 	
-	function checkAbsoluteURL(data, base) {
+	function convertAbsoluteURL(data, base) {
 		if (typeof(data) === 'string') {
 			if (!absolute_url.test(data)) {
 				data = base + data;
@@ -481,7 +521,7 @@ var manifestProcessor = (function() {
 		
 		for (var key in data) {
 			try {
-				data[key] = commonDataChecks(key, data[key]); 
+				data[key] = commonDataChecks(key, data[key], ''); 
 			}
 			catch (e) {
 				delete(data[key]);
@@ -581,29 +621,38 @@ var manifestProcessor = (function() {
 	}
 	
 		
-	function commonDataChecks(key, value) {
+	function commonDataChecks(key, value, context) {
 		
 		// step 1 - value category check 
 		
 		if (hasKnownValueCategory(key)) {
 			try {
-				value = valueCategoryCheck(key, value)
+				value = valueCategoryCheck(key, value, context);
 			}
 			catch (e) {
 				throw new Error();
 			}
 		}
 		
+		else {
+			return value;
+		}
+		
 		
 		// step 2 - recursively check value
 		
 		if (!Array.isArray(value) && typeof(value) === 'object') {
-			for (var subkey in value) {
-				try {
-					value[subkey] = commonDataChecks(subkey, value[subkey]);
-				}
-				catch(e) {
-					delete(value[subkey]);
+			
+			var obj_context = getContext(value);
+			
+			if (obj_context) {
+				for (var subkey in value) {
+					try {
+						value[subkey] = commonDataChecks(subkey, value[subkey], obj_context);
+					}
+					catch(e) {
+						delete(value[subkey]);
+					}
 				}
 			}
 		}
@@ -611,12 +660,15 @@ var manifestProcessor = (function() {
 		if (Array.isArray(value)) {
 			for (var i = 0; i < value.length; i++) {
 				if (!Array.isArray(value[i]) && typeof(value[i]) === 'object') {
-					for (var subkey in value[i]) {
-						try {
-							value[i][subkey] = commonDataChecks(subkey, value[i][subkey]);
-						}
-						catch (e) {
-							delete(value[i][subkey]);
+					var obj_context = getContext(value[i]);
+					if (obj_context) {
+						for (var subkey in value[i]) {
+							try {
+								value[i][subkey] = commonDataChecks(subkey, value[i][subkey], obj_context);
+							}
+							catch (e) {
+								delete(value[i][subkey]);
+							}
 						}
 					}
 				}
@@ -719,9 +771,9 @@ var manifestProcessor = (function() {
 	}
 	
 	
-	function valueCategoryCheck(key, value) {
+	function valueCategoryCheck(key, value, context) {
 	
-		if (expectsArray.hasOwnProperty(key)) {
+		if (checkExpectsArray(key, context)) {
 			if (!Array.isArray(value)) {
 				throw new Error(key + ' requires an array of values.');
 			}
@@ -736,10 +788,11 @@ var manifestProcessor = (function() {
 					}
 					
 					if (!Array.isArray(value[i]) && typeof(value[i]) === 'object') {
+						var obj_context = getContext(value[i]);
 						for (var subkey in value[i]) {
 							if (hasKnownValueCategory(subkey)) {
 								try {
-									value[i][subkey] = valueCategoryCheck(subkey,value[i][subkey]);
+									value[i][subkey] = valueCategoryCheck(subkey,value[i][subkey],obj_context);
 								}
 								catch (e) {
 									console.warn(subkey + " in " + key + " has an invalid value.");
@@ -765,7 +818,7 @@ var manifestProcessor = (function() {
 			else {
 				for (var subkey in value) {
 					try {
-						value[subkey] = valueCategoryCheck(subkey,value[subkey]);
+						value[subkey] = valueCategoryCheck(subkey,value[subkey],context);
 
 					}
 					catch (e) {
@@ -780,7 +833,7 @@ var manifestProcessor = (function() {
 		}
 		else {
 			try {
-				if (!confirmCategory(key,value)) {
+				if (!confirmCategory(key,value,context)) {
 					throw new Error();
 				}
 			}
@@ -792,11 +845,11 @@ var manifestProcessor = (function() {
 	}
 	
 	
-	function confirmCategory(key, value) {
+	function confirmCategory(key, value, context) {
 	
 		var type = typeof(value);
 		
-		if (expectsLiteral.hasOwnProperty(key) || expectsIdentifier.hasOwnProperty(key) || expectsURL.hasOwnProperty(key)) {
+		if (checkExpectsLiteral(key,context) || expectsIdentifier.hasOwnProperty(key) || expectsURL.hasOwnProperty(key)) {
 			if (type !== 'string') {
 				throw new Error(key + ' requires a literal.');
 			}
@@ -895,6 +948,49 @@ var manifestProcessor = (function() {
 		
 		return processed;
 	}
+	
+	
+	
+	function checkExpectsArray(term,context) {
+		if (expectsArray.hasOwnProperty(term)) {
+			for (var i = 0; i < expectsArray[term].length; i++) {
+				if (expectsArray[term][i] == context) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	function checkExpectsLiteral(key, context) {
+		if (expectsLiteral.hasOwnProperty(key)) {
+			for (var i = 0; i < expectsLiteral[key].length; i++) {
+				if (expectsLiteral[key][i] == context) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	function getContext(value) {
+		if (Array.isArray(value) || typeof(value) !== 'object') {
+			return '';
+		}
+		if (value.hasOwnProperty('type')) {
+			for (var k = 0; k < value['type'].length; k++) {
+				if (value['type'][k] == 'Person' || value['type'][k] == 'Organization' || value['type'][k] == 'LinkedResource') {
+					return value['type'][k];
+				}
+			}
+		}
+		return '';
+	}
+	
+	
+	
+
 
 	return {
 		generateInternalRep: function(manifest_link) {
