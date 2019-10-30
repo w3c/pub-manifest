@@ -2240,7 +2240,7 @@
 
 						<p>To avoid conflicting information about a resource, a particular resource's <a>URL</a> SHOULD
 							NOT be repeated within the resource list. Only the first declaration of a resource is
-							retained during <a>processing of the manifest</a>.</p>
+							retained during <a href="#manifest-processing">processing of the manifest</a>.</p>
 
 						<p>The URLs expressed in the resource list SHOULD NOT include fragment identifiers.</p>
 
@@ -2747,7 +2747,7 @@
 				obtained from the union of resources listed in the <a href="#default-reading-order"
 						><code>readingOrder</code></a> and <a href="#resource-list"><code>resources</code></a>,
 				including any <a href="#linkedresource-alternate"><code>alternate</code></a> resources. The process for
-				obtaining this list is described in <a href="#processing-pub-resources"></a>.</p>
+				obtaining this list is described in <a href="#obtain-pub-resource-list"></a>.</p>
 
 			<p>All other resources are outside the bounds of the digital publication (e.g., resources listed in the
 						<a><code>links</code></a> section and hyperlinks in the content to external resources on the
@@ -3053,7 +3053,7 @@
 					</li>
 
 					<li id="processing-unique-resources">
-						<p>Set <var>processed['publicationResources']</var> to the result of <a>obtaining a list of
+						<p>Set <var>processed['uniqueResources']</var> to the result of running <a>obtain a list of
 								publication resources</a> given <var>processed['readingOrder']</var> and
 								<var>processed['resources']</var>.</p>
 						<details>
@@ -3631,7 +3631,8 @@
 
 						<li id="validate-resources">
 							<p>(<a href="#resource-list"></a>) If <var>data["resources"]</var> is set, let
-									<var>uniqueURLs</var> be an empty <a>set</a>. <a
+									<var>uniqueURLs</var> be an empty <a
+									href="https://infra.spec.whatwg.org/#ordered-set">set</a>. <a
 									href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
 								<var>resource</var> of <var>data["resources"]</var>:</p>
 							<ol>
@@ -3649,7 +3650,7 @@
 										<var>resource</var> from <var>data["resources"]</var>.</p>
 								</li>
 								<li>
-									<p>otherwise, <a href="https://infra.spec.whatwg.org/#list-append">append</a>
+									<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append">append</a>
 										<var>url</var> to <var>uniqueURLs</var></p>
 								</li>
 							</ol>
@@ -4112,58 +4113,57 @@
 				</section>
 
 				<section id="obtain-pub-resource-list">
-					<h4>Obtain a List of Publication Resources</h4>
+					<h4>Obtain a List of Unique Resources</h4>
 
-					<p>To <dfn>obtain a list of publication resources</dfn> from the <a>internal representation</a> of
-						the manifest <var>internal_rep</var> generated from running <a>processing the manifest</a>, run
-						the following steps:</p>
+					<p>To <dfn>obtain a list of unique resources</dfn> belonging to a <a>digital publication</a> from
+						its <var>readingOrder</var> and <var>resources</var>, run the following steps:</p>
 
 					<ol>
 						<li>
-							<p>Let <var>publication_resources</var> be an empty <a
+							<p>Let <var>uniqueResources</var> be an empty <a
 									href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
 						</li>
 						<li>
 							<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-								<var>resource</var> of <var>internal_rep["readingOrder"]</var>, set
-									<var>publication_resources</var> to the result of running <a>append URL</a> given
-									<var>resource</var> and <var>publication_resources</var>.</p>
+								<var>resource</var> of <var>readingOrder</var>, set <var>uniqueResources</var> to the
+								result of running <a>append URL</a> given <var>resource</var> and
+									<var>uniqueResources</var>.</p>
 						</li>
 						<li>
 							<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-								<var>resource</var> of <var>internal_rep["resources"]</var>, set
-									<var>publication_resources</var> to the result of running <a>append URL</a> given
-									<var>resource</var> and <var>publication_resources</var>.</p>
+								<var>resource</var> of <var>resources</var>, set <var>uniqueResources</var> to the
+								result of running <a>append URL</a> given <var>resource</var> and
+									<var>uniqueResources</var>.</p>
 						</li>
 						<li>
-							<p>Return <var>publication_resources</var>.</p>
+							<p>Return <var>uniqueResources</var>.</p>
 						</li>
 					</ol>
 
 					<section id="append-url">
 						<h5>Append URL</h5>
 
-						<p>To <dfn>append URL</dfn> of <dfn><code>LinkedResource</code></dfn>
-							<var>resource</var> to a set <var>publication_resources</var>, run the following steps:</p>
+						<p>To <dfn>append URL</dfn> of <a><code>LinkedResource</code></a>
+							<var>resource</var> to the set <var>uniqueResources</var>, run the following steps:</p>
 
 						<ol>
 							<li>
 								<p>let <var>url</var> be the result, when successful, of running the <a>URL
 										serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with the <var>exclude
 										fragment flag</var> set. If failure is returned, return
-										<var>publication_resources</var>.</p>
+										<var>uniqueResources</var>.</p>
 							</li>
 							<li>
 								<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>url</var> to <var>publication_resources</var>.</p>
+									<var>url</var> to <var>uniqueResources</var>.</p>
 							</li>
 							<li>
-								<p>if <var>resource["alternate"]</var> is set, set <var>publication_resources</var> to
-									the result of <a>append URL</a> given <var>resource["alternate"]</var> and
-										<var>publication_resources</var>.</p>
+								<p>if <var>resource["alternate"]</var> is set, set <var>uniqueResources</var> to the
+									result of <a>append URL</a> given <var>resource["alternate"]</var> and
+										<var>uniqueResources</var>.</p>
 							</li>
 							<li>
-								<p>return <var>publication_resources</var>.</p>
+								<p>return <var>uniqueResources</var>.</p>
 							</li>
 						</ol>
 					</section>
@@ -4288,7 +4288,7 @@ dictionary PublicationManifest {
     required sequence&lt;LinkedResource>    readingOrder;
              sequence&lt;LinkedResource>    resources;
              sequence&lt;LinkedResource>    links;
-             sequence&lt;LinkedResource>    publicationResources;
+             sequence&lt;LinkedResource>    uniqueResources;
 };
 
 enum TextDirection {
