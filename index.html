@@ -3031,7 +3031,7 @@
 						</details>
 					</li>
 
-					<li id="processing-checks">
+					<li id="processing-validation">
 						<p>Set <var>processed</var> to the result of running <a>data validation</a> given
 								<var>processed</var>.</p>
 						<details>
@@ -3054,14 +3054,35 @@
 					</li>
 
 					<li id="processing-unique-resources">
-						<p>Set <var>processed['uniqueResources']</var> to the result of running <a>obtain a list of
-								unique resources</a> given <var>processed['readingOrder']</var> and
-								<var>processed['resources']</var>.</p>
+						<p>Set <var>processed["uniqueResources"]</var> to the result of running <a>obtain a list of
+								unique resources</a> given <var>processed["readingOrder"]</var> and
+								<var>processed["resources"]</var>.</p>
 						<details>
 							<summary>Explanation</summary>
-							<p>The final step is to compile a list of all the unique resources within the bounds of the
-								publication.</p>
+							<p>This step compiles a list of all the unique resources within the <a
+									href="#publication resources">bounds of the publication</a>.</p>
 						</details>
+					</li>
+
+					<li id="processing-links">
+						<p>If <var>processed["links"]</var> is set, <a
+								href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+							<var>link</var> in <var>processed["links"]</var>:</p>
+						<ol>
+							<li>
+								<p>let <var>url</var> be the result of running <a
+										href="https://url.spec.whatwg.org/#concept-url-serializer">URL
+									serializer</a>&#160;[[!url]] on <var>link["url"]</var> with the <var>exclude
+										fragment flag</var> set.</p>
+							</li>
+							<li>
+								<p>if <var>processed["uniqueLinks"]</var>
+									<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
+									<var>url</var>, <a>validation error</a>, <a
+										href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+									<var>link</var> from <var>processed["links"]</var>.</p>
+							</li>
+						</ol>
 					</li>
 
 					<li id="processing-end">
@@ -4149,10 +4170,10 @@
 
 						<ol>
 							<li>
-								<p>let <var>url</var> be the result, when successful, of running the <a>URL
-										serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with the <var>exclude
-										fragment flag</var> set. If failure is returned, return
-										<var>uniqueResources</var>.</p>
+								<p>let <var>url</var> be the result of running the <a
+										href="https://url.spec.whatwg.org/#concept-url-serializer">URL
+									serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with the <var>exclude
+										fragment flag</var> set.</p>
 							</li>
 							<li>
 								<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
