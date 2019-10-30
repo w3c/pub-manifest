@@ -777,9 +777,7 @@
 												an alternative format; or</li>
 											<li>an instance of a <code>LinkedResource</code> object</li>
 										</ul>
-										<p>The order of items is <em>not significant</em>. Resources SHOULD be expressed
-											as <code>LinkedResource</code> objects with their
-												<code>encodingFormat</code> values set.</p>
+										<p>The order of items is <em>not significant</em>.</p>
 									</td>
 									<td>
 										<p>One or more instances of <code>LinkedResource</code> objects.</p>
@@ -796,6 +794,10 @@
 						<p>Although user agent support for the <code>integrity</code> property is OPTIONAL, user agents
 							that support cryptographic hashing comparisons using this property MUST do so in accordance
 							with [[!sri]].</p>
+
+						<p class="note">When defining a <code>LinkedResource</code> object, it is advised to always
+							specify the media type of the resource using the <code>encodingFormat</code> property. Doing
+							so allows user agents to more readily determine the usability of the resource.</p>
 
 						<pre class="example" title="A resource with a SHA-256 hashing of its content.">{
     "type"           : "LinkedResource",
@@ -2093,9 +2095,6 @@
 							>privacy policy</a>, and <a href="#structural-rel">structural resources</a> like the <a
 							href="#table-of-contents">table of contents</a>.</p>
 
-					<p>Note that a particular resource's <a>URL</a> MUST NOT appear in more than one of these lists, and
-						a URL MUST NOT be repeated within a list.</p>
-
 					<p>The manifest MUST NOT include a reference to itself within any of these lists.</p>
 
 					<section id="default-reading-order">
@@ -2149,9 +2148,11 @@
 
 						<p>The order of items is <em>significant</em>.</p>
 
-						<p>The URLs expressed in the reading order MUST NOT include fragment identifiers. Non-HTML
-							resources SHOULD be expressed as <code>LinkedResource</code> objects with their
-								<code>encodingFormat</code> values set.</p>
+						<p>The URLs expressed in the reading order MAY include fragment identifiers, although
+								<a>profiles</a> of this specification restrict both their use as well as what schemes
+							and features are supported. Fragment identifiers are to be interpreted as defined by their
+							respective specifications (e.g., the start location to move the user to, or the range of
+							content to render before moving to the next item in the reading order).</p>
 
 						<p>The default reading order MUST include at least one resource.</p>
 
@@ -2237,13 +2238,15 @@
 
 						<p>The order of items is <em>not significant</em>.</p>
 
-						<p>The URLs MUST NOT include fragment identifiers. It is RECOMMENDED to use
-								<code>LinkedResource</code> objects with their <code>encodingFormat</code> values
-							set.</p>
+						<p>To avoid conflicting information about a resource, a particular resource's <a>URL</a> SHOULD
+							NOT be repeated within the resource list. Only the first declaration of a resource is
+							retained during <a>processing of the manifest</a>.</p>
+
+						<p>The URLs expressed in the resource list SHOULD NOT include fragment identifiers.</p>
 
 						<p>The completeness of the resource list can affect the usability of a digital publication in
 							certain reading scenarios (e.g., the ability to read it offline). For this reason, it is
-							strongly RECOMMENDED to provide a comprehensive list of all of the publication's constituent
+							strongly advised to provide a comprehensive list of all of the publication's constituent
 							resources beyond those listed in the <a>default reading order</a>.</p>
 
 						<p>In some cases, a comprehensive list of these resources might not be easily achieved (e.g.,
@@ -2325,8 +2328,8 @@
 
 						<p>The order of items is <em>not significant</em>.</p>
 
-						<p>It is RECOMMENDED to use <code>LinkedResource</code> objects with their
-								<code>encodingFormat</code> and <code>rel</code> values set.</p>
+						<p>It is RECOMMENDED to use <code>LinkedResource</code> objects with their <code>rel</code>
+							values set.</p>
 
 						<p>Linked resources are typically made available to user agents to augment or enhance the
 							processing or rendering, such as:</p>
@@ -3044,9 +3047,19 @@
 							failure.</p>
 						<details>
 							<summary>Explanation</summary>
-							<p>The final step is to check if any information missing from the manifest can be obtained
-								from the HTML document that links to the manifest (e.g., the title and reading
-								order).</p>
+							<p>This step checks if any information missing from the manifest can be obtained from the
+								HTML document that links to the manifest (e.g., the title and reading order).</p>
+						</details>
+					</li>
+
+					<li id="processing-unique-resources">
+						<p>Set <var>processed['publicationResources']</var> to the result of <a>obtaining a list of
+								publication resources</a> given <var>processed['readingOrder']</var> and
+								<var>processed['resources']</var>.</p>
+						<details>
+							<summary>Explanation</summary>
+							<p>The final step is to compile a list of all the unique resources within the bounds of the
+								publication.</p>
 						</details>
 					</li>
 
@@ -3616,6 +3629,32 @@
 									error</a>, set to "<code>ltr</code>".</p>
 						</li>
 
+						<li id="validate-resources">
+							<p>(<a href="#resource-list"></a>) If <var>data["resources"]</var> is set, let
+									<var>uniqueURLs</var> be an empty <a>set</a>. <a
+									href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
+								<var>resource</var> of <var>data["resources"]</var>:</p>
+							<ol>
+								<li>
+									<p>let <var>url</var> be the result of running <a
+											href="https://url.spec.whatwg.org/#concept-url-serializer">URL
+											serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with <var>exclude
+											fragment flag</var> set.</p>
+								</li>
+								<li>
+									<p>if <var>uniqueURLs</var>
+										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
+										<var>url</var>, <a>validation error</a>, <a
+											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+										<var>resource</var> from <var>data["resources"]</var>.</p>
+								</li>
+								<li>
+									<p>otherwise, <a href="https://infra.spec.whatwg.org/#list-append">append</a>
+										<var>url</var> to <var>uniqueURLs</var></p>
+								</li>
+							</ol>
+						</li>
+
 						<li id="validate-extension">
 							<p>If a <a>profile</a> specifies data validation checks, those steps are executed at this
 								point.</p>
@@ -4071,58 +4110,64 @@
 						</li>
 					</ol>
 				</section>
-			</section>
 
-			<section id="processing-pub-resources">
-				<h3>Obtain a List of Publication Resources</h3>
+				<section id="obtain-pub-resource-list">
+					<h4>Obtain a List of Publication Resources</h4>
 
-				<p>To <dfn>obtain a list of publication resources</dfn> from the <a>internal representation</a> of the
-					manifest <var>internal_rep</var> generated from running <a>processing the manifest</a>, run the
-					following steps:</p>
+					<p>To <dfn>obtain a list of publication resources</dfn> from the <a>internal representation</a> of
+						the manifest <var>internal_rep</var> generated from running <a>processing the manifest</a>, run
+						the following steps:</p>
 
-				<ol>
-					<li>
-						<p>Let <var>publication_resources</var> be an empty <a
-								href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
-					</li>
-					<li>
-						<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-							<var>resource</var> of <var>internal_rep["readingOrder"]</var>:</p>
+					<ol>
+						<li>
+							<p>Let <var>publication_resources</var> be an empty <a
+									href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
+						</li>
+						<li>
+							<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
+								<var>resource</var> of <var>internal_rep["readingOrder"]</var>, set
+									<var>publication_resources</var> to the result of running <a>append URL</a> given
+									<var>resource</var> and <var>publication_resources</var>.</p>
+						</li>
+						<li>
+							<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
+								<var>resource</var> of <var>internal_rep["resources"]</var>, set
+									<var>publication_resources</var> to the result of running <a>append URL</a> given
+									<var>resource</var> and <var>publication_resources</var>.</p>
+						</li>
+						<li>
+							<p>Return <var>publication_resources</var>.</p>
+						</li>
+					</ol>
+
+					<section id="append-url">
+						<h5>Append URL</h5>
+
+						<p>To <dfn>append URL</dfn> of <dfn><code>LinkedResource</code></dfn>
+							<var>resource</var> to a set <var>publication_resources</var>, run the following steps:</p>
+
 						<ol>
 							<li>
-								<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>resource["url"]</var> to <var>publication_resources</var>.</p>
+								<p>let <var>url</var> be the result, when successful, of running the <a>URL
+										serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with the <var>exclude
+										fragment flag</var> set. If failure is returned, return
+										<var>publication_resources</var>.</p>
 							</li>
-							<li>
-								<p>if <var>resource["alternate"]</var> is set, <a
-										href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-									<var>alternate</var> of <var>resource["alternate"]</var>, <a
-										href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>alternate["url"]</var> to <var>publication_resources</var>.</p>
-							</li>
-						</ol>
-					</li>
-					<li>
-						<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-							<var>resource</var> of <var>internal_rep["resources"]</var>:</p>
-						<ol>
 							<li>
 								<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>resource["url"]</var> to <var>publication_resources</var>.</p>
+									<var>url</var> to <var>publication_resources</var>.</p>
 							</li>
 							<li>
-								<p>if <var>resource["alternate"]</var> is set, <a
-										href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-									<var>alternate</var> of <var>resource["alternate"]</var>, <a
-										href="https://infra.spec.whatwg.org/#set-append">append</a>
-									<var>alternate["url"]</var> to <var>publication_resources</var>.</p>
+								<p>if <var>resource["alternate"]</var> is set, set <var>publication_resources</var> to
+									the result of <a>append URL</a> given <var>resource["alternate"]</var> and
+										<var>publication_resources</var>.</p>
+							</li>
+							<li>
+								<p>return <var>publication_resources</var>.</p>
 							</li>
 						</ol>
-					</li>
-					<li>
-						<p>Return <var>publication_resources</var>.</p>
-					</li>
-				</ol>
+					</section>
+				</section>
 			</section>
 		</section>
 		<section id="extensions">
@@ -4243,6 +4288,7 @@ dictionary PublicationManifest {
     required sequence&lt;LinkedResource>    readingOrder;
              sequence&lt;LinkedResource>    resources;
              sequence&lt;LinkedResource>    links;
+             sequence&lt;LinkedResource>    publicationResources;
 };
 
 enum TextDirection {
