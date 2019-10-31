@@ -3001,14 +3001,13 @@
 									href="https://infra.spec.whatwg.org/#string">strings</a>, then <a
 									href="https://infra.spec.whatwg.org/#iteration-break">break</a>.</li>
 						</ol>
-						<p>If the value of <var>lang</var> is neither an empty <a
-								href="https://infra.spec.whatwg.org/#string">string</a> nor a <a
-								href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
-							language tag, <a>validation error</a>, set <var>lang</var> to an empty string.</p>
-						<p>If the value of <var>dir</var> is neither an empty <a
-								href="https://infra.spec.whatwg.org/#string">string</a> nor one of the values
-								"<code>ltr</code>" or "<code>rtl</code>", <a>validation error</a>, set <var>dir</var> to
-							an empty string.</p>
+						<p>If <var>lang</var> is not an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
+							and is not a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+							>well-formed</a>&#160;[[!bcp47]] language tag, <a>validation error</a>, set <var>lang</var>
+							to an empty string.</p>
+						<p>If <var>dir</var> is not an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
+							and is not one of the values "<code>ltr</code>" or "<code>rtl</code>", <a>validation
+								error</a>, set <var>dir</var> to an empty string.</p>
 						<details>
 							<summary>Explanation</summary>
 							<p>The global language and direction declarations obtained here are used to set the language
@@ -3122,8 +3121,8 @@
 						</li>
 
 						<li id="normalize-entities">
-							<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a href="#value-array"
-									>array</a> of <a href="#value-entity">entities</a>, <a
+							<p>(<a href="#value-entity"></a>) If, depending on <var>context</var>, <var>term</var>
+								expects an <a href="#value-array">array</a> of <a href="#value-entity">entities</a>, <a
 									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 								<var>entity</var> of <var>normalized</var>:</p>
 							<ol>
@@ -3180,9 +3179,10 @@
 						</li>
 
 						<li id="normalize-localizable-strings">
-							<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects an <a
-									href="#value-array">array</a> of <a href="#value-localizable-string">localizable
-									strings</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+							<p>(<a href="#value-localizable-string"></a>) If, depending on <var>context</var>,
+									<var>term</var> expects an <a href="#value-array">array</a> of <a
+									href="#value-localizable-string">localizable strings</a>, <a
+									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 								<var>item</var> of <var>normalized</var>:</p>
 							<ol>
 								<li id="ls-value-normalize">
@@ -3195,7 +3195,7 @@
     "direction" → <var>dir</var>
 ]»</pre>
 									<p>if <var>lang</var> or <var>dir</var> is not set, or is an empty <a
-											href="https://infra.spec.whatwg.org/#string">strings</a>, <a
+											href="https://infra.spec.whatwg.org/#string">string</a>, <a
 											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 										<var>item["language"]</var> or <var>item["direction"]</var>, respectively.</p>
 								</li>
@@ -3326,10 +3326,10 @@
 						</li>
 
 						<li id="normalize-linked-resources">
-							<p>(<a href="#value-linked-resource"></a>) If <var>term</var> expects an <a
-									href="#value-array">array</a> of <a href="#value-linked-resource"
-									>LinkedResources</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for
-									each</a>
+							<p>(<a href="#value-linked-resource"></a>) If, depending on <var>context</var>,
+									<var>term</var> expects an <a href="#value-array">array</a> of <a
+									href="#value-linked-resource">LinkedResources</a>, <a
+									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 								<var>resource</var> of <var>normalized</var>:</p>
 							<ol>
 								<li>
@@ -3386,8 +3386,8 @@
 						</li>
 
 						<li id="normalize-urls">
-							<p>(<a href="#value-url"></a>) If <var>term</var> expects a <a href="#value-url">URL</a> or
-									<a href="#value-array">array</a> of URLs:</p>
+							<p>(<a href="#value-url"></a>) If, depending on <var>context</var>, <var>term</var> expects
+								a <a href="#value-url">URL</a> or <a href="#value-array">array</a> of URLs:</p>
 							<ol>
 								<li>
 									<p>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#string"
