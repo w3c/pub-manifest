@@ -3671,7 +3671,7 @@
 											fragment flag</var> set.</p>
 								</li>
 								<li>
-									<p>if <var>data["uniqueLinks"]</var>
+									<p>if <var>data["uniqueResources"]</var>
 										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
 										<var>url</var>, <a>validation error</a>, <a
 											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
@@ -4053,8 +4053,7 @@
 							<h5>Append URL</h5>
 
 							<p>To <dfn>append URL</dfn> of <a><code>LinkedResource</code></a>
-								<var>resource</var> to the set <var>uniqueResources</var>, for the term <var>term</var>,
-								run the following steps:</p>
+								<var>resource</var> to the set <var>uniqueResources</var>, run the following steps:</p>
 
 							<ol>
 								<li id="append-parse-url">
@@ -4071,9 +4070,11 @@
 										<var>url</var> to <var>uniqueResources</var>.</p>
 								</li>
 								<li id="append-alternates">
-									<p>if <var>resource["alternate"]</var> is set, set <var>uniqueResources</var> to the
-										result of <a>append URL</a> given <var>resource["alternate"]</var> and
-											<var>uniqueResources</var>.</p>
+									<p>if <var>resource["alternate"]</var> is set, <a
+											href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+										<var>alternate</var> of <var>resource["alternate"]</var>, set
+											<var>uniqueResources</var> to the result of running <a>append URL</a> given
+											<var>alternate</var> and <var>uniqueResources</var>.</p>
 								</li>
 								<li id="append-end">
 									<p>return <var>uniqueResources</var>.</p>
@@ -4640,7 +4641,7 @@ dictionary LocalizableString {
 				<ol>
 					<li>
 						<p>if the <code>LinkedResource</code> that identifies the table of contents includes a fragment
-							identifier in its URL, the element referenced by the fragment identifier provided the
+							identifier in its URL, the element referenced by the fragment identifier, provided the
 							element has the <code>role</code> attribute value <code>doc-toc</code>.</p>
 					</li>
 					<li>
