@@ -3623,38 +3623,35 @@
 									error</a>, set to "<code>ltr</code>".</p>
 						</li>
 
-						<li id="validate-resources">
-							<p>(<a href="#resource-list"></a>) If <var>data["resources"]</var> is set, let
-									<var>uniqueURLs</var> be an empty <a
-									href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>. <a
-									href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
-								<var>resource</var> of <var>data["resources"]</var>:</p>
+						<li id="validate-unique-resources">
+							<p>(<a href="#publication-resources"></a>) Obtain and verify the unique URLs within the
+								publication <a>bounds</a> as follows:</p>
 							<ol>
-								<li>
-									<p>let <var>url</var> be the result of running <a
-											href="https://url.spec.whatwg.org/#concept-url-serializer">URL
-											serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with <var>exclude
-											fragment flag</var> set.</p>
+								<li id="reslist-readingorder">
+									<p>If <var>readingOrder</var> is set, let <var>readingOrderURLs</var> be the result
+										of running <a>get unique URLs</a> given <var>readingOrder</var>. Otherwise, let
+											<var>readingOrderURLs</var> be an empty <a
+											href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
 								</li>
-								<li>
-									<p>if <var>uniqueURLs</var>
-										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
-										<var>url</var>, <a>validation error</a>.</p>
+
+								<li id="reslist-resources">
+									<p>If <var>resources</var> is set, let <var>resourcesURLs</var> be the result of
+										running <a>get unique URLs</a> given <var>resources</var>. Otherwise, let
+											<var>resourcesURLs</var> be an empty <a
+											href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
 								</li>
-								<li>
-									<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append">append</a>
-										<var>url</var> to <var>uniqueURLs</var></p>
+
+								<li id="reslist-end">
+									<p>Set <var>data['uniqueResources']</var> to the <a
+											href="https://infra.spec.whatwg.org/#set-union">union</a> of
+											<var>readingOrderURLs</var> and <var>resourceURLs</var>.</p>
 								</li>
 							</ol>
-						</li>
-
-						<li id="validate-unique-resources">
-							<p>(<a href="#publication-resources"></a>) Set <var>data["uniqueResources"]</var> to the
-								result of running <a>obtain a list of unique resources</a> given
-									<var>data["readingOrder"]</var> and <var>data["resources"]</var>.</p>
 							<details>
 								<summary>Explanation</summary>
-								<p>This step compiles a list of all the unique resources within the <a
+								<p>This step gets the list of unique URLs within the reading order and the resource
+									list. It then sets <var>data['uniqueResources']</var> the union of these two sets,
+									which represents the complete list of unique resources within the <a
 										href="#publication-resources">bounds of the publication</a>.</p>
 							</details>
 						</li>
@@ -4018,69 +4015,51 @@
 						</details>
 					</section>
 
-					<section id="obtain-pub-resource-list">
-						<h4>Obtain a List of Unique Resources</h4>
+					<section id="get-unique-urls">
+						<h4>Get Unique URLs</h4>
 
-						<p>To <dfn>obtain a list of unique resources</dfn> belonging to a <a>digital publication</a>
-							from its <var>readingOrder</var> and <var>resources</var>, run the following steps:</p>
+						<p>To <dfn>get unique URLs</dfn> from <var>resources</var>, run the following steps:</p>
 
 						<ol>
-							<li id="reslist-set-var">
-								<p>Let <var>uniqueResources</var> be an empty <a
+							<li id="unique-url-var">
+								<p>Let <var>uniqueURLs</var> be an empty <a
 										href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
 							</li>
 
-							<li id="reslist-readingorder">
-								<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-									<var>resource</var> of <var>readingOrder</var>, set <var>uniqueResources</var> to
-									the result of running <a>append URL</a> given <var>resource</var> and
-										<var>uniqueResources</var>.</p>
+							<li id="unique-url-parse">
+								<p>For each <var>resource</var> of <var>resources</var>:</p>
+								<ol>
+									<li id="unique-parse-url">
+										<p>let <var>url</var> be the result of running <a
+												href="https://url.spec.whatwg.org/#concept-url-serializer">URL
+												serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with
+												<var>exclude fragment flag</var> set.</p>
+									</li>
+
+									<li id="unique-parse-test">
+										<p>if <var>uniqueURLs</var>
+											<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
+											<var>url</var>, <a>validation error</a>.</p>
+									</li>
+
+									<li id="unique-parse-append">
+										<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append">append</a>
+											<var>url</var> to <var>uniqueURLs</var></p>
+									</li>
+								</ol>
 							</li>
 
-							<li id="reslist-resources">
-								<p><a href="https://infra.spec.whatwg.org/#set-iterate">For each</a>
-									<var>resource</var> of <var>resources</var>, set <var>uniqueResources</var> to the
-									result of running <a>append URL</a> given <var>resource</var> and
-										<var>uniqueResources</var>.</p>
-							</li>
-
-							<li id="reslist-end">
-								<p>Return <var>uniqueResources</var>.</p>
+							<li id="unique-url-end">
+								<p>return <var>uniqueURLs</var>.</p>
 							</li>
 						</ol>
 
-						<section id="append-url">
-							<h5>Append URL</h5>
-
-							<p>To <dfn>append URL</dfn> of <a><code>LinkedResource</code></a>
-								<var>resource</var> to the set <var>uniqueResources</var>, run the following steps:</p>
-
-							<ol>
-								<li id="append-parse-url">
-									<p>let <var>url</var> be the result of running the <a
-											href="https://url.spec.whatwg.org/#concept-url-serializer">URL
-											serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with the
-											<var>exclude fragment flag</var> set.</p>
-								</li>
-								<li id="append-no-dupes">
-									<p>if <var>uniqueResources</var>
-										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
-										<var>url</var>, <a>validation error</a>. Otherwise, <a
-											href="https://infra.spec.whatwg.org/#set-append">append</a>
-										<var>url</var> to <var>uniqueResources</var>.</p>
-								</li>
-								<li id="append-alternates">
-									<p>if <var>resource["alternate"]</var> is set, <a
-											href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-										<var>alternate</var> of <var>resource["alternate"]</var>, set
-											<var>uniqueResources</var> to the result of running <a>append URL</a> given
-											<var>alternate</var> and <var>uniqueResources</var>.</p>
-								</li>
-								<li id="append-end">
-									<p>return <var>uniqueResources</var>.</p>
-								</li>
-							</ol>
-						</section>
+						<details>
+							<summary>Explanation</summary>
+							<p>This function takes a list of <a><code>LinkedResource</code></a> objects &#8212; from
+								either the reading order or resource list &#8212; and returns the set of unique URLs. If
+								duplicates are encountered, warnings are issued.</p>
+						</details>
 					</section>
 
 					<section id="remove-empty-arrays">
