@@ -2745,11 +2745,12 @@
 		<section id="publication-resources">
 			<h2>Publication Resources</h2>
 
-			<p>The list of resources belonging to a <a>digital publication</a> &#8212; its <a>bounds</a> &#8212; is
-				obtained from the union of resources listed in the <a href="#default-reading-order"
+			<p>The list of unique resources belonging to a <a>digital publication</a> &#8212; its <a>bounds</a> &#8212;
+				is obtained from the union of resources listed in the <a href="#default-reading-order"
 						><code>readingOrder</code></a> and <a href="#resource-list"><code>resources</code></a>,
 				including any <a href="#linkedresource-alternate"><code>alternate</code></a> resources. The process for
-				obtaining this list is described in <a href="#obtain-pub-resource-list"></a>.</p>
+					<a href="#validate-unique-resources">creating this list</a> is described in the manifest processing
+				algorithm.</p>
 
 			<p>All other resources are outside the bounds of the digital publication (e.g., resources listed in the
 						<a><code>links</code></a> section and hyperlinks in the content to external resources on the
