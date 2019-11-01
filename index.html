@@ -2246,8 +2246,7 @@
 						<p>The order of items is <em>not significant</em>.</p>
 
 						<p>To avoid conflicting information about a resource, a particular resource's <a>URL</a> SHOULD
-							NOT be repeated within the resource list. Only the first declaration of a resource is
-							retained during <a href="#manifest-processing">processing of the manifest</a>.</p>
+							NOT be repeated within the resource list.</p>
 
 						<p>The URLs expressed in the resource list SHOULD NOT include fragment identifiers.</p>
 
@@ -4046,6 +4045,31 @@
 										<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append">append</a>
 											<var>url</var> to <var>uniqueURLs</var></p>
 									</li>
+									<li id="unique-alternate-parse">
+										<p>if <var>resource["alternate"]</var> is set, for each <var>alternate</var> of
+												<var>resource["alternate"]</var>:</p>
+										<ol>
+											<li id="alternate-parse-url">
+												<p>let <var>alt_url</var> be the result of running <a
+														href="https://url.spec.whatwg.org/#concept-url-serializer">URL
+														serializer</a>&#160;[[!url]] on <var>alternate["url"]</var> with
+														<var>exclude fragment flag</var> set.</p>
+											</li>
+
+											<li id="alternate-parse-test">
+												<p>if <var>uniqueURLs</var>
+													<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
+													<var>alt_url</var>, <a>validation error</a>.</p>
+											</li>
+
+											<li id="alternate-parse-append">
+												<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append"
+														>append</a>
+													<var>alt_url</var> to <var>uniqueURLs</var></p>
+											</li>
+										</ol>
+									</li>
+
 								</ol>
 							</li>
 
