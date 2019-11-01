@@ -868,9 +868,6 @@
 							href="https://url.spec.whatwg.org/#absolute-url-string">valid URL
 						string</a>&#160;[[!url]].</p>
 
-					<p>Manifest URLs are restricted to only the <code>http</code> and <code>https</code>
-						<a href="https://url.spec.whatwg.org/#concept-url-scheme">schemes</a>&#160;[[!url]].</p>
-
 					<p>In the case of <a href="https://url.spec.whatwg.org/#relative-url-string">relative-URL
 							strings</a>, these are resolved to <a
 							href="https://url.spec.whatwg.org/#absolute-url-string">absolute-URL strings</a> using a <a
@@ -3523,17 +3520,6 @@
 										not an absolute URL, the parser converts it to one using the base URL.</p>
 									<p>If parsing returns a failure, a failure is returned to the caller to indicate to
 										remove the URL.</p>
-								</details>
-							</li>
-							<li id="abs-url-scheme">
-								<p>If the <var>value</var> does not have the scheme <code>http</code> or
-										<code>https</code>
-									<a>validation error</a>, return failure.</p>
-								<details>
-									<summary>Explanation</summary>
-									<p>URLs in the publication manifest are restricted to the <code>http</code> and
-											<code>https</code> schemes, but this is not enforced by the URL parser. This
-										additional step is necessary to ensure that other schemes are not used.</p>
 								</details>
 							</li>
 							<li id="abs-url-return">
