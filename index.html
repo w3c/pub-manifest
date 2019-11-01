@@ -2745,9 +2745,9 @@
 			<p>The list of unique resources belonging to a <a>digital publication</a> &#8212; its <a>bounds</a> &#8212;
 				is obtained from the union of resources listed in the <a href="#default-reading-order"
 						><code>readingOrder</code></a> and <a href="#resource-list"><code>resources</code></a>,
-				including any <a href="#linkedresource-alternate"><code>alternate</code></a> resources. The process for
-					<a href="#validate-unique-resources">creating this list</a> is described in the manifest processing
-				algorithm.</p>
+				including any <a href="#linkedresource-alternate"><code>alternate</code></a> resources. The exact
+				process for <a href="#validate-unique-resources">creating this list</a> is described in the manifest
+				processing algorithm.</p>
 
 			<p>All other resources are outside the bounds of the digital publication (e.g., resources listed in the
 						<a><code>links</code></a> section and hyperlinks in the content to external resources on the
@@ -3658,7 +3658,8 @@
 										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
 										<var>url</var>, <a>validation error</a>, <a
 											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-										<var>link</var> from <var>data["links"]</var>.</p>
+										<var>link</var> from <var>data["links"]</var>, then <a
+											href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
 								</li>
 								<li>
 									<p>if <var>link["rel"]</var> is set and <a
@@ -3877,13 +3878,6 @@
 												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 											<var>resource["length"]</var>.</p>
 									</li>
-									<li>
-										<p>if <a href="#linkedresource-alternate"><var>resource["alternate"]</var></a>
-											is set, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-											<var>alternate</var> of <var>resource["alterate"]</var>, if
-												<var>alternate["encodingFormat"]</var> is not set, <a>validation
-												error</a>.</p>
-									</li>
 								</ul>
 								<details>
 									<summary>Explanation</summary>
@@ -3894,9 +3888,6 @@
 											removed.</li>
 										<li>If the length of the resource is specified, and is not a positive number,
 											the length is removed.</li>
-										<li>If there are alternate resources associated with the
-												<code>LinkedResource</code>, each is inspected to see if its media type
-											is specified.</li>
 									</ol>
 								</details>
 							</li>
