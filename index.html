@@ -108,9 +108,8 @@
 					</dt>
 					<dd>
 						<p>A <a>digital publication</a> consists of a finite set of resources that represent its
-							content. This extent is known as its bounds and is defined within its manifest — it is
-							obtained from the union of resources listed in the <a href="#default-reading-order">default
-								reading order</a> and <a href="#resource-list">resource list</a>.</p>
+							content. This extent is known as its bounds and is defined within its manifest as described
+							in <a href="#publication-resources"></a>.</p>
 					</dd>
 
 					<dt>
@@ -166,7 +165,9 @@
 				</dl>
 			</section>
 
-			<section id="conformance"></section>
+			<section id="conformance">
+				<p>All explanations are <em>informative</em>.</p>
+			</section>
 		</section>
 		<section id="manifest">
 			<h2>Publication Manifest</h2>
@@ -778,9 +779,7 @@
 												an alternative format; or</li>
 											<li>an instance of a <code>LinkedResource</code> object</li>
 										</ul>
-										<p>The order of items is <em>not significant</em>. Resources SHOULD be expressed
-											as <code>LinkedResource</code> objects with their
-												<code>encodingFormat</code> values set.</p>
+										<p>The order of items is <em>not significant</em>.</p>
 									</td>
 									<td>
 										<p>One or more instances of <code>LinkedResource</code> objects.</p>
@@ -797,6 +796,10 @@
 						<p>Although user agent support for the <code>integrity</code> property is OPTIONAL, user agents
 							that support cryptographic hashing comparisons using this property MUST do so in accordance
 							with [[!sri]].</p>
+
+						<p class="note">When defining a <code>LinkedResource</code> object, it is advised to always
+							specify the media type of the resource using the <code>encodingFormat</code> property. Doing
+							so allows user agents to more readily determine the usability of the resource.</p>
 
 						<pre class="example" title="A resource with a SHA-256 hashing of its content.">{
     "type"           : "LinkedResource",
@@ -2094,10 +2097,8 @@
 							>privacy policy</a>, and <a href="#structural-rel">structural resources</a> like the <a
 							href="#table-of-contents">table of contents</a>.</p>
 
-					<p>Note that a particular resource's <a>URL</a> MUST NOT appear in more than one of these lists, and
-						a URL MUST NOT be repeated within a list.</p>
-
-					<p>The manifest MUST NOT include a reference to itself within any of these lists.</p>
+					<p class="note">It is not necessary to include a reference to the manifest in any of these
+						lists.</p>
 
 					<section id="default-reading-order">
 						<h5>Default Reading Order</h5>
@@ -2150,9 +2151,15 @@
 
 						<p>The order of items is <em>significant</em>.</p>
 
-						<p>The URLs expressed in the reading order MUST NOT include fragment identifiers. Non-HTML
-							resources SHOULD be expressed as <code>LinkedResource</code> objects with their
-								<code>encodingFormat</code> values set.</p>
+						<p>The URLs expressed in the reading order MAY include fragment identifiers, although
+								<a>profiles</a> of this specification MAY restrict both their use as well as what
+							schemes and features are supported. Fragment identifiers are to be interpreted as defined by
+							their respective specifications (e.g., the start location to move the user to, or the range
+							of content to render before moving to the next item in the reading order).</p>
+
+						<p>Resources SHOULD NOT be listed more than once in the reading order, as this can lead to
+							unexpected results in user agents (e.g., links to the resource might not resolve to the
+							right instance in the reading order).</p>
 
 						<p>The default reading order MUST include at least one resource.</p>
 
@@ -2238,13 +2245,14 @@
 
 						<p>The order of items is <em>not significant</em>.</p>
 
-						<p>The URLs MUST NOT include fragment identifiers. It is RECOMMENDED to use
-								<code>LinkedResource</code> objects with their <code>encodingFormat</code> values
-							set.</p>
+						<p>To avoid conflicting information about a resource, a particular resource's <a>URL</a> SHOULD
+							NOT be repeated within the resource list.</p>
+
+						<p>The URLs expressed in the resource list SHOULD NOT include fragment identifiers.</p>
 
 						<p>The completeness of the resource list can affect the usability of a digital publication in
 							certain reading scenarios (e.g., the ability to read it offline). For this reason, it is
-							strongly RECOMMENDED to provide a comprehensive list of all of the publication's constituent
+							strongly advised to provide a comprehensive list of all of the publication's constituent
 							resources beyond those listed in the <a>default reading order</a>.</p>
 
 						<p>In some cases, a comprehensive list of these resources might not be easily achieved (e.g.,
@@ -2326,8 +2334,8 @@
 
 						<p>The order of items is <em>not significant</em>.</p>
 
-						<p>It is RECOMMENDED to use <code>LinkedResource</code> objects with their
-								<code>encodingFormat</code> and <code>rel</code> values set.</p>
+						<p>It is RECOMMENDED to use <code>LinkedResource</code> objects with their <code>rel</code>
+							values set.</p>
 
 						<p>Linked resources are typically made available to user agents to augment or enhance the
 							processing or rendering, such as:</p>
@@ -2593,9 +2601,9 @@
 								publication</a> (e.g., in a library or bookshelf, or when initially loading the
 							publication).</p>
 
-						<p>The cover is identified by the <code>cover</code> link relation. The <a href="#value-url"
-								>URL</a> expressed in the <code>url</code> term MUST NOT include a fragment
-							identifier.</p>
+						<p>The cover is identified by the <code>cover</code> link relation.</p>
+
+						<p>The link to the cover MUST NOT be specified in the <a href="#links">links list</a>.</p>
 
 						<p class="ednote">The <code>cover</code> term is not currently registered in the IANA link
 							relations but the Working Group expects to add it.</p>
@@ -2666,9 +2674,7 @@
 						<p>The page list is a navigational aid that contains a list of static page demarcation points
 							within a <a>digital publication</a>.</p>
 
-						<p>The page list is identified by the <code>pagelist</code> link relation. The <a
-								href="#value-url">URL</a> expressed in the <code>url</code> term of the resource that
-							identifies the page list MUST NOT include a fragment identifier.</p>
+						<p>The page list is identified by the <code>pagelist</code> link relation.</p>
 
 						<p class="ednote">The <code>pagelist</code> term is not currently registered in the IANA link
 							relations but the Working Group expects to add it.</p>
@@ -2692,16 +2698,14 @@
 					<section id="pub-table-of-contents">
 						<h5>Table of Contents</h5>
 
-						<p>The table of contents is a navigational aid that provides links to the majort structural
+						<p>The table of contents is a navigational aid that provides links to the major structural
 							sections of a <a>digital publication</a>.</p>
 
 						<p>The <dfn data-lt="toc">table of contents</dfn> is identified by the <code>contents</code>
-							link relation&#160;[[!iana-link-relations]]. The <a href="#value-url">URL</a> expressed in
-							the <code>url</code> term of the resource that identifies the table of contents MUST NOT
-							include a fragment identifier.</p>
+							link relation&#160;[[!iana-link-relations]].</p>
 
-						<p>The link to the table of contents MUST NOT be specified in the <a
-								href="#default-reading-order">links list</a>.</p>
+						<p>The link to the table of contents MUST NOT be specified in the <a href="#links">links
+								list</a>.</p>
 
 						<p>The RECOMMENDED structure and processing model for the table of contents is defined in <a
 								href="#app-toc-structure"></a>.</p>
@@ -2737,6 +2741,27 @@
 					<p>Use of relations from [[!iana-relations]] is RECOMMENDED.</p>
 				</section>
 			</section>
+		</section>
+		<section id="publication-resources">
+			<h2>Publication Resources</h2>
+
+			<p>The list of unique resources belonging to a <a>digital publication</a> &#8212; its <a>bounds</a> &#8212;
+				is obtained from the union of resources listed in the <a href="#default-reading-order"
+						><code>readingOrder</code></a> and <a href="#resource-list"><code>resources</code></a>,
+				including any <a href="#linkedresource-alternate"><code>alternate</code></a> resources. The process for
+					<a href="#validate-unique-resources">creating this list</a> is described in the manifest processing
+				algorithm.</p>
+
+			<p>All other resources are outside the bounds of the digital publication (e.g., resources listed in the
+						<a><code>links</code></a> section and hyperlinks in the content to external resources on the
+				Web).</p>
+
+			<p>This specification does not place any restrictions on publication resources, but <a>profiles</a> of this
+				specification MAY restrict both the content type and location of resources.</p>
+
+			<p>User agents MAY opt to process and render resources differently depending on whether or not they are
+				within the bounds of a digital publication (e.g., exclude external resources from an offline or packaged
+				version of a publication).</p>
 		</section>
 		<section id="manifest-discovery">
 			<h2>Manifest Discovery</h2>
@@ -2866,7 +2891,7 @@
 			</section>
 
 			<section id="processing-algorithm">
-				<h3>Generating the Internal Reperentation</h3>
+				<h3>Generate the Internal Reperentation</h3>
 
 				<p>This algorithm takes the following arguments:</p>
 
@@ -2881,8 +2906,8 @@
 				<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
 					which to do so are defined by each <a>digital publication</a> format.</p>
 
-				<p>To <dfn data-lt="processing algorithm|processing the manifest|processing a manifest">process a
-						manifest</dfn>, run the following steps:</p>
+				<p>To <dfn data-lt="processing algorithm|processing the manifest|processing a manifest">generate the
+						internal representation</dfn>, run the following steps:</p>
 
 				<ol>
 					<li id="processing-create-processed">
@@ -2976,14 +3001,13 @@
 									href="https://infra.spec.whatwg.org/#string">strings</a>, then <a
 									href="https://infra.spec.whatwg.org/#iteration-break">break</a>.</li>
 						</ol>
-						<p>If the value of <var>lang</var> is neither an empty <a
-								href="https://infra.spec.whatwg.org/#string">string</a> nor a <a
-								href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed</a>&#160;[[!bcp47]]
-							language tag, <a>validation error</a>, set <var>lang</var> to an empty string.</p>
-						<p>If the value of <var>dir</var> is neither an empty <a
-								href="https://infra.spec.whatwg.org/#string">string</a> nor one of the values
-								"<code>ltr</code>" or "<code>rtl</code>", <a>validation error</a>, set <var>dir</var> to
-							an empty string.</p>
+						<p>If <var>lang</var> is not an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
+							and is not a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+							>well-formed</a>&#160;[[!bcp47]] language tag, <a>validation error</a>, set <var>lang</var>
+							to an empty string.</p>
+						<p>If <var>dir</var> is not an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
+							and is not one of the values "<code>ltr</code>" or "<code>rtl</code>", <a>validation
+								error</a>, set <var>dir</var> to an empty string.</p>
 						<details>
 							<summary>Explanation</summary>
 							<p>The global language and direction declarations obtained here are used to set the language
@@ -3008,7 +3032,7 @@
 						</details>
 					</li>
 
-					<li id="processing-checks">
+					<li id="processing-validation">
 						<p>Set <var>processed</var> to the result of running <a>data validation</a> given
 								<var>processed</var>.</p>
 						<details>
@@ -3025,9 +3049,8 @@
 							failure.</p>
 						<details>
 							<summary>Explanation</summary>
-							<p>The final step is to check if any information missing from the manifest can be obtained
-								from the HTML document that links to the manifest (e.g., the title and reading
-								order).</p>
+							<p>This step checks if any information missing from the manifest can be obtained from the
+								HTML document that links to the manifest (e.g., the title and reading order).</p>
 						</details>
 					</li>
 
@@ -3073,11 +3096,9 @@
 
 						<li id="normalize-arrays">
 							<p>(<a href="#value-array"></a>) If, depending on <var>context</var>, <var>term</var>
-								expects an <a href="#value-array">array</a> and <var>value</var> is a <a
-									href="https://infra.spec.whatwg.org/#string">string</a>, <a
-									href="https://infra.spec.whatwg.org/#boolean">boolean</a>, number, null, or <a
-									href="https://infra.spec.whatwg.org/#ordered-map">map</a>, set <var>normalized</var>
-								to «&#160;<var>value</var>&#160;».</p>
+								expects an <a href="#value-array">array</a> and <var>value</var> is not a <a
+									href="https://infra.spec.whatwg.org/#list">list</a>, set <var>normalized</var> to
+									«&#160;<var>value</var>&#160;».</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>A number of terms require their values to be arrays, but, for the sake of
@@ -3100,8 +3121,8 @@
 						</li>
 
 						<li id="normalize-entities">
-							<p>(<a href="#value-entity"></a>) If <var>term</var> expects an <a href="#value-array"
-									>array</a> of <a href="#value-entity">entities</a>, <a
+							<p>(<a href="#value-entity"></a>) If, depending on <var>context</var>, <var>term</var>
+								expects an <a href="#value-array">array</a> of <a href="#value-entity">entities</a>, <a
 									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 								<var>entity</var> of <var>normalized</var>:</p>
 							<ol>
@@ -3115,10 +3136,8 @@
 ]»</pre>
 								</li>
 								<li>
-									<p>otherwise, if <var>entity</var> is a <a
-											href="https://infra.spec.whatwg.org/#list">list</a>, number, <a
-											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
-											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
+									<p>otherwise, if <var>entity</var> is not a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a>validation
 											error</a>, <a href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 										<var>entity</var> from <var>normalized</var>.</p>
 								</li>
@@ -3160,9 +3179,10 @@
 						</li>
 
 						<li id="normalize-localizable-strings">
-							<p>(<a href="#value-localizable-string"></a>) If <var>term</var> expects an <a
-									href="#value-array">array</a> of <a href="#value-localizable-string">localizable
-									strings</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+							<p>(<a href="#value-localizable-string"></a>) If, depending on <var>context</var>,
+									<var>term</var> expects an <a href="#value-array">array</a> of <a
+									href="#value-localizable-string">localizable strings</a>, <a
+									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 								<var>item</var> of <var>normalized</var>:</p>
 							<ol>
 								<li id="ls-value-normalize">
@@ -3175,16 +3195,14 @@
     "direction" → <var>dir</var>
 ]»</pre>
 									<p>if <var>lang</var> or <var>dir</var> is not set, or is an empty <a
-											href="https://infra.spec.whatwg.org/#string">strings</a>, <a
+											href="https://infra.spec.whatwg.org/#string">string</a>, <a
 											href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 										<var>item["language"]</var> or <var>item["direction"]</var>, respectively.</p>
 								</li>
 								<li id="ls-error">
-									<p>otherwise, if <var>item</var> is a <a href="https://infra.spec.whatwg.org/#list"
-											>list</a>, number, <a href="https://infra.spec.whatwg.org/#boolean"
-											>boolean</a> or <a href="https://infra.spec.whatwg.org/#nulls">null</a>,
-											<a>validation error</a>, remove <var>item</var> from
-										<var>normalized</var>.</p>
+									<p>otherwise, if <var>item</var> is not a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a>validation
+											error</a>, remove <var>item</var> from <var>normalized</var>.</p>
 								</li>
 								<li id="ls-map-normalize">
 									<p>otherwise, process the <a href="https://infra.spec.whatwg.org/#ordered-map"
@@ -3308,10 +3326,10 @@
 						</li>
 
 						<li id="normalize-linked-resources">
-							<p>(<a href="#value-linked-resource"></a>) If <var>term</var> expects an <a
-									href="#value-array">array</a> of <a href="#value-linked-resource"
-									>LinkedResources</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for
-									each</a>
+							<p>(<a href="#value-linked-resource"></a>) If, depending on <var>context</var>,
+									<var>term</var> expects an <a href="#value-array">array</a> of <a
+									href="#value-linked-resource">LinkedResources</a>, <a
+									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 								<var>resource</var> of <var>normalized</var>:</p>
 							<ol>
 								<li>
@@ -3323,10 +3341,8 @@
 ]»</pre>
 								</li>
 								<li>
-									<p>otherwise, if <var>resource</var> is a <a
-											href="https://infra.spec.whatwg.org/#list">list</a>, number, <a
-											href="https://infra.spec.whatwg.org/#boolean">boolean</a> or <a
-											href="https://infra.spec.whatwg.org/#nulls">null</a>, <a>validation
+									<p>otherwise, if <var>resource</var> is not a <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a>validation
 											error</a>, remove <var>resource</var> from <var>normalized</var>.</p>
 								</li>
 								<li>
@@ -3370,19 +3386,29 @@
 						</li>
 
 						<li id="normalize-urls">
-							<p>(<a href="#value-url"></a>) If <var>term</var> expects a <a href="#value-url">URL</a> or
-									<a href="#value-array">array</a> of URLs:</p>
+							<p>(<a href="#value-url"></a>) If, depending on <var>context</var>, <var>term</var> expects
+								a <a href="#value-url">URL</a> or <a href="#value-array">array</a> of URLs:</p>
 							<ol>
-								<li>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#list"
-									>list</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-									<var>item</var> of <var>normalized</var>, set <var>item</var> to the result of
-									running <a>convert to absolute URL</a>, when successful, given
-									<var>normalized</var>. Otherwise, <a
-										href="https://infra.spec.whatwg.org/#list-remove">remove</a>
-									<var>item</var> from <var>normalized</var>.</li>
-								<li>otherwise, set <var>normalized</var> to the result of running <a
-										href="https://infra.spec.whatwg.org/#list-remove">convert to absolute URL</a>,
-									when successful, given <var>normalized</var>. Otherwise, return failure.</li>
+								<li>
+									<p>if <var>normalized</var> is a <a href="https://infra.spec.whatwg.org/#string"
+											>string</a>, set <var>normalized</var> to the result of running <a
+											href="https://infra.spec.whatwg.org/#list-remove">convert to absolute
+											URL</a>, when successful, given <var>normalized</var>. If failure is
+										returned, return failure.</p>
+								</li>
+								<li>
+									<p>otherwise, if <var>normalized</var> is a <a
+											href="https://infra.spec.whatwg.org/#list">list</a>, <a
+											href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+										<var>item</var> of <var>normalized</var>, set <var>item</var> to the result of
+										running <a>convert to absolute URL</a>, when successful, given
+											<var>normalized</var>. If failure is returned, <a
+											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+										<var>item</var> from <var>normalized</var>.</p>
+								</li>
+								<li>
+									<p>otherwise, <a>validation error</a>, return failure.</p>
+								</li>
 							</ol>
 							<details>
 								<summary>Explanation</summary>
@@ -3595,6 +3621,74 @@
 								is not set, set to "<code>ltr</code>". Otherwise, if it is not one of the <a
 									href="#reading-progression-direction">required directional values</a>, <a>validation
 									error</a>, set to "<code>ltr</code>".</p>
+						</li>
+
+						<li id="validate-unique-resources">
+							<p>(<a href="#publication-resources"></a>) Obtain and verify the unique URLs within the
+								publication <a>bounds</a> as follows:</p>
+							<ol>
+								<li id="reslist-readingorder">
+									<p>If <var>readingOrder</var> is set, let <var>readingOrderURLs</var> be the result
+										of running <a>get unique URLs</a> given <var>readingOrder</var>. Otherwise, let
+											<var>readingOrderURLs</var> be an empty <a
+											href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
+								</li>
+
+								<li id="reslist-resources">
+									<p>If <var>resources</var> is set, let <var>resourcesURLs</var> be the result of
+										running <a>get unique URLs</a> given <var>resources</var>. Otherwise, let
+											<var>resourcesURLs</var> be an empty <a
+											href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
+								</li>
+
+								<li id="reslist-end">
+									<p>Set <var>data['uniqueResources']</var> to the <a
+											href="https://infra.spec.whatwg.org/#set-union">union</a> of
+											<var>readingOrderURLs</var> and <var>resourceURLs</var>.</p>
+								</li>
+							</ol>
+							<details>
+								<summary>Explanation</summary>
+								<p>This step gets the list of unique URLs within the reading order and the resource
+									list. It then sets <var>data['uniqueResources']</var> the union of these two sets,
+									which represents the complete list of unique resources within the <a
+										href="#publication-resources">bounds of the publication</a>.</p>
+							</details>
+						</li>
+
+						<li id="validate-links">
+							<p>(<a href="#links"></a>) If <var>data["links"]</var> is set, <a
+									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+								<var>link</var> in <var>data["links"]</var>:</p>
+							<ol>
+								<li>
+									<p>let <var>url</var> be the result of running <a
+											href="https://url.spec.whatwg.org/#concept-url-serializer">URL
+											serializer</a>&#160;[[!url]] on <var>link["url"]</var> with the <var>exclude
+											fragment flag</var> set.</p>
+								</li>
+								<li>
+									<p>if <var>data["uniqueResources"]</var>
+										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
+										<var>url</var>, <a>validation error</a>, <a
+											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+										<var>link</var> from <var>data["links"]</var>.</p>
+								</li>
+								<li>
+									<p>if <var>link["rel"]</var> is set and <a
+											href="https://infra.spec.whatwg.org/#list-contains">contains</a> any of the
+										values "<code>toc</code>", "<code>pagelist</code>" or "<code>cover</code>",
+											<a>validation error</a>, <a
+											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+										<var>link</var> from <var>data["links"]</var>.</p>
+								</li>
+							</ol>
+							<details>
+								<summary>Explanation</summary>
+								<p>After obtaining the list of unique publication resources in the previous step, the
+									links property is checked to ensure that any linked resources are not also listed as
+									publication resources.</p>
+							</details>
 						</li>
 
 						<li id="validate-extension">
@@ -3848,8 +3942,8 @@
 											<var>item</var> of <var>value</var>:</p>
 										<ol>
 											<li id="verify-array-item-invalid">
-												<p>if <var>item</var> does not match the expected type of the array,
-														<a>validation error</a>, <a
+												<p>if <var>item</var> does not match the expected value category of the
+													array, <a>validation error</a>, <a
 														href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 													<var>item</var> from <var>value</var>, then <a
 														href="https://infra.spec.whatwg.org/#iteration-continue"
@@ -3860,9 +3954,10 @@
 														href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
 														href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 													<var>key</var> → <var>keyValue</var> of <var>item</var>, if
-														<var>key</var> has an expected type, set <var>key</var> to the
-													result of running <a>verify value category</a> given the variables
-														<var>key</var> and <var>keyValue</var>. If the result of
+														<var>key</var> has an expected value category, set
+														<var>key</var> to the result of running <a>verify value
+														category</a> given <var>key</var>, <var>keyValue</var>, and
+													using <var>item["type"]</var> as the context. If the result of
 													processing <var>item</var> is an empty <a
 														href="https://infra.spec.whatwg.org/#ordered-map">map</a>,
 														<a>validation error</a>, <a
@@ -3876,6 +3971,7 @@
 									</li>
 								</ol>
 							</li>
+
 							<li id="verify-map">
 								<p>Otherwise, if, depending on the <var>context</var>, <var>term</var> expects a <a
 										href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
@@ -3888,9 +3984,10 @@
 									<li id="verify-map-recurse">
 										<p>otherwise, <a href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 											<var>key</var> → <var>keyValue</var> of <var>value</var>, if <var>key</var>
-											has an expected type, set <var>key</var> to the result of running <a>verify
-												value category</a> given <var>key</var> and <var>keyValue</var>. If the
-											result of processing <var>value</var> is an empty <a
+											has an expected value category, set <var>key</var> to the result of running
+												<a>verify value category</a> given <var>key</var>, <var>keyValue</var>
+											and using <var>item["type"]</var> as the context. If the result of
+											processing <var>value</var> is an empty <a
 												href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a>validation
 												error</a>, return failure.</p>
 									</li>
@@ -3899,10 +3996,13 @@
 									properties defined in this specification all accept <a href="#value-array"
 										>arrays</a> of objects.</p>
 							</li>
+
 							<li id="verify-type-invalid">
-								<p>Otherwise, if, depending on the <var>context</var>, <var>value</var> does not have
-									the expected type of <var>term</var>, <a>validation error</a>, return failure.</p>
+								<p>Otherwise, if, depending on the <var>context</var>, <var>value</var> does not match
+									the expected value category of <var>term</var>, <a>validation error</a>, return
+									failure.</p>
 							</li>
+
 							<li id="verify-return">
 								<p>Return <var>value</var>.</p>
 							</li>
@@ -3915,6 +4015,78 @@
 						</details>
 					</section>
 
+					<section id="get-unique-urls">
+						<h4>Get Unique URLs</h4>
+
+						<p>To <dfn>get unique URLs</dfn> from <var>resources</var>, run the following steps:</p>
+
+						<ol>
+							<li id="unique-url-var">
+								<p>Let <var>uniqueURLs</var> be an empty <a
+										href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>.</p>
+							</li>
+
+							<li id="unique-url-parse">
+								<p>For each <var>resource</var> of <var>resources</var>:</p>
+								<ol>
+									<li id="unique-parse-url">
+										<p>let <var>url</var> be the result of running <a
+												href="https://url.spec.whatwg.org/#concept-url-serializer">URL
+												serializer</a>&#160;[[!url]] on <var>resource["url"]</var> with
+												<var>exclude fragment flag</var> set.</p>
+									</li>
+
+									<li id="unique-parse-test">
+										<p>if <var>uniqueURLs</var>
+											<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
+											<var>url</var>, <a>validation error</a>.</p>
+									</li>
+
+									<li id="unique-parse-append">
+										<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append">append</a>
+											<var>url</var> to <var>uniqueURLs</var></p>
+									</li>
+									<li id="unique-alternate-parse">
+										<p>if <var>resource["alternate"]</var> is set, for each <var>alternate</var> of
+												<var>resource["alternate"]</var>:</p>
+										<ol>
+											<li id="alternate-parse-url">
+												<p>let <var>alt_url</var> be the result of running <a
+														href="https://url.spec.whatwg.org/#concept-url-serializer">URL
+														serializer</a>&#160;[[!url]] on <var>alternate["url"]</var> with
+														<var>exclude fragment flag</var> set.</p>
+											</li>
+
+											<li id="alternate-parse-test">
+												<p>if <var>uniqueURLs</var>
+													<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
+													<var>alt_url</var>, <a>validation error</a>.</p>
+											</li>
+
+											<li id="alternate-parse-append">
+												<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append"
+														>append</a>
+													<var>alt_url</var> to <var>uniqueURLs</var></p>
+											</li>
+										</ol>
+									</li>
+
+								</ol>
+							</li>
+
+							<li id="unique-url-end">
+								<p>return <var>uniqueURLs</var>.</p>
+							</li>
+						</ol>
+
+						<details>
+							<summary>Explanation</summary>
+							<p>This function takes a list of <a><code>LinkedResource</code></a> objects &#8212; from
+								either the reading order or resource list &#8212; and returns the set of unique URLs. If
+								duplicates are encountered, warnings are issued.</p>
+						</details>
+					</section>
+
 					<section id="remove-empty-arrays">
 						<h4>Remove Empty Arrays</h4>
 
@@ -3922,11 +4094,12 @@
 							these steps:</p>
 
 						<ol>
-							<li>
+							<li id="array-empty">
 								<p>If <var>value</var> is an empty <a href="https://infra.spec.whatwg.org/#list"
 										>list</a>, return failure.</p>
 							</li>
-							<li>
+
+							<li id="array-children">
 								<p>Otherwise, if <var>value</var> is a <a
 										href="https://infra.spec.whatwg.org/#ordered-map">map</a>, <a
 										href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
@@ -4026,12 +4199,17 @@
 										a <a>fatal error</a>. Return failure.</p>
 								</li>
 								<li>
-									<p>otherwise, set <var>data["readingOrder"]</var> to an empty <a
+									<p>set <var>data["readingOrder"]</var> to an empty <a
 											href="https://infra.spec.whatwg.org/#list">list</a> and <a
 											href="https://infra.spec.whatwg.org/#list-append">append</a> the <a
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>
 										<code>«[&#160;"url" → <a data-cite="!dom#concept-document-url"
 											>document.URL</a>&#160;]»</code>.</p>
+								</li>
+								<li>
+									<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
+										<a data-cite="!dom#concept-document-url">document.URL</a> to
+											<var>data["uniqueResources"]</var>.</p>
 								</li>
 							</ul>
 							<details>
@@ -4140,7 +4318,7 @@
 					<pre id="wpm">
 dictionary PublicationManifest {
              sequence&lt;DOMString>         type = "CreativeWork";
-    required DOMString                 profile;
+    required DOMString                   profile;
              sequence&lt;DOMString>         conformsTo;
              DOMString                   id;
              boolean                     abridged;
@@ -4172,6 +4350,7 @@ dictionary PublicationManifest {
     required sequence&lt;LinkedResource>    readingOrder;
              sequence&lt;LinkedResource>    resources;
              sequence&lt;LinkedResource>    links;
+             sequence&lt;DOMString>         uniqueResources;
 };
 
 enum TextDirection {
@@ -4184,14 +4363,14 @@ enum TextDirection {
 
 						<pre>
 dictionary LinkedResource {
-    required DOMString                           url;
-             DOMString                           encodingFormat;
-             sequence&lt;LocalizableString>         name;
-             sequence&lt;LocalizableString>         description;
-             sequence&lt;DOMString>                 rel;
-             DOMString                           integrity;
-             double                              length;
-             sequence&lt;LinkedResource>            alternate;
+    required DOMString                   url;
+             DOMString                   encodingFormat;
+             sequence&lt;LocalizableString> name;
+             sequence&lt;LocalizableString> description;
+             sequence&lt;DOMString>         rel;
+             DOMString                   integrity;
+             double                      length;
+             sequence&lt;LinkedResource>    alternate;
 };</pre>
 					</section>
 
@@ -4460,9 +4639,23 @@ dictionary LocalizableString {
 						href="https://www.w3.org/TR/html/grouping-content.html#the-ul-element"><code>ul</code></a>
 					element.</p>
 
-				<p>The following algorithm MUST be applied to a walk of a DOM subtree rooted at the first
-						<code>nav</code> element in document order with the <code>role</code> attribute value
-						<code>doc-toc</code>. All explanations are <em>informative</em>.</p>
+				<p>The following algorithm MUST be applied to a walk of a DOM subtree rooted at the table of contents
+					element determined as follows:</p>
+
+				<ol>
+					<li>
+						<p>if the <code>LinkedResource</code> that identifies the table of contents includes a fragment
+							identifier in its URL, the element referenced by the fragment identifier, provided the
+							element has the <code>role</code> attribute value <code>doc-toc</code>.</p>
+					</li>
+					<li>
+						<p>otherwise, the first element in document order with the <code>role</code> attribute value
+								<code>doc-toc</code>.</p>
+					</li>
+				</ol>
+
+				<p>If a table of contents element is not found, the publication does not have a table of contents that
+					can be used for machine rendering purposes.</p>
 
 				<ol>
 					<li id="toc-initialize-toc">
@@ -4501,9 +4694,8 @@ dictionary LocalizableString {
 
 					<li id="toc-walk-dom">
 						<p>Walk over the DOM in <a href="https://www.w3.org/TR/html/infrastructure.html#tree-order">tree
-								order</a>, starting with the <code>nav</code> element the table of contents is being
-							built from, and trigger the first relevant step below for each element as the walk enters
-							and exits it.</p>
+								order</a>, starting with the element the table of contents is being built from, and
+							trigger the first relevant step below for each element as the walk enters and exits it.</p>
 						<ol>
 							<li id="toc-dom-enter-heading">
 								<p>
