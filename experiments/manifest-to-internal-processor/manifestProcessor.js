@@ -899,8 +899,7 @@ var manifestProcessor = (function() {
 		
 		for (var i = 0; i < resources.length; i++) {
 			
-			// TODO: get url without fragment
-			var url = resources[i]['url'];
+			var url = resources[i]['url'].split('#')[0];
 			
 			if (uniqueURLs.has(url)) {
 				console.warn('Duplicate resource ' + url + ' declared.')
