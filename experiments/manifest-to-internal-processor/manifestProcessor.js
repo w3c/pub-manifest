@@ -3,8 +3,6 @@
 
 var manifestProcessor = (function() {
 
-	var absolute_url = new RegExp('^https?://', 'i');
-	var valid_url = new RegExp('^([a-z\\d]+:\\/\\/)?(((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|localhost)|((\\d{1,3}\\.){3}\\d{1,3}))(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*(\\?[;&a-z\\d%_.~+=-]*)?(\\#[-a-z\\d_]*)?$','i');
 	var duration = new RegExp('^P([0-9]+(?:[,\.][0-9]+)?Y)?([0-9]+(?:[,\.][0-9]+)?M)?([0-9]+(?:[,\.][0-9]+)?D)?(?:T([0-9]+(?:[,\.][0-9]+)?H)?([0-9]+(?:[,\.][0-9]+)?M)?([0-9]+(?:[,\.][0-9]+)?S)?)?$');
 	var bcp47 = new RegExp('^((?:(en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((?:([A-Za-z]{2,3}(-(?:[A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-(?:[A-Za-z]{4}))?(-(?:[A-Za-z]{2}|[0-9]{3}))?(-(?:[A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-(?:[0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(?:x(-[A-Za-z0-9]{1,8})+))?)|(?:x(-[A-Za-z0-9]{1,8})+))$');
 	// regex works for general cases, but haven't tested in depth 
@@ -497,15 +495,12 @@ var manifestProcessor = (function() {
 	
 	function convertAbsoluteURL(data, base) {
 		if (typeof(data) === 'string') {
-			if (!absolute_url.test(data)) {
-				data = base + data;
-			}
-			// need a check for the validty of the result
+			var url = new URL(data, base);
+			return url.toString();
 		}
 		else {
 			throw new Error(key + ' requires a string. Found ' + type + '.');
 		}
-		return data;
 	}
 
 
@@ -746,7 +741,9 @@ var manifestProcessor = (function() {
 					continue;
 				}
 				else {
-					if (!valid_url.test(value[i]['url'])) {
+					var url = new URL(value[i]['url']);
+					
+					if (!url.host) {
 						console.error('Resource has invalid url "' + value[i]['url'] + '".');
 						value.splice(i,1);
 						continue;
