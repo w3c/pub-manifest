@@ -2496,10 +2496,9 @@
 							be provided. User agents can use these properties to provide alternative text and
 							descriptions when necessary for accessibility.</p>
 
-						<p>More than one cover MAY be referenced from the manifest (e.g., to provide alternative formats
-							and sizes for different device screens). If multiple covers are specified, each instance
-							MUST define at least one unique property to allow user agents to determine its usability
-							(e.g., a different format, height, width or relation).</p>
+						<p>Only one resource MAY be identified as the cover, but additional covers MAY specified using
+							the <a><code>alternate</code></a> property (e.g., to provide alternative dimensions or
+							resolution).</p>
 
 						<pre class="example" title="Identifying an HTML cover page.">{
     …
@@ -3690,13 +3689,9 @@
 							<p>(<a href="#structural-rel"></a>) Verify the use of structural relations as follows:</p>
 							<ol>
 								<li id="rel-booleans">
-									<p>Let <var>contents</var> and <var>pagelist</var> be <a
+									<p>Let <var>contents</var>, <var>pagelist</var> and <var>cover</var> be <a
 											href="https://infra.spec.whatwg.org/#boolean">boolean</a> values set to
 										false.</p>
-								</li>
-								<li id="rel-covers">
-									<p>Let <var>covers</var> be an empty <a href="https://infra.spec.whatwg.org/#list"
-											>list</a></p>
 								</li>
 								<li id="rel-create-list">
 									<p>Let <var>resources</var> be the result of <a
@@ -3708,18 +3703,6 @@
 										<var>resource</var> of <var>resources</var>, if <var>resource["type"]</var> is
 										set:</p>
 									<ol>
-										<li id="rel-compile-covers">
-											<p>if <var>resource["type"]</var>
-												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
-												value "<code>cover</code>", <a
-													href="https://infra.spec.whatwg.org/#list-append">append</a>
-												<var>resource</var> to <var>covers</var>.</p>
-											<details>
-												<summary>Explanation</summary>
-												<p>This steps creates a list of all the covers found for processing
-													later.</p>
-											</details>
-										</li>
 										<li id="rel-check-contents">
 											<p>if <var>resource["type"]</var>
 												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
@@ -3733,11 +3716,6 @@
 													<p>otherwise, <a>validation error</a>.</p>
 												</li>
 											</ol>
-											<details>
-												<summary>Explanation</summary>
-												<p>This step checks whether a table of contents has already been
-													encountered, and raises a validation error if so.</p>
-											</details>
 										</li>
 										<li id="rel-check-pagelist">
 											<p>if <var>resource["type"]</var>
@@ -3752,43 +3730,40 @@
 													<p>otherwise, <a>validation error</a>.</p>
 												</li>
 											</ol>
-											<details>
-												<summary>Explanation</summary>
-												<p>This step checks whether a page list has already been encountered,
-													and raises a validation error if so.</p>
-											</details>
 										</li>
-									</ol>
-								</li>
-								<li id="rel-check-covers">
-									<p>If <var>cover</var> is not an empty <a href="https://infra.spec.whatwg.org/#list"
-											>list</a> and its <a href="https://infra.spec.whatwg.org/#list-size"
-											>size</a> is greater than or equal to 2, <a
-											href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-										<var>cover</var> of <var>covers</var>:</p>
-									<ol>
-										<li id="rel-covers-name">
-											<p>if <var>cover["name"]</var> is not set or is an empty string,
-													<a>validation error</a>.</p>
-										</li>
-										<li id="rel-covers-desc">
-											<p>if <var>cover["description"]</var> is not set or is an empty string,
-													<a>validation error</a>.</p>
-										</li>
-										<li id="rel-covers-unique">
-											<p><a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-												<var>resource</var> in <var>covers</var>, excluding <var>cover</var> if
-													<var>cover</var> does not differ in at least one property from
-													<var>resource</var>, <a>validation error</a>.</p>
+										<li id="rel-compile-covers">
+											<p>if <var>resource["type"]</var>
+												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+												value "<code>cover</code>":</p>
+											<ol>
+												<li id="rel-cover-first">
+													<p>if <var>cover</var> is <code>false</code>, set <var>cover</var>
+														to <code>true</code> and check:</p>
+													<ol>
+														<li id="rel-cover-name">
+															<p>if <var>resource["name"]</var> is not set or is an empty
+															string, <a>validation error</a>.</p>
+														</li>
+														<li id="rel-cover-desc">
+															<p>if <var>resource["description"]</var> is not set or is an
+															empty string, <a>validation error</a>.</p>
+														</li>
+													</ol>
+												</li>
+												<li id="rel-cover-dup">
+													<p>otherwise, <a>validation error</a>.</p>
+												</li>
+											</ol>
 										</li>
 									</ol>
 									<details>
 										<summary>Explanation</summary>
-										<p>This step checks each cover that was and verifies that it has a name and
-											description for accessibility purposes.</p>
-										<p>It also compares each cover against all the others specified to ensure that
-											there is at least one unique property that can be used to differentiate
-											between the options.</p>
+										<p>This step iterates over all the resources specified in the reading order and
+											resource list and verifies that only one instance of a table of content,
+											page list and cover have been specified. If additional resources are found
+											with one of these relations, a warning is raised.</p>
+										<p>For covers, it also checks that a name and description have been set for
+											accessibility purposes.</p>
 									</details>
 								</li>
 							</ol>
