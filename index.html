@@ -3694,17 +3694,19 @@
 										false.</p>
 								</li>
 								<li id="rel-create-list">
-									<p>Let <var>resources</var> be the result of <a
-											href="https://infra.spec.whatwg.org/#list-extend">extending</a>
-										<var>data["readingOrder"]</var> with <var>var["resources"]</var>.</p>
+									<p>Set <var>resources</var> to the value of <var>data["readingOrder"]</var>, when
+										defined, otherwise to an empty <a
+											href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>. <a
+											href="https://infra.spec.whatwg.org/#list-extend">Extend</a>
+										<var>resources</var> with <var>var["resources"]</var>, when defined.</p>
 								</li>
 								<li id="rel-iterate-list">
 									<p><a href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
-										<var>resource</var> of <var>resources</var>, if <var>resource["type"]</var> is
+										<var>resource</var> of <var>resources</var>, if <var>resource["rel"]</var> is
 										set:</p>
 									<ol>
 										<li id="rel-check-contents">
-											<p>if <var>resource["type"]</var>
+											<p>if <var>resource["rel"]</var>
 												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
 												value "<code>contents</code>":</p>
 											<ol>
@@ -3718,7 +3720,7 @@
 											</ol>
 										</li>
 										<li id="rel-check-pagelist">
-											<p>if <var>resource["type"]</var>
+											<p>if <var>resource["rel"]</var>
 												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
 												value "<code>pagelist</code>":</p>
 											<ol>
@@ -3732,7 +3734,7 @@
 											</ol>
 										</li>
 										<li id="rel-compile-covers">
-											<p>if <var>resource["type"]</var>
+											<p>if <var>resource["rel"]</var>
 												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
 												value "<code>cover</code>":</p>
 											<ol>
