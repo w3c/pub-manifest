@@ -2475,6 +2475,147 @@
 			<section id="manifest-rel">
 				<h3>Resource Relations</h3>
 
+				<section id="structural-rel">
+					<h4>Structural Resources</h4>
+
+					<section id="cover">
+						<h5>Cover</h5>
+
+						<p>The <dfn>cover</dfn> is a resource that user agents can use to present a <a>digital
+								publication</a> (e.g., in a library or bookshelf, or when initially loading the
+							publication).</p>
+
+						<p>The cover is identified by the <code>cover</code> link relation.</p>
+
+						<p>The link to the cover MUST NOT be specified in the <a href="#links">links list</a>.</p>
+
+						<p class="ednote">The <code>cover</code> term is not currently registered in the IANA link
+							relations but the Working Group expects to add it.</p>
+
+						<p>If the cover is in an image format, a <code>title</code> and <code>description</code> SHOULD
+							be provided. User agents can use these properties to provide alternative text and
+							descriptions when necessary for accessibility.</p>
+
+						<p>Only one resource MAY be identified as the cover, but additional covers MAY specified using
+							the <a><code>alternate</code></a> property (e.g., to provide alternative dimensions or
+							resolution).</p>
+
+						<pre class="example" title="Identifying an HTML cover page.">{
+    …
+    "resources" : [
+        {
+            "type"           : "LinkedResource",
+            "url"            : "cover.html",
+            "encodingFormat" : "text/html",
+            "rel"            : "cover"
+        },
+        …
+    ],
+    …
+}</pre>
+
+						<pre class="example" title="Identifying a cover image. Alternative text and a description are provided in the name and description properties, respectively.">{
+    …
+    "resources" : [
+        {
+            "type"           : "LinkedResource",
+            "url"            : "whale-image.jpg",
+            "encodingFormat" : "image/jpeg",
+            "rel"            : "cover",
+            "name"           : "Moby Dick attacking hunters",
+            "description"    : "A white whale is seen surfacing from the water to attack a small whaling boat"
+        },
+        …
+    ],
+    …
+}</pre>
+
+						<pre class="example" title="Providing a cover image in JPEG and SVG formats.">{
+    …
+    "resources" : [
+        {
+            "type"           : "LinkedResource",
+            "url"            : "lilliput.jpg",
+            "encodingFormat" : "image/jpeg",
+            "rel"            : "cover"
+        },
+        {
+            "type"           : "LinkedResource",
+            "url"            : "lilliput.svg",
+            "encodingFormat" : "image/svg+xml",
+            "rel"            : "cover"
+        },
+        …
+    ],
+    …
+}</pre>
+					</section>
+
+					<section id="page-list">
+						<h5>Page List</h5>
+
+						<p>The page list is a navigational aid that contains a list of static page demarcation points
+							within a <a>digital publication</a>.</p>
+
+						<p>The page list is identified by the <code>pagelist</code> link relation.</p>
+
+						<p class="ednote">The <code>pagelist</code> term is not currently registered in the IANA link
+							relations but the Working Group expects to add it.</p>
+
+						<p>Only one resource MAY be identified as containing a page list. If multiple instances are
+							specified, user agents MUST use the first instance encountered, with precedence given to the
+								<a href="#default-reading-order">reading order</a>.</p>
+
+						<p>The link to the page list MUST NOT be specified in the <a href="#links">links list</a>.</p>
+
+						<pre class="example" title="Identifying the resource that contains the page list.">{
+    …
+    "resources" : [
+        {
+            "type" : "LinkedResource",
+            "url"  : "toc_file.html",
+            "rel"  : "pagelist"
+        },
+        …
+    ],
+    …
+}</pre>
+					</section>
+
+					<section id="pub-table-of-contents">
+						<h5>Table of Contents</h5>
+
+						<p>The table of contents is a navigational aid that provides links to the major structural
+							sections of a <a>digital publication</a>.</p>
+
+						<p>The <dfn data-lt="toc">table of contents</dfn> is identified by the <code>contents</code>
+							link relation&#160;[[!iana-link-relations]].</p>
+
+						<p>Only one resource MAY be identified as containing the table of contents. If multiple
+							instances are specified, user agents MUST use the first instance encountered, with
+							precedence given to the <a href="#default-reading-order">reading order</a>.</p>
+
+						<p>The link to the table of contents MUST NOT be specified in the <a href="#links">links
+								list</a>.</p>
+
+						<p>The RECOMMENDED structure and processing model for the table of contents is defined in <a
+								href="#app-toc-structure"></a>.</p>
+
+						<pre class="example" title="Identifying the resource that contains the table of contents.">{
+    …
+    "resources" : [
+        {
+            "type" : "LinkedResource",
+            "url"  : "toc_file.html",
+            "rel"  : "contents"
+        },
+        …
+    ],
+    …
+}</pre>
+					</section>
+				</section>
+
 				<section id="informative-rel">
 					<h4>Informative Resources</h4>
 
@@ -2580,140 +2721,6 @@
             "url"            : "https://www.w3.org/Consortium/Legal/privacy-statement-20140324",
             "encodingFormat" : "text/html",
             "rel"            : "privacy-policy"
-        },
-        …
-    ],
-    …
-}</pre>
-					</section>
-				</section>
-
-				<section id="structural-rel">
-					<h4>Structural Resources</h4>
-
-					<section id="cover">
-						<h5>Cover</h5>
-
-						<p>The <dfn>cover</dfn> is a resource that user agents can use to present a <a>digital
-								publication</a> (e.g., in a library or bookshelf, or when initially loading the
-							publication).</p>
-
-						<p>The cover is identified by the <code>cover</code> link relation.</p>
-
-						<p>The link to the cover MUST NOT be specified in the <a href="#links">links list</a>.</p>
-
-						<p class="ednote">The <code>cover</code> term is not currently registered in the IANA link
-							relations but the Working Group expects to add it.</p>
-
-						<p>If the cover is in an image format, a <code>title</code> and <code>description</code> SHOULD
-							be provided. User agents can use these properties to provide alternative text and
-							descriptions when necessary for accessibility.</p>
-
-						<p>More than one cover MAY be referenced from the manifest (e.g., to provide alternative formats
-							and sizes for different device screens). If multiple covers are specified, each instance
-							MUST define at least one unique property to allow user agents to determine its usability
-							(e.g., a different format, height, width or relation).</p>
-
-						<pre class="example" title="Identifying an HTML cover page.">{
-    …
-    "resources" : [
-        {
-            "type"           : "LinkedResource",
-            "url"            : "cover.html",
-            "encodingFormat" : "text/html",
-            "rel"            : "cover"
-        },
-        …
-    ],
-    …
-}</pre>
-
-						<pre class="example" title="Identifying a cover image. Alternative text and a description are provided in the name and description properties, respectively.">{
-    …
-    "resources" : [
-        {
-            "type"           : "LinkedResource",
-            "url"            : "whale-image.jpg",
-            "encodingFormat" : "image/jpeg",
-            "rel"            : "cover",
-            "name"           : "Moby Dick attacking hunters",
-            "description"    : "A white whale is seen surfacing from the water to attack a small whaling boat"
-        },
-        …
-    ],
-    …
-}</pre>
-
-						<pre class="example" title="Providing a cover image in JPEG and SVG formats.">{
-    …
-    "resources" : [
-        {
-            "type"           : "LinkedResource",
-            "url"            : "lilliput.jpg",
-            "encodingFormat" : "image/jpeg",
-            "rel"            : "cover"
-        },
-        {
-            "type"           : "LinkedResource",
-            "url"            : "lilliput.svg",
-            "encodingFormat" : "image/svg+xml",
-            "rel"            : "cover"
-        },
-        …
-    ],
-    …
-}</pre>
-					</section>
-
-					<section id="page-list">
-						<h5>Page List</h5>
-
-						<p>The page list is a navigational aid that contains a list of static page demarcation points
-							within a <a>digital publication</a>.</p>
-
-						<p>The page list is identified by the <code>pagelist</code> link relation.</p>
-
-						<p class="ednote">The <code>pagelist</code> term is not currently registered in the IANA link
-							relations but the Working Group expects to add it.</p>
-
-						<p>The link to the page list MUST NOT be specified in the <a href="#links">links list</a>.</p>
-
-						<pre class="example" title="Identifying the resource that contains the page list.">{
-    …
-    "resources" : [
-        {
-            "type" : "LinkedResource",
-            "url"  : "toc_file.html",
-            "rel"  : "pagelist"
-        },
-        …
-    ],
-    …
-}</pre>
-					</section>
-
-					<section id="pub-table-of-contents">
-						<h5>Table of Contents</h5>
-
-						<p>The table of contents is a navigational aid that provides links to the major structural
-							sections of a <a>digital publication</a>.</p>
-
-						<p>The <dfn data-lt="toc">table of contents</dfn> is identified by the <code>contents</code>
-							link relation&#160;[[!iana-link-relations]].</p>
-
-						<p>The link to the table of contents MUST NOT be specified in the <a href="#links">links
-								list</a>.</p>
-
-						<p>The RECOMMENDED structure and processing model for the table of contents is defined in <a
-								href="#app-toc-structure"></a>.</p>
-
-						<pre class="example" title="Identifying the resource that contains the table of contents.">{
-    …
-    "resources" : [
-        {
-            "type" : "LinkedResource",
-            "url"  : "toc_file.html",
-            "rel"  : "contents"
         },
         …
     ],
@@ -3647,13 +3654,13 @@
 									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 								<var>link</var> in <var>data["links"]</var>:</p>
 							<ol>
-								<li>
+								<li id="links-get-url">
 									<p>let <var>url</var> be the result of running <a
 											href="https://url.spec.whatwg.org/#concept-url-serializer">URL
 											serializer</a>&#160;[[!url]] on <var>link["url"]</var> with the <var>exclude
 											fragment flag</var> set.</p>
 								</li>
-								<li>
+								<li id="links-check-pub-resource">
 									<p>if <var>data["uniqueResources"]</var>
 										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
 										<var>url</var>, <a>validation error</a>, <a
@@ -3661,7 +3668,7 @@
 										<var>link</var> from <var>data["links"]</var>, then <a
 											href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
 								</li>
-								<li>
+								<li id="links-check-struct-rel">
 									<p>if <var>link["rel"]</var> is set and <a
 											href="https://infra.spec.whatwg.org/#list-contains">contains</a> any of the
 										values "<code>contents</code>", "<code>pagelist</code>" or "<code>cover</code>",
@@ -3676,6 +3683,92 @@
 									links property is checked to ensure that any linked resources are not also listed as
 									publication resources.</p>
 							</details>
+						</li>
+
+						<li id="validate-structural-relations">
+							<p>(<a href="#structural-rel"></a>) Verify the use of structural relations as follows:</p>
+							<ol>
+								<li id="rel-booleans">
+									<p>Let <var>contents</var>, <var>pagelist</var> and <var>cover</var> be <a
+											href="https://infra.spec.whatwg.org/#boolean">boolean</a> values set to
+										false.</p>
+								</li>
+								<li id="rel-create-list">
+									<p>Set <var>resources</var> to the value of <var>data["readingOrder"]</var>, when
+										defined, otherwise to an empty <a
+											href="https://infra.spec.whatwg.org/#ordered-set">ordered set</a>. <a
+											href="https://infra.spec.whatwg.org/#list-extend">Extend</a>
+										<var>resources</var> with <var>var["resources"]</var>, when defined.</p>
+								</li>
+								<li id="rel-iterate-list">
+									<p><a href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
+										<var>resource</var> of <var>resources</var>, if <var>resource["rel"]</var> is
+										set:</p>
+									<ol>
+										<li id="rel-check-contents">
+											<p>if <var>resource["rel"]</var>
+												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+												value "<code>contents</code>":</p>
+											<ol>
+												<li id="rel-contents-first">
+													<p>if <var>contents</var> is <code>false</code>, set
+															<var>contents</var> to <code>true</code>.</p>
+												</li>
+												<li id="rel-contents-dup">
+													<p>otherwise, <a>validation error</a>.</p>
+												</li>
+											</ol>
+										</li>
+										<li id="rel-check-pagelist">
+											<p>if <var>resource["rel"]</var>
+												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+												value "<code>pagelist</code>":</p>
+											<ol>
+												<li id="rel-pagelist-first">
+													<p>if <var>pagelist</var> is <code>false</code>, set
+															<var>pagelist</var> to <code>true</code>.</p>
+												</li>
+												<li id="rel-pagelist-dup">
+													<p>otherwise, <a>validation error</a>.</p>
+												</li>
+											</ol>
+										</li>
+										<li id="rel-compile-covers">
+											<p>if <var>resource["rel"]</var>
+												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+												value "<code>cover</code>":</p>
+											<ol>
+												<li id="rel-cover-first">
+													<p>if <var>cover</var> is <code>false</code>, set <var>cover</var>
+														to <code>true</code> and check:</p>
+													<ol>
+														<li id="rel-cover-name">
+															<p>if <var>resource["name"]</var> is not set or is an empty
+															string, <a>validation error</a>.</p>
+														</li>
+														<li id="rel-cover-desc">
+															<p>if <var>resource["description"]</var> is not set or is an
+															empty string, <a>validation error</a>.</p>
+														</li>
+													</ol>
+												</li>
+												<li id="rel-cover-dup">
+													<p>otherwise, <a>validation error</a>.</p>
+												</li>
+											</ol>
+										</li>
+									</ol>
+									<details>
+										<summary>Explanation</summary>
+										<p>This step iterates over all the resources specified in the reading order and
+											resource list and verifies that only one instance of a table of content,
+											page list and cover have been specified. If additional resources are found
+											with one of these relations, a warning is raised.</p>
+										<p>For covers, it also checks that a name and description have been set for
+											accessibility purposes.</p>
+									</details>
+								</li>
+							</ol>
 						</li>
 
 						<li id="validate-extension">
