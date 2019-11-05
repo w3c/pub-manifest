@@ -768,27 +768,24 @@
 									</td>
 									<td>
 										<p>References to one or more reformulation(s) of the resource in alternative
-											formats.</p>
-										<p>When specified, <code>encodingFormat</code> indicates the format of the
-											reformulation.</p>
-										<p>Order is not significant.</p>
-										<p>OPTIONAL</p>
+											formats, where the <code>encodingFormat</code> specifies the format of the
+											reformulation. OPTIONAL.</p>
+									</td>
+									<td>
 										<p>One or more of:</p>
 										<ul>
 											<li>a string, representing the <a>URL</a> of the resource reformulation in
 												an alternative format; or</li>
 											<li>an instance of a <code>LinkedResource</code> object</li>
 										</ul>
-										<p>The order of items is <em>not significant</em>.</p>
-									</td>
-									<td>
-										<p>One or more instances of <code>LinkedResource</code> objects.</p>
+										<p>A string value represents an implied <code>LinkedResource</code> object whose
+												<code>url</code> property is set to the string value.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-linked-resource">Linked
 											Resources</a>
 									</td>
-									<td> (None) </td>
+									<td>(None)</td>
 								</tr>
 							</tbody>
 						</table>
@@ -796,6 +793,12 @@
 						<p>Although user agent support for the <code>integrity</code> property is OPTIONAL, user agents
 							that support cryptographic hashing comparisons using this property MUST do so in accordance
 							with [[!sri]].</p>
+
+						<p>This specification only defines the <code>alternate</code> property for selecting from
+							alternative formats (i.e., based on <code>encodingFormat</code> or by inspecting URLs).
+								<a>Profiles</a> MAY extend this behaviour to allow selection based on other criteria.
+							The process for selecting an alternate is described in <a href="#app-select-alternate"
+							></a>.</p>
 
 						<p class="note">When defining a <code>LinkedResource</code> object, it is advised to always
 							specify the media type of the resource using the <code>encodingFormat</code> property. Doing
@@ -2501,9 +2504,9 @@
 							be provided. User agents can use these properties to provide alternative text and
 							descriptions when necessary for accessibility.</p>
 
-						<p>Only one resource MAY be identified as the cover, but additional covers MAY specified using
-							the <a><code>alternate</code></a> property (e.g., to provide alternative dimensions or
-							resolution).</p>
+						<p>Only one resource MAY be identified as the cover, but covers in alternative formats MAY
+							specified using the <a href="#linkedresource-alternate"><code>alternate</code></a>
+							property.</p>
 
 						<pre class="example" title="Identifying an HTML cover page.">{
     …
@@ -2543,12 +2546,14 @@
             "url"            : "lilliput.jpg",
             "encodingFormat" : "image/jpeg",
             "rel"            : "cover"
-        },
-        {
-            "type"           : "LinkedResource",
-            "url"            : "lilliput.svg",
-            "encodingFormat" : "image/svg+xml",
-            "rel"            : "cover"
+            "alternate"      : [
+                 {
+                     "type"           : "LinkedResource",
+                     "url"            : "lilliput.svg",
+                     "encodingFormat" : "image/svg+xml",
+                     "rel"            : "cover"
+                 }
+            ]
         },
         …
     ],
@@ -4475,6 +4480,68 @@ dictionary LocalizableString {
 					</section>
 				</section>
 			</section>
+		</section>
+		<section id="app-select-alternate" class="appendix">
+			<h3>Select an Alternate</h3>
+
+			<p><em>This appendix depends on the Infra Standard [[!infra]].</em></p>
+
+			<p>To select <dfn>select an alternate</dfn> from a <a><code>LinkedResource</code></a>
+				<var>resource</var>, run the following steps.</p>
+
+			<p>If successful, this algorithm returns an alternate resource. Otherwise, it returns failure.</p>
+
+			<ol>
+				<li id="select-alt-var">
+					<p>Let <var>possibleAlternates</var> be an empty <a href="https://infra.spec.whatwg.org/#list"
+							>list</a>.</p>
+				</li>
+				<li id="select-alt-none">
+					<p>If <var>resource["alternate"]</var> is not set, return failure.</p>
+				</li>
+				<li id="select-alt-iterate">
+					<p><a href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
+						<var>alternate</var> of <var>resource["alternate"]</var>:</p>
+					<ol>
+						<li id="select-alt-supported">
+							<p>if <var>alternate["encodingFormat"]</var> is set and the user agent supports the
+								specified media type, <a href="https://infra.spec.whatwg.org/#list-append">append</a> to
+									<var>possibleAlternates</var>.</p>
+						</li>
+						<li id="select-alt-ext">
+							<p>otherwise, if a <a>profile</a> defines additional selection criteria, evaluate
+									<var>alternate</var> against them in this extension step.</p>
+						</li>
+						<li id="select-alt-inspect">
+							<p>otherwise, optionally inspect <var>alternate["url"]</var> for clues about the media type.
+								If the resource appears to be supported, <a
+									href="https://infra.spec.whatwg.org/#list-append">append</a>
+								<var>alternate</var> to <var>possibleAlternates</var>.</p>
+						</li>
+					</ol>
+				</li>
+				<li id="select-alt-no-match">
+					<p>If <var>possibleAlternates</var> is an empty <a href="https://infra.spec.whatwg.org/#list"
+							>list</a>, return failure.</p>
+				</li>
+				<li id="select-alt-multi-strong">
+					<p>Otherwise, if the <a href="https://infra.spec.whatwg.org/#list-size">size</a> of
+							<var>possibleAlternates</var> is 1, return the resource from
+						<var>possibleAlternates</var>.</p>
+				</li>
+				<li id="select-alt-multi-weak">
+					<p>Otherwise, return a resource from <var>possibleAlternates</var> as determined by the user
+						agent.</p>
+				</li>
+			</ol>
+			<details>
+				<summary>Explanation</summary>
+				<p>This function iterates the alternative formats for a resource and compiles a list of possibilities.
+					If more than one possibility is found, the user agent determines how to prioritize and select the
+					best alternative.</p>
+				<p>User agents are not required to add alternatives to the list of possibilities if they do not specify
+					an explicit media type.</p>
+			</details>
 		</section>
 		<section id="app-toc-structure" class="appendix">
 			<h2>Machine-Processable Table of Contents</h2>
