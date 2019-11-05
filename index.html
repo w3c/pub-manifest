@@ -2513,8 +2513,8 @@
 								href="#linkedresource-name"><code>name</code></a> and <a
 								href="#linkedresource-description"><code>description</code></a> properties of
 									<a><code>LinkedResource</code></a> can be used to provide alternative text and
-							extended descriptions, respectively.</p>
-
+							extended descriptions, respectively. In these cases, the <code>name</code> SHOULD always be
+							set (the <code>name</code> property can be left empty for decorative images).</p>
 
 						<pre class="example" title="Identifying a cover image. Alternative text and a description are provided in the name and description properties, respectively.">{
     …
@@ -2532,12 +2532,27 @@
     …
 }</pre>
 
+						<pre class="example" title="A purely decorative cover.">{
+    …
+    "resources" : [
+        {
+            "type"           : "LinkedResource",
+            "url"            : "cover.jpg",
+            "encodingFormat" : "image/jpeg",
+            "rel"            : "cover",
+            "name"           : "",
+        },
+        …
+    ],
+    …
+}</pre>
+
 						<p>If a user agent requires alternative text for a cover image to make an interface accessible,
 							and the <code>name</code> property is not specified, it MAY attempt to construct the
 							alternative text from the publication metadata. This specification does not mandate how such
-							alternative text is created, but constructing a string that identifies that the image is the
-							cover followed by the <a href="#pub-title">publication title</a> is typically the most
-							reliable method (i.e., because the title is a required field).</p>
+							alternative text is created. One method is to construct the alternative text as a string
+							that identifies that the image as the cover, followed by the <a href="#pub-title"
+								>publication title</a>.</p>
 
 						<p>Only one resource MAY be identified as the cover, but additional covers MAY specified using
 							the <a><code>alternate</code></a> property (e.g., to provide alternative dimensions or
