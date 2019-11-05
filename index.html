@@ -2492,14 +2492,6 @@
 						<p class="ednote">The <code>cover</code> term is not currently registered in the IANA link
 							relations but the Working Group expects to add it.</p>
 
-						<p>If the cover is in an image format, a <code>title</code> and <code>description</code> SHOULD
-							be provided. User agents can use these properties to provide alternative text and
-							descriptions when necessary for accessibility.</p>
-
-						<p>Only one resource MAY be identified as the cover, but additional covers MAY specified using
-							the <a><code>alternate</code></a> property (e.g., to provide alternative dimensions or
-							resolution).</p>
-
 						<pre class="example" title="Identifying an HTML cover page.">{
     …
     "resources" : [
@@ -2513,6 +2505,16 @@
     ],
     …
 }</pre>
+
+						<p>If the cover is an image (whether embedded in an HTML resource or not), it is strongly
+							advised to follow <a href="https://www.w3.org/TR/WCAG/#non-text-content">Success Criterion
+								1.1.1</a>&#160;[[WCAG]] for the provision of alternative text and extended descriptions.
+							For image formats that do not provide the ability to embed this information, the <a
+								href="#linkedresource-name"><code>name</code></a> and <a
+								href="#linkedresource-description"><code>description</code></a> properties of
+									<a><code>LinkedResource</code></a> can be used to provide alternative text and
+							extended descriptions, respectively.</p>
+
 
 						<pre class="example" title="Identifying a cover image. Alternative text and a description are provided in the name and description properties, respectively.">{
     …
@@ -2529,6 +2531,17 @@
     ],
     …
 }</pre>
+
+						<p>If a user agent requires alternative text for a cover image to make an interface accessible,
+							and the <code>name</code> property is not specified, it MAY attempt to construct the
+							alternative text from the publication metadata. This specification does not mandate how such
+							alternative text is created, but constructing a string that identifies that the image is the
+							cover followed by the <a href="#pub-title">publication title</a> is generally the most
+							reliable method (i.e., because the title is a required field).</p>
+
+						<p>Only one resource MAY be identified as the cover, but additional covers MAY specified using
+							the <a><code>alternate</code></a> property (e.g., to provide alternative dimensions or
+							resolution).</p>
 
 						<pre class="example" title="Providing a cover image in JPEG and SVG formats.">{
     …
