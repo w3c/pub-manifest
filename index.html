@@ -2435,6 +2435,11 @@
 								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld11]],
 							with prefixes defined as part of the context.</p>
 
+						<p class="note">Proper use of prefixes and compact IRIs is necessary to use a manifest with a
+							full JSON-LD processor, but is not a requirement for the <a href="#manifest-processing"
+								>processing algorithm</a> defined by this specification. Validation of prefixed terms
+							has to be carried out separately if full JSON-LD processing is expected.</p>
+
 						<pre class="example" title="Extending the basic data set using a vocabulary prefix declaration.">{
     "@context" : [
         "https://schema.org",
