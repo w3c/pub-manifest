@@ -586,8 +586,11 @@
 							</tbody>
 						</table>
 
-						<p>Note that user agents MAY interpret a wider range of creator properties defined by Schema.org
-							than the ones in the preceding table.</p>
+						<p class="note">This minimal set of properties is not restrictive. Authors can include any
+							additional properties defined for the [[schema.org]] <a href="https://schema.org/Person"
+									><code>Person</code></a> or <a href="https://schema.org/Organization"
+									><code>Organization</code></a> types, as appropriate. User agents are similarly not
+							limited to interpreting only the preceding properties.</p>
 
 						<aside class="example" title="Using a string instead of a Person object.">
 							<p>The following author name is expressed as a string:</p>
@@ -1725,12 +1728,6 @@
 						<p>A single string value is a shorthand for a [[!schema.org]] <code>Person</code> whose
 								<code>name</code> property is set to that string value. (See also <a
 								href="#value-entity"></a>.)</p>
-
-						<p>When compiling each set of creator information from a [[!schema.org]] <a
-								href="https://schema.org/Person"><code>Person</code></a> or <a
-								href="https://schema.org/Organization"><code>Organization</code></a> type, user agents
-							MUST retain the properties defined for the <a href="#value-entity">Entity type</a>, when
-							available.</p>
 
 						<p>The manifest MAY include more than one of each type of creator.</p>
 
