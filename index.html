@@ -2563,8 +2563,8 @@
 								>publication title</a>.</p>
 
 						<p>Only one resource MAY be identified as the cover, but additional covers MAY specified using
-							the <a><code>alternate</code></a> property (e.g., to provide alternative dimensions or
-							resolution).</p>
+							the <a href="#linkedresource-alternate"><code>alternate</code></a> property (e.g., to
+							provide alternative dimensions or resolution).</p>
 
 						<pre class="example" title="Providing a cover image in JPEG and SVG formats.">{
     …
@@ -3760,17 +3760,17 @@
 											<p>If <var>resource["rel"]</var>
 												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
 												value "<code>cover</code>":</p>
-											
 											<ol>
 												<li>
-													<p>if <var>cover</var> is <code>true</code>,
-														<a>validation error</a>.</p>
+													<p>if <var>cover</var> is <code>true</code>, <a>validation
+														error</a>.</p>
 												</li>
 												<li>
 													<p>otherwise, set <var>cover</var> to <code>true</code>. If
-														<var>resource["encodingFormat"]</var> is set and specifies an image
-														media type (<code>image/*</code>), and <var>resource["name"]</var> is
-														not set, <a>validation error</a>.</p>
+															<var>resource["encodingFormat"]</var> is set and specifies
+														an image media type (<code>image/*</code>), and
+															<var>resource["name"]</var> is not set, <a>validation
+															error</a>.</p>
 												</li>
 											</ol>
 										</li>
@@ -3779,10 +3779,10 @@
 							</ol>
 							<details>
 								<summary>Explanation</summary>
-								<p>This step iterates over all the resources specified in the reading order and
-									resource list and verifies that only one instance of a table of content,
-									page list and cover have been specified. If additional resources are found
-									with one of these relations, a warning is raised.</p>
+								<p>This step iterates over all the resources specified in the reading order and resource
+									list and verifies that only one instance of a table of content, page list and cover
+									have been specified. If additional resources are found with one of these relations,
+									a warning is raised.</p>
 								<p>For covers, it also checks that a name and description have been set for
 									accessibility purposes.</p>
 							</details>
