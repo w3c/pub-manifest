@@ -3689,9 +3689,14 @@
 										<var>link</var> from <var>data["links"]</var>, then <a
 											href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
 								</li>
+								<li id="links-check-rel">
+									<p>if <var>link["rel"]</var> is not set or is an empty <a
+											href="https://infra.spec.whatwg.org/#list">list</a>, <a>validation
+										error</a>.</p>
+								</li>
 								<li id="links-check-struct-rel">
-									<p>if <var>link["rel"]</var> is set and <a
-											href="https://infra.spec.whatwg.org/#list-contains">contains</a> any of the
+									<p>otherwise, if <var>link["rel"]</var>
+										<a href="https://infra.spec.whatwg.org/#list-contains">contains</a> any of the
 										values "<code>contents</code>", "<code>pagelist</code>" or "<code>cover</code>",
 											<a>validation error</a>, <a
 											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
