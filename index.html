@@ -82,8 +82,7 @@
 			<section id="scope">
 				<h3>Scope</h3>
 
-				<p>This specification defines a general manifest format to describe publications. It does not attempt to
-					constrain the nature of the publications that use the manifest. Rather, it is designed to be
+				<p>This specification defines a general manifest format to describe publications. It is designed to be
 					adaptable to the needs of specific areas of publishing, such as audiobook production, by specifying
 					a modular approach for creating specializations.</p>
 
@@ -116,8 +115,8 @@
 						<dfn data-lt="digital publications|digital publication's">Digital Publication</dfn>
 					</dt>
 					<dd>
-						<p>The term digital publication refers to a publication authored in a format that uses a
-								<a>profile</a> of the <a>manifest</a>.</p>
+						<p>A digital publication is any publication authored in a format that uses a <a>profile</a> of
+							the <a>manifest</a>.</p>
 					</dd>
 
 					<dt>
@@ -142,15 +141,6 @@
 					</dd>
 
 					<dt>
-						<dfn>Non-empty</dfn>
-					</dt>
-					<dd>
-						<p>For the purposes of this specification, non-empty is used to refer to an element, attribute
-							or property whose text content or value consists of one or more characters after whitespace
-							normalization, where whitespace normalization rules are defined per the host format.</p>
-					</dd>
-
-					<dt>
 						<dfn data-lt="profiles|profile(s)">Profile</dfn>
 					</dt>
 					<dd>
@@ -166,7 +156,7 @@
 			</section>
 
 			<section id="conformance">
-				<p>All explanations are <em>informative</em>.</p>
+				<p>All algorithm explanations are <em>informative</em>.</p>
 			</section>
 		</section>
 		<section id="manifest">
@@ -185,9 +175,10 @@
 					<p>The manifest is what enables user agents to understand the <a>bounds</a> of <a>digital
 							publication</a> and the connection between its resources. It includes metadata that
 						describes the digital publication, as a publication has an identity and nature beyond its
-						constituent resources. The manifest also provides a list of all the resources that belong to the
-						digital publication and a default reading order, which is how it connects resources into a
-						single contiguous work.</p>
+						constituent resources. The manifest also provides a <a href="#resource-list">list of
+							resources</a> that belong to the digital publication and a <a href="#default-reading-order"
+							>default reading order</a>, which is how it connects resources into a single contiguous
+						work.</p>
 
 					<p>The properties of the manifest describe the basic information a user agent requires to process
 						and render a publication. For ease of understanding, these properties are categorized as
@@ -214,10 +205,10 @@
 					</dl>
 
 					<p>The <a>manifest</a> also identifies key resources of a digital publication through the use of
-						link relations. These relations are applied to the <a href="#linkedresource-rel"
-								><code>rel</code> property</a> of <a><code>LinkedResource</code></a> objects (e.g., the
-						links found in the <a href="#pub-table-of-contents">table of contents</a> and <a
-							href="#resource-list">resource list</a>).</p>
+						link relations. These relations are defined in the <a href="#linkedresource-rel"
+								><code>rel</code> property</a> of <a><code>LinkedResource</code></a> objects (i.e., the
+						JSON objects that represent each resource in the default reading order, resource list, and links
+						sections).</p>
 
 					<p>The types of resources these relations identify are categorized as follows:</p>
 
@@ -240,9 +231,6 @@
 								and <a href="#page-list">page list</a>.</p>
 						</dd>
 					</dl>
-
-					<p class="note">These categorizations have no relevance outside this specification (i.e., the
-						properties are not actually grouped together in the manifest).</p>
 				</section>
 
 				<section id="manifest-jsonld">
@@ -254,15 +242,15 @@
 
 					<p class="note">This shape is also defined, informally, through a JSON schema&#160;[[json-schema]]
 						that expresses the constraints defined in this specification. This schema is maintained at <a
-							href="https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json"
-							>https://github.com/w3c/pub-manifest/blob/master/schema/publication.schema.json</a>.</p>
+							href="https://github.com/w3c/pub-manifest/blob/master/schema/"
+							>https://github.com/w3c/pub-manifest/blob/master/schema/</a>.</p>
 
 					<p>The publication manifest also has a number of authoring flexibilities and compact authoring
 						expressions. For example, it is not always required that object types be explicitly authored, as
 						these are automatically generated during processing when missing (see <a
 							href="#explicit-implied-objects"></a> for more information). An <a>internal
-							representation</a> of the manifest data is defined separately; see the separate section on
-							<a href="#internal-rep-data-model"></a> for further details.</p>
+							representation</a> of the manifest data is defined separately; see <a
+							href="#app-internal-rep-data-model"></a> for further details.</p>
 
 					<p>As a consequence, a user agent does not have to be a full JSON-LD processor. User agents only
 						need to be able to read the manifest's specific shape and internalize the data.</p>
@@ -273,11 +261,11 @@
 
 					<p>Manifest properties, in particular those categorized as <a href="#descriptive-properties"
 							>descriptive properties</a>, are primarily drawn from <a href="https://schema.org"
-							>schema.org</a> and its <a href="https://schema.org/docs/schemas.html">hosted
+							>Schema.org</a> and its <a href="https://schema.org/docs/schemas.html">hosted
 						extensions</a>&#160;[[!schema.org]]. As a consequence, these properties inherit their syntax and
-						semantics from schema.org, making manifest authoring compatible with schema.org authoring.</p>
+						semantics from Schema.org, making manifest authoring compatible with Schema.org authoring.</p>
 
-					<p>When a manifest item corresponds to a schema.org property, its <a href="#manifest-properties"
+					<p>When a manifest item corresponds to a Schema.org property, its <a href="#manifest-properties"
 							>property definition</a> identifies its mapping and includes the defining type (e.g., <a
 							href="https://schema.org/CreativeWork">CreativeWork</a> or <a href="https://schema.org/Book"
 							>Book</a>) in parentheses.</p>
@@ -286,13 +274,13 @@
 						publishing, are not mentioned in this specification. These properties MAY be used in a manifest
 						as this document defines only the minimal set of manifest items.</p>
 
-					<p>When using additional schema.org properties, ensure that they are valid for the <a
+					<p>When using additional Schema.org properties, ensure that they are valid for the <a
 							href="#publication-types">type of publication</a> specified in the manifest. Properties are
-						often available in many schema.org types, as a result of the inheritance model used by the
+						often available in many Schema.org types, as a result of the inheritance model used by the
 						vocabulary, but not all properties are available for all types. For more detailed information
 						about which types accept which properties, refer to [[!schema.org]].</p>
 
-					<p>More information about using additional schema.org properties is also available in <a
+					<p>More information about using additional Schema.org properties is also available in <a
 							href="#publication-types"></a> and <a href="#extensibility-manifest-properties"></a></p>
 				</section>
 			</section>
@@ -327,7 +315,7 @@
 					format.</p>
 
 				<p class="note">Some properties are implicitly required, as they are compiled from alternative
-					information when not explicitly authored. See <a href="#internal-rep-data-model"></a> for more
+					information when not explicitly authored. See <a href="#app-internal-rep-data-model"></a> for more
 					information.</p>
 			</section>
 
@@ -340,8 +328,8 @@
 				<section id="value-literal">
 					<h4>Literals</h4>
 
-					<p>When a <a href="#manifest-properties">manifest</a> property expects a literal text string as its
-						value &#8212; one that is not language-dependent, such as a code value or date &#8212; its value
+					<p>When a <a href="#manifest-properties">manifest</a> property expects a literal text string &#8212;
+						one that is not language-dependent, such as a code value or date &#8212; as its value, the value
 						MUST be expressed as a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5"
 							>string</a>.</p>
 
@@ -372,15 +360,16 @@
 
 					<p>Various manifest properties are expected to be expressed as [[!json]]&#160;<a
 							href="https://tools.ietf.org/html/rfc4627#section-2.2">objects</a>. Although the use of
-						objects is usually recommended, the following sections identify cases where it is also
-						acceptable to use string values that are interpreted as objects depending on the context. The
-						exact mapping of text values to objects is part of the property or object definitions.</p>
+						explicit objects is usually advised, the following sections identify cases where it is also
+						acceptable to use string values. These strings are automatically translated into objects during
+							<a href="#manifest-processing">processing of the manifest</a> by a user agent (the exact
+						mapping of text values to objects is included in each definition).</p>
 
 					<section id="value-localizable-string">
 						<h5>Localizable Strings</h5>
 
 						<p>When a <a href="#manifest-properties">manifest</a> property expects a localizable text string
-							as its value, the value MUST be expressed either as:</p>
+							as its value, the value MUST be expressed as one of:</p>
 
 						<ul>
 							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
@@ -390,10 +379,13 @@
 						</ul>
 
 						<p>A single string value represents an implied object whose <code>value</code> property is the
-							string's text and whose language is determined from other information in the manifest.</p>
+							string's text and whose language and base direction is determined from other information in
+							the manifest.</p>
 
-						<p>Although only a single string or object has to be authored, properties that accept
-							localizable strings are always converted to <a href="#value-array">arrays</a>.</p>
+						<p>As localizable strings are intended to facilitate multiple language representations of a
+							value, properties that accept a localizable string always accept an array of these values.
+							For this reason, although only a single string or object has to be authored, such values are
+							converted to <a href="#value-array">arrays</a> for consistency of processing.</p>
 
 						<p>A <dfn data-lt="LocalizableStrings|localizable string"><code>LocalizableString</code></dfn>
 							is a [[!json]]&#160;<a href="https://tools.ietf.org/html/rfc4627#section-2.2">object</a>
@@ -445,9 +437,9 @@
 
 						<ul>
 							<li><code>ltr</code>: indicates that the textual value is explicitly directionally set to
-								left-to-right text;</li>
+								left-to-right text.</li>
 							<li><code>rtl</code>: indicates that the textual value is explicitly directionally set to
-								right-to-left text;</li>
+								right-to-left text.</li>
 						</ul>
 
 						<p> A missing base direction value means that that the textual value is explicitly directionally
@@ -831,9 +823,6 @@
     ]
 }</pre>
 
-						<p>A string value represents an implied <code>LinkedResource</code> object whose
-								<code>url</code> property is set to the string value.</p>
-
 						<pre class="example" title="Resource list that includes one link using a relative URL as a string ('datatypes.svg') and two that display the various properties of the a LinkedResource object.">{
     …
     "resources" : [
@@ -884,7 +873,7 @@
 					<ul>
 						<li>In the case of an <a href="#manifest-embed">embedded manifest</a>, it is the <a
 								href="https://www.w3.org/TR/json-ld11/#inheriting-base-iri-from-html-s-base-element"
-								>document base URL of the embedding document</a>&#160;[[!json-ld11]];</li>
+								>document base URL of the embedding document</a>&#160;[[!json-ld11]].</li>
 						<li>In the case of a <a href="#manifest-link">linked manifest</a>, it is the URL of the manifest
 							resource.</li>
 						<li>In the case of a digital publication format that uses <a href="#manifest-other-discovery"
@@ -1009,28 +998,33 @@
 				<section id="manifest-lang-dir-global">
 					<h4>Global Declarations</h4>
 
-					<p> The default language for natural language manifest properties is set by including a global
-						language and/or a global base direction declaration in the context using the <a
+					<p>The global language and base direction declarations for natural language manifest properties are
+						set in the <a href="#manifest-context">context</a> using the <a
 							href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"
-								><code>language</code></a>, respectively the <a
+								><code>language</code></a> and <a
 							href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"
-								><code>direction</code></a>, keywords&#160;[[!json-ld11]]. It is used to expand simple
-						string values into <a href="#value-localizable-string">localizable strings</a> during the <a
-							href="#manifest-processing">processing of the manifest</a>, as well as to provide a language
-						and the base direction for localizable strings that omit one. </p>
+								><code>direction</code></a> keywords&#160;[[!json-ld11]], respectively. These values are
+						used to expand simple string values into <a href="#value-localizable-string">localizable
+							strings</a> during the <a href="#manifest-processing">processing of the manifest</a>, as
+						well as to provide a language and the base direction for localizable strings that omit one.</p>
 
-					<p> The value of <code>language</code> MUST be a <a
+					<p>The value of <code>language</code> MUST be a <a
 							href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
-						tag</a>&#160;[[!bcp47]]. </p>
+						tag</a>&#160;[[!bcp47]].</p>
 
 					<p>The value of <code>direction</code> MUST have one of the following values:</p>
 
 					<ul>
 						<li><code>"ltr"</code>: indicates that the textual values are explicitly directionally set to
-							left-to-right text;</li>
+							left-to-right text.</li>
 						<li><code>"rtl"</code>: indicates that the textual values are explicitly directionally set to
-							right-to-left text;</li>
+							right-to-left text.</li>
 					</ul>
+
+					<p>The global language and base direction declaration, when present, MUST follow the <a>publication
+							context</a>.</p>
+
+					<p>Default values are not specified for the global language or base direction.</p>
 
 					<aside class="example" title="Declaring French as the default language for the manifest.">
 						<pre>{
@@ -1059,12 +1053,6 @@
     …
 }</pre>
 					</aside>
-
-
-					<p>The global language and base direction declaration, when present, MUST follow the <a>publication
-							context</a>.</p>
-
-					<p>Default values are not specified for the global language or base direction.</p>
 				</section>
 
 				<section id="manifest-lang-dir-local">
@@ -1176,8 +1164,8 @@
     …
 }</pre>
 
-				<p>Each schema.org type defines a set of properties that are valid for use with it. To ensure that the
-					manifest can be validated and processed by schema.org-aware processors, the manifest SHOULD contain
+				<p>Each Schema.org type defines a set of properties that are valid for use with it. To ensure that the
+					manifest can be validated and processed by Schema.org-aware processors, the manifest SHOULD contain
 					only the properties associated with the selected type.</p>
 
 				<p>If properties from more than one type are needed, the manifest MAY include multiple type
@@ -1189,10 +1177,10 @@
     …
 }</pre>
 
-				<p>User agents SHOULD NOT fail to process manifests that are not valid to their declared schema.org
+				<p>User agents SHOULD NOT fail to process manifests that are not valid to their declared Schema.org
 					type(s).</p>
 
-				<p class="note">Refer to the schema.org site for the complete <a
+				<p class="note">Refer to the Schema.org site for the complete <a
 						href="https://schema.org/CreativeWork#subtypes">list of <code>CreativeWork</code>
 					subtypes</a>.</p>
 			</section>
@@ -1200,8 +1188,8 @@
 			<section id="profile-conformance">
 				<h3>Profile Conformance</h3>
 
-				<p>A <a>digital publication</a> indicates the <a>profile</a> its manifest and content are in conformance
-					with using the <code>conformsTo</code> property.</p>
+				<p>A <a>digital publication</a> indicates the <a>profile</a> its manifest and content conform to using
+					the <code>conformsTo</code> property.</p>
 
 				<table class="zebra">
 					<thead>
@@ -1229,7 +1217,7 @@
 					</tbody>
 				</table>
 
-				<p>The URL to use for each profile is defined in its respective specification.</p>
+				<p>The URL to use for a profile is defined in its respective specification.</p>
 
 				<p class="note">The <code>conformsTo</code> property can also be used to indicate conformance to other
 					specifications and standards (e.g., to [[WCAG21]]).</p>
@@ -1963,10 +1951,9 @@
 							created. The user agent might:</p>
 
 						<ul>
-							<li>use the <a>non-empty</a>
-								<a href="#manifest-lang-dir">language declaration of the manifest</a>;</li>
-							<li>use the first non-empty language declaration found in a resource in the <a>default
-									reading order</a>;</li>
+							<li>use the <a href="#manifest-lang-dir">language declaration of the manifest</a>;</li>
+							<li>use the first language declaration found in a resource in the <a>default reading
+									order</a>; or</li>
 							<li>calculate the language using its own algorithm.</li>
 						</ul>
 
@@ -2017,7 +2004,7 @@
 						<p>The value of this property MUST be either:</p>
 
 						<ul>
-							<li><code>ltr</code>: left-to-right;</li>
+							<li><code>ltr</code>: left-to-right; or</li>
 							<li><code>rtl</code>: right-to-left.</li>
 						</ul>
 
@@ -2340,8 +2327,8 @@
 						<ul>
 							<li>a privacy policy or license that the user agent can offer a link to from a shelf;</li>
 							<li>a metadata record that the user agent can use to discover and display more information
-								about the publication;</li>
-							<li>a dictionary of terms the user agent can process to provide enhanced language help;</li>
+								about the publication; or</li>
+							<li>a dictionary of terms the user agent can process to provide enhanced language help.</li>
 						</ul>
 
 						<p>Links can also be used to identify resources used in the online rendering of a publication,
@@ -2350,7 +2337,7 @@
 
 						<ul>
 							<li>large font files that enhance the appearance of the publication but are not vital to its
-								display (i.e., a fallback font will suffice);</li>
+								display (i.e., a fallback font will suffice); or</li>
 							<li>third-party scripts that are not intended for use when a publication is taken offline or
 								packaged (e.g., tracking scripts).</li>
 						</ul>
@@ -2376,10 +2363,10 @@
 						ways:</p>
 
 					<ol>
-						<li>by the provision of <a href="#extensibility-linked-records">linked metadata
-							records</a>.</li>
+						<li>by the provision of <a href="#extensibility-linked-records">linked metadata records</a>;
+							or</li>
 						<li>through the inclusion of <a href="#extensibility-manifest-properties">additional properties
-								in the manifest</a>;</li>
+								in the manifest</a>.</li>
 					</ol>
 
 					<p>Although both methods are valid, the use of linked records is RECOMMENDED.</p>
@@ -2454,14 +2441,13 @@
     …
 }</pre>
 
-						<p class="note">The <a href="https://schema.org/docs/jsonldcontext.json">schema.org context
-								file</a> [[schema.org]] defines a number of prefixes for commonly used vocabularies,
-							such as the Dublin Core Terms (`dcterms`) [[dcterms]] and Element Set (`dc`) [[dc11]], the
-							FOAF vocabulary (`foaf`) [[foaf]], and the Bibliographic Ontology (`bibo`) [[bibo]].
-							Properties from these vocabularies can be used without their prefixes having to be
-							declared.</p>
+						<p>The <a href="https://schema.org/docs/jsonldcontext.json">Schema.org context file</a>
+							[[schema.org]] defines a number of prefixes for commonly used vocabularies, such as the
+							Dublin Core Terms (`dcterms`) [[dcterms]] and Element Set (`dc`) [[dc11]], the FOAF
+							vocabulary (`foaf`) [[foaf]], and the Bibliographic Ontology (`bibo`) [[bibo]]. Properties
+							from these vocabularies can be used without their prefixes having to be declared.</p>
 
-						<pre class="example" title="Extending the basic data using the schema.org 'copyrightYear' and 'copyrightHolder' terms.">{
+						<pre class="example" title="Extending the basic data using the Schema.org 'copyrightYear' and 'copyrightHolder' terms.">{
     …
     "copyrightYear"   : "2015",
     "copyrightHolder" : "World Wide Web Consortium",
@@ -2537,7 +2523,7 @@
     …
 }</pre>
 
-						<pre class="example" title="A purely decorative cover.">{
+						<pre class="example" title="A decorative cover. The name property is left empty.">{
     …
     "resources" : [
         {
@@ -2675,7 +2661,7 @@
 
 						<p>It is also RECOMMENDED that the accessibility report be provided in a human-readable format,
 							such as HTML [[!html]]. Augmenting these reports with machine-processable metadata, such as
-							provided in schema.org&#160;[[!schema.org]], is also RECOMMENDED.</p>
+							provided in Schema.org&#160;[[!schema.org]], is also RECOMMENDED.</p>
 
 						<pre class="example" title="Setting a link to an accessibility report.">{
     …
@@ -2935,7 +2921,7 @@
 				<p>This algorithm takes the following arguments:</p>
 
 				<ul>
-					<li><var>text</var>: a UTF-8 string representing the manifest;</li>
+					<li><var>text</var>: a UTF-8 string representing the manifest.</li>
 					<li><var>base</var>: a URL string that represents the <a>base URL</a> for the manifest.</li>
 					<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM)
 						Node</a>&#160;[[!html]] of the document that <a href="#manifest-discovery">references the
@@ -3098,8 +3084,8 @@
 					</li>
 				</ol>
 
-				<p class="note">For a visualization of the resulting structure, see <a href="#internal-rep-data-model"
-					></a>.</p>
+				<p class="note">For a visualization of the resulting structure, see <a
+						href="#app-internal-rep-data-model"></a>.</p>
 
 				<section id="normalize-data">
 					<h4>Normalize Data</h4>
@@ -4374,7 +4360,7 @@
 			<p>More specific security and privacy considerations are left to each profile to detail, as these will vary
 				depending on the nature of the <a>digital publication</a> format.</p>
 		</section>
-		<section id="internal-rep-data-model" class="appendix informative">
+		<section id="app-internal-rep-data-model" class="appendix informative">
 			<h2>Internal Representation Data Models</h2>
 
 			<p>The manifest includes a number of authoring conveniences, such as default values, the ability to use
@@ -4487,11 +4473,11 @@ dictionary LocalizableString {
 			</section>
 		</section>
 		<section id="app-select-alternate" class="appendix">
-			<h3>Select an Alternate</h3>
+			<h3>Selecting an Alternate Resource</h3>
 
 			<p><em>This appendix depends on the Infra Standard [[!infra]].</em></p>
 
-			<p>To select <dfn>select an alternate</dfn> from a <a><code>LinkedResource</code></a>
+			<p>To <dfn>select an alternate resource</dfn> for a <a><code>LinkedResource</code></a>
 				<var>resource</var>, run the following steps.</p>
 
 			<p>If successful, this algorithm returns an alternate resource. Otherwise, it returns failure.</p>
@@ -5007,12 +4993,12 @@ dictionary LocalizableString {
 									<li>
 										<p>If <var>branches</var> is not empty:</p>
 										<ol>
-											<li>If the <var>current_toc_branch["entries"]</var> contains a non-empty <a
+											<li>if the <var>current_toc_branch["entries"]</var> contains a non-empty <a
 													href="https://infra.spec.whatwg.org/#list">list</a>, and
 													<var>current_toc_branch["name"]</var> is an empty string, set
 													<var>current_toc_branch["name"]</var> to a placeholder value or <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a>;</li>
-											<li>If the <var>current_toc_branch["entries"]</var> contains an empty <a
+											<li>if the <var>current_toc_branch["entries"]</var> contains an empty <a
 													href="https://infra.spec.whatwg.org/#list">list</a>, and
 													<code>current_toc_branch["name"]</code> is an empty <a
 													href="https://infra.spec.whatwg.org/#string">string</a>, set
@@ -5262,7 +5248,7 @@ dictionary LocalizableString {
 				<pre class="example" data-include="experiments/audiobook/flatland.json" data-include-format="text"></pre>
 			</section>
 		</section>
-		<section id="properties-index" class="appendix informative">
+		<section id="app-properties-index" class="appendix informative">
 			<h4>Properties Index</h4>
 
 			<p>The following table identifies where manifest properties are defined and extended.</p>
@@ -5546,7 +5532,7 @@ dictionary LocalizableString {
 				</tbody>
 			</table>
 		</section>
-		<section id="rel-index" class="appendix informative">
+		<section id="app-rel-index" class="appendix informative">
 			<h4>Resource Relations Index</h4>
 
 			<p>The following table identifies where the use of resource relations is defined.</p>
