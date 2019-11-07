@@ -716,8 +716,8 @@
 									<td>
 										<p>One or more <a href="#manifest-rel">relations</a>. The values are either the
 											relevant relation terms of the IANA link
-											registry&#160;[[!iana-link-relations]], or specially-defined URLs if no
-											suitable link registry item exists.</p>
+											registry&#160;[[!iana-link-relations]], or valid URL strings&#160;[[!url]]
+											if no suitable link registry item exists.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
@@ -2369,8 +2369,6 @@
 								in the manifest</a>.</li>
 					</ol>
 
-					<p>Although both methods are valid, the use of linked records is RECOMMENDED.</p>
-
 					<p>This specification does not define how such additional properties are compiled, stored or exposed
 						by user agents in their <a>internal representation</a> of the manifest. A user agent MAY ignore
 						some or all extended properties.</p>
@@ -2378,21 +2376,20 @@
 					<section id="extensibility-linked-records">
 						<h4>Linked records</h4>
 
-						<p>Extending the manifest through links to a record, such as an ONIX&#160;[[onix]] or
-							BibTeX&#160;[[bibtex]] file, MUST be expressed using a <a><code>LinkedResource</code></a>
-							object, where:</p>
+						<p>The manifest MAY be extended through links to metadata records, such as an ONIX&#160;[[onix]]
+							or BibTeX&#160;[[bibtex]], using a <a><code>LinkedResource</code></a> object, where:</p>
 						<ul>
 							<li>the <a href="#linkedresource-rel"><code>rel</code> property</a> of the
-									<code>LinkedResource</code> SHOULD include a relevant identifier defined by IANA or
-								by other organizations; if the link record contains descriptive metadata it MUST include
-								the <code>describedby</code> (IANA) identifier; </li>
-							<li>the value of the <code>encodingFormat</code> in the link MUST use the MIME media
+									<code>LinkedResource</code> SHOULD include a relevant identifier (e.g., if the
+								linked record contains descriptive metadata, use the <code>describedby</code> identifier
+								[[iana-link-relations]]); </li>
+							<li>the value of the <code>encodingFormat</code> identifies the MIME media
 								type&#160;[[!rfc2046]] defined for that particular type of record, if applicable.</li>
 						</ul>
 
-						<p>Linked records MUST be included in the <a href="#resource-list">resource list</a> when they
-							are part of the publication (i.e., are needed for more than just manifest extensibility).
-							Otherwise, they MUST be included in the <a href="#links">links list</a>.</p>
+						<p>Include linked records in the <a href="#resource-list">resource list</a> when they are part
+							of the publication (i.e., are needed for more than just manifest extensibility). Otherwise,
+							included them in the <a href="#links">links list</a>.</p>
 
 						<pre class="example" title="Linking to an external ONIX for Books metadata record.">{
     …
@@ -2415,12 +2412,10 @@
 					<section id="extensibility-manifest-properties">
 						<h4>Additional Manifest Properties</h4>
 
-						<p>Additional properties MAY be included directly in the manifest. It is RECOMMENDED that these
-							properties be taken from public schemes like [[schema.org]] or [[dcterms]] and use values
-							from controlled vocabularies whenever possible. Proprietary terms MAY be used, but it is
-							RECOMMENDED that such terms be included using <a
-								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld11]],
-							with prefixes defined as part of the context.</p>
+						<p>Additional properties MAY be included directly in the manifest using public schemes like
+							[[schema.org]] or [[dcterms]]. Proprietary terms MAY be used, but it is RECOMMENDED that
+							such terms be included using <a href="https://www.w3.org/TR/json-ld/#compact-iris">Compact
+								IRIs</a>&#160;[[!json-ld11]], with prefixes defined as part of the context.</p>
 
 						<p class="note">Proper use of prefixes and compact IRIs is necessary to use a manifest with a
 							full JSON-LD processor, but is not a requirement for the <a href="#manifest-processing"
@@ -2655,13 +2650,13 @@
 						<p class="ednote">The <code>accessibility-report</code> term is not currently registered in the
 							IANA link relations but the Working Group expects to add it.</p>
 
-						<p>The manifest SHOULD include a link to an accessibility report when one is available for a
-							publication. It is RECOMMENDED that the report be included as a resource of the
-							publication.</p>
+						<p>It is RECOMMENDED that the report be included as a resource of the publication so that it is
+							available, for example, when a publication is read offline.</p>
 
-						<p>It is also RECOMMENDED that the accessibility report be provided in a human-readable format,
-							such as HTML [[!html]]. Augmenting these reports with machine-processable metadata, such as
-							provided in Schema.org&#160;[[!schema.org]], is also RECOMMENDED.</p>
+						<p class="note">Providing the accessibility report in a human-readable format, such as HTML
+							[[html]], helps ensure that it can be accessed and understood by users. Augmenting the
+							report with machine-processable metadata, such as provided in
+							Schema.org&#160;[[schema.org]], will additionally aid in machine processing.</p>
 
 						<pre class="example" title="Setting a link to an accessibility report.">{
     …
@@ -2729,7 +2724,8 @@
 							content.</p>
 
 						<p>A link to a privacy policy can be included in the manifest for this purposes. It is
-							RECOMMENDED that the privacy policy be included as a resource of the publication.</p>
+							RECOMMENDED that the privacy policy be included as a resource of the publication so that it
+							is available, for example, when a publication is read offline.</p>
 
 						<p>A <dfn data-lt="privacyPolicy">privacy policy</dfn> is identified using the
 								<code>privacy-policy</code> link relation&#160;[[!iana-link-relations]].</p>
@@ -3689,9 +3685,21 @@
 										<var>link</var> from <var>data["links"]</var>, then <a
 											href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
 								</li>
+								<li id="links-check-rel-exists">
+									<p>if <var>link["rel"]</var> is not set or is an empty <a
+											href="https://infra.spec.whatwg.org/#list">list</a>, <a>validation
+										error</a>, then <a href="https://infra.spec.whatwg.org/#iteration-continue"
+											>continue</a>.</p>
+								</li>
+								<li id="links-check-rel-valid">
+									<p>otherwise, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+										<var>rel</var> of <var>link["rel"]</var>, if <var>rel</var> is not a value from
+										[[!iana-link-relations]] or a valid URL string [[!url]], <a>validation
+										error</a>.</p>
+								</li>
 								<li id="links-check-struct-rel">
-									<p>if <var>link["rel"]</var> is set and <a
-											href="https://infra.spec.whatwg.org/#list-contains">contains</a> any of the
+									<p>if <var>link["rel"]</var>
+										<a href="https://infra.spec.whatwg.org/#list-contains">contains</a> any of the
 										values "<code>contents</code>", "<code>pagelist</code>" or "<code>cover</code>",
 											<a>validation error</a>, <a
 											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
@@ -3725,6 +3733,12 @@
 										<var>resource</var> of <var>resources</var>, if <var>resource["rel"]</var> is
 										set:</p>
 									<ol>
+										<li id="rel-check-valid">
+											<p><a href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
+												<var>rel</var> of <var>resource["rel"]</var>, if <var>rel</var> is not a
+												value from [[!iana-link-relations]] or a valid URL string [[!url]],
+													<a>validation error</a>.</p>
+										</li>
 										<li id="rel-check-contents">
 											<p>If <var>resource["rel"]</var>
 												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
@@ -3757,6 +3771,7 @@
 												</li>
 											</ol>
 										</li>
+
 									</ol>
 								</li>
 							</ol>
