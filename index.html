@@ -714,10 +714,7 @@
 									</td>
 									<td>The relation of the resource to the publication. OPTIONAL.</td>
 									<td>
-										<p>One or more <a href="#manifest-rel">relations</a>. The values are either the
-											relevant relation terms of the IANA link
-											registry&#160;[[!iana-link-relations]], or valid URL strings&#160;[[!url]]
-											if no suitable link registry item exists.</p>
+										<p>One or more <a href="#manifest-rel">relations</a>.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
@@ -2381,15 +2378,15 @@
 						<ul>
 							<li>the <a href="#linkedresource-rel"><code>rel</code> property</a> of the
 									<code>LinkedResource</code> includes a relevant identifier (e.g., if the linked
-								record contains descriptive metadata, use the <code>describedby</code> identifier
-								[[iana-link-relations]]); </li>
+								record contains descriptive metadata, the <code>describedby</code> identifier
+								[[iana-link-relations]] can be used); </li>
 							<li>the value of the <code>encodingFormat</code> identifies the MIME media
 								type&#160;[[!rfc2046]] defined for that particular type of record, if applicable.</li>
 						</ul>
 
-						<p>Include linked records in the <a href="#resource-list">resource list</a> when they are part
-							of the publication (i.e., are needed for more than just manifest extensibility). Otherwise,
-							included them in the <a href="#links">links list</a>.</p>
+						<p>Linked records are included in the <a href="#resource-list">resource list</a> when they are
+							part of the publication (i.e., are needed for more than just manifest extensibility).
+							Otherwise, they are included in the <a href="#links">links list</a>.</p>
 
 						<pre class="example" title="Linking to an external ONIX for Books metadata record.">{
     …
@@ -2754,12 +2751,12 @@
 						following ways:</p>
 
 					<ul>
-						<li>through the use of relations defined in [[!iana-relations]]; or</li>
+						<li>through the use of relations defined in an existing relation vocabulary (e.g., the IANA link
+							registry&#160;[[iana-link-relations]] and microformats existing rel values [[mfrel]]);
+							or</li>
 						<li>through the use of <a href="https://tools.ietf.org/html/rfc8288#section-2.1.2">extension
 								relation types</a>&#160;[[!rfc8288]].</li>
 					</ul>
-
-					<p>Use of relations from [[!iana-relations]] is RECOMMENDED.</p>
 				</section>
 			</section>
 		</section>
@@ -3691,12 +3688,6 @@
 										error</a>, then <a href="https://infra.spec.whatwg.org/#iteration-continue"
 											>continue</a>.</p>
 								</li>
-								<li id="links-check-rel-valid">
-									<p>otherwise, <a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
-										<var>rel</var> of <var>link["rel"]</var>, if <var>rel</var> is not a value from
-										[[!iana-link-relations]] or a valid URL string [[!url]], <a>validation
-										error</a>.</p>
-								</li>
 								<li id="links-check-struct-rel">
 									<p>if <var>link["rel"]</var>
 										<a href="https://infra.spec.whatwg.org/#list-contains">contains</a> any of the
@@ -3733,12 +3724,6 @@
 										<var>resource</var> of <var>resources</var>, if <var>resource["rel"]</var> is
 										set:</p>
 									<ol>
-										<li id="rel-check-valid">
-											<p><a href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
-												<var>rel</var> of <var>resource["rel"]</var>, if <var>rel</var> is not a
-												value from [[!iana-link-relations]] or a valid URL string [[!url]],
-													<a>validation error</a>.</p>
-										</li>
 										<li id="rel-check-contents">
 											<p>If <var>resource["rel"]</var>
 												<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
