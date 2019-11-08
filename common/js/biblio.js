@@ -127,5 +127,9 @@ var biblio = {
     "webschemas-a11y": {
     	"title": "WebSchemas Accessibility",
     	"href": "http://www.w3.org/wiki/WebSchemas/Accessibility"
+    },
+    "mfrel": {
+    	"title": "Microformats Wiki: existing rel values. Microformats.",
+    	"href": "http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions"
     }
 }
