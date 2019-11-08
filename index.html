@@ -714,10 +714,7 @@
 									</td>
 									<td>The relation of the resource to the publication. OPTIONAL.</td>
 									<td>
-										<p>One or more <a href="#manifest-rel">relations</a>. The values are either the
-											relevant relation terms of the IANA link
-											registry&#160;[[!iana-link-relations]], or specially-defined URLs if no
-											suitable link registry item exists.</p>
+										<p>One or more <a href="#manifest-rel">relations</a>.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
@@ -2056,10 +2053,9 @@
 							</tbody>
 						</table>
 
-						<p id="generate_title">If a title is not included in the manifest, and a <a>digital
-								publication</a> does not define alternative rules for obtaining one, the user agent MUST
-							create one. This specification does not specify what heuristics to use to generate such a
-							title.</p>
+						<p id="generate_title">If a title is not included in the manifest, the user agent MUST create
+							one. The process for obtaining the title is defined in <a href="#add-default-values"
+							></a>.</p>
 
 						<p class="note">A user agent is not expected to produce a <a data-cite="wcag21#page-titled"
 								>meaningful title</a>&#160;[[wcag21]] for a publication when one is not specified. </p>
@@ -2145,7 +2141,12 @@
 							unexpected results in user agents (e.g., links to the resource might not resolve to the
 							right instance in the reading order).</p>
 
-						<p>The default reading order MUST include at least one resource.</p>
+						<p>The default reading order MUST include at least one resource after <a
+								href="#manifest-processing">processing of the manifest</a>. Depending on the <a
+								href="#manifest-discovery">discovery method</a> a <a>profile</a> uses, the default
+							reading order might not need to be explicitly specified in the manifest (i.e., a default
+							document might be automatically included). See <a href="#add-default-values"></a> for more
+							information.</p>
 
 						<pre class="example" title="Expressing the reading order as a simple list of URLs.">{
     …
@@ -2369,8 +2370,6 @@
 								in the manifest</a>.</li>
 					</ol>
 
-					<p>Although both methods are valid, the use of linked records is RECOMMENDED.</p>
-
 					<p>This specification does not define how such additional properties are compiled, stored or exposed
 						by user agents in their <a>internal representation</a> of the manifest. A user agent MAY ignore
 						some or all extended properties.</p>
@@ -2378,21 +2377,20 @@
 					<section id="extensibility-linked-records">
 						<h4>Linked records</h4>
 
-						<p>Extending the manifest through links to a record, such as an ONIX&#160;[[onix]] or
-							BibTeX&#160;[[bibtex]] file, MUST be expressed using a <a><code>LinkedResource</code></a>
-							object, where:</p>
+						<p>The manifest MAY be extended through links to metadata records, such as an ONIX&#160;[[onix]]
+							or BibTeX&#160;[[bibtex]], using a <a><code>LinkedResource</code></a> object, where:</p>
 						<ul>
 							<li>the <a href="#linkedresource-rel"><code>rel</code> property</a> of the
-									<code>LinkedResource</code> SHOULD include a relevant identifier defined by IANA or
-								by other organizations; if the link record contains descriptive metadata it MUST include
-								the <code>describedby</code> (IANA) identifier; </li>
-							<li>the value of the <code>encodingFormat</code> in the link MUST use the MIME media
+									<code>LinkedResource</code> includes a relevant identifier (e.g., if the linked
+								record contains descriptive metadata, the <code>describedby</code> identifier
+								[[iana-link-relations]] can be used); </li>
+							<li>the value of the <code>encodingFormat</code> identifies the MIME media
 								type&#160;[[!rfc2046]] defined for that particular type of record, if applicable.</li>
 						</ul>
 
-						<p>Linked records MUST be included in the <a href="#resource-list">resource list</a> when they
-							are part of the publication (i.e., are needed for more than just manifest extensibility).
-							Otherwise, they MUST be included in the <a href="#links">links list</a>.</p>
+						<p>Linked records are included in the <a href="#resource-list">resource list</a> when they are
+							part of the publication (i.e., are needed for more than just manifest extensibility).
+							Otherwise, they are included in the <a href="#links">links list</a>.</p>
 
 						<pre class="example" title="Linking to an external ONIX for Books metadata record.">{
     …
@@ -2415,12 +2413,10 @@
 					<section id="extensibility-manifest-properties">
 						<h4>Additional Manifest Properties</h4>
 
-						<p>Additional properties MAY be included directly in the manifest. It is RECOMMENDED that these
-							properties be taken from public schemes like [[schema.org]] or [[dcterms]] and use values
-							from controlled vocabularies whenever possible. Proprietary terms MAY be used, but it is
-							RECOMMENDED that such terms be included using <a
-								href="https://www.w3.org/TR/json-ld/#compact-iris">Compact IRIs</a>&#160;[[!json-ld11]],
-							with prefixes defined as part of the context.</p>
+						<p>Additional properties MAY be included directly in the manifest using public schemes like
+							[[schema.org]] or [[dcterms]]. Proprietary terms MAY be used, but it is RECOMMENDED that
+							such terms be included using <a href="https://www.w3.org/TR/json-ld/#compact-iris">Compact
+								IRIs</a>&#160;[[!json-ld11]], with prefixes defined as part of the context.</p>
 
 						<p class="note">Proper use of prefixes and compact IRIs is necessary to use a manifest with a
 							full JSON-LD processor, but is not a requirement for the <a href="#manifest-processing"
@@ -2655,13 +2651,13 @@
 						<p class="ednote">The <code>accessibility-report</code> term is not currently registered in the
 							IANA link relations but the Working Group expects to add it.</p>
 
-						<p>The manifest SHOULD include a link to an accessibility report when one is available for a
-							publication. It is RECOMMENDED that the report be included as a resource of the
-							publication.</p>
+						<p>It is RECOMMENDED that the report be included as a resource of the publication so that it is
+							available, for example, when a publication is read offline.</p>
 
-						<p>It is also RECOMMENDED that the accessibility report be provided in a human-readable format,
-							such as HTML [[!html]]. Augmenting these reports with machine-processable metadata, such as
-							provided in Schema.org&#160;[[!schema.org]], is also RECOMMENDED.</p>
+						<p class="note">Providing the accessibility report in a human-readable format, such as HTML
+							[[html]], helps ensure that it can be accessed and understood by users. Augmenting the
+							report with machine-processable metadata, such as provided in
+							Schema.org&#160;[[schema.org]], will additionally aid in machine processing.</p>
 
 						<pre class="example" title="Setting a link to an accessibility report.">{
     …
@@ -2729,7 +2725,8 @@
 							content.</p>
 
 						<p>A link to a privacy policy can be included in the manifest for this purposes. It is
-							RECOMMENDED that the privacy policy be included as a resource of the publication.</p>
+							RECOMMENDED that the privacy policy be included as a resource of the publication so that it
+							is available, for example, when a publication is read offline.</p>
 
 						<p>A <dfn data-lt="privacyPolicy">privacy policy</dfn> is identified using the
 								<code>privacy-policy</code> link relation&#160;[[!iana-link-relations]].</p>
@@ -2758,12 +2755,14 @@
 						following ways:</p>
 
 					<ul>
-						<li>through the use of relations defined in [[!iana-relations]]; or</li>
+						<li>through the use of relations defined in a relation vocabulary (e.g., the <a
+								href="https://www.iana.org/assignments/link-relations/link-relations.xhtml">IANA link
+								registry</a>&#160;[[iana-link-relations]] and <a
+								href="http://microformats.org/wiki/existing-rel-values">microformats existing rel
+								values</a> [[microformats]]); or</li>
 						<li>through the use of <a href="https://tools.ietf.org/html/rfc8288#section-2.1.2">extension
 								relation types</a>&#160;[[!rfc8288]].</li>
 					</ul>
-
-					<p>Use of relations from [[!iana-relations]] is RECOMMENDED.</p>
 				</section>
 			</section>
 		</section>
@@ -3069,13 +3068,13 @@
 					</li>
 
 					<li id="processing-defaults">
-						<p>Set <var>processed</var> to the result of running <a>add HTML defaults</a>, when successful,
-							given <var>processed</var> and <var>document</var>. Otherwise, terminate processing, return
-							failure.</p>
+						<p>Set <var>processed</var> to the result of running <a>add defaults values</a>, when
+							successful, given <var>processed</var> and <var>document</var>, when specified. Otherwise,
+							terminate processing, return failure.</p>
 						<details>
 							<summary>Explanation</summary>
 							<p>This step checks if any information missing from the manifest can be obtained from the
-								HTML document that links to the manifest (e.g., the title and reading order).</p>
+								HTML document that links to the document, or from other sources.</p>
 						</details>
 					</li>
 
@@ -3689,13 +3688,14 @@
 										<var>link</var> from <var>data["links"]</var>, then <a
 											href="https://infra.spec.whatwg.org/#iteration-continue">continue</a>.</p>
 								</li>
-								<li id="links-check-rel">
+								<li id="links-check-rel-exists">
 									<p>if <var>link["rel"]</var> is not set or is an empty <a
 											href="https://infra.spec.whatwg.org/#list">list</a>, <a>validation
-										error</a>.</p>
+										error</a>, then <a href="https://infra.spec.whatwg.org/#iteration-continue"
+											>continue</a>.</p>
 								</li>
 								<li id="links-check-struct-rel">
-									<p>otherwise, if <var>link["rel"]</var>
+									<p>if <var>link["rel"]</var>
 										<a href="https://infra.spec.whatwg.org/#list-contains">contains</a> any of the
 										values "<code>contents</code>", "<code>pagelist</code>" or "<code>cover</code>",
 											<a>validation error</a>, <a
@@ -3762,6 +3762,7 @@
 												</li>
 											</ol>
 										</li>
+
 									</ol>
 								</li>
 							</ol>
@@ -4193,18 +4194,17 @@
 					</section>
 				</section>
 
-				<section id="add-html-defaults">
-					<h3>Add HTML Defaults</h3>
+				<section id="add-default-values">
+					<h3>Add Default Values</h3>
 
-					<p>To <dfn>add HTML defaults</dfn> for missing properties in <a
+					<p>To <dfn>add default values</dfn> for missing properties in <a
 							href="https://infra.spec.whatwg.org/#ordered-map">map</a>
-						<var>data</var> with an <a data-cite="html#the-document-object">HTML Document (DOM)
-						Node</a>&#160;[[!html]] <var>document</var>, run the following steps:</p>
+						<var>data</var> with an optional <a data-cite="html#the-document-object">HTML Document (DOM)
+							Node</a>&#160;[[!html]] <var>document</var>, run the following steps:</p>
 
 					<ol>
 						<li id="processing-defaults-title">
-							<p>(<a href="#pub-title"></a>) If <var>data["name"]</var> is not set, or its value is an
-								empty <a href="https://infra.spec.whatwg.org/#string">string</a>:</p>
+							<p>(<a href="#pub-title"></a>) If <var>data["name"]</var> is not set:</p>
 							<ul>
 								<li>
 									<p>Let <var>title</var> be an empty <a
@@ -4212,9 +4212,10 @@
 										follows:</p>
 									<ul>
 										<li>
-											<p>if the <a data-cite="html#the-title-element"><code>title</code></a>
-												element&#160;[[!html]] of <var>document</var> is set and its contains is
-												not empty, set <var>title["value"]</var> to the text content of the
+											<p>if <var>document</var> is set, if the <a
+													data-cite="html#the-title-element"><code>title</code></a>
+												element&#160;[[!html]] of <var>document</var> is set and is not empty,
+												set <var>title["value"]</var> to the text content of the
 													<code>title</code> element.</p>
 											<p>Set <var>title["language"]</var> to the <a
 													data-cite="html#the-lang-and-xml:lang-attributes"
@@ -4228,7 +4229,7 @@
 											<p>otherwise, <a>validation error</a>, generate a value for
 													<var>title["value"]</var> (see the <a href="#generate_title"
 													>separate note for details</a>). Set <var>title["language"]</var>
-												and <var>title["direction"]</var> as approrpriate for the generated
+												and <var>title["direction"]</var> as appropriate for the generated
 												title.</p>
 										</li>
 									</ul>
@@ -4265,13 +4266,13 @@
 						</li>
 
 						<li id="processing-defaults-reading-order">
-							<p>(<a href="#default-reading-order"></a>) If <var>data["readingOrder"]</var> is not set or
-								its value is an empty <a href="https://infra.spec.whatwg.org/#string">string</a> or <a
-									href="https://infra.spec.whatwg.org/#list">list</a>:</p>
+							<p>(<a href="#default-reading-order"></a>) If <var>data["readingOrder"]</var> is not
+								set:</p>
 							<ul>
 								<li>
-									<p>if <a data-cite="!dom#concept-document-url">document.URL</a> is not set, this is
-										a <a>fatal error</a>. Return failure.</p>
+									<p>if either <var>document</var> or <a data-cite="!dom#concept-document-url"
+											>document.URL</a> are not set, this is a <a>fatal error</a>. Return
+										failure.</p>
 								</li>
 								<li>
 									<p>set <var>data["readingOrder"]</var> to an empty <a
@@ -4296,8 +4297,8 @@
 						</li>
 
 						<li id="processing-defaults-extension">
-							<p>If a <a>profile</a> specifies <var>document</var> fallbacks, those steps are executed at
-								this point.</p>
+							<p>If a <a>profile</a> specifies default values the user agent has to generate, those steps
+								are executed at this point.</p>
 						</li>
 
 						<li>
