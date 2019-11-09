@@ -3022,13 +3022,13 @@
 									href="https://infra.spec.whatwg.org/#string">string</a>, then <a
 									href="https://infra.spec.whatwg.org/#iteration-break">break</a>.</li>
 						</ol>
-						<p>If <var>lang</var> is not an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
-							and is not a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
-							>well-formed</a>&#160;[[!bcp47]] language tag, <a>validation error</a>, set <var>lang</var>
-							to an empty string.</p>
-						<p>If <var>dir</var> is not an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
-							and is not one of the values "<code>ltr</code>" or "<code>rtl</code>", <a>validation
-								error</a>, set <var>dir</var> to an empty string.</p>
+						<p>If <var>lang</var> is neither an empty <a href="https://infra.spec.whatwg.org/#string"
+								>string</a> nor a <a href="https://tools.ietf.org/html/bcp47#section-2.2.9"
+								>well-formed</a>&#160;[[!bcp47]] language tag, <a>validation error</a>, set
+								<var>lang</var> to an empty string.</p>
+						<p>If <var>dir</var> is neither an empty <a href="https://infra.spec.whatwg.org/#string"
+								>string</a> nor one of the values "<code>ltr</code>" or "<code>rtl</code>",
+								<a>validation error</a>, set <var>dir</var> to an empty string.</p>
 						<details>
 							<summary>Explanation</summary>
 							<p>The global language and direction declarations obtained here are used to set the language
