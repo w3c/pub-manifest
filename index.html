@@ -2863,7 +2863,7 @@
 				<h3>Introduction</h3>
 
 				<p>Although a <a>digital publication</a>'s manifest is authored as [[json-ld11]], the steps for
-					processing a manifest decribed in this section detail how a user agent processes the manifest into
+					processing a manifest decribed in this section detail how a user agent transforms the manifest into
 					its <a>internal representation</a> of the data. The algorithm describes the process using the
 					terminology and data types defined in [[infra]], and, if successful results in an [[infra]] <a
 						href="https://infra.spec.whatwg.org/#ordered-map">map</a> of the data being returned.</p>
@@ -2898,9 +2898,9 @@
 
 				<p>Some steps in the <a>processing algorithm</a> depend on the expected value category of a term, so the
 					context in which a term is used can affect processing (e.g., <a href="#address"><code>url</code></a>
-					expects an <a href="#value-array">Array</a> (of URLs) only when the direct property of the
-					Publication Manifest). To differentiate these uses a <dfn>context</dfn> is provided to certain
-					function calls. This context is set to the type of object that initiates the processing call.</p>
+					expects an <a href="#value-array">Array</a> of URLs only when the direct property of the Publication
+					Manifest). To differentiate these uses, a <dfn>context</dfn> is provided to certain function calls.
+					This context is set to the type of object that initiates the processing call.</p>
 
 				<p>The default list of <dfn>recognized types</dfn> includes <code>Person</code>,
 						<code>Organization</code> and <code>LinkedResource</code>. <a>Profiles</a> MAY extend this list
@@ -2909,9 +2909,9 @@
 				<p>If a context is not provided to a function, the term being processed is considered part of the global
 					context (i.e., it is a direct child of the manifest).</p>
 
-				<p class="note">When extending the list of recognized profiles, the <a>normalize data</a> function might
-					also need to be extended to ensure that all objects have their type specified (e.g., if authoring
-					conveniences do not require an explicitly-typed object always be authored).</p>
+				<p class="note">When extending the list of recognized types, the <a>normalize data</a> function might
+					also need to be extended to ensure that all objects have their type specified (e.g., when string
+					values are automatically expanded to objects).</p>
 			</section>
 
 			<section id="processing-algorithm">
@@ -2927,8 +2927,8 @@
 							manifest</a>, when available.</li>
 				</ul>
 
-				<p class="note">This algorithm does not define how the manifest is discovered and obtained. The steps by
-					which to do so are defined by each <a>digital publication</a> format.</p>
+				<p class="note">This algorithm does not describe how the manifest is discovered and obtained. The steps
+					by which to do so are defined by each <a>digital publication</a> format.</p>
 
 				<p>To <dfn data-lt="processing algorithm|processing the manifest|processing a manifest">generate the
 						internal representation</dfn>, run the following steps:</p>
@@ -3008,21 +3008,18 @@
 							empty <a href="https://infra.spec.whatwg.org/#string">string</a>.</p>
 						<p><a href="https://infra.spec.whatwg.org/#list-iterate">For each</a>
 							<var>context</var> of <var>manifest["@context"]</var>, moving from the last <a
-								href="https://infra.spec.whatwg.org/#list-item">item</a> to the first:</p>
+								href="https://infra.spec.whatwg.org/#list-item">item</a> to the first, if
+								<var>context</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map"
+							>map</a>:</p>
 						<ol>
 							<li>if <var>lang</var> is an empty <a href="https://infra.spec.whatwg.org/#string"
-									>string</a> and <var>context</var> is a <a
-									href="https://infra.spec.whatwg.org/#ordered-map">map</a> that contains a
-									<var>language</var>
-								<a href="https://infra.spec.whatwg.org/#map-key">key</a>, set <var>lang</var> to
+									>string</a> and <var>context["language"]</var> is defined, set <var>lang</var> to
 									<var>context["language"]</var>;</li>
 							<li>if <var>dir</var> is an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
-								and <var>context</var> is a <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
-								that contains a <var>direction</var>
-								<a href="https://infra.spec.whatwg.org/#map-key">key</a>, set <var>dir</var> to
+								and <var>context["direction"]</var> is defined, set <var>dir</var> to
 									<var>context["direction"]</var>;</li>
-							<li>if both <var>lang</var> and <var>dir</var> are not empty <a
-									href="https://infra.spec.whatwg.org/#string">strings</a>, then <a
+							<li>if neither <var>lang</var> nor <var>dir</var> is an empty <a
+									href="https://infra.spec.whatwg.org/#string">string</a>, then <a
 									href="https://infra.spec.whatwg.org/#iteration-break">break</a>.</li>
 						</ol>
 						<p>If <var>lang</var> is not an empty <a href="https://infra.spec.whatwg.org/#string">string</a>
@@ -3068,9 +3065,9 @@
 					</li>
 
 					<li id="processing-defaults">
-						<p>Set <var>processed</var> to the result of running <a>add default values</a>, when
-							successful, given <var>processed</var> and <var>document</var>, when specified. Otherwise,
-							terminate processing, return failure.</p>
+						<p>Set <var>processed</var> to the result of running <a>add default values</a>, when successful,
+							given <var>processed</var> and <var>document</var>, when specified. Otherwise, terminate
+							processing, return failure.</p>
 						<details>
 							<summary>Explanation</summary>
 							<p>This step checks if any information missing from the manifest can be obtained from the
@@ -3122,7 +3119,8 @@
 							<p>(<a href="#value-array"></a>) If, depending on <var>context</var>, <var>term</var>
 								expects an <a href="#value-array">array</a> and <var>value</var> is not a <a
 									href="https://infra.spec.whatwg.org/#list">list</a>, set <var>normalized</var> to
-									«&#160;<var>value</var>&#160;».</p>
+								the <a href="https://infra.spec.whatwg.org/#list">list</a>:
+								«&#160;<var>value</var>&#160;».</p>
 							<details>
 								<summary>Explanation</summary>
 								<p>A number of terms require their values to be arrays, but, for the sake of
@@ -3197,8 +3195,8 @@
     »,
     …
 ]»</pre>
-								<p class="note">For simplicity, the conversion of <var>name</var> to a localizable
-									string is described by a later step.</p>
+								<p>For simplicity, the conversion of <var>name</var> to a localizable string is
+									described by a later step.</p>
 							</details>
 						</li>
 
@@ -3255,7 +3253,7 @@
 							</ol>
 							<details>
 								<summary>Explanation</summary>
-								<p>Natural language text values are expected to be explicitly designed as localizable
+								<p>Natural language text values are expected to be explicitly defined as localizable
 									string objects, but, for the sake of convenience, can be simple strings in the
 									manifest. For example, if no language information has been provided via the <a
 										href="#manifest-lang-dir-global">global language declaration</a> then:</p>
@@ -3266,7 +3264,6 @@
 }</pre>
 								<p>yields:</p>
 								<pre class="example">«[
-    "@context" → « "https://schema.org", "https://www.w3.org/ns/pub-context" »,
     "name"     → «
         «[
             "value" → "La Comédie humaine"
@@ -3287,11 +3284,6 @@
 }</pre>
 								<p>yields:</p>
 								<pre class="example">{
-    "@context" → « 
-        "https://schema.org",
-        "https://www.w3.org/ns/pub-context",
-        «["language" → "fr"]»
-    »,
     "name"     → «
         «[
             "value"    → "La Comédie humaine"
@@ -3323,12 +3315,6 @@
 }</pre>
 								<p>yields:</p>
 								<pre class="example">{
-    "@context" → « 
-        "https://schema.org",
-        "https://www.w3.org/ns/pub-context",
-        «["language" → "fr"]»
-    »,
-    …
     "name"     → «
         «[
             "value"    → "La Comédie humaine"
@@ -3404,8 +3390,8 @@
     »,
     …
 ]»</pre>
-								<p class="note">For simplicity, the conversion of relative paths to absolute is
-									described by a later step.</p>
+								<p>For simplicity, the conversion of relative paths to absolute is described by a later
+									step.</p>
 							</details>
 						</li>
 
@@ -3446,7 +3432,7 @@
 						</li>
 
 						<li id="normalize-extension">
-							<p>(<a href="#extensions"></a>, extension point) if a <a>profile</a> defines processing
+							<p>(<a href="#extensions"></a>, extension point) If a <a>profile</a> defines processing
 								steps for profile-specific terms, those steps are executed at this point.</p>
 						</li>
 
@@ -3522,35 +3508,35 @@
 						<h4>Convert to Absolute URL</h4>
 
 						<p>To <dfn>convert to absolute URL</dfn>
-							<var>value</var>, with a base URL <var>base</var>, run the following steps:</p>
+							<var>url</var>, with a base URL <var>base</var>, run the following steps:</p>
 
 						<ol>
 							<li id="abs-url-check-values">
-								<p>If <var>value</var> or <var>base</var> is not a <a
+								<p>If <var>url</var> or <var>base</var> is not a <a
 										href="https://infra.spec.whatwg.org/#string">string</a>, or is an empty string,
 										<a>validation error</a>, return failure.</p>
 								<details>
 									<summary>Explanation</summary>
-									<p>This step checks that both <var>value</var> and <var>base</var> are non-empty
+									<p>This step checks that both <var>url</var> and <var>base</var> are non-empty
 										strings before attempting to use them.</p>
 								</details>
 							</li>
 							<li id="abs-url-convert">
-								<p>Set <var>value</var> to the result of running the <a
+								<p>Set <var>url</var> to the result of running the <a
 										href="https://url.spec.whatwg.org/#concept-url-parser">URL
-									parser</a>&#160;[[!url]], when successful, with <var>value</var> as input and
+									parser</a>&#160;[[!url]], when successful, with <var>url</var> as input and
 										<var>base</var> as the base URL. If failure is returned, <a>validation
 									error</a>, return failure.</p>
 								<details>
 									<summary>Explanation</summary>
-									<p>This step calls the URL parser function on the incoming value. If the value is
+									<p>This step calls the URL parser function on the url to be processed. If the url is
 										not an absolute URL, the parser converts it to one using the base URL.</p>
 									<p>If parsing returns a failure, a failure is returned to the caller to indicate to
 										remove the URL.</p>
 								</details>
 							</li>
 							<li id="abs-url-return">
-								<p>Return <var>value</var>.</p>
+								<p>Return <var>url</var>.</p>
 							</li>
 						</ol>
 					</section>
@@ -3587,8 +3573,9 @@
 							<p>(<a href="#accessibility"></a>) If <var>data["accessModeSufficient"]</var> is set, <a
 									href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
 								<var>item</var> of <var>data["accessModeSufficient"]</var>, if <var>item["type"]</var>
-								is not set or is not "<code>ItemList</code>", <a
-									href="https://infra.spec.whatwg.org/#list-remove">remove</a>
+								is not set or does not <a href="https://infra.spec.whatwg.org/#list-contain">contain</a>
+									"<code>ItemList</code>", <a href="https://infra.spec.whatwg.org/#list-remove"
+									>remove</a>
 								<var>item</var> from <var>data["accessModeSufficient"]</var>.</p>
 						</li>
 
@@ -3708,6 +3695,9 @@
 								<p>After obtaining the list of unique publication resources in the previous step, the
 									links property is checked to ensure that any linked resources are not also listed as
 									publication resources.</p>
+								<p>If the link does not specify a <code>rel</code> value, a warning is raised. If its
+										<code>rel</code> property specifies a structural resource, the link is removed,
+									as structural resources have to be within the publication bounds.</p>
 							</details>
 						</li>
 
@@ -3980,8 +3970,8 @@
 								</ul>
 								<details>
 									<summary>Explanation</summary>
-									<p>This step performs three checks on the terms of a
-										<code>LinkedResource</code>:</p>
+									<p>This step performs the following two checks on the terms of a
+											<code>LinkedResource</code>:</p>
 									<ol>
 										<li>If a URL is not specified, or is invalid, the <code>LinkedResource</code> is
 											removed.</li>
@@ -4151,7 +4141,7 @@
 							</li>
 
 							<li id="unique-url-end">
-								<p>return <var>uniqueURLs</var>.</p>
+								<p>Return <var>uniqueURLs</var>.</p>
 							</li>
 						</ol>
 
@@ -4234,7 +4224,8 @@
 										</li>
 									</ul>
 								</li>
-								<li>Set <var>data["name"]</var> to <code>«&#160;<var>title</var>&#160;»</code>.</li>
+								<li>Set <var>data["name"]</var> to the <a href="https://infra.spec.whatwg.org/#list"
+										>list</a>: <code>«&#160;<var>title</var>&#160;»</code>.</li>
 							</ul>
 							<details>
 								<summary>Explanation</summary>
@@ -4271,7 +4262,7 @@
 							<ul>
 								<li>
 									<p>if either <var>document</var> or <a data-cite="!dom#concept-document-url"
-											>document.URL</a> are not set, this is a <a>fatal error</a>. Return
+												><var>document.URL</var></a> is not set, <a>fatal error</a>, return
 										failure.</p>
 								</li>
 								<li>
@@ -4280,11 +4271,11 @@
 											href="https://infra.spec.whatwg.org/#list-append">append</a> the <a
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>
 										<code>«[&#160;"url" → <a data-cite="!dom#concept-document-url"
-											>document.URL</a>&#160;]»</code>.</p>
+													><var>document.URL</var></a>&#160;]»</code>.</p>
 								</li>
 								<li>
 									<p><a href="https://infra.spec.whatwg.org/#set-append">append</a>
-										<a data-cite="!dom#concept-document-url">document.URL</a> to
+										<a data-cite="!dom#concept-document-url"><var>document.URL</var></a> to
 											<var>data["uniqueResources"]</var>.</p>
 								</li>
 							</ul>
@@ -5212,31 +5203,29 @@ dictionary LocalizableString {
 				</ol>
 			</section>
 		</section>
-
 		<section id="iana-consideration" class="appendix informative">
 			<h2>IANA considerations</h2>
 
 			<section>
 				<h3>Link relation type registration</h3>
-				<p class="note">
-					A request to register the <code>manifest</code> link relation type will be submitted to IANA.
-				</p>
+				<p class="note"> A request to register the <code>manifest</code> link relation type will be submitted to
+					IANA. </p>
 				<dl>
 					<dt>Relation Name:</dt>
 					<dd>publication</dd>
 					<dt>Description:</dt>
-					<dd>Links to a publication <a>manifest</a>. A manifest represents structured information about a publication, such as informative metadata, a list of resources, and a default reading order.
-					</dd>
+					<dd>Links to a publication <a>manifest</a>. A manifest represents structured information about a
+						publication, such as informative metadata, a list of resources, and a default reading order. </dd>
 					<dt>Reference:</dt>
 					<dd><a href="https://www.w3.org/TR/pub-manifest/">https://www.w3.org/TR/pub-manifest</a></dd>
 					<dt>Notes:</dt>
-					<dd>Please refer to the steps in <a href="#manifest-discovery"></a> for details on how to access, and <a href="#manifest-processing"></a> on how to process a <a>manifest</a>.</dd>
+					<dd>Please refer to the steps in <a href="#manifest-discovery"></a> for details on how to access,
+						and <a href="#manifest-processing"></a> on how to process a <a>manifest</a>.</dd>
 				</dl>
 			</section>
-	
+
 
 		</section>
-
 		<section id="app-manifest-examples" class="appendix informative">
 			<h2>Manifest Examples</h2>
 
