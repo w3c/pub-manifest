@@ -96,194 +96,182 @@
 					manifest format.</p>
 			</section>
 
-			<section id="terminology">
-				<h3>Terminology</h3>
+			<section id="manifest-format" class="informative">
+				<h4>Manifest Format</h4>
 
-				<p>This specification depends on the Infra Standard [[!infra]].</p>
+				<p>A <a>digital publication</a> is described by its <a>manifest</a>, which provides a set of properties
+					expressed using a specific shape of JSON-LD&#160;[[json-ld11]] (a variant of JSON&#160;[[ecma-404]]
+					for linked data).</p>
+
+				<p>The manifest is what enables user agents to understand the <a>bounds</a> of <a>digital
+						publication</a> and the connection between its resources. It includes metadata that describes
+					the digital publication, as a publication has an identity and nature beyond its constituent
+					resources. The manifest also provides a <a href="#resource-list">list of resources</a> that belong
+					to the digital publication and a <a href="#default-reading-order">default reading order</a>, which
+					is how it connects resources into a single contiguous work.</p>
+
+				<p>The properties of the manifest describe the basic information a user agent requires to process and
+					render a publication. For ease of understanding, these properties are categorized as follows:</p>
 
 				<dl>
 					<dt>
-						<dfn>Bounds</dfn>
+						<a href="#descriptive-properties">Descriptive properties</a>
 					</dt>
 					<dd>
-						<p>A <a>digital publication</a> consists of a finite set of resources that represent its
-							content. This extent is known as its bounds and is defined within its manifest as described
-							in <a href="#publication-resources"></a>.</p>
+						<p>Descriptive properties describe aspects of a digital publication, such as its <a
+								href="#pub-title">title</a>, <a href="#creators">creator</a>, and <a href="inLanguage"
+								>language</a>.</p>
 					</dd>
-
 					<dt>
-						<dfn data-lt="digital publications|digital publication's">Digital Publication</dfn>
+						<a href="#resource-categorization-properties">Resource categorization properties</a>
 					</dt>
 					<dd>
-						<p>A digital publication is any publication authored in a format that uses a <a>profile</a> of
-							the <a>manifest</a>.</p>
+						<p>Resource categorization properties describe or identify common sets of resources, such as the
+								<a href="#resource-list">resource list</a> and <a href="#default-reading-order">default
+								reading order</a>. These properties refer to one or more resources, such as HTML
+							documents, images, scripts, and metadata records.</p>
 					</dd>
+				</dl>
 
+				<p>The <a>manifest</a> also identifies key resources of a digital publication through the use of link
+					relations. These relations are defined in the <a href="#linkedresource-rel"><code>rel</code>
+						property</a> of <a><code>LinkedResource</code></a> objects (i.e., the JSON objects that
+					represent each resource in the default reading order, resource list, and links sections).</p>
+
+				<p>The types of resources these relations identify are categorized as follows:</p>
+
+				<dl>
 					<dt>
-						<dfn>Internal Representation</dfn>
+						<a href="#informative-rel">Informative resources</a>
 					</dt>
 					<dd>
-						<p>The internal representation of a manifest is the data structure created by user agents when
-							they <a href="#manifest-processing">process the manifest</a> and remove all possible
-							ambiguities and incorporate any missing values that can be inferred from another source.</p>
-						<p>It is possible for the information expressed in the manifest to be the equivalent of the
-							internal representation created by user agents if there are no ambiguities or missing
-							information.</p>
+						<p>Informative resources are resources that contain additional information about the
+							publication, such as its <a href="#privacy-policy">privacy policy</a>, <a
+								href="#accessibility-report">accessibility report</a>, or <a href="#preview"
+							>preview</a>.</p>
 					</dd>
-
 					<dt>
-						<dfn data-lt="Manifests">Manifest</dfn>
+						<a href="#structural-rel">Structural resources</a>
 					</dt>
 					<dd>
-						<p>A manifest represents structured information about a publication, such as informative
-							metadata, a <a href="#resource-list">list of resources</a>, and a <a>default reading
-								order</a>.</p>
-					</dd>
-
-					<dt>
-						<dfn data-lt="profiles|profile(s)">Profile</dfn>
-					</dt>
-					<dd>
-						<p>Profiles are publication formats (e.g., audiobooks) that use the <a>manifest</a> format
-							defined in this specification to describe their <a>bounds</a> and content. These formats can
-							extend the core definition in this specification with profile-specific terms and/or new
-							requirements.</p>
-						<p>Although profiles can differ in their structural and content requirements, such variances are
-							restricted to maintain a high degree of predictabibility between formats. (See <a
-								href="#extensions"></a>.)</p>
+						<p>Structural resources are key meta structures of the publication, such as the <a href="#cover"
+								>cover image</a>, <a href="#table-of-contents">table of contents</a>, and <a
+								href="#page-list">page list</a>.</p>
 					</dd>
 				</dl>
 			</section>
 
-			<section id="conformance">
-				<p>All algorithm explanations are <em>informative</em>.</p>
+			<section id="manifest-jsonld">
+				<h4>JSON-LD Authoring and Processing</h4>
+
+				<p>This specification defines the publication manifest as a specific "shape" of [[!json-ld11]]. This
+					means that the manifest SHOULD be expressed using only the syntactic constructions defined in this
+					specification, as opposed to all the possibilities offered by the JSON-LD syntax.</p>
+
+				<p class="note">This shape is also defined, informally, through a JSON schema&#160;[[json-schema]] that
+					expresses the constraints defined in this specification. This schema is maintained at <a
+						href="https://github.com/w3c/pub-manifest/blob/master/schema/"
+						>https://github.com/w3c/pub-manifest/blob/master/schema/</a>.</p>
+
+				<p>The publication manifest also has a number of authoring flexibilities and compact authoring
+					expressions. For example, it is not always required that object types be explicitly authored, as
+					these are automatically generated during processing when missing (see <a
+						href="#explicit-implied-objects"></a> for more information). An <a>internal representation</a>
+					of the manifest data is defined separately; see <a href="#app-internal-rep-data-model"></a> for
+					further details.</p>
+
+				<p>As a consequence, a user agent does not have to be a full JSON-LD processor. User agents only need to
+					be able to read the manifest's specific shape and internalize the data.</p>
 			</section>
+
+			<section id="manifest-schemaorg">
+				<h4>Relationship to Schema.org</h4>
+
+				<p>Manifest properties, in particular those categorized as <a href="#descriptive-properties">descriptive
+						properties</a>, are primarily drawn from <a href="https://schema.org">Schema.org</a> and its <a
+						href="https://schema.org/docs/schemas.html">hosted extensions</a>&#160;[[!schema.org]]. As a
+					consequence, these properties inherit their syntax and semantics from Schema.org, making manifest
+					authoring compatible with Schema.org authoring.</p>
+
+				<p>When a manifest item corresponds to a Schema.org property, its <a href="#manifest-properties"
+						>property definition</a> identifies its mapping and includes the defining type (e.g., <a
+						href="https://schema.org/CreativeWork">CreativeWork</a> or <a href="https://schema.org/Book"
+						>Book</a>) in parentheses.</p>
+
+				<p>Schema.org additionally includes a large number of properties that, though relevant for publishing,
+					are not mentioned in this specification. These properties MAY be used in a manifest as this document
+					defines only the minimal set of manifest items.</p>
+
+				<p>When using additional Schema.org properties, ensure that they are valid for the <a
+						href="#publication-types">type of publication</a> specified in the manifest. Properties are
+					often available in many Schema.org types, as a result of the inheritance model used by the
+					vocabulary, but not all properties are available for all types. For more detailed information about
+					which types accept which properties, refer to [[!schema.org]].</p>
+
+				<p>More information about using additional Schema.org properties is also available in <a
+						href="#publication-types"></a> and <a href="#extensibility-manifest-properties"></a></p>
+			</section>
+		</section>
+		<section id="terminology">
+			<h3>Terminology</h3>
+
+			<p>This specification depends on the Infra Standard [[!infra]].</p>
+
+			<dl>
+				<dt>
+					<dfn>Bounds</dfn>
+				</dt>
+				<dd>
+					<p>A <a>digital publication</a> consists of a finite set of resources that represent its content.
+						This extent is known as its bounds and is defined within its manifest as described in <a
+							href="#publication-resources"></a>.</p>
+				</dd>
+
+				<dt>
+					<dfn data-lt="digital publications|digital publication's">Digital Publication</dfn>
+				</dt>
+				<dd>
+					<p>A digital publication is any publication authored in a format that uses a <a>profile</a> of the
+							<a>manifest</a>.</p>
+				</dd>
+
+				<dt>
+					<dfn>Internal Representation</dfn>
+				</dt>
+				<dd>
+					<p>The internal representation of a manifest is the data structure created by user agents when they
+							<a href="#manifest-processing">process the manifest</a> and remove all possible ambiguities
+						and incorporate any missing values that can be inferred from another source.</p>
+					<p>It is possible for the information expressed in the manifest to be the equivalent of the internal
+						representation created by user agents if there are no ambiguities or missing information.</p>
+				</dd>
+
+				<dt>
+					<dfn data-lt="Manifests">Manifest</dfn>
+				</dt>
+				<dd>
+					<p>A manifest represents structured information about a publication, such as informative metadata, a
+							<a href="#resource-list">list of resources</a>, and a <a>default reading order</a>.</p>
+				</dd>
+
+				<dt>
+					<dfn data-lt="profiles|profile(s)">Profile</dfn>
+				</dt>
+				<dd>
+					<p>Profiles are publication formats (e.g., audiobooks) that use the <a>manifest</a> format defined
+						in this specification to describe their <a>bounds</a> and content. These formats can extend the
+						core definition in this specification with profile-specific terms and/or new requirements.</p>
+					<p>Although profiles can differ in their structural and content requirements, such variances are
+						restricted to maintain a high degree of predictabibility between formats. (See <a
+							href="#extensions"></a>.)</p>
+				</dd>
+			</dl>
+		</section>
+		<section id="conformance">
+			<p>All algorithm explanations are <em>informative</em>.</p>
 		</section>
 		<section id="manifest">
 			<h2>Publication Manifest</h2>
-
-			<section id="manifest-intro">
-				<h3>Introduction</h3>
-
-				<section id="manifest-format" class="informative">
-					<h4>Manifest Format</h4>
-
-					<p>A <a>digital publication</a> is described by its <a>manifest</a>, which provides a set of
-						properties expressed using a specific shape of JSON-LD&#160;[[json-ld11]] (a variant of
-						JSON&#160;[[ecma-404]] for linked data).</p>
-
-					<p>The manifest is what enables user agents to understand the <a>bounds</a> of <a>digital
-							publication</a> and the connection between its resources. It includes metadata that
-						describes the digital publication, as a publication has an identity and nature beyond its
-						constituent resources. The manifest also provides a <a href="#resource-list">list of
-							resources</a> that belong to the digital publication and a <a href="#default-reading-order"
-							>default reading order</a>, which is how it connects resources into a single contiguous
-						work.</p>
-
-					<p>The properties of the manifest describe the basic information a user agent requires to process
-						and render a publication. For ease of understanding, these properties are categorized as
-						follows:</p>
-
-					<dl>
-						<dt>
-							<a href="#descriptive-properties">Descriptive properties</a>
-						</dt>
-						<dd>
-							<p>Descriptive properties describe aspects of a digital publication, such as its <a
-									href="#pub-title">title</a>, <a href="#creators">creator</a>, and <a
-									href="inLanguage">language</a>.</p>
-						</dd>
-						<dt>
-							<a href="#resource-categorization-properties">Resource categorization properties</a>
-						</dt>
-						<dd>
-							<p>Resource categorization properties describe or identify common sets of resources, such as
-								the <a href="#resource-list">resource list</a> and <a href="#default-reading-order"
-									>default reading order</a>. These properties refer to one or more resources, such as
-								HTML documents, images, scripts, and metadata records.</p>
-						</dd>
-					</dl>
-
-					<p>The <a>manifest</a> also identifies key resources of a digital publication through the use of
-						link relations. These relations are defined in the <a href="#linkedresource-rel"
-								><code>rel</code> property</a> of <a><code>LinkedResource</code></a> objects (i.e., the
-						JSON objects that represent each resource in the default reading order, resource list, and links
-						sections).</p>
-
-					<p>The types of resources these relations identify are categorized as follows:</p>
-
-					<dl>
-						<dt>
-							<a href="#informative-rel">Informative resources</a>
-						</dt>
-						<dd>
-							<p>Informative resources are resources that contain additional information about the
-								publication, such as its <a href="#privacy-policy">privacy policy</a>, <a
-									href="#accessibility-report">accessibility report</a>, or <a href="#preview"
-									>preview</a>.</p>
-						</dd>
-						<dt>
-							<a href="#structural-rel">Structural resources</a>
-						</dt>
-						<dd>
-							<p>Structural resources are key meta structures of the publication, such as the <a
-									href="#cover">cover image</a>, <a href="#table-of-contents">table of contents</a>,
-								and <a href="#page-list">page list</a>.</p>
-						</dd>
-					</dl>
-				</section>
-
-				<section id="manifest-jsonld">
-					<h4>JSON-LD Authoring and Processing</h4>
-
-					<p>This specification defines the publication manifest as a specific "shape" of [[!json-ld11]]. This
-						means that the manifest SHOULD be expressed using only the syntactic constructions defined in
-						this specification, as opposed to all the possibilities offered by the JSON-LD syntax.</p>
-
-					<p class="note">This shape is also defined, informally, through a JSON schema&#160;[[json-schema]]
-						that expresses the constraints defined in this specification. This schema is maintained at <a
-							href="https://github.com/w3c/pub-manifest/blob/master/schema/"
-							>https://github.com/w3c/pub-manifest/blob/master/schema/</a>.</p>
-
-					<p>The publication manifest also has a number of authoring flexibilities and compact authoring
-						expressions. For example, it is not always required that object types be explicitly authored, as
-						these are automatically generated during processing when missing (see <a
-							href="#explicit-implied-objects"></a> for more information). An <a>internal
-							representation</a> of the manifest data is defined separately; see <a
-							href="#app-internal-rep-data-model"></a> for further details.</p>
-
-					<p>As a consequence, a user agent does not have to be a full JSON-LD processor. User agents only
-						need to be able to read the manifest's specific shape and internalize the data.</p>
-				</section>
-
-				<section id="manifest-schemaorg">
-					<h4>Relationship to Schema.org</h4>
-
-					<p>Manifest properties, in particular those categorized as <a href="#descriptive-properties"
-							>descriptive properties</a>, are primarily drawn from <a href="https://schema.org"
-							>Schema.org</a> and its <a href="https://schema.org/docs/schemas.html">hosted
-						extensions</a>&#160;[[!schema.org]]. As a consequence, these properties inherit their syntax and
-						semantics from Schema.org, making manifest authoring compatible with Schema.org authoring.</p>
-
-					<p>When a manifest item corresponds to a Schema.org property, its <a href="#manifest-properties"
-							>property definition</a> identifies its mapping and includes the defining type (e.g., <a
-							href="https://schema.org/CreativeWork">CreativeWork</a> or <a href="https://schema.org/Book"
-							>Book</a>) in parentheses.</p>
-
-					<p>Schema.org additionally includes a large number of properties that, though relevant for
-						publishing, are not mentioned in this specification. These properties MAY be used in a manifest
-						as this document defines only the minimal set of manifest items.</p>
-
-					<p>When using additional Schema.org properties, ensure that they are valid for the <a
-							href="#publication-types">type of publication</a> specified in the manifest. Properties are
-						often available in many Schema.org types, as a result of the inheritance model used by the
-						vocabulary, but not all properties are available for all types. For more detailed information
-						about which types accept which properties, refer to [[!schema.org]].</p>
-
-					<p>More information about using additional Schema.org properties is also available in <a
-							href="#publication-types"></a> and <a href="#extensibility-manifest-properties"></a></p>
-				</section>
-			</section>
 
 			<section id="manifest-requirements">
 				<h5>Requirements</h5>
