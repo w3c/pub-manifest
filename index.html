@@ -200,7 +200,8 @@
 
 				<p>Schema.org additionally includes a large number of properties that, though relevant for publishing,
 					are not mentioned in this specification. These properties can be used in a manifest as this document
-					defines only the minimal set of manifest items (see <a href="#extensibility-manifest-properties"></a>).</p>
+					defines only the minimal set of manifest items (see <a href="#extensibility-manifest-properties"
+					></a>).</p>
 
 				<p>When using additional Schema.org properties, ensure that they are valid for the <a
 						href="#publication-types">type of publication</a> specified in the manifest. Properties are
@@ -3061,6 +3062,11 @@
 							<p>This step checks if any information missing from the manifest can be obtained from the
 								HTML document that links to the document, or from other sources.</p>
 						</details>
+					</li>
+
+					<li id="processing-extension">
+						<p>If a <a>profile</a> specifies additional processing functions that need to be run, those
+							steps are executed at this point.</p>
 					</li>
 
 					<li id="processing-end">
