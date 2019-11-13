@@ -3558,6 +3558,16 @@
 							</details>
 						</li>
 
+						<li id="validate-extension">
+							<p>If a <a>profile</a> specifies data validation checks, those steps are executed at this
+								point.</p>
+							<details>
+								<summary>Explanation</summary>
+								<p>Profile validation steps are prioritized over the default steps so that if profiles
+									have, for example, different default values to apply, those values get applied.</p>
+							</details>
+						</li>
+
 						<li id="validate-type">
 							<p>(<a href="#publication-types"></a>) If <var>data["type"]</var> is not set or is an empty
 									<a href="https://infra.spec.whatwg.org/#list">list</a>, <a>validation error</a>, set
@@ -3760,11 +3770,6 @@
 								<p>For covers, it also checks that a name has been set on image-based formats for
 									accessibility purposes.</p>
 							</details>
-						</li>
-
-						<li id="validate-extension">
-							<p>If a <a>profile</a> specifies data validation checks, those steps are executed at this
-								point.</p>
 						</li>
 
 						<li id="validate-empty-arrays">
