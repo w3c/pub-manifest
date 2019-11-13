@@ -732,16 +732,17 @@
 									<td>(None)</td>
 								</tr>
 								<tr>
-									<td id="linkedresource-length">
-										<code>length</code>
+									<td id="linkedresource-duration">
+										<code>duration</code>
 									</td>
-									<td>The total length of a time-based media resource in (possibly fractional)
-										seconds. OPTIONAL</td>
-									<td>Number</td>
+									<td>Overall duration of a time-based media resource. OPTIONAL</td>
+									<td>Duration value as defined by&#160;[[!iso8601]].</td>
 									<td>
-										<a href="#value-number">Number</a>
+										<a href="#value-literal">Literal</a>
 									</td>
-									<td>(None)</td>
+									<td>
+										<a href="https://schema.org/duration"><code>duration</code></a> (<a
+											href="https://schema.org/Property">Property</a>) </td>
 								</tr>
 								<tr>
 									<td id="linkedresource-alternate">
@@ -804,7 +805,7 @@
             "type": "LinkedResource",
             "url": "chapter1.json",
             "encodingFormat": "application/vnd.wp-sync-media+json",
-            "length": 1669
+            "duration": "PT1669S"
         }
     ]
 }</pre>
@@ -3956,10 +3957,11 @@
 											>continue</a>.</p>
 									</li>
 									<li>
-										<p>if <a href="#linkedresource-length"><var>resource["length"]</var></a> is set
-											and is not a number, or is a negative number, <a>validation error</a>, <a
-												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
-											<var>resource["length"]</var>.</p>
+										<p>if <a href="#linkedresource-duration"><var>resource["duration"]</var></a> is
+											set and is not a valid duration value, per&#160;[[!iso8601]], <a>validation
+												error</a>, <a href="https://infra.spec.whatwg.org/#map-remove"
+												>remove</a>
+											<var>resource["duration"]</var>.</p>
 									</li>
 								</ul>
 								<details>
@@ -3969,8 +3971,8 @@
 									<ol>
 										<li>If a URL is not specified, or is invalid, the <code>LinkedResource</code> is
 											removed.</li>
-										<li>If the length of the resource is specified, and is not a positive number,
-											the length is removed.</li>
+										<li>If the duration of the resource is specified, or is not a value ISO 8601
+											duration value, the duration property is removed.</li>
 									</ol>
 								</details>
 							</li>
@@ -4430,7 +4432,7 @@ dictionary LinkedResource {
              sequence&lt;LocalizableString> description;
              sequence&lt;DOMString>         rel;
              DOMString                   integrity;
-             double                      length;
+             DOMString                   duration;
              sequence&lt;LinkedResource>    alternate;
 };</pre>
 					</section>
