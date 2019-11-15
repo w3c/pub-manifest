@@ -27,6 +27,7 @@
   "accessibilityFeature": ["readingOrder", "unlocked"],
   "accessibilityHazard": "noSoundHazard",
   "accessibilitySummary": "This is just a test summary",
+  "readingProgression": "ltr",
   "resources": [
     {
       "rel": "cover",
