@@ -18,10 +18,10 @@
   "duration": "PT13774S",
   "license": "https://creativecommons.org/publicdomain/zero/1.0/",
   "abridged": false,
-  "accessMode": "audio",
+  "accessMode": "auditory",
   "accessModeSufficient": [{
       "type": "ItemList",
-      "itemListElement": ["audio"],
+      "itemListElement": ["auditory"],
       "description": "Audio"
   }],
   "accessibilityFeature": ["readingOrder", "unlocked"],
