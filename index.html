@@ -210,7 +210,7 @@
 					which types accept which properties, refer to [[schema.org]].</p>
 
 				<p>More information about using additional Schema.org properties is also available in <a
-						href="#publication-types"></a> and <a href="#extensibility-manifest-properties"></a></p>
+						href="#publication-types"></a> and <a href="#extensibility-manifest-properties"></a>.</p>
 			</section>
 		</section>
 		<section id="terminology">
@@ -3440,7 +3440,7 @@
 											>list</a>, <a href="https://infra.spec.whatwg.org/#list-iterate">for
 											each</a>
 										<var>item</var> of <var>normalized</var> that is a <a
-											href="https://infra.spec.whatwg.org/#ordered-map">map</a></p>
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 									<ol>
 										<li>
 											<p>if <var>item["type"]</var> is set and includes a <a>recognized type</a>,
@@ -3785,7 +3785,7 @@
 									the result of calling <a>verify value category</a>, when successful, given the
 									variables <var>term</var>, <var>value</var> and <var>context</var>. If failure is
 									returned, return failure.</p>
-								<p>Otherwise, return <var>value</var>;</p>
+								<p>Otherwise, return <var>value</var>.</p>
 								<details>
 									<summary>Explanation</summary>
 									<p>This step verifies that the value of the term matches the expected category
@@ -4086,12 +4086,9 @@
 									<li id="unique-parse-test">
 										<p>if <var>uniqueURLs</var>
 											<a href="https://infra.spec.whatwg.org/#list-contain">contains</a>
-											<var>url</var>, <a>validation error</a>.</p>
-									</li>
-
-									<li id="unique-parse-append">
-										<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append">append</a>
-											<var>url</var> to <var>uniqueURLs</var></p>
+											<var>url</var>, <a>validation error</a>. Otherwise, <a
+												href="https://infra.spec.whatwg.org/#set-append">append</a>
+											<var>url</var> to <var>uniqueURLs</var>.</p>
 									</li>
 									<li id="unique-alternate-parse">
 										<p>if <var>resource["alternate"]</var> is set, for each <var>alternate</var> of
@@ -4113,7 +4110,7 @@
 											<li id="alternate-parse-append">
 												<p>otherwise, <a href="https://infra.spec.whatwg.org/#set-append"
 														>append</a>
-													<var>alt_url</var> to <var>uniqueURLs</var></p>
+													<var>alt_url</var> to <var>uniqueURLs</var>.</p>
 											</li>
 										</ol>
 									</li>
