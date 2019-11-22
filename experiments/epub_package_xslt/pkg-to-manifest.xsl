@@ -14,22 +14,68 @@
         "https://schema.org",
         "https://www.w3.org/ns/pub-context"</xsl:text>
 		
-		<!-- add manifest language -->
-		<xsl:if test="@xml:lang"><xsl:text>,
-		{"language": "</xsl:text><xsl:value-of select="@xml:lang"/><xsl:text>"}</xsl:text></xsl:if>
-		<xsl:text>]</xsl:text>
+		<!-- add manifest language/direction -->
+		<xsl:if test="@xml:lang or @dir or @prefix">
+			<xsl:text>,
+		{</xsl:text>
+			
+			<xsl:if test="@xml:lang">
+				<xsl:text>"language" : "</xsl:text><xsl:value-of select="@xml:lang"/><xsl:text>"</xsl:text>
+			</xsl:if>
+			
+			<xsl:if test="@dir">
+				<xsl:if test="@xml:lang"><xsl:text>, </xsl:text></xsl:if>
+				<xsl:text>"direction" : "</xsl:text><xsl:value-of select="@dir"/><xsl:text>"</xsl:text>
+			</xsl:if>
+			
+			<xsl:if test="@prefix">
+				<xsl:if test="@xml:lang or @dir"><xsl:text>, </xsl:text></xsl:if>
+				<xsl:variable name="prefixes" select="tokenize(@prefix,':?\s+')"/>
+				<xsl:for-each select="$prefixes">
+					<xsl:if test="position() mod 2">
+						<xsl:if test="not(position() = 1)"><xsl:text>, </xsl:text></xsl:if>
+						<xsl:variable name="pos" select="position()"/>
+						<xsl:text>"</xsl:text><xsl:value-of select="current()"/><xsl:text>" : "</xsl:text><xsl:value-of select="$prefixes[$pos+1]"/><xsl:text>"</xsl:text>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:if>
+			
+			<xsl:text>]</xsl:text>
+		</xsl:if>
 		
-		<!-- add placeholder conformsTo -->
-		<xsl:call-template name="add-property">
-			<xsl:with-param name="property" select="'conformsTo'"/>
-			<xsl:with-param name="elem" select="'https://www.w3.org/publishing/epub3/'"/>
-			<xsl:with-param name="allow-placeholder" select="'true'"></xsl:with-param>
-		</xsl:call-template>
+		<!-- add conformance -->
+		<xsl:text>,
+		"conformsTo": [
+			"https://www.w3.org/publishing/epub3/"</xsl:text>
+			<xsl:if test="opf:metadata/opf:meta[@property='dcterms:conformsTo']">
+				<xsl:for-each select="opf:metadata/opf:meta[@property='dcterms:conformsTo']">
+					<xsl:if test="not(position() = 1)">
+						<xsl:text>, </xsl:text>
+					</xsl:if>
+					<xsl:text>"</xsl:text><xsl:value-of select="."/><xsl:text>"</xsl:text>
+				</xsl:for-each>
+			</xsl:if>
+		<xsl:if test="opf:metadata/dc:type">
+			<xsl:for-each select="opf:metadata/dc:type">
+				<xsl:if test="not(position() = 1)">
+					<xsl:text>,</xsl:text>
+				</xsl:if>
+				<xsl:text>"</xsl:text>
+				<xsl:value-of select="."/><xsl:text>"</xsl:text>
+			</xsl:for-each>
+		</xsl:if>
+		<xsl:text>]</xsl:text>
 		
 		<!-- add canonical identifier -->
 		<xsl:call-template name="add-property">
 			<xsl:with-param name="property" select="'id'"/>
 			<xsl:with-param name="elem" select="opf:metadata/dc:identifier[@id=current()/@unique-identifier]"/>
+		</xsl:call-template>
+		
+		<!-- add publication type -->
+		<xsl:call-template name="add-property">
+			<xsl:with-param name="property" select="'type'"/>
+			<xsl:with-param name="elem" select="opf:metadata/opf:meta[@property='rdf:type']"></xsl:with-param>
 		</xsl:call-template>
 		
 		<xsl:apply-templates select="@*|node()"/>
@@ -129,7 +175,28 @@
 			<xsl:text>]</xsl:text>
 		</xsl:if>
 		
-		<xsl:apply-templates select="*[not(local-name()=['language','title','identifier'])]"></xsl:apply-templates>
+		<xsl:variable name="dur" select="opf:meta[@property='media:duration'][not(@refines)]"/>
+		
+		<xsl:if test="$dur">
+			<xsl:call-template name="generate-duration">
+				<xsl:with-param name="duration" select="$dur"/>
+			</xsl:call-template>
+		</xsl:if>
+		
+		<xsl:variable name="narrators" select="opf:meta[not(@refines)][normalize-space(@property)='media:narrator']"/>
+		<xsl:if test="$narrators">
+			<xsl:call-template name="add-property">
+				<xsl:with-param name="property" select="'readBy'"/>
+				<xsl:with-param name="elem" select="$narrators"/>
+			</xsl:call-template>
+		</xsl:if>
+		
+		<xsl:for-each select="opf:meta[not(@refines)][not(@property=['dcterms:modified'])][not(matches(@property, '^(media:|rendition:|schema:access)'))]">
+			<xsl:call-template name="add-property">
+				<xsl:with-param name="elem" select="current()"/>
+				<xsl:with-param name="property" select="normalize-space(current()/@property)"/>
+			</xsl:call-template>
+		</xsl:for-each>
 	</xsl:template>
 	
 	
@@ -141,10 +208,10 @@
 		"resources" : [</xsl:text>
 		
 		<!-- adds non-linear content to resources -->
-		<xsl:for-each select="opf:item[not(@id=/opf:package/opf:spine/opf:itemref[not(@linear='no')]/@idref)]">
+		<xsl:for-each select="opf:item[not(@id=/opf:package/opf:spine/opf:itemref[not(@linear='no')]/@idref)][not(@id = //opf:item/@fallback)]">
 			<xsl:call-template name="add-linked-resource">
 				<xsl:with-param name="elem" select="."/>
-				<xsl:with-param name="position" select="position()"></xsl:with-param>
+				<xsl:with-param name="position" select="position()"/>
 			</xsl:call-template>
 		</xsl:for-each>
 		
@@ -163,7 +230,7 @@
 		<xsl:for-each select="opf:itemref[not(@linear='no')]">
 			<xsl:call-template name="add-linked-resource">
 				<xsl:with-param name="elem" select="/opf:package/opf:manifest/opf:item[@id=current()/@idref]"/>
-				<xsl:with-param name="position" select="position()"></xsl:with-param>
+				<xsl:with-param name="position" select="position()"/>
 			</xsl:call-template>
 		</xsl:for-each>
 		
@@ -286,7 +353,29 @@
 		
 		<xsl:if test="$elem/@media-type">
 			<xsl:text>,
+				
 				"encodingFormat" : "</xsl:text><xsl:value-of select="$elem/@media-type"/><xsl:text>"</xsl:text>
+		</xsl:if>
+		
+		<xsl:variable name="dur" select="//opf:meta[@property='media:duration'][@refines=concat('#',$elem/@id)]"/>
+		<xsl:if test="$dur">
+			<xsl:call-template name="generate-duration">
+				<xsl:with-param name="duration" select="$dur"/>
+			</xsl:call-template>
+		</xsl:if>
+		
+		<xsl:if test="$elem[@fallback]">
+			<xsl:text>,
+				"alternate" : [</xsl:text>
+			
+			<xsl:for-each select="//opf:item[@id=$elem/@fallback]">
+				<xsl:call-template name="add-linked-resource">
+					<xsl:with-param name="elem" select="."/>
+					<xsl:with-param name="position" select="position()"/>
+				</xsl:call-template>
+			</xsl:for-each>
+			
+			<xsl:text>]</xsl:text>
 		</xsl:if>
 		
 		<xsl:if test="$elem[tokenize(@properties)='nav']">
@@ -301,6 +390,26 @@
 		<xsl:text>}</xsl:text>
 	</xsl:template>
 	
+	
+	<xsl:template name="generate-duration">
+		<xsl:param name="duration"/>
+		<xsl:variable name="time" select="tokenize($duration, ':')"/>
+		<xsl:variable name="secs">
+			<xsl:choose>
+				<xsl:when test="count($time) = 3">
+					<xsl:value-of select="number($time[3]) + (number($time[2])*60) + (number($time[1])*60*60)"/>
+				</xsl:when>
+				<xsl:when test="count($time) = 2">
+					<xsl:value-of select="number($time[2]) + (number($time[1])*60)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="number($time[1])"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:text>,
+				"duration" : "PT</xsl:text><xsl:value-of select="format-number($secs,'#.###')"/><xsl:text>S"</xsl:text>
+	</xsl:template>
 	
 	
 	<xsl:template name="add-ppd">
