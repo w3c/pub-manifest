@@ -9,7 +9,7 @@ var manifestProcessor = (function() {
 	var dateTime = new RegExp('^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])(T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]{3})?(Z)?)?$');
 	
 	var knownProfiles = {
-		'https://www.w3.org/TR/audiobooks': 'audiobooks',
+		'https://www.w3.org/TR/audiobooks/': 'audiobooks',
 		'https://www.w3.org/TR/pub-manifest/': 'generic'
 	};
 	
@@ -94,7 +94,7 @@ var manifestProcessor = (function() {
 		'accessMode': [''],
 		'accessibilityHazard': [''],
 		'accessibilityFeature': [''],
-		'duration': [''],
+		'duration': ['', 'LinkedResource'],
 		'dateModified': [''],
 		'datePublished': [''],
 		'inLanguage': [''],
@@ -111,9 +111,7 @@ var manifestProcessor = (function() {
 		'abridged': ['']
 	};
 	
-	var expectsNumber = {
-		'length': ['LinkedResource']
-	}
+	var expectsNumber = {};
 	
 	function generateInternalRep(manifest_link) {
 		
@@ -121,7 +119,8 @@ var manifestProcessor = (function() {
 			.then(function(data) {
 				
 				if (!data) {
-					throw new Error('Manifest text not found.')
+					console.error('Manifest text not found.');
+					throw new Error()
 				}
 				
 				var base = location.href.substring(0, location.href.lastIndexOf("/")+1);
@@ -187,26 +186,31 @@ var manifestProcessor = (function() {
 		try {
 			manifest = JSON.parse(text);
 			if (Array.isArray(manifest) || typeof(manifest) !== 'object') {
-				throw new Error('The manifest must be a JSON object.');
+				console.error('The manifest must be a JSON object.');
+				throw new Error();
 			}
 		}
 		
 		catch (e) {
-			throw new Error('Error parsing manifest: ' + e);
+			console.error('Error parsing manifest: ' + e);
+			throw new Error();
 		}
 		
 		// step 3 - manifest contexts
 		
 		if (!manifest.hasOwnProperty('@context')) {
-			throw new Error('@context not set.');
+			console.error('@context not set.');
+			throw new Error();
 		}
 		
 		if (!Array.isArray(manifest['@context'])) {
-			throw new Error('@context is not an array.');
+			console.error('@context is not an array.');
+			throw new Error();
 		}
 		
 		if (manifest['@context'][0] != 'https://schema.org' || manifest['@context'][1] != 'https://www.w3.org/ns/pub-context') {
-			throw new Error('First two declartaions in @context must be "https://schema.org" and "https://www.w3.org/ns/pub-context"');
+			console.error('First two declartaions in @context must be "https://schema.org" and "https://www.w3.org/ns/pub-context"');
+			throw new Error();
 		}
 		
 		// step 4 - profile conformance
@@ -294,7 +298,34 @@ var manifestProcessor = (function() {
 			processed = addHTMLDefaults(processed, doc);
 		}
 		catch(e) {
-			throw new Error('Terminating processing.');
+			console.error('Terminating processing.');
+			throw new Error();
+		}
+		
+		// step 9 - profile extensions
+		
+		if (processed['profile'] == 'https://www.w3.org/TR/audiobooks/') {
+			
+			// step 1 - check table of contents
+			if (!doc || !doc.querySelector('*[role="doc-toc"]')) {
+				var toc = false;
+				if (processed.hasOwnProperty('resources')) {
+					res: for (var i = 0; i < processed['resources'].length; i++) {
+						if (processed['resources'][i].hasOwnProperty('rel')) {
+							for (var j = 0; j < processed['resources'][i]['rel'].length; j++) {
+								if (processed['resources'][i]['rel'][j] == 'contents') {
+									toc = true;
+									break res;
+								}
+							}
+						}
+					}
+				}
+				if (!toc) {
+					console.warn('No table of contents found in the publication.');
+				}
+			}
+		
 		}
 		
 		// non-spec steps to make valid json output
@@ -303,7 +334,7 @@ var manifestProcessor = (function() {
 		processed['uniqueResources'] =  Array.from(processed['uniqueResources']);
 
 		
-		// step 9 - return finished data 
+		// step 10 - return finished data 
 		
 		return processed;
 	
@@ -324,7 +355,7 @@ var manifestProcessor = (function() {
 		
 		// step 3 - create arrays
 		
-		if (checkExpectsValue('Array', key, context)) {
+		if (checkExpectsArray(key, context)) {
 			if (!Array.isArray(value)) {
 				normalized = [value];
 			}
@@ -452,7 +483,8 @@ var manifestProcessor = (function() {
 				}
 			}
 			else {
-				throw new Error('Invalid data type "' + type + '" for URL.');
+				console.warn('Invalid data type "' + type + '" for URL.');
+				throw new Error();
 			}
 		};
 		
@@ -500,7 +532,8 @@ var manifestProcessor = (function() {
 			return url.toString();
 		}
 		else {
-			throw new Error(key + ' requires a string. Found ' + type + '.');
+			console.warn(key + ' requires a string. Found ' + type + '.');
+			throw new Error();
 		}
 	}
 
@@ -518,14 +551,123 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 2 - check type is set
+		// step 2 - profile extensions
+		
+		if (data['profile'] == 'https://www.w3.org/TR/audiobooks/') {
+			
+			// step 1 - default reading order
+			
+			if (!data.hasOwnProperty('readingOrder') || data['readingOrder'].length == 0) {
+				console.error('Audbook must have a reading order');
+				throw new Error();
+			}
+			
+			// TODO - remove non-audio resources
+			
+			if (data['readingOrder'].length == 0) {
+				console.error('Audbook must have a reading order');
+				throw new Error();
+			}
+			
+			
+			// step 2 - publication type
+			
+			if (!data.hasOwnProperty('type') || data['type'].length == 0) {
+				data['type'] = ['Audiobook'];
+			}
+			
+			
+			// step 3 - recommended properties
+			
+			if (!data.hasOwnProperty('abridged')) {
+				console.warn('abridged is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('accessMode')) {
+				console.warn('accessMode is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('accessModeSufficient')) {
+				console.warn('accessModeSufficient is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('accessibilityFeature')) {
+				console.warn('accessibilityFeature is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('accessibilityHazard')) {
+				console.warn('accessibilityHazard is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('accessibilitySummary')) {
+				console.warn('accessibilitySummary is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('url')) {
+				console.warn('address is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('author')) {
+				console.warn('author is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('dateModified')) {
+				console.warn('dateModified is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('datePublished')) {
+				console.warn('datePublished is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('duration')) {
+				console.warn('duration is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('id')) {
+				console.warn('id is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('inLanguage')) {
+				console.warn('inLanguage is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('name')) {
+				console.warn('name is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('readBy')) {
+				console.warn('readBy is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('readingProgression')) {
+				console.warn('readingProgression is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('resources')) {
+				console.warn('resource is a recommended property for audiobooks.');
+			}
+			
+			if (!data.hasOwnProperty('type')) {
+				console.warn('type is a recommended property for audiobooks.');
+			}
+			
+			// step 3 - recommended resources
+			
+			
+			// step 4 - durations
+			
+			
+			
+		}
+		
+		// step 3 - check type is set
 		
 		if (!data.hasOwnProperty('type') || data['type'].length == 0) {
 			console.warn('Publication type not set.');
 			data['type'] = ['CreativeWork'];
 		}
 		
-		// step 3 - validate accessModeSufficient itemlists
+		// step 4 - validate accessModeSufficient itemlists
 		
 		if (data.hasOwnProperty('accessModeSufficient')) {
 			for (var i = data['accessModeSufficient'].length - 1; i >= 0; i--) {
@@ -536,13 +678,13 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 4 - canonical id
+		// step 5 - canonical id
 		
 		if (!data.hasOwnProperty('id') || !data['id']) {
 			console.warn('A canonical identifier should be specified.');
 		}
 		
-		// step 5 - valid duration
+		// step 6 - valid duration
 		
 		if (data.hasOwnProperty('duration')) {
 			if (!duration.test(data['duration'])) {
@@ -551,7 +693,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 6 - valid modification date
+		// step 7 - valid modification date
 		
 		if (data.hasOwnProperty('dateModified')) {
 			if (!dateTime.test(data['dateModified'])) {
@@ -560,7 +702,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 7 - valid publication date
+		// step 8 - valid publication date
 
 		if (data.hasOwnProperty('datePublished')) {
 			if (!dateTime.test(data['datePublished'])) {
@@ -569,7 +711,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 8 - well-formed languages
+		// step 9 - well-formed languages
 		
 		if (data.hasOwnProperty('inLanguage')) {
 			for (var i = data['inLanguage'].length - 1; i >= 0; i--) {
@@ -580,7 +722,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 9 - valid reading progression
+		// step 10 - valid reading progression
 		
 		if (data.hasOwnProperty('readingProgression')) {
 			if (data['readingProgression'] != 'ltr' && data['readingProgression'] != 'rtl') {
@@ -592,7 +734,7 @@ var manifestProcessor = (function() {
 			data['readingProgression'] = 'ltr'
 		}
 		
-		// step 10 - get list of unique URLs
+		// step 11 - get list of unique URLs
 		
 		var readingOrderURLs = data.hasOwnProperty('readingOrder') ? getUniqueURLs(data['readingOrder']) : new Set();
 		
@@ -600,7 +742,7 @@ var manifestProcessor = (function() {
 		
 		data['uniqueResources'] =  union(readingOrderURLs, resourcesURLs);
 		
-		// step 11 - check links
+		// step 12 - check links
 		
 		if (data['links']) {
 			for (var i = data['links'].length - 1; i >= 0; i--) {
@@ -622,9 +764,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 10 - no profile extensions
-		
-		// step 11 - remove empty arrays
+		// step 13 - remove empty arrays
 		
 		for (var term in data) {
 			try {
@@ -635,7 +775,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 12 - return data
+		// step 14 - return data
 		
 		return data;
 	}
@@ -667,7 +807,8 @@ var manifestProcessor = (function() {
 			
 			if (obj_context) {
 				for (var key in value) {
-					try {
+					try
+					{
 						value[key] = globalDataChecks(key, value[key], obj_context);
 					}
 					catch(e) {
@@ -787,14 +928,15 @@ var manifestProcessor = (function() {
 	
 		// step 1 - check values in arrays
 		
-		if (checkExpectsValue('Array', term, context)) {
+		if (checkExpectsArray(term, context)) {
 			if (!Array.isArray(value)) {
-				throw new Error(term + ' requires an array of values.');
+				console.warn(term + ' requires an array of values.');
+				throw new Error();
 			}
 			else {
 				for (var i = value.length - 1; i >= 0; i--) {
 					try {
-						confirmCategory(term,value[i]);
+						confirmCategory(term, value[i], '');
 					}
 					catch (e) {
 						value.splice(i,1);
@@ -806,7 +948,7 @@ var manifestProcessor = (function() {
 						for (var key in value[i]) {
 							if (hasKnownValueCategory(key)) {
 								try {
-									value[i][key] = verifyValueCategory(key,value[i][key],obj_context);
+									value[i][key] = verifyValueCategory(key, value[i][key], obj_context);
 								}
 								catch (e) {
 									console.warn(key + " in " + term + " has an invalid value.");
@@ -817,7 +959,8 @@ var manifestProcessor = (function() {
 					}
 				}
 				if (value.length == 0) {
-					throw new Error(term + ' is an empty array after processing.');
+					console.warn(term + ' is an empty array after processing.');
+					throw new Error();
 				}
 			}
 		}
@@ -825,14 +968,15 @@ var manifestProcessor = (function() {
 				 expectsEntity.hasOwnProperty(term) || 
 				 expectsLocalizableString.hasOwnProperty(term) || 
 				 expectsLinkedResource.hasOwnProperty(term)) {
-				 
+			
 			if (typeof(processed[term]) !== 'object') {
-				throw new Error(term + ' requires an object.');
+				console.warn(term + ' requires an object.');
+				throw new Error();
 			}
 			else {
 				for (var key in value) {
 					try {
-						value[key] = verifyValueCategory(key,value[key],context);
+						value[key] = verifyValueCategory(key, value[key], context);
 					}
 					catch (e) {
 						console.warn(key + " of " + term + " has an invalid value.");
@@ -840,13 +984,14 @@ var manifestProcessor = (function() {
 					}
 				}
 				if (value.keys().length == 0) {
-					throw new Error(term + ' is an empty object after processing.');
+					console.warn(term + ' is an empty object after processing.');
+					throw new Error();
 				}
 			}
 		}
 		else {
 			try {
-				if (!confirmCategory(term,value,context)) {
+				if (!confirmCategory(term, value, context)) {
 					throw new Error();
 				}
 			}
@@ -861,30 +1006,46 @@ var manifestProcessor = (function() {
 	function confirmCategory(term, value, context) {
 	
 		var type = typeof(value);
+		var expected_type = getExpectedType(term, context);
 		
-		if (checkExpectsValue('Literal', term, context) || checkExpectsValue('Identifier', term, context) || checkExpectsValue('URL', term, context)) {
-			if (type !== 'string') {
-				throw new Error(term + ' requires a literal.');
-			}
+		if (expected_type == 'string' && type !== 'string') {
+			console.warn(term + ' requires a literal.');
+			throw new Error();
 		}
-		else if (checkExpectsValue('Number', term, context)) {
-			if (type !== 'number') {
-				throw new Error(term + ' requires a number.');
-			}
+		else if (expected_type == 'number' && type !== 'number') {
+			console.warn(term + ' requires a number.');
+			throw new Error();
 		}
-		else if (checkExpectsValue('Boolean', term, context)) {
-			if (type !== 'boolean') {
-				throw new Error(term + ' requires a boolean.');
-			}
+		else if (expected_type == 'boolean' && type !== 'boolean') {
+			console.warn(term + ' requires a boolean.');
+			throw new Error();
 		}
-		else if (checkExpectsValue('LocalizableString', term, context) || checkExpectsValue('Entity', term, context) || checkExpectsValue('LinkedResource', term, context)) {
-			if (type !== 'object') {
-				throw new Error(term + ' requires an object.');
-			}
+		else if (expected_type == 'object' && type !== 'object') {
+			console.warn(term + ' requires an object.');
+			throw new Error();
 		}
 		
 		return true;
 	}
+	
+	
+	
+	function getExpectedType(term, context) {
+		if (checkExpectsValue('Literal', term, context) || checkExpectsValue('Identifier', term, context) || checkExpectsValue('URL', term, context)) {
+			return 'string';
+		}
+		else if (checkExpectsValue('Number', term, context)) {
+			return 'number';
+		}
+		else if (checkExpectsValue('Boolean', term, context)) {
+			return 'boolean';
+		}
+		else if (checkExpectsValue('LocalizableString', term, context) || checkExpectsValue('Entity', term, context) || checkExpectsValue('LinkedResource', term, context)) {
+			return 'object';
+		}
+		return '';
+	}
+	
 	
 	
 	function getUniqueURLs(resources) {
@@ -929,7 +1090,8 @@ var manifestProcessor = (function() {
 	function removeEmptyArrays(value) {
 		if (Array.isArray(value)) {
 			if (value.length == 0) {
-				throw new Error('Empty array.');
+				console.warn('Empty array.');
+				throw new Error();
 			}
 			else {
 				for (var i = 0; i < value.length; i++) {
@@ -994,11 +1156,24 @@ var manifestProcessor = (function() {
 				}];
 			}
 			else {
-				throw new Error('No reading order. Document URL could not be determined.');
+				console.error('No reading order. Document URL could not be determined.');
+				throw new Error();
 			}
 		}
 		
 		return processed;
+	}
+	
+	
+	function checkExpectsArray(term, context) {
+		if (expectsArray.hasOwnProperty(term)) {
+			for (var i = 0; i < expectsArray[term].length; i++) {
+				if (expectsArray[term][i] == context) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	
@@ -1008,43 +1183,42 @@ var manifestProcessor = (function() {
 		var contexts;
 		
 		switch (category) {
-			case "Array":
-				contexts = expectsArray.hasOwnProperty(term) ? expectsArray[term] : [];
-				break;
 			case "Entity":
-				contexts = expectsEntity.hasOwnProperty(term) ? expectsEntity[term] : [];
+				contexts = expectsEntity.hasOwnProperty(term) ? expectsEntity[term] : null;
 				break;
 			case "LinkedResource":
-				contexts = expectsLinkedResource.hasOwnProperty(term) ? expectsLinkedResource[term] : [];
+				contexts = expectsLinkedResource.hasOwnProperty(term) ? expectsLinkedResource[term] : null;
 				break;
 			case "LocalizableString":
-				contexts = expectsLocalizableString.hasOwnProperty(term) ? expectsLocalizableString[term] : [];
+				contexts = expectsLocalizableString.hasOwnProperty(term) ? expectsLocalizableString[term] : null;
 				break;
 			case "URL":
-				contexts = expectsURL.hasOwnProperty(term) ? expectsURL[term] : [];
+				contexts = expectsURL.hasOwnProperty(term) ? expectsURL[term] : null;
 				break;
 			case "Literal":
-				contexts = expectsLiteral.hasOwnProperty(term) ? expectsLiteral[term] : [];
+				contexts = expectsLiteral.hasOwnProperty(term) ? expectsLiteral[term] : null;
 				break;
 			case "Boolean":
-				contexts = expectsBoolean.hasOwnProperty(term) ? expectsBoolean[term] : [];
+				contexts = expectsBoolean.hasOwnProperty(term) ? expectsBoolean[term] : null;
 				break;
 			case "Identifier":
-				contexts = expectsIdentifier.hasOwnProperty(term) ? expectsIdentifier[term] : [];
+				contexts = expectsIdentifier.hasOwnProperty(term) ? expectsIdentifier[term] : null;
 				break;
 			case "Number":
-				contexts = expectsNumber.hasOwnProperty(term) ? expectsNumber[term] : [];
+				contexts = expectsNumber.hasOwnProperty(term) ? expectsNumber[term] : null;
 				break;
 			case "Object":
-				contexts = expectsObject.hasOwnProperty(term) ? expectsObject[term] : [];
+				contexts = expectsObject.hasOwnProperty(term) ? expectsObject[term] : null;
 				break;
 			default:
-				contexts = [];
+				contexts = null;
 		}
 		
-		for (var i = 0; i < contexts.length; i++) {
-			if (contexts[i] == context) {
-				return true;
+		if (contexts !== null) {
+			for (var i = 0; i < contexts.length; i++) {
+				if (contexts[i] == context) {
+					return true;
+				}
 			}
 		}
 		
