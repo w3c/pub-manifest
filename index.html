@@ -2483,9 +2483,9 @@
 
 						<p>If the cover is an image (whether embedded in an HTML resource or not), it is strongly
 							advised to follow <a href="https://www.w3.org/TR/WCAG/#non-text-content">Success Criterion
-								1.1.1</a>&#160;[[wcag21]] for the provision of alternative text and extended descriptions.
-							For image formats that do not provide the ability to embed this information, the <a
-								href="#linkedresource-name"><code>name</code></a> and <a
+								1.1.1</a>&#160;[[wcag21]] for the provision of alternative text and extended
+							descriptions. For image formats that do not provide the ability to embed this information,
+							the <a href="#linkedresource-name"><code>name</code></a> and <a
 								href="#linkedresource-description"><code>description</code></a> properties of
 									<a><code>LinkedResource</code></a> can be used to provide alternative text and
 							extended descriptions, respectively. In these cases, the <code>name</code> property SHOULD
@@ -2818,7 +2818,7 @@
 
 				<p>When a <a>digital publication</a> format allows manifests to be embedded within an HTML document, the
 					manifest MUST be included in a <a
-						href="https://www.w3.org/TR/html5/semantics-scripting.html#the-script-element"
+						href="https://html.spec.whatwg.org/multipage/scripting.html#the-script-element"
 							><code>script</code> element</a>&#160;[[!html]] whose <a
 						href="https://www.w3.org/TR/json-ld11/#embedding-json-ld-in-html-documents"><code>type</code>
 						attribute is set to <code>application/ld+json</code></a>&#160;[[!json-ld11]].</p>
@@ -4514,10 +4514,10 @@ dictionary LocalizableString {
 				<h3>Introduction</h3>
 
 				<p>To facilitate navigation within pages and across sites, HTML uses the <a
-						href="https://www.w3.org/TR/html/sections.html#the-nav-element"><code>nav</code>
-					element</a>&#160;[[html]] to express lists of links. Although generic in nature by default, the
+						href="https://html.spec.whatwg.org/multipage/sections.html#the-nav-element"><code>nav</code>
+						element</a>&#160;[[html]] to express lists of links. Although generic in nature by default, the
 					purpose of a <code>nav</code> element can be more specifically identified by use of the <a
-						href="https://www.w3.org/TR/html/dom.html#aria-role-attribute"><code>role</code>
+						href="https://html.spec.whatwg.org/multipage/dom.html#wai-aria"><code>role</code>
 					attribute</a>&#160;[[html]]. In particular, the <code>doc-toc</code> role from the [[dpub-aria-1.0]]
 					vocabulary identifies the <code>nav</code> element as the <a>digital publication's</a> table of
 					contents.</p>
@@ -4531,23 +4531,23 @@ dictionary LocalizableString {
 
 				<p>Authors have a choice of lists (ordered or unordered) to construct their table of contents. By
 					tagging each link within these lists in anchor tags (<a
-						href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"><code>a</code>
-						elements</a>), user agents can easily differentiate the information they need from any
-					peripheral content (asides) or stylistic tagging that has also been added. The table of contents can
-					consist of both active links (with an <code>href</code> attribute) and inactive links (excluding the
-						<code>href</code> attribute), providing additional flexibility in how the table of contents is
-					constructed (e.g., to omit links to certain headings or only link to certain content in a
-					preview).</p>
+						href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element"
+							><code>a</code> elements</a>), user agents can easily differentiate the information they
+					need from any peripheral content (asides) or stylistic tagging that has also been added. The table
+					of contents can consist of both active links (with an <code>href</code> attribute) and inactive
+					links (excluding the <code>href</code> attribute), providing additional flexibility in how the table
+					of contents is constructed (e.g., to omit links to certain headings or only link to certain content
+					in a preview).</p>
 			</section>
 
 			<section id="app-toc-html">
 				<h3>HTML Structure</h3>
 
 				<p>The table of contents is expressed via an [[!html]]&#160;element (typically a <a
-						href="https://www.w3.org/TR/html/sections.html#the-nav-element"><code>nav</code> element</a>).
-					This element MUST be identified by the <code>role</code> attribute&#160;[[!html]] value
-						"<code>doc-toc</code>"&#160;[[!dpub-aria-1.0]], and MUST be the first element in the document in
-						<a href="https://dom.spec.whatwg.org/#concept-tree-order">document tree order</a>&#160;[[!dom]]
+						href="https://html.spec.whatwg.org/multipage/sections.html#the-nav-element"><code>nav</code>
+						element</a>). This element MUST be identified by the <code>role</code> attribute&#160;[[!html]]
+					value "<code>doc-toc</code>"&#160;[[!dpub-aria-1.0]], and MUST be the first element in the document
+					in <a href="https://dom.spec.whatwg.org/#concept-tree-order">document tree order</a>&#160;[[!dom]]
 					with that <code>role</code> value.</p>
 
 				<p>The manifest SHOULD <a href="#table-of-contents">identify the resource</a> that contains the table of
@@ -4562,7 +4562,7 @@ dictionary LocalizableString {
 						<p>Although a title for the table of contents is optional, to avoid having a user agent generate
 							a placeholder title when one is needed, it is advised to add one. Titles are specified using
 							any of the [[!html]]&#160;<a
-								href="https://www.w3.org/TR/html/sections.html#the-h1-h2-h3-h4-h5-and-h6-elements"
+								href="https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements"
 									><code>h1</code> through <code>h6</code> elements</a>. Note that only the first such
 							element is recognized as the title. If a heading element is not found before the <a
 								href="#toc-list-links">list of links</a>, user agents will assume that one has not been
@@ -4571,14 +4571,14 @@ dictionary LocalizableString {
 					<dt id="toc-list-links">List of Links</dt>
 					<dd>
 						<p>The first [[!html]]&#160;<a
-								href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"
-								><code>ol</code></a> or <a
-								href="https://www.w3.org/TR/html/grouping-content.html#the-ul-element"
-								><code>ul</code></a> list element encountered in the <code>nav</code> element is assumed
-							to contain the list that defines the links into the content. This list will be found even if
-							it is nested inside of <a
-								href="https://www.w3.org/TR/html/grouping-content.html#the-div-element"
-								><code>div</code></a> elements, for example, as the algorithm <a
+								href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"
+									><code>ol</code></a> or <a
+								href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"
+									><code>ul</code></a> list element encountered in the <code>nav</code> element is
+							assumed to contain the list that defines the links into the content. This list will be found
+							even if it is nested inside of <a
+								href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-div-element"
+									><code>div</code></a> elements, for example, as the algorithm <a
 								href="#toc-ignored-elements">ignores elements</a> that are not relevant to its
 							processing. The list cannot occur inside of any <a href="#toc-skipped-elements">skipped
 								elements</a>, however, since their internal contents are not evaluated.</p>
@@ -4589,14 +4589,16 @@ dictionary LocalizableString {
 					<dt id="toc-branches">Branches</dt>
 					<dd>
 						<p>If the table of contents is considered as a tree of links, then each list item (<a
-								href="https://www.w3.org/TR/html/grouping-content.html#the-li-element"><code>li</code>
-								element</a>) inside of the <a href="#toc-list-links">list of links</a> represents one
-							branch. Each of these branches has to have a name and optional destination in order to be
-							presented to users, and this information is obtained from the first <a
-								href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"><code>a</code>
-								element</a> found within the list item, <a href="#toc-ignored-elements">wherever it is
-								nested</a> (again, excluding any <code>a</code> elements inside of <a
-								href="#toc-skipped-elements">skipped elements</a>.)</p>
+								href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element"
+									><code>li</code> element</a>) inside of the <a href="#toc-list-links">list of
+								links</a> represents one branch. Each of these branches has to have a name and optional
+							destination in order to be presented to users, and this information is obtained from the
+							first <a
+								href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element"
+									><code>a</code> element</a> found within the list item, <a
+								href="#toc-ignored-elements">wherever it is nested</a> (again, excluding any
+								<code>a</code> elements inside of <a href="#toc-skipped-elements">skipped
+							elements</a>.)</p>
 						<p>The link destination for the branch is obtained from the <code>a</code> element's
 								<code>href</code> attribute, when specified. This attribute can be omitted if a link is
 							not available (e.g., in a preview) or not relevant (e.g., a grouping header). When providing
@@ -4612,15 +4614,16 @@ dictionary LocalizableString {
 					<dd>
 						<p>A small set of elements are ignored when the parsing table of contents to avoid
 							misinterpretation. These are the [[!html]]&#160;<a
-								href="https://www.w3.org/TR/html/dom.html#sectioning-content">sectioning content
-								elements</a> and <a href="https://www.w3.org/TR/html/sections.html#sectioning-roots"
-								>sectioning root elements</a>. The reason they are ignored is because they can defined
-							their own outlines (i.e., they can represent embedded content that is self-contained and not
+								href="https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2">sectioning
+								content elements</a> and <a
+								href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root">sectioning
+								root elements</a>. The reason they are ignored is because they can defined their own
+							outlines (i.e., they can represent embedded content that is self-contained and not
 							necessarily related to the structure of content links).</p>
 						<p>Any element that has its <a
-								href="https://www.w3.org/TR/html/editing.html#the-hidden-attribute"><code>hidden</code>
-								attribute</a> set is also skipped, since hidden elements are not intended to be directly
-							accessed by users.</p>
+								href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
+									><code>hidden</code> attribute</a> set is also skipped, since hidden elements are
+							not intended to be directly accessed by users.</p>
 						<p>Although these elements can be included in the <code>nav</code> element, care has to be taken
 							not to embed important content within them (e.g., do not wrap a <code>section</code> element
 							around the list item that contains all the links into the content).</p>
@@ -4729,20 +4732,21 @@ dictionary LocalizableString {
 
 				<p>This section defines an algorithm for extracting a table of contents from a <code>nav</code> element.
 					It is defined in terms of a walk over the nodes of a DOM tree, in <a
-						href="https://www.w3.org/TR/html/infrastructure.html#tree-order">tree order</a>, with each node
-					being visited when it is <em>entered</em> and when it is <em>exited</em> during the walk. Each time
-					a node is visited, it can be seen as triggering an <em>enter</em> or <em>exit</em> event. In some
-					steps, user agents are provided a choice in how to process the content to provide flexibility for
-					different presentation models.</p>
+						href="https://dom.spec.whatwg.org/#concept-tree-order">tree order</a>&#160;[[!dom]], with each
+					node being visited when it is <em>entered</em> and when it is <em>exited</em> during the walk. Each
+					time a node is visited, it can be seen as triggering an <em>enter</em> or <em>exit</em> event. In
+					some steps, user agents are provided a choice in how to process the content to provide flexibility
+					for different presentation models.</p>
 
 				<p class="note">User agents can process and internalize the resulting structure in whatever language and
 					form is appropriate.</p>
 
 				<p>For the purposes of this algorithm, a <dfn>list element</dfn> is defined as either an
-						[[!html]]&#160;<a href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"
+						[[!html]]&#160;<a
+						href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"
 							><code>ol</code></a> or <a
-						href="https://www.w3.org/TR/html/grouping-content.html#the-ul-element"><code>ul</code></a>
-					element.</p>
+						href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"
+							><code>ul</code></a> element.</p>
 
 				<p>The following algorithm MUST be applied to a walk of a DOM subtree rooted at the table of contents
 					element determined as follows:</p>
@@ -4798,15 +4802,16 @@ dictionary LocalizableString {
 					</li>
 
 					<li id="toc-walk-dom">
-						<p>Walk over the DOM in <a href="https://www.w3.org/TR/html/infrastructure.html#tree-order">tree
-								order</a>, starting with the element the table of contents is being built from, and
-							trigger the first relevant step below for each element as the walk enters and exits it.</p>
+						<p>Walk over the DOM in <a href="https://dom.spec.whatwg.org/#concept-tree-order">tree
+							order</a>&#160;[[!dom]], starting with the element the table of contents is being built
+							from, and trigger the first relevant step below for each element as the walk enters and
+							exits it.</p>
 						<ol>
 							<li id="toc-dom-enter-heading">
 								<p>
 									<strong>When entering a <a
-											href="https://www.w3.org/TR/html/dom.html#heading-content-2">heading
-											content</a> element:</strong>
+											href="https://html.spec.whatwg.org/multipage/dom.html#heading-content-2"
+											>heading content</a> element:</strong>
 								</p>
 								<p>Run these steps:</p>
 								<ol>
@@ -4929,9 +4934,9 @@ dictionary LocalizableString {
 							<li id="toc-dom-enter-li">
 								<p>
 									<strong>When entering a <a
-											href="https://www.w3.org/TR/html/grouping-content.html#the-li-element">list
-											item</a> element, set <var>current_toc_branch</var> to the following <a
-											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
+											href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element"
+											>list item</a> element, set <var>current_toc_branch</var> to the following
+											<a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
 								</p>
 								<pre>«[
     "name" → "",
@@ -4953,8 +4958,8 @@ dictionary LocalizableString {
 							<li id="toc-dom-exist-list">
 								<p>
 									<strong>When exiting a <a
-											href="https://www.w3.org/TR/html/grouping-content.html#the-li-element">list
-											item</a> element:</strong>
+											href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element"
+											>list item</a> element:</strong>
 								</p>
 								<p>Run these steps:</p>
 								<ol>
@@ -5050,7 +5055,7 @@ dictionary LocalizableString {
 							<li id="toc-dom-enter-a">
 								<p>
 									<strong>When entering an <a
-											href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"
+											href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element"
 											>anchor</a> element and <var>current_toc_branch</var> is not <a
 											href="https://infra.spec.whatwg.org/#nulls">null</a>:</strong>
 								</p>
@@ -5131,11 +5136,11 @@ dictionary LocalizableString {
 							<li id="toc-dom-enter-sectioning">
 								<p>
 									<strong>When entering a <a
-											href="https://www.w3.org/TR/html/dom.html#sectioning-content-2">sectioning
-											content</a> element, a <a
-											href="https://www.w3.org/TR/html/sections.html#sectioning-roots">sectioning
-											root</a> element, or an element with a <a
-											href="https://www.w3.org/TR/html/editing.html#element-attrdef-global-hidden"
+											href="https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2"
+											>sectioning content</a> element, a <a
+											href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root"
+											>sectioning root</a> element, or an element with a <a
+											href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
 											>hidden</a> attribute:</strong>
 								</p>
 								<p>Exit the element and continue processing with the next element.</p>
