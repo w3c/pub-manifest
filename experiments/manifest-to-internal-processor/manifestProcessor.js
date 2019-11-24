@@ -113,17 +113,30 @@ var manifestProcessor = (function() {
 	
 	var expectsNumber = {};
 	
-	var _internal_rep = '';
-	
-	function getInternalRepresentation() {
-		return _internal_rep;
-	}
-	
 	function processManifest(manifest_link) {
 		
 		return new Promise(function(resolve, reject) {
+			
 			getManifest(manifest_link)
 				.then(function(data) {
+					
+					var _issues = {
+						'warnings' : [],
+						'errors' : []
+					};
+					
+					(function(){
+						var warn = console.warn;
+						console.warn = function (msg) {
+							_issues.warnings.push(msg);
+							warn.apply(console, arguments);
+						};
+						var error = console.error;
+						console.error = function (msg) {
+							_issues.errors.push(msg);
+							error.apply(console, arguments);
+						};
+					})();
 					
 					if (!data) {
 						console.error('Manifest text not found.');
@@ -133,14 +146,12 @@ var manifestProcessor = (function() {
 					var base = location.href.substring(0, location.href.lastIndexOf("/")+1);
 					var doc = document;
 					
-					_internal_rep = processManifestData(data, base, doc);
-					resolve();
-				}
-			)
-			.catch (function(err) {
-				console.error(err);
-				reject();
-			});
+					var internal_rep = processManifestData(data, base, doc);
+					resolve({'internal_rep': internal_rep, 'issues': _issues, 'manifest_link': manifest_link});
+				})
+				.catch (function(err) {
+					reject(err);
+				})
 		});
 	}
 	
@@ -156,6 +167,10 @@ var manifestProcessor = (function() {
 						var data = script.innerHTML.trim();
 						resolve(data);
 					}
+					else {
+						console.error('Manifest could not be located');
+						reject('Manifest could not be located');
+					}
 				}
 				else {
 					$.ajax({
@@ -164,8 +179,9 @@ var manifestProcessor = (function() {
 						success: function(data) {
 							resolve(JSON.stringify(data));
 						},
-						error: function(err) {
-							reject(err);
+						error: function(xhr, status, error) {
+							console.error('Manifest not found or an error occurred retrieving.');
+							reject('Manifest not found or an error occurred retrieving.');
 						}
 					});
 				}
@@ -173,7 +189,7 @@ var manifestProcessor = (function() {
 			
 			else {
 				console.error('Manifest link could not be located');
-				reject();
+				reject('Manifest link could not be located');
 			}
 		});
 	}
@@ -1263,9 +1279,6 @@ var manifestProcessor = (function() {
 	return {
 		processManifest: function(manifest_link) {
 			return processManifest(manifest_link);
-		},
-		getInternalRepresentation() {
-			return _internal_rep;
 		}
 	}
 

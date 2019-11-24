@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Publication Manifest Processor Test Suite</title>
+		<link id="manifest-link" href="ignore" rel="publication">
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<style>
+			body {
+				font-family: Arial,sans-serif;
+				font-size: 62.5%;
+				background-color: rgb(245,245,245);
+			}
+			h1 {
+				font-size: 1.6rem;
+			}
+			h2 {
+				margin-top: 2rem;
+			}
+			h3 {
+				font-size: 0.9rem;
+				background-color: rgb(0,0,90);
+				color: rgb(255,255,255);
+				padding: 0.3rem;
+				margin: -0.3rem -0.3rem 0 -0.3rem;
+			}
+			section.test {
+				border: 0.1rem solid black;
+				padding: 0.3rem;
+				margin-top: 1rem;
+			}
+			p,li {
+				font-size: 1rem;
+				max-width: 60rem;
+			}
+			pre {
+				font-size: 0.8rem;
+				background-color: rgb(255,255,250);
+			}
+			li {
+				padding: 0.3rem;
+				border-bottom: 0.1rem solid lightgrey;
+			}
+			li.warn {
+				background-color: rgb(255,255,240);
+			}
+			li.error {
+				background-color: rgb(255,200,200);
+			}
+			li.valid {
+				background-color: rgb(144,238,144);
+			}
+			pre {
+				height: 10rem;
+				overflow: scroll;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="test-suite">
+			<h1>Publication Manifest Processor Test Suite</h1>
+			
+			<p>This app runs the audiobook and generic manifest tests and renders the resulting internal 
+				structure and any issues encountered while processing.</p>
+			
+			<div><input type="button" value="Run Tests Now" onclick="generateResults()"/></div>
+			
+			<section id="test-results">
+				<h2>Test Results</h2>
+				
+				<div id="results"></div>
+			</section>
+		</section>
+		
+		<script src="manifestProcessor.js"></script>
+		<script src="tests.js"></script>
+		<script>
+			
+			function generateResults() {
+			
+				var testsuites = ['audiobooks', 'generic'];
+				var results = document.getElementById('results');
+				var manifest_link = document.getElementById('manifest-link');
+							
+				while(results.hasChildNodes()){
+					results.removeChild(results.firstChild);
+				}
+				
+				testsuites.forEach(testsuite => {
+				
+					for (var i = 0; i < tests[testsuite].length; i++) {
+					
+						manifest_link.href = tests[testsuite][i];
+						
+						manifestProcessor.processManifest(manifest_link.href)
+							.then(function(processed) {
+								
+								var test_result = document.createElement('section');
+									test_result.setAttribute('class', 'test');
+								
+								var test_hd = document.createElement('h3');
+									test_hd.appendChild(document.createTextNode('Results for ' + processed.manifest_link + ':'));
+								test_result.appendChild(test_hd);
+								
+								var issues = document.createElement('ul');
+								
+								if (processed.internal_rep) {
+								
+									var internal_rep = document.createElement('pre');
+										internal_rep.setAttribute('class', 'manifest');
+										internal_rep.innerHTML = JSON.stringify(processed.internal_rep, '', '\t');
+									test_result.appendChild(internal_rep);
+									
+									if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
+										var li = document.createElement('li');
+											li.setAttribute('class', 'valid');
+											li.appendChild(document.createTextNode('Manifest validated successfully.'));
+										issues.appendChild(li);
+									}
+									
+									else {
+										for (var i = 0; i < processed.issues.errors.length; i++) {
+											var li = document.createElement('li');
+												li.setAttribute('class', 'error');
+												li.appendChild(document.createTextNode("ERROR: " + processed.issues.errors[i]));
+											issues.appendChild(li);
+										}
+										
+										for (var i = 0; i < processed.issues.warnings.length; i++) {
+											var li = document.createElement('li');
+												li.setAttribute('class', 'warn');
+												li.appendChild(document.createTextNode("WARNING: " + processed.issues.warnings[i]));
+											issues.appendChild(li);
+										}
+									}
+									
+									test_result.appendChild(issues);
+								}
+								
+								results.appendChild(test_result);
+							})
+							.catch(function(err) {
+								var test_result = document.createElement('section');
+									test_result.setAttribute('class', 'test');
+								
+								var test_hd = document.createElement('h4');
+									test_hd.appendChild(document.createTextNode('Results for ' + processed.manifest_link + ':'));
+								test_result.appendChild(test_hd);
+								
+								var issues = document.createElement('ul');
+								var li = document.createElement('li');
+									li.setAttribute('class', 'error');
+									li.appendChild(document.createTextNode("ERROR: " + err));
+								issues.appendChild(li);
+								test_result.appendChild(issues);
+							});
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

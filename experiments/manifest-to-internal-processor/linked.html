@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<title>Manifest to Internal Representation Processor</title>
+		<title>Publication Manifest Processor</title>
 		<link href="manifest.json" rel="publication">
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 		<script id="manifest" type="application/json+ld">
@@ -53,7 +53,7 @@
 				href="https://www.w3.org/TR/pub-manifest/#manifest-processing">processing algorithm</a> defined in
 			the Publication Manifest specification.</p>
 		
-		<p>An <a href="index.html">interactive version</a> is also available.</p> 
+		<p>An <a href="index.html">interactive version</a> is also available.</p>
 		
 		<h2>Result of Processing <a id="manifest-view">Manifest</a>:</h2>
 		
@@ -71,37 +71,42 @@
 			
 			var issues = document.getElementById('issues');
 			
-			(function(){
-				var warn = console.warn;
-				console.warn = function (msg) {
-					var li = document.createElement('li');
-						li.setAttribute('class', 'warn');
-						li.appendChild(document.createTextNode("WARNING: " + msg));
-					issues.appendChild(li);
-					warn.apply(console, arguments);
-				};
-				var error = console.error;
-				console.error = function (msg) {
+			manifestProcessor.processManifest(manifest_link.href)
+				.then(function(processed) {
+				
+					if (processed.internal_rep) {
+						document.getElementById('internalRepresentation').textContent = JSON.stringify(processed.internal_rep, '', '\t');
+						
+						if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
+							var li = document.createElement('li');
+								li.setAttribute('class', 'valid');
+								li.appendChild(document.createTextNode('Manifest validated successfully.'));
+							issues.appendChild(li);
+						}
+						
+						else {
+							for (var i = 0; i < processed.issues.errors.length; i++) {
+								var li = document.createElement('li');
+									li.setAttribute('class', 'error');
+									li.appendChild(document.createTextNode("ERROR: " + processed.issues.errors[i]));
+								issues.appendChild(li);
+							}
+							
+							for (var i = 0; i < processed.issues.warnings.length; i++) {
+								var li = document.createElement('li');
+									li.setAttribute('class', 'warn');
+									li.appendChild(document.createTextNode("WARNING: " + processed.issues.warnings[i]));
+								issues.appendChild(li);
+							}
+						}
+					}
+				})
+				.catch(function(err) {
 					var li = document.createElement('li');
 						li.setAttribute('class', 'error');
-						li.appendChild(document.createTextNode("ERROR: " + msg));
+						li.appendChild(document.createTextNode(err));
 					issues.appendChild(li);
-					warn.apply(console, arguments);
-				};
-			})();
-			
-			manifestProcessor.processManifest(manifest_link.href).then(function() {
-				var internal_rep = manifestProcessor.getInternalRepresentation();
-				if (internal_rep) {
-					document.getElementById('internalRepresentation').textContent = JSON.stringify(internal_rep, '', '\t');
-					if (issues.querySelectorAll('li').length == 0) {
-						var li = document.createElement('li');
-							li.setAttribute('class', 'valid');
-							li.appendChild(document.createTextNode('Manifest validated successfully.'));
-						issues.appendChild(li);
-					}
-				}
-			});
+				});
 		</script>
 	</body>
 </html>
