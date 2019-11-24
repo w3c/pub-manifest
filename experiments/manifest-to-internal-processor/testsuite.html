@@ -84,7 +84,7 @@
 					
 						manifest_link.href = tests[testsuite][i];
 						
-						manifestProcessor.processManifest(manifest_link.href)
+						manifestProcessor.processManifest({'manifest_link' : manifest_link.href, 'flags' : { 'skipAudioInReadingOrder' : 1 }})
 							.then(function(processed) {
 								
 								var test_result = document.createElement('section');

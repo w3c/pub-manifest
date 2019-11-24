@@ -113,7 +113,19 @@ var manifestProcessor = (function() {
 	
 	var expectsNumber = {};
 	
-	function processManifest(manifest_link) {
+	var _flags = {};
+	
+	function processManifest(init) {
+		
+		if (init.hasOwnProperty('flags')) {
+			_flags = init.flags;
+		}
+		
+		if (!init.hasOwnProperty('manifest_link')) {
+			throw new Error('A manifest link must be passed in the initialization property.');
+		}
+		
+		var manifest_link = init.manifest_link;
 		
 		return new Promise(function(resolve, reject) {
 			
@@ -580,14 +592,30 @@ var manifestProcessor = (function() {
 			// step 1 - default reading order
 			
 			if (!data.hasOwnProperty('readingOrder') || data['readingOrder'].length == 0) {
-				console.error('Audbook must have a reading order');
+				console.error('Audiobook must have a reading order');
 				throw new Error();
 			}
 			
 			// TODO - remove non-audio resources
 			
+			if (_flags.hasOwnProperty('skipAudioInReadingOrder')) {
+				console.info('Audiobook media restrictions in reading order were skipped. Check manually.');
+			}
+			
+			else {
+				for (var i = data['readingOrder'].length - 1; i >= 0; i--) {
+					if (!data['readingOrder'][i].hasOwnProperty('encodingFormat') || !data['readingOrder'][i]['encodingFormat'].match(/^audio\//i)) {
+						var isAudio = new Audio(data['readingOrder'][i]['url']);
+						if (!isAudio.duration) {
+							console.error('Audiobook cannot have non-audio resources in the reading order.');
+							data['readingOrder'].splice(i,1);
+						}
+					}
+				}
+			}
+			
 			if (data['readingOrder'].length == 0) {
-				console.error('Audbook must have a reading order');
+				console.error('Audiobook must have a reading order');
 				throw new Error();
 			}
 			
@@ -1277,8 +1305,8 @@ var manifestProcessor = (function() {
 
 
 	return {
-		processManifest: function(manifest_link) {
-			return processManifest(manifest_link);
+		processManifest: function(init) {
+			return processManifest(init);
 		}
 	}
 

@@ -71,7 +71,7 @@
 			
 			var issues = document.getElementById('issues');
 			
-			manifestProcessor.processManifest(manifest_link.href)
+			manifestProcessor.processManifest({'manifest_link' : manifest_link.href})
 				.then(function(processed) {
 				
 					if (processed.internal_rep) {
