@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Manifest to Internal Representation Processor</title>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<style>
+			body {
+				font-family: Arial,sans-serif;
+				font-size: 62.5%;
+				background-color: rgb(245,245,245);
+			}
+			h1 {
+				font-size: 1.6rem;
+			}
+			h2 {
+				margin-top: 2rem;
+			}
+			p,li {
+				font-size: 1rem;
+				max-width: 60rem;
+			}
+			pre {
+				font-size: 0.8rem;
+				background-color: rgb(255,255,250);
+			}
+			li {
+				padding: 0.3rem;
+				border-bottom: 0.1rem solid lightgrey;
+			}
+			li.warn {
+				background-color: rgb(255,255,240);
+			}
+			li.error {
+				background-color: rgb(255,200,200);
+			}
+			li.valid {
+				background-color: rgb(144,238,144);
+			}
+			textarea#input_manifest {
+				float: left;
+			}
+			br {
+				clear: both;
+			}
+			textarea {
+				width: 40%;
+				height: 50%;
+				margin-right: 4rem;
+			}
+		</style>
+		<script id="manifest" type="application/json+ld">
+		</script>
+	</head>
+	<body>
+		<h1>Manifest to Internal Representation Processor</h1>
+		
+		<p>Type or paste a Publication Manifest in the text area on the left to generate the internal representation.</p>
+		
+		<p>A version that works on a <a href="linked.html">linked manifest</a> is also available.</p> 
+		
+		<textarea id="input_manifest" rows="20" autocomplete="off">{
+   "@context" : [
+      "https://schema.org",
+      "https://www.w3.org/ns/pub-context",
+      {"language" : "en"}
+   ],
+   "conformsTo" : "https://www.w3.org/TR/audiobooks/",
+   "type" : "Audiobook",
+   "name" : "Test",
+   "readingOrder" : "chapter1.mp3"
+}</textarea>
+		<textarea id="output_manifest" rows="20" autocomplete="off"></textarea>
+		<br>
+		<input type="button" onclick="processManifest()" value="Process"/>
+		<h2>Result of Processing:</h2>
+		<ul id="issues"></ul>
+		<script src="manifestProcessor.js"></script>
+		<script>
+			var issues = document.getElementById('issues');
+			
+			(function(){
+				var warn = console.warn;
+				console.warn = function (msg) {
+					var li = document.createElement('li');
+						li.setAttribute('class', 'warn');
+						li.appendChild(document.createTextNode("WARNING: " + msg));
+					issues.appendChild(li);
+					warn.apply(console, arguments);
+				};
+				var error = console.error;
+				console.error = function (msg) {
+					var li = document.createElement('li');
+						li.setAttribute('class', 'error');
+						li.appendChild(document.createTextNode("ERROR: " + msg));
+					issues.appendChild(li);
+					warn.apply(console, arguments);
+				};
+			})();
+			
+			function processManifest() {
+				
+				while( issues.firstChild ){
+					issues.removeChild( issues.firstChild );
+				}
+				
+				var input = document.getElementById('input_manifest');
+				
+				var script = document.getElementById('manifest');
+				script.innerHTML = input.value;
+				
+				manifestProcessor.processManifest('#manifest').then(function() {
+					var internal_rep = manifestProcessor.getInternalRepresentation();
+					if (internal_rep) {
+						document.getElementById('output_manifest').value = JSON.stringify(internal_rep, '', '\t');
+						if (issues.querySelectorAll('li').length == 0) {
+							var li = document.createElement('li');
+								li.setAttribute('class', 'valid');
+								li.appendChild(document.createTextNode('Manifest validated successfully.'));
+							issues.appendChild(li);
+						}
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

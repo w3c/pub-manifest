@@ -113,28 +113,34 @@ var manifestProcessor = (function() {
 	
 	var expectsNumber = {};
 	
-	function generateInternalRep(manifest_link) {
+	var _internal_rep = '';
+	
+	function getInternalRepresentation() {
+		return _internal_rep;
+	}
+	
+	function processManifest(manifest_link) {
 		
-		getManifest(manifest_link)
-			.then(function(data) {
-				
-				if (!data) {
-					console.error('Manifest text not found.');
-					throw new Error()
+		return new Promise(function(resolve, reject) {
+			getManifest(manifest_link)
+				.then(function(data) {
+					
+					if (!data) {
+						console.error('Manifest text not found.');
+						throw new Error()
+					}
+					
+					var base = location.href.substring(0, location.href.lastIndexOf("/")+1);
+					var doc = document;
+					
+					_internal_rep = processManifestData(data, base, doc);
+					resolve();
 				}
-				
-				var base = location.href.substring(0, location.href.lastIndexOf("/")+1);
-				var doc = document;
-				
-				var internal_rep = processManifest(data, base, doc);
-				
-				if (internal_rep) {
-					document.getElementById('internalRepresentation').textContent = JSON.stringify(internal_rep, '', '\t');
-				}
-			}
-		)
-		.catch (function(err) {
-			console.error(err);
+			)
+			.catch (function(err) {
+				console.error(err);
+				reject();
+			});
 		});
 	}
 	
@@ -144,8 +150,8 @@ var manifestProcessor = (function() {
 		return new Promise(function(resolve, reject) {
 		
 			if (manifest_link) {
-				if (manifest_link.href.indexOf('#') > 0) {
-					var script = document.getElementById(manifest_link.href.substring(manifest_link.href.indexOf('#')+1));
+				if (manifest_link.indexOf('#') != -1) {
+					var script = document.getElementById(manifest_link.substring(manifest_link.indexOf('#')+1));
 					if (script) {
 						var data = script.innerHTML.trim();
 						resolve(data);
@@ -153,7 +159,7 @@ var manifestProcessor = (function() {
 				}
 				else {
 					$.ajax({
-						url:       manifest_link.href,
+						url:       manifest_link,
 						cache:     false,
 						success: function(data) {
 							resolve(JSON.stringify(data));
@@ -173,7 +179,7 @@ var manifestProcessor = (function() {
 	}
 	
 	
-	function processManifest(text, base, doc) {
+	function processManifestData(text, base, doc) {
 	
 		// step 1 - create processed object
 		
@@ -439,7 +445,7 @@ var manifestProcessor = (function() {
 			for (var i = normalized.length - 1; i >= 0; i--) {
 				var type = typeof(normalized[i]);
 				if (type === 'string') {
-					normalized[i] = {"type": "LinkedResource", "url": normalized[i]};
+					normalized[i] = {"type": ["LinkedResource"], "url": convertAbsoluteURL(normalized[i], base)};
 				}
 				else if (Array.isArray(normalized[i]) || type !== 'object') {
 					console.warn(key + ' requires only strings or objects in its array. Found ' + type + '. Removing from array.');
@@ -1255,8 +1261,11 @@ var manifestProcessor = (function() {
 
 
 	return {
-		generateInternalRep: function(manifest_link) {
-			generateInternalRep(manifest_link);
+		processManifest: function(manifest_link) {
+			return processManifest(manifest_link);
+		},
+		getInternalRepresentation() {
+			return _internal_rep;
 		}
 	}
 

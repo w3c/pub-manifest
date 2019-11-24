@@ -14,9 +14,6 @@ The [experiments folder](https://github.com/w3c/pub-manifest/tree/master/experim
 ## Processing Tools
 
 - [Canonical Manifest Generator](https://github.com/iherman/WPManifest) — Demonstrates how to compile a canonical manifest from a  publication manifest and entry page (source hosted in a separate repository). This tool can also be [tested live](https://iherman.github.io/WPManifest/webview/).
-- [Table of Contents Generator](https://github.com/w3c/
-
-
-/tree/master/experiments/toc_generator) — Demonstrates how an HTML `nav` can be processed by user agents to extract the table of contents. This tool can also be [tested live](https://w3c.github.io/pub-manifest/experiments/toc_generator/).
+- [Table of Contents Generator](https://github.com/w3c/tree/master/experiments/toc_generator) — Demonstrates how an HTML `nav` can be processed by user agents to extract the table of contents. This tool can also be [tested live](https://w3c.github.io/pub-manifest/experiments/toc_generator/).
 - [EPUB Package Document to Publication Manifest XSLT](https://github.com/w3c/pub-manifest/tree/master/experiments/epub_package_xslt) - Converts an EPUB 3 Package Document to the publication manifest format.
-- [Manifest to Internal Representation Processor](https://raw.githack.com/w3c/pub-manifest/master/experiments/manifest-to-internal-processor/test.html) - Converts a publication manifest to a JSON view of the internal representation.
+- [Manifest to Internal Representation Processor](https://raw.githack.com/w3c/pub-manifest/master/experiments/manifest-to-internal-processor/index.html) - Converts a publication manifest to a JSON view of the internal representation. A version that [processes a linked manifest](https://raw.githack.com/w3c/pub-manifest/master/experiments/manifest-to-internal-processor/linked.html) is also available.
