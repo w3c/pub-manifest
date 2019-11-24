@@ -51,6 +51,9 @@
 				height: 10rem;
 				overflow: scroll;
 			}
+			a {
+				color: rgb(255,215,0);
+			}
 		</style>
 	</head>
 	<body>
@@ -88,7 +91,12 @@
 									test_result.setAttribute('class', 'test');
 								
 								var test_hd = document.createElement('h2');
-									test_hd.appendChild(document.createTextNode('Results for ' + processed.manifest_link + ':'));
+									test_hd.appendChild(document.createTextNode('Results for '));
+									var a = document.createElement('a');
+										a.setAttribute('href', processed.manifest_link);
+										a.appendChild(document.createTextNode(processed.manifest_link.substring(processed.manifest_link.lastIndexOf('/')+1, processed.manifest_link.lastIndexOf('.'))));
+									test_hd.appendChild(a);
+									test_hd.appendChild(document.createTextNode(':'));
 								test_result.appendChild(test_hd);
 								
 								var issues = document.createElement('ul');
