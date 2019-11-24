@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<title>Publication Manifest Processor Test Suite</title>
+		<title>Publication Manifest Test Suite Results</title>
 		<link id="manifest-link" href="ignore" rel="publication">
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 		<style>
@@ -15,9 +15,6 @@
 				font-size: 1.6rem;
 			}
 			h2 {
-				margin-top: 2rem;
-			}
-			h3 {
 				font-size: 0.9rem;
 				background-color: rgb(0,0,90);
 				color: rgb(255,255,255);
@@ -58,27 +55,19 @@
 	</head>
 	<body>
 		<section id="test-suite">
-			<h1>Publication Manifest Processor Test Suite</h1>
+			<h1>Publication Manifest Test Suite Results</h1>
 			
-			<p>This app runs the audiobook and generic manifest tests and renders the resulting internal 
-				structure and any issues encountered while processing.</p>
-			
-			<div><input type="button" value="Run Tests Now" onclick="generateResults()"/></div>
-			
-			<section id="test-results">
-				<h2>Test Results</h2>
-				
-				<div id="results"></div>
-			</section>
+			<div id="results"></div>
 		</section>
 		
 		<script src="manifestProcessor.js"></script>
 		<script src="tests.js"></script>
 		<script>
+			generateResults();
 			
 			function generateResults() {
 			
-				var testsuites = ['audiobooks', 'generic'];
+				var testsuites = ['generic', 'audiobooks'];
 				var results = document.getElementById('results');
 				var manifest_link = document.getElementById('manifest-link');
 							
@@ -98,7 +87,7 @@
 								var test_result = document.createElement('section');
 									test_result.setAttribute('class', 'test');
 								
-								var test_hd = document.createElement('h3');
+								var test_hd = document.createElement('h2');
 									test_hd.appendChild(document.createTextNode('Results for ' + processed.manifest_link + ':'));
 								test_result.appendChild(test_hd);
 								

@@ -1,17 +1,4 @@
 var tests = {
-	"audiobooks" : [
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/link_4.2.01.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/link_4.2.02.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.01.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.02.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.4.01.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.5.01.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.5.02.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.5.03.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.6.01.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.6.02.jsonld",
-		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.7.01.jsonld"
-	],
 	"generic" : [
 		"https://iherman.github.io/pub_manifest_api_tests/tests/generic/link_6.01.jsonld",
 		"https://iherman.github.io/pub_manifest_api_tests/tests/generic/test_m4.01.jsonld",
@@ -74,5 +61,18 @@ var tests = {
 		"https://iherman.github.io/pub_manifest_api_tests/tests/generic/test_m4.8.1.3.01.jsonld",
 		"https://iherman.github.io/pub_manifest_api_tests/tests/generic/test_m5.01.jsonld",
 		"https://iherman.github.io/pub_manifest_api_tests/tests/generic/test_m5.02.jsonld"
+	],
+	"audiobooks" : [
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/link_4.2.01.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/link_4.2.02.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.01.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.02.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.4.01.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.5.01.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.5.02.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.5.03.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.6.01.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.6.02.jsonld",
+		"https://iherman.github.io/pub_manifest_api_tests/tests/audiobooks/test_a5.7.01.jsonld"
 	]
 }
