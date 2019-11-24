@@ -596,8 +596,6 @@ var manifestProcessor = (function() {
 				throw new Error();
 			}
 			
-			// TODO - remove non-audio resources
-			
 			if (_flags.hasOwnProperty('skipAudioInReadingOrder')) {
 				console.info('Audiobook media restrictions in reading order were skipped. Check manually.');
 			}
@@ -835,7 +833,7 @@ var manifestProcessor = (function() {
 		
 		// step 1 - value category check 
 		
-		if (hasKnownValueCategory(term)) {
+		if (hasKnownValueCategory(term, context)) {
 			try {
 				value = verifyValueCategory(term, value, context);
 			}
@@ -958,7 +956,12 @@ var manifestProcessor = (function() {
 	}
 	
 	
-	function hasKnownValueCategory(key) {
+	function hasKnownValueCategory(key, context) {
+		
+		if (context === null) {
+			return false;
+		}
+		
 		if (expectsObject.hasOwnProperty(key) 
 		    || expectsEntity.hasOwnProperty(key)
 		    || expectsLinkedResource.hasOwnProperty(key)
@@ -970,6 +973,7 @@ var manifestProcessor = (function() {
 		    || expectsBoolean.hasOwnProperty(key)) {
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -996,7 +1000,7 @@ var manifestProcessor = (function() {
 					if (!Array.isArray(value[i]) && typeof(value[i]) === 'object') {
 						var obj_context = getContext(value[i]);
 						for (var key in value[i]) {
-							if (hasKnownValueCategory(key)) {
+							if (hasKnownValueCategory(key, obj_context)) {
 								try {
 									value[i][key] = verifyValueCategory(key, value[i][key], obj_context);
 								}
@@ -1090,7 +1094,7 @@ var manifestProcessor = (function() {
 		else if (checkExpectsValue('Boolean', term, context)) {
 			return 'boolean';
 		}
-		else if (checkExpectsValue('LocalizableString', term, context) || checkExpectsValue('Entity', term, context) || checkExpectsValue('LinkedResource', term, context)) {
+		else if (checkExpectsValue('LocalizableString', term, context) || checkExpectsValue('Entity', term, context) || checkExpectsValue('LinkedResource', term, context) || checkExpectsValue('Object', term, context)) {
 			return 'object';
 		}
 		return '';
@@ -1288,16 +1292,16 @@ var manifestProcessor = (function() {
 	
 	function getContext(value) {
 		if (Array.isArray(value) || typeof(value) !== 'object') {
-			return '';
+			return null;
 		}
 		if (value.hasOwnProperty('type')) {
 			for (var k = 0; k < value['type'].length; k++) {
-				if (value['type'][k] == 'Person' || value['type'][k] == 'Organization' || value['type'][k] == 'LinkedResource') {
+				if (value['type'][k] == 'Person' || value['type'][k] == 'Organization' || value['type'][k] == 'LinkedResource' || value['type'][k] == 'ItemList') {
 					return value['type'][k];
 				}
 			}
 		}
-		return '';
+		return null;
 	}
 	
 	
