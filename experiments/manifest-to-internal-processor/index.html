@@ -88,7 +88,7 @@
 				var input = document.getElementById('input_manifest');
 				
 				var script = document.getElementById('manifest');
-				script.innerHTML = input.value;
+					script.innerHTML = input.value;
 				
 				manifestProcessor.processManifest({'manifest_link' : '#manifest'}).then(function(processed) {
 				

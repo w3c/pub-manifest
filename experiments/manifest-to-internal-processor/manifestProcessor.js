@@ -127,11 +127,22 @@ var manifestProcessor = (function() {
 			test = init.test;
 		}
 		
-		if (!init.hasOwnProperty('manifest_link')) {
-			throw new Error('A manifest link must be passed in the initialization property.');
+		var manifest_link = '';
+		
+		if (init.hasOwnProperty('manifest_link')) {
+			manifest_link = init.manifest_link;
 		}
 		
-		var manifest_link = init.manifest_link;
+		else {
+			var mlink = document.querySelector('link[rel="publication"]');
+			if (mlink) {
+				manifest_link = mlink.href;
+			}
+		}
+		
+		if (!manifest_link) {}
+			throw new Error('Manifest link could not be found.');
+		}
 		
 		return new Promise(function(resolve, reject) {
 			

@@ -27,7 +27,7 @@ function generateResults() {
 						manifest_link.href = test_base_url + testsuite + '/test_' + test['id'] + '.jsonld'
 						
 						if (test.hasOwnProperty('media-type') && test['media-type'] == 'application/ld+json') {
-							manifestProcessor.processManifest({'manifest_link' : manifest_link.href, 'test' : test, 'flags' : { 'skipAudioInReadingOrder' : 1 }})
+							manifestProcessor.processManifest({'test' : test, 'flags' : { 'skipAudioInReadingOrder' : 1 }})
 								.then(function(processed) {
 									var test_result = processResult(processed);
 									results.appendChild(test_result);
