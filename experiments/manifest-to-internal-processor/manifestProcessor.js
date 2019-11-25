@@ -314,7 +314,7 @@ var manifestProcessor = (function() {
 					lang = manifest['@context'][i]['language'];
 				}
 				if (dir == '' && manifest['@context'][i].hasOwnProperty('direction')) {
-					lang = manifest['@context'][i]['direction'];
+					dir = manifest['@context'][i]['direction'];
 				}
 				if (lang != '' && dir != '') {
 					break;
