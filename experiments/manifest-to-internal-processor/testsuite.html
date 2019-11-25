@@ -64,96 +64,9 @@
 		</section>
 		
 		<script src="manifestProcessor.js"></script>
-		<script src="tests.js"></script>
+		<script src="testsuite.js"></script>
 		<script>
 			generateResults();
-			
-			function generateResults() {
-			
-				var testsuites = ['generic', 'audiobooks'];
-				var results = document.getElementById('results');
-				var manifest_link = document.getElementById('manifest-link');
-							
-				while(results.hasChildNodes()){
-					results.removeChild(results.firstChild);
-				}
-				
-				testsuites.forEach(testsuite => {
-				
-					for (var i = 0; i < tests[testsuite].length; i++) {
-					
-						manifest_link.href = tests[testsuite][i];
-						
-						manifestProcessor.processManifest({'manifest_link' : manifest_link.href, 'flags' : { 'skipAudioInReadingOrder' : 1 }})
-							.then(function(processed) {
-								
-								var test_result = document.createElement('section');
-									test_result.setAttribute('class', 'test');
-								
-								var test_hd = document.createElement('h2');
-									test_hd.appendChild(document.createTextNode('Results for '));
-									var a = document.createElement('a');
-										a.setAttribute('href', processed.manifest_link);
-										a.appendChild(document.createTextNode(processed.manifest_link.substring(processed.manifest_link.lastIndexOf('/')+1, processed.manifest_link.lastIndexOf('.'))));
-									test_hd.appendChild(a);
-									test_hd.appendChild(document.createTextNode(':'));
-								test_result.appendChild(test_hd);
-								
-								var issues = document.createElement('ul');
-								
-								if (processed.internal_rep) {
-								
-									var internal_rep = document.createElement('pre');
-										internal_rep.setAttribute('class', 'manifest');
-										internal_rep.innerHTML = JSON.stringify(processed.internal_rep, '', '\t');
-									test_result.appendChild(internal_rep);
-									
-									if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
-										var li = document.createElement('li');
-											li.setAttribute('class', 'valid');
-											li.appendChild(document.createTextNode('Manifest validated successfully.'));
-										issues.appendChild(li);
-									}
-									
-									else {
-										for (var i = 0; i < processed.issues.errors.length; i++) {
-											var li = document.createElement('li');
-												li.setAttribute('class', 'error');
-												li.appendChild(document.createTextNode("ERROR: " + processed.issues.errors[i]));
-											issues.appendChild(li);
-										}
-										
-										for (var i = 0; i < processed.issues.warnings.length; i++) {
-											var li = document.createElement('li');
-												li.setAttribute('class', 'warn');
-												li.appendChild(document.createTextNode("WARNING: " + processed.issues.warnings[i]));
-											issues.appendChild(li);
-										}
-									}
-									
-									test_result.appendChild(issues);
-								}
-								
-								results.appendChild(test_result);
-							})
-							.catch(function(err) {
-								var test_result = document.createElement('section');
-									test_result.setAttribute('class', 'test');
-								
-								var test_hd = document.createElement('h4');
-									test_hd.appendChild(document.createTextNode('Results for ' + processed.manifest_link + ':'));
-								test_result.appendChild(test_hd);
-								
-								var issues = document.createElement('ul');
-								var li = document.createElement('li');
-									li.setAttribute('class', 'error');
-									li.appendChild(document.createTextNode("ERROR: " + err));
-								issues.appendChild(li);
-								test_result.appendChild(issues);
-							});
-					}
-				});
-			}
 		</script>
 	</body>
 </html>

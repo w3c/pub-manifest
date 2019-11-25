@@ -121,6 +121,12 @@ var manifestProcessor = (function() {
 			_flags = init.flags;
 		}
 		
+		var test = {};
+		
+		if (init.hasOwnProperty('test')) {
+			test = init.test;
+		}
+		
 		if (!init.hasOwnProperty('manifest_link')) {
 			throw new Error('A manifest link must be passed in the initialization property.');
 		}
@@ -159,10 +165,10 @@ var manifestProcessor = (function() {
 					var doc = document;
 					
 					var internal_rep = processManifestData(data, base, doc);
-					resolve({'internal_rep': internal_rep, 'issues': _issues, 'manifest_link': manifest_link});
+					resolve({'internal_rep': internal_rep, 'issues': _issues, 'manifest_link': manifest_link, 'test': test});
 				})
 				.catch (function(err) {
-					reject(err);
+					reject({'error': err, 'manifest_link': manifest_link, 'test': test});
 				})
 		});
 	}
