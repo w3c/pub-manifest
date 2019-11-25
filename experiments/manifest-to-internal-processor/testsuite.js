@@ -38,11 +38,17 @@ function generateResults() {
 								});
 						}
 						else {
+							var err = test.hasOwnProperty('media-type') ? 
+										(test['media-type'] == 'text/html' ? 'This test can only be run on an embedded manifest.' 
+																				: 'This test has the unknown media type "' + test['media-type'] + '".')
+										: 'The media-type of this test must be specified in the configuration file in order to process.'
+							
 							var warning = {
 								'internal_rep' : null,
 								'manifest_link' : manifest_link.href,
 								'test' : test,
-								'error' : 'This test can only be run on an embedded manifest, or the media-type of the test has not been specified in the configuration file.'
+								'skipped' : true,
+								'error' : err 
 							};
 							var test_result = processResult(warning);
 							results.appendChild(test_result);
@@ -80,6 +86,8 @@ function getTestList() {
 
 function processResult(processed) {
 
+	var skipped = processed.hasOwnProperty('skipped') ? true : false;
+	
 	var test_result = document.createElement('section');
 		test_result.setAttribute('class', 'test');
 	
@@ -100,65 +108,66 @@ function processResult(processed) {
 		test_desc.appendChild(document.createTextNode(' ' + processed.test['description']));
 	test_result.appendChild(test_desc);
 	
-	if (processed.test.hasOwnProperty('actions')) {
-		var test_res = document.createElement('p');
-			test_res.setAttribute('class', 'desc');
-		var test_res_label = document.createElement('strong');
-			test_res_label.appendChild(document.createTextNode('Expected Result:'));
-			test_res.appendChild(test_res_label);
-			test_res.appendChild(document.createTextNode(' ' + processed.test['actions']));
-		test_result.appendChild(test_res);
-	}
-	
-	if (processed.test.hasOwnProperty('errors')) {
-		var test_err = document.createElement('p');
-			test_err.setAttribute('class', 'desc');
-		var test_err_label = document.createElement('strong');
-			test_err_label.appendChild(document.createTextNode('Expected Errors:'));
-			test_err.appendChild(test_err_label);
-			test_err.appendChild(document.createTextNode(' ' + processed.test['errors']));
-		test_result.appendChild(test_err);
-	}
-	
-	var issues = document.createElement('ul');
-	
-	var internal_rep = document.createElement('pre');
-		internal_rep.setAttribute('class', 'manifest');
-		internal_rep.innerHTML = processed.internal_rep ? JSON.stringify(processed.internal_rep, '', '\t') : 'Failed to generate internal representation.';
-	test_result.appendChild(internal_rep);
-	
-	if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
-		var li = document.createElement('li');
-			li.setAttribute('class', 'valid');
-			li.appendChild(document.createTextNode('Manifest validated successfully.'));
-		issues.appendChild(li);
-		test_result.appendChild(issues);
-	}
-	
-	else {
-		for (var x = 0; x < processed.issues.errors.length; x++) {
-			var li = document.createElement('li');
-				li.setAttribute('class', 'error');
-				li.appendChild(document.createTextNode("ERROR: " + processed.issues.errors[x]));
-			issues.appendChild(li);
+	if (!skipped) {
+		if (processed.test.hasOwnProperty('actions')) {
+			var test_res = document.createElement('p');
+				test_res.setAttribute('class', 'desc');
+			var test_res_label = document.createElement('strong');
+				test_res_label.appendChild(document.createTextNode('Expected Result:'));
+				test_res.appendChild(test_res_label);
+				test_res.appendChild(document.createTextNode(' ' + processed.test['actions']));
+			test_result.appendChild(test_res);
 		}
 		
-		for (var y = 0; y < processed.issues.warnings.length; y++) {
-			var li = document.createElement('li');
-				li.setAttribute('class', 'warn');
-				li.appendChild(document.createTextNode("WARNING: " + processed.issues.warnings[y]));
-			issues.appendChild(li);
+		if (processed.test.hasOwnProperty('errors')) {
+			var test_err = document.createElement('p');
+				test_err.setAttribute('class', 'desc');
+			var test_err_label = document.createElement('strong');
+				test_err_label.appendChild(document.createTextNode('Expected Errors:'));
+				test_err.appendChild(test_err_label);
+				test_err.appendChild(document.createTextNode(' ' + processed.test['errors']));
+			test_result.appendChild(test_err);
 		}
-		test_result.appendChild(issues);
+		
+		var issues = document.createElement('ul');
+		
+		var internal_rep = document.createElement('pre');
+			internal_rep.setAttribute('class', 'manifest');
+			internal_rep.innerHTML = processed.internal_rep ? JSON.stringify(processed.internal_rep, '', '\t') : 'Failed to generate internal representation.';
+		test_result.appendChild(internal_rep);
+		
+		if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
+			var li = document.createElement('li');
+				li.setAttribute('class', 'valid');
+				li.appendChild(document.createTextNode('Manifest validated successfully.'));
+			issues.appendChild(li);
+			test_result.appendChild(issues);
+		}
+		
+		else {
+			for (var x = 0; x < processed.issues.errors.length; x++) {
+				var li = document.createElement('li');
+					li.setAttribute('class', 'error');
+					li.appendChild(document.createTextNode("ERROR: " + processed.issues.errors[x]));
+				issues.appendChild(li);
+			}
+			
+			for (var y = 0; y < processed.issues.warnings.length; y++) {
+				var li = document.createElement('li');
+					li.setAttribute('class', 'warn');
+					li.appendChild(document.createTextNode("WARNING: " + processed.issues.warnings[y]));
+				issues.appendChild(li);
+			}
+			test_result.appendChild(issues);
+		}
+	
 	}
 	
 	if (processed.hasOwnProperty('error')) {
-		var issues = document.createElement('ul');
-		var li = document.createElement('li');
-			li.setAttribute('class', 'error');
-			li.appendChild(document.createTextNode("ERROR: " + processed.error));
-		issues.appendChild(li);
-		test_result.appendChild(issues);
+		var err = document.createElement('p');
+			err.setAttribute('class', 'error');
+			err.appendChild(document.createTextNode("ERROR: " + processed.error));
+		test_result.appendChild(err);
 	}
 	
 	return test_result;
