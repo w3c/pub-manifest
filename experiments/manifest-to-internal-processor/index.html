@@ -90,7 +90,7 @@
 				var script = document.getElementById('manifest');
 					script.innerHTML = input.value;
 				
-				manifestProcessor.processManifest({'manifest_link' : '#manifest'}).then(function(processed) {
+				manifestProcessor.processManifest({'manifest_link' : '#manifest', 'flags' : { 'skipAudioInReadingOrder' : 1 }}).then(function(processed) {
 				
 					if (processed.internal_rep) {
 						
