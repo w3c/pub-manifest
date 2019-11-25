@@ -264,7 +264,7 @@ var manifestProcessor = (function() {
 		}
 		
 		if (manifest['@context'][0] != 'https://schema.org' || manifest['@context'][1] != 'https://www.w3.org/ns/pub-context') {
-			console.error('First two declartaions in @context must be "https://schema.org" and "https://www.w3.org/ns/pub-context"');
+			console.error('First two declarations in @context must be "https://schema.org" and "https://www.w3.org/ns/pub-context"');
 			return null;
 		}
 		
