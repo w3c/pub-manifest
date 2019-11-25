@@ -242,37 +242,37 @@ var manifestProcessor = (function() {
 			manifest = JSON.parse(text);
 			if (Array.isArray(manifest) || typeof(manifest) !== 'object') {
 				console.error('The manifest must be a JSON object.');
-				throw new Error();
+				return null;
 			}
 		}
 		
 		catch (e) {
 			console.error('Error parsing manifest: ' + e);
-			throw new Error();
+			return null;
 		}
 		
 		// step 3 - manifest contexts
 		
 		if (!manifest.hasOwnProperty('@context')) {
 			console.error('@context not set.');
-			throw new Error();
+			return null;
 		}
 		
 		if (!Array.isArray(manifest['@context'])) {
 			console.error('@context is not an array.');
-			throw new Error();
+			return null;
 		}
 		
 		if (manifest['@context'][0] != 'https://schema.org' || manifest['@context'][1] != 'https://www.w3.org/ns/pub-context') {
 			console.error('First two declartaions in @context must be "https://schema.org" and "https://www.w3.org/ns/pub-context"');
-			throw new Error();
+			return null;
 		}
 		
 		// step 4 - profile conformance
 		
 		if (!manifest.hasOwnProperty('conformsTo')) {
 			console.error('No profile specified. (No testing for compatible profiles in this processor.)');
-			throw new Error();
+			return null;
 		}
 		
 		else if (Array.isArray(manifest['conformsTo'])) {
@@ -285,7 +285,7 @@ var manifestProcessor = (function() {
 			
 			if (matches.length == 0) {
 				console.error('No profiles recognized. (No testing for compatible profiles in this processor.)');
-				throw new Error();
+				return null;
 			}
 			
 			else {
@@ -299,7 +299,7 @@ var manifestProcessor = (function() {
 			}
 			else {
 				console.error('Profile not recognized. (No testing for compatible profiles in this processor.)');
-				throw new Error();
+				return null;
 			}
 		}
 		
@@ -354,7 +354,7 @@ var manifestProcessor = (function() {
 		}
 		catch(e) {
 			console.error('Terminating processing.');
-			throw new Error();
+			return null;
 		}
 		
 		// step 9 - profile extensions

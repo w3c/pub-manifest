@@ -122,48 +122,43 @@ function processResult(processed) {
 	
 	var issues = document.createElement('ul');
 	
-	if (processed.internal_rep) {
+	var internal_rep = document.createElement('pre');
+		internal_rep.setAttribute('class', 'manifest');
+		internal_rep.innerHTML = processed.internal_rep ? JSON.stringify(processed.internal_rep, '', '\t') : 'Failed to generate internal representation.';
+	test_result.appendChild(internal_rep);
 	
-		var internal_rep = document.createElement('pre');
-			internal_rep.setAttribute('class', 'manifest');
-			internal_rep.innerHTML = JSON.stringify(processed.internal_rep, '', '\t');
-		test_result.appendChild(internal_rep);
-		
-		if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
-			var li = document.createElement('li');
-				li.setAttribute('class', 'valid');
-				li.appendChild(document.createTextNode('Manifest validated successfully.'));
-			issues.appendChild(li);
-		}
-		
-		else {
-			for (var x = 0; x < processed.issues.errors.length; x++) {
-				var li = document.createElement('li');
-					li.setAttribute('class', 'error');
-					li.appendChild(document.createTextNode("ERROR: " + processed.issues.errors[x]));
-				issues.appendChild(li);
-			}
-			
-			for (var y = 0; y < processed.issues.warnings.length; y++) {
-				var li = document.createElement('li');
-					li.setAttribute('class', 'warn');
-					li.appendChild(document.createTextNode("WARNING: " + processed.issues.warnings[y]));
-				issues.appendChild(li);
-			}
-		}
-		
+	if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
+		var li = document.createElement('li');
+			li.setAttribute('class', 'valid');
+			li.appendChild(document.createTextNode('Manifest validated successfully.'));
+		issues.appendChild(li);
 		test_result.appendChild(issues);
 	}
 	
 	else {
-		if (processed.hasOwnProperty('error')) {
-			var issues = document.createElement('ul');
+		for (var x = 0; x < processed.issues.errors.length; x++) {
 			var li = document.createElement('li');
 				li.setAttribute('class', 'error');
-				li.appendChild(document.createTextNode("ERROR: " + processed.error));
+				li.appendChild(document.createTextNode("ERROR: " + processed.issues.errors[x]));
 			issues.appendChild(li);
-			test_result.appendChild(issues);
 		}
+		
+		for (var y = 0; y < processed.issues.warnings.length; y++) {
+			var li = document.createElement('li');
+				li.setAttribute('class', 'warn');
+				li.appendChild(document.createTextNode("WARNING: " + processed.issues.warnings[y]));
+			issues.appendChild(li);
+		}
+		test_result.appendChild(issues);
+	}
+	
+	if (processed.hasOwnProperty('error')) {
+		var issues = document.createElement('ul');
+		var li = document.createElement('li');
+			li.setAttribute('class', 'error');
+			li.appendChild(document.createTextNode("ERROR: " + processed.error));
+		issues.appendChild(li);
+		test_result.appendChild(issues);
 	}
 	
 	return test_result;
