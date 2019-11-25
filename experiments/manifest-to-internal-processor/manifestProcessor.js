@@ -140,7 +140,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		if (!manifest_link) {}
+		if (!manifest_link) {
 			throw new Error('Manifest link could not be found.');
 		}
 		
