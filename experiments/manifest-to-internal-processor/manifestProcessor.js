@@ -322,12 +322,12 @@ var manifestProcessor = (function() {
 			}
 			
 			if (lang && !bcp47.test(lang)) {
-				console.warn('Invalid global language tag "' + lang + '" found.');
+				console.error('Invalid global language tag "' + lang + '" found.');
 				lang = '';
 			}
 			
 			if (dir && (dir != 'ltr' && dir != 'rtl')) {
-				console.warn('Invalid global direction "' + dir + '" found.');
+				console.error('Invalid global direction "' + dir + '" found.');
 				dir = '';
 			}
 		}
@@ -432,7 +432,7 @@ var manifestProcessor = (function() {
 					}
 				}
 				else if (typeof(normalized[i]) !== 'object') {
-					console.warn(key + 'requires a string or entity. Found ' + typeof(normalized[i]) + '. Removing from array.');
+					console.error(key + 'requires a string or entity. Found ' + typeof(normalized[i]) + '. Removing from array.');
 					normalized.splice(i,1);
 				}
 				else {
@@ -464,7 +464,7 @@ var manifestProcessor = (function() {
 					}
 				}
 				else if (Array.isArray(normalized[i]) || type !== 'object') {
-					console.warn('Non-string value found in ' + key + '.');
+					console.error('Non-string value found in ' + key + '.');
 					normalized.splice(i,1);
 				}
 				else {
@@ -497,7 +497,7 @@ var manifestProcessor = (function() {
 					normalized[i] = {"type": ["LinkedResource"], "url": convertAbsoluteURL(normalized[i], base)};
 				}
 				else if (Array.isArray(normalized[i]) || type !== 'object') {
-					console.warn(key + ' requires only strings or objects in its array. Found ' + type + '. Removing from array.');
+					console.error(key + ' requires only strings or objects in its array. Found ' + type + '. Removing from array.');
 					normalized.splice(i,1);
 				}
 				else {
@@ -538,7 +538,7 @@ var manifestProcessor = (function() {
 				}
 			}
 			else {
-				console.warn('Invalid data type "' + type + '" for URL.');
+				console.error('Invalid data type "' + type + '" for URL.');
 				throw new Error();
 			}
 		};
@@ -587,7 +587,7 @@ var manifestProcessor = (function() {
 			return url.toString();
 		}
 		else {
-			console.warn(key + ' requires a string. Found ' + type + '.');
+			console.error(key + ' requires a string. Found ' + type + '.');
 			throw new Error();
 		}
 	}
@@ -741,7 +741,7 @@ var manifestProcessor = (function() {
 		if (data.hasOwnProperty('accessModeSufficient')) {
 			for (var i = data['accessModeSufficient'].length - 1; i >= 0; i--) {
 				if (!data['accessModeSufficient'][i].hasOwnProperty('type') || data['accessModeSufficient'][i]['type'] != 'ItemList') {
-					console.warn('accessModeSufficient must only contain ItemList objects.');
+					console.error('accessModeSufficient must only contain ItemList objects.');
 					data['accessModeSufficient'].splice(i,1);
 				}
 			}
@@ -757,7 +757,7 @@ var manifestProcessor = (function() {
 		
 		if (data.hasOwnProperty('duration')) {
 			if (!duration.test(data['duration'])) {
-				console.warn('The duration must be a valid ISO 8601 duration.');
+				console.error('The duration must be a valid ISO 8601 duration.');
 				delete(data['duration']);
 			}
 		}
@@ -766,7 +766,7 @@ var manifestProcessor = (function() {
 		
 		if (data.hasOwnProperty('dateModified')) {
 			if (!dateTime.test(data['dateModified'])) {
-				console.warn('The last modified date must be a valid ISO 8601 dateTime.');
+				console.error('The last modified date must be a valid ISO 8601 dateTime.');
 				delete(data['dateModified']);
 			}
 		}
@@ -775,7 +775,7 @@ var manifestProcessor = (function() {
 
 		if (data.hasOwnProperty('datePublished')) {
 			if (!dateTime.test(data['datePublished'])) {
-				console.warn('The publication date must be a valid ISO 8601 dateTime.');
+				console.error('The publication date must be a valid ISO 8601 dateTime.');
 				delete(data['datePublished']);
 			}
 		}
@@ -785,7 +785,7 @@ var manifestProcessor = (function() {
 		if (data.hasOwnProperty('inLanguage')) {
 			for (var i = data['inLanguage'].length - 1; i >= 0; i--) {
 				if (!bcp47.test(data['inLanguage'][i])) {
-					console.warn('The language tag "' + data['inLanguage'][i] + '" is not well formed.');
+					console.error('The language tag "' + data['inLanguage'][i] + '" is not well formed.');
 					data['inLanguage'].splice(i,1);
 				}
 			}
@@ -795,7 +795,7 @@ var manifestProcessor = (function() {
 		
 		if (data.hasOwnProperty('readingProgression')) {
 			if (data['readingProgression'] != 'ltr' && data['readingProgression'] != 'rtl') {
-				console.warn('The reading progression must be "ltr" or "rtl".');
+				console.error('The reading progression must be "ltr" or "rtl".');
 				data['readingProgression'] = 'ltr';
 			}
 		}
@@ -817,14 +817,14 @@ var manifestProcessor = (function() {
 			for (var i = data['links'].length - 1; i >= 0; i--) {
 				var url = data['links'][i]['url'];
 				if (data['uniqueResources'].has(url)) {
-					console.warn('Linked resource ' + url + ' cannot also be publication resources.');
+					console.error('Linked resource ' + url + ' cannot also be publication resources.');
 					data['links'].splice(i,1);
 					continue;
 				}
 				if (data['links'][i].hasOwnProperty('rel')) {
 					for (var j = 0; j < data['links'][i]['rel'].length; j++) {
 						if (bodyRelValues.has(data['links'][i]['rel'][j])) {
-							console.warn('Link relation ' + data['links'][i]['rel'][j] + ' cannot also be used in the links section.');
+							console.error('Link relation ' + data['links'][i]['rel'][j] + ' cannot also be used in the links section.');
 							data['links'].splice(i,1);
 							break;
 						}
@@ -915,13 +915,13 @@ var manifestProcessor = (function() {
 				
 				if (value[i].hasOwnProperty('language')) {
 					if (!bcp47.test(value[i]['language'])) {
-						console.warn('Language tag is not well formed.');
+						console.error('Language tag is not well formed.');
 						delete(value[i]['language']);
 					}
 				}
 				if (value[i].hasOwnProperty('direction')) {
 					if (value[i]['direction'] != 'ltr' && value[i]['direction'] != 'rtl') {
-						console.warn('Direction must be "ltr" or "rtl".');
+						console.error('Direction must be "ltr" or "rtl".');
 						delete(value[i]['direction']);
 					}
 				}
@@ -933,7 +933,7 @@ var manifestProcessor = (function() {
 		if (expectsEntity.hasOwnProperty(term) && value.length > 0) {
 			for (var i = value.length - 1; i >= 0; i--) {
 				if (!value[i].hasOwnProperty('name') || value[i]['name'].length == 0) {
-					console.warn('Item ' + i + ' in ' + term + ' does not have a name');
+					console.error('Item ' + i + ' in ' + term + ' does not have a name');
 					value.splice(i,1);
 				}
 			}
@@ -1005,7 +1005,7 @@ var manifestProcessor = (function() {
 		
 		if (checkExpectsArray(term, context)) {
 			if (!Array.isArray(value)) {
-				console.warn(term + ' requires an array of values.');
+				console.error(term + ' requires an array of values.');
 				throw new Error();
 			}
 			else {
@@ -1026,7 +1026,7 @@ var manifestProcessor = (function() {
 									value[i][key] = verifyValueCategory(key, value[i][key], obj_context);
 								}
 								catch (e) {
-									console.warn(key + " in " + term + " has an invalid value.");
+									console.error(key + " in " + term + " has an invalid value.");
 									delete(value[i][key]);
 								}
 							}
@@ -1034,7 +1034,7 @@ var manifestProcessor = (function() {
 					}
 				}
 				if (value.length == 0) {
-					console.warn(term + ' is an empty array after processing.');
+					console.error(term + ' is an empty array after processing.');
 					throw new Error();
 				}
 			}
@@ -1045,7 +1045,7 @@ var manifestProcessor = (function() {
 				 expectsLinkedResource.hasOwnProperty(term)) {
 			
 			if (typeof(processed[term]) !== 'object') {
-				console.warn(term + ' requires an object.');
+				console.error(term + ' requires an object.');
 				throw new Error();
 			}
 			else {
@@ -1054,12 +1054,12 @@ var manifestProcessor = (function() {
 						value[key] = verifyValueCategory(key, value[key], context);
 					}
 					catch (e) {
-						console.warn(key + " of " + term + " has an invalid value.");
+						console.error(key + " of " + term + " has an invalid value.");
 						delete(value[key]);
 					}
 				}
 				if (value.keys().length == 0) {
-					console.warn(term + ' is an empty object after processing.');
+					console.error(term + ' is an empty object after processing.');
 					throw new Error();
 				}
 			}
@@ -1165,7 +1165,7 @@ var manifestProcessor = (function() {
 	function removeEmptyArrays(value) {
 		if (Array.isArray(value)) {
 			if (value.length == 0) {
-				console.warn('Empty array.');
+				console.error('Empty array.');
 				throw new Error();
 			}
 			else {
