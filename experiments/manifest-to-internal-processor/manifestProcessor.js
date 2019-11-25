@@ -117,6 +117,10 @@ var manifestProcessor = (function() {
 	
 	function processManifest(init) {
 		
+		if (!init) {
+			init = {};
+		}
+		
 		if (init.hasOwnProperty('flags')) {
 			_flags = init.flags;
 		}
