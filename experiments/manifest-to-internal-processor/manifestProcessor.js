@@ -1063,19 +1063,19 @@ var manifestProcessor = (function() {
 		var expected_type = getExpectedType(term, context);
 		
 		if (expected_type == 'string' && type !== 'string') {
-			console.warn(term + ' requires a literal.');
+			console.error(term + ' requires a literal.');
 			throw new Error();
 		}
 		else if (expected_type == 'number' && type !== 'number') {
-			console.warn(term + ' requires a number.');
+			console.error(term + ' requires a number.');
 			throw new Error();
 		}
 		else if (expected_type == 'boolean' && type !== 'boolean') {
-			console.warn(term + ' requires a boolean.');
+			console.error(term + ' requires a boolean.');
 			throw new Error();
 		}
 		else if (expected_type == 'object' && type !== 'object') {
-			console.warn(term + ' requires an object.');
+			console.error(term + ' requires an object.');
 			throw new Error();
 		}
 		
