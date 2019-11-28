@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Publication Manifest Validator</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.10.2/ajv.bundle.js"></script>
+		<style>
+			body {
+				font-size: 62.5%;
+				font-family: Arial,sans-serif;
+			}
+			h2 {
+				color: rgb(0,0,90);
+			}
+			p, li {
+				font-size: 0.9rem;
+			}
+			textarea {
+				float: left;
+				margin-right: 4rem;
+				margin-bottom: 1rem;
+			}
+			div.button {
+				clear: both;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Publication Manifest Validator</h1>
+		
+		<p>Note: This validator only checks the constraints that are expressed in the <a href="../../schema/">JSON schemas</a>.
+			A manifest may validate successfully but not be fully conformant to its specification.</p>
+		
+		<p>This validator is alpha software. Error messages, in particular, may not be very helpful yet.</p>
+		
+		<textarea id="manifest" autocomplete="off" cols="50" rows="20">
+{
+	"@context" : [
+		"https://schema.org",
+		"https://www.w3.org/ns/pub-context",
+		{"language" : "en"}
+	],
+	"type"         : "Audiobook",
+	"conformsTo"   : "https://www.w3.org/TR/audiobooks/",
+	"name"         : "Test",
+	"readingOrder" : "chapter1.mp3"
+}
+		</textarea>
+		
+		<div id="results" aria-live="polite"></div>
+		
+		<div class="button"><input type="button" value="Validate Schema" onclick="validateManifest()"></div>
+		
+		<script src="publication.schema.js"></script>
+		<script src="validate.js"></script>
+	</body>
+</html>
