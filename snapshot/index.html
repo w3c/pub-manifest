@@ -2213,8 +2213,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 
 					<p>By consequence, relative-URL strings in embedded manifests are resolved against the URL of the
 						document that references the manifest <em>unless</em> the document declares a base URL (i.e., in
-						a <a href="https://html.spec.whatwg.org/multipage/#the-base-element"><code>&lt;base&gt;</code>
-							element</a> in its header).</p>
+						a <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-base-element"
+								><code>&lt;base&gt;</code> element</a> in its header).</p>
 				</section>
 
 				<section id="value-id">
@@ -4997,9 +4997,10 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 					<li><var>text</var>: a UTF-8 string representing the manifest.</li>
 					<li><var>base</var>: a URL string that represents the <a href="#dfn-base-url" class="internalDFN"
 							data-link-type="dfn">base URL</a> for the manifest.</li>
-					<li><var>document</var>: the <a href="https://html.spec.whatwg.org/multipage/#the-document-object"
-							>HTML Document (DOM) Node</a>&#160;[<cite><a class="bibref" href="#bib-html"
-								title="HTML Standard" data-link-type="biblio">html</a></cite>] of the document that <a
+					<li><var>document</var>: the <a
+							href="https://html.spec.whatwg.org/multipage/dom.html#the-document-object">HTML Document
+							(DOM) Node</a>&#160;[<cite><a class="bibref" href="#bib-html" title="HTML Standard"
+								data-link-type="biblio">html</a></cite>] of the document that <a
 							href="#manifest-discovery">references the manifest</a>, when available.</li>
 				</ul>
 
@@ -6485,8 +6486,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 					<p>To <dfn data-dfn-type="dfn" id="dfn-add-default-values">add default values</dfn> for missing
 						properties in <a href="https://infra.spec.whatwg.org/#ordered-map">map</a>
 						<var>data</var> with an optional <a
-							href="https://html.spec.whatwg.org/multipage/#the-document-object">HTML Document (DOM)
-							Node</a>&#160;[<cite><a class="bibref" href="#bib-html" title="HTML Standard"
+							href="https://html.spec.whatwg.org/multipage/dom.html#the-document-object">HTML Document
+							(DOM) Node</a>&#160;[<cite><a class="bibref" href="#bib-html" title="HTML Standard"
 								data-link-type="biblio">html</a></cite>] <var>document</var>, run the following
 						steps:</p>
 
@@ -6502,18 +6503,18 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 									<ul>
 										<li>
 											<p>if <var>document</var> is set, if the <a
-													href="https://html.spec.whatwg.org/multipage/#the-title-element"
+													href="https://html.spec.whatwg.org/multipage/semantics.html#the-title-element"
 														><code>title</code></a> element&#160;[<cite><a class="bibref"
 														href="#bib-html" title="HTML Standard" data-link-type="biblio"
 														>html</a></cite>] of <var>document</var> is set and is not
 												empty, set <var>title["value"]</var> to the text content of the
 													<code>title</code> element.</p>
 											<p>Set <var>title["language"]</var> to the <a
-													href="https://html.spec.whatwg.org/multipage/#the-lang-and-xml:lang-attributes"
+													href="https://html.spec.whatwg.org/multipage/dom.html#the-lang-and-xml%3Alang-attributes"
 													>language</a>&#160;[<cite><a class="bibref" href="#bib-html"
 														title="HTML Standard" data-link-type="biblio">html</a></cite>],
 												if available, and <var>title["direction"]</var> to the <a
-													href="https://html.spec.whatwg.org/multipage/#the-dir-attribute"
+													href="https://html.spec.whatwg.org/multipage/dom.html#the-dir-attribute"
 													>base direction</a>&#160;[<cite><a class="bibref" href="#bib-html"
 														title="HTML Standard" data-link-type="biblio">html</a></cite>]
 												if that value is available and its value is either "<code>ltr</code>" or
@@ -6637,7 +6638,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 					as defined in <a href="#manifest" class="sec-ref">§&#160;<bdi class="secno">4. </bdi>Publication
 						Manifest</a>.</li>
 				<li>It <em class="rfc2119" title="MUST">MUST</em> define a unique conformance URL and require that
-					conforming publications include this URL in their <a href="profile-conformance"
+					conforming publications include this URL in their <a href="#profile-conformance"
 							><code>conformsTo</code> property</a>.</li>
 				<li>One or both <a href="#manifest-link">linking methods</a>
 					<em class="rfc2119" title="MUST">MUST</em> be used in the discovery of the manifest.</li>
@@ -8464,10 +8465,10 @@ enum TextDirection {
 						Phillips; M. Davis. IETF. September 2009. IETF Best Current Practice. URL: <a
 							href="https://tools.ietf.org/html/bcp47">https://tools.ietf.org/html/bcp47</a></dd>
 					<dt id="bib-bibo">[bibo]</dt>
-					<dd><a href="http://bibliographic-ontology.org/specification"><cite>Bibliographic Ontology
+					<dd><a href="http://bibliontology.com/specification.html"><cite>Bibliographic Ontology
 								Specification</cite></a>. Bruce D'Arcus; Frédérick Giasson. Structured Dynamics LLC. 11
-						May 2016. URL: <a href="http://bibliographic-ontology.org/specification"
-							>http://bibliographic-ontology.org/specification</a></dd>
+						May 2016. URL: <a href="http://bibliontology.com/specification.html"
+							>http://bibliontology.com/specification.html</a></dd>
 					<dt id="bib-bibtex">[bibtex]</dt>
 					<dd><a href="http://www.bibtex.org/Format/"><cite>BibTeX Format Description</cite></a>. URL: <a
 							href="http://www.bibtex.org/Format/">http://www.bibtex.org/Format/</a></dd>
