@@ -33,19 +33,17 @@
 		
 		<p>This validator is alpha software. Error messages, in particular, may not be very helpful yet.</p>
 		
-		<textarea id="manifest" autocomplete="off" cols="50" rows="20">
-{
-	"@context" : [
-		"https://schema.org",
-		"https://www.w3.org/ns/pub-context",
-		{"language" : "en"}
-	],
-	"type"         : "Audiobook",
-	"conformsTo"   : "https://www.w3.org/TR/audiobooks/",
-	"name"         : "Test",
-	"readingOrder" : "chapter1.mp3"
-}
-		</textarea>
+		<textarea id="manifest" autocomplete="off" cols="55" rows="20">{
+   "@context" : [
+      "https://schema.org",
+      "https://www.w3.org/ns/pub-context",
+      {"language" : "en"}
+   ],
+   "type"         : "Audiobook",
+   "conformsTo"   : "https://www.w3.org/TR/audiobooks/",
+   "name"         : "Test",
+   "readingOrder" : "chapter1.mp3"
+}</textarea>
 		
 		<div id="results" aria-live="polite"></div>
 		

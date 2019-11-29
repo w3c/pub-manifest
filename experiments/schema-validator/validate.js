@@ -42,11 +42,29 @@ function validateManifest() {
 		validate.errors.forEach(function(error) {
 			var msg = error.message;
 			
-			if (msg.match(/should have/)) {
+			if (error.keyword == 'const') {
+				
+				var parts = error.dataPath.match(/\['(.*?)'\]\[([0-9]+)\]/)
+				if (parts) {
+					msg = 'Entry ' + (Number(parts[2])+1) + ' of ' + parts[1]; 
+				}
+				
+				else {
+					msg = error.dataPath;
+				}
+				
+				msg += ' ' + error.message;
+				
+				if (error.hasOwnProperty('params') && error.params.hasOwnProperty('allowedValue')) {
+					msg += ' "' + error.params.allowedValue + '"';
+				}
+			}
+			
+			else if (error.keyword == 'required') {
 				msg = 'Manifest ' + msg.replace('should have','missing');
 			}
 			
-			else if (msg.match(/should be/) && error.hasOwnProperty('params') && error.params.hasOwnProperty('type')) {
+			else if (error.keyword == 'type') {
 				msg = error.keyword + ' must be a ' + error.params.type.replace(',', ' or ');
 			}
 		
