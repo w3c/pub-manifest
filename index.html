@@ -24,8 +24,8 @@
 				wg: "Publishing Working Group",
 				specStatus: "ED",
 				shortName: "pub-manifest",
-				previousPublishDate: "2019-11-18",
-				previousMaturity: "WD",
+				previousPublishDate: "2019-12-05",
+				previousMaturity: "CR",
 				implementationReportURI: "https://www.w3.org/publishing/groups/publ-wg/implementation/results.html",
 				crEnd : "2020-03-31",
 				edDraftURI: "https://w3c.github.io/pub-manifest/",
@@ -33,7 +33,7 @@
 					{
 						"name": "Matt Garrish",
 						"company": "DAISY Consortium",
-						"companyURL": "http://www.daisy.org",
+						"companyURL": "https://daisy.org",
 						"w3cid": 51655
 					},
 					{
@@ -871,8 +871,8 @@
 
 					<p>By consequence, relative-URL strings in embedded manifests are resolved against the URL of the
 						document that references the manifest <em>unless</em> the document declares a base URL (i.e., in
-						a <a data-cite="!html#the-base-element"><code>&lt;base&gt;</code> element</a> in its
-						header).</p>
+						a <a href="https://html.spec.whatwg.org/multipage/semantics.html#the-base-element"
+								><code>&lt;base&gt;</code> element</a> in its header).</p>
 				</section>
 
 				<section id="value-id">
@@ -1514,7 +1514,7 @@
 										<a href="#value-array">Array</a> of <a href="#value-entity">Entities</a>
 									</td>
 									<td>
-										<a href="https://bib.schema.org/artist"><code>artist</code></a> (<a
+										<a href="https://schema.org/artist"><code>artist</code></a> (<a
 											href="https://schema.org/VisualArtwork">VisualArtwork</a>) </td>
 								</tr>
 								<tr>
@@ -1542,7 +1542,7 @@
 										<a href="#value-array">Array</a> of <a href="#value-entity">Entities</a>
 									</td>
 									<td>
-										<a href="https://bib.schema.org/colorist"><code>colorist</code></a> (<a
+										<a href="https://schema.org/colorist"><code>colorist</code></a> (<a
 											href="https://schema.org/VisualArtwork">VisualArtwork</a>) </td>
 								</tr>
 								<tr>
@@ -1612,7 +1612,7 @@
 										<a href="#value-array">Array</a> of <a href="#value-entity">Entities</a>
 									</td>
 									<td>
-										<a href="https://bib.schema.org/inker"><code>inker</code></a> (<a
+										<a href="https://schema.org/inker"><code>inker</code></a> (<a
 											href="https://schema.org/VisualArtwork">VisualArtwork</a>) </td>
 								</tr>
 								<tr>
@@ -1626,7 +1626,7 @@
 										<a href="#value-array">Array</a> of <a href="#value-entity">Entities</a>
 									</td>
 									<td>
-										<a href="https://bib.schema.org/letterer"><code>letterer</code></a> (<a
+										<a href="https://schema.org/letterer"><code>letterer</code></a> (<a
 											href="https://schema.org/VisualArtwork">VisualArtwork</a>) </td>
 								</tr>
 								<tr>
@@ -1639,7 +1639,7 @@
 										<a href="#value-array">Array</a> of <a href="#value-entity">Entities</a>
 									</td>
 									<td>
-										<a href="https://bib.schema.org/penciler"><code>penciler</code></a> (<a
+										<a href="https://schema.org/penciler"><code>penciler</code></a> (<a
 											href="https://schema.org/VisualArtwork">VisualArtwork</a>) </td>
 								</tr>
 								<tr>
@@ -1667,8 +1667,8 @@
 										<a href="#value-array">Array</a> of <a href="#value-entity">Entities</a>
 									</td>
 									<td>
-										<a href="https://bib.schema.org/readBy"><code>readBy</code></a> (<a
-											href="https://bib.schema.org/Audiobook">Audiobook</a>) </td>
+										<a href="https://schema.org/readBy"><code>readBy</code></a> (<a
+											href="https://schema.org/Audiobook">Audiobook</a>) </td>
 								</tr>
 								<tr>
 									<td id="translator">
@@ -2910,9 +2910,10 @@
 				<ul>
 					<li><var>text</var>: a UTF-8 string representing the manifest.</li>
 					<li><var>base</var>: a URL string that represents the <a>base URL</a> for the manifest.</li>
-					<li><var>document</var>: the <a data-cite="html#the-document-object">HTML Document (DOM)
-						Node</a>&#160;[[!html]] of the document that <a href="#manifest-discovery">references the
-							manifest</a>, when available.</li>
+					<li><var>document</var>: the <a
+							href="https://html.spec.whatwg.org/multipage/dom.html#the-document-object">HTML Document
+							(DOM) Node</a>&#160;[[!html]] of the document that <a href="#manifest-discovery">references
+							the manifest</a>, when available.</li>
 				</ul>
 
 				<p class="note">This algorithm does not describe how the manifest is discovered and obtained. The steps
@@ -4165,8 +4166,9 @@
 
 					<p>To <dfn>add default values</dfn> for missing properties in <a
 							href="https://infra.spec.whatwg.org/#ordered-map">map</a>
-						<var>data</var> with an optional <a data-cite="html#the-document-object">HTML Document (DOM)
-							Node</a>&#160;[[!html]] <var>document</var>, run the following steps:</p>
+						<var>data</var> with an optional <a
+							href="https://html.spec.whatwg.org/multipage/dom.html#the-document-object">HTML Document
+							(DOM) Node</a>&#160;[[!html]] <var>document</var>, run the following steps:</p>
 
 					<ol>
 						<li id="processing-defaults-title">
@@ -4179,17 +4181,18 @@
 									<ul>
 										<li>
 											<p>if <var>document</var> is set, if the <a
-													data-cite="html#the-title-element"><code>title</code></a>
-												element&#160;[[!html]] of <var>document</var> is set and is not empty,
-												set <var>title["value"]</var> to the text content of the
+													href="https://html.spec.whatwg.org/multipage/semantics.html#the-title-element"
+														><code>title</code></a> element&#160;[[!html]] of
+													<var>document</var> is set and is not empty, set
+													<var>title["value"]</var> to the text content of the
 													<code>title</code> element.</p>
 											<p>Set <var>title["language"]</var> to the <a
-													data-cite="html#the-lang-and-xml:lang-attributes"
-												>language</a>&#160;[[!html]], if available, and
+													href="https://html.spec.whatwg.org/multipage/dom.html#the-lang-and-xml%3Alang-attributes"
+													>language</a>&#160;[[!html]], if available, and
 													<var>title["direction"]</var> to the <a
-													data-cite="html#the-dir-attribute">base direction</a>&#160;[[!html]]
-												if that value is available and its value is either "<code>ltr</code>" or
-													"<code>rtl</code>". </p>
+													href="https://html.spec.whatwg.org/multipage/dom.html#the-dir-attribute"
+													>base direction</a>&#160;[[!html]] if that value is available and
+												its value is either "<code>ltr</code>" or "<code>rtl</code>". </p>
 										</li>
 										<li>
 											<p>otherwise, <a>validation error</a>, generate a value for
@@ -4290,7 +4293,7 @@
 				<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
 					></a>.</li>
 				<li>It MUST define a unique conformance URL and require that conforming publications include this URL in
-					their <a href="profile-conformance"><code>conformsTo</code> property</a>.</li>
+					their <a href="#profile-conformance"><code>conformsTo</code> property</a>.</li>
 				<li>One or both <a href="#manifest-link">linking methods</a> MUST be used in the discovery of the
 					manifest.</li>
 				<li>The generic processing steps described in <a href="#manifest-processing"></a> MUST remain valid for

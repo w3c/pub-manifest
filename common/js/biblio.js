@@ -118,7 +118,7 @@ var localBiblio = {
     },
     "onix": {
         "title": "ONIX for Books",
-        "href": "http://www.editeur.org/83/Overview"
+        "href": "https://www.editeur.org/83/Overview"
     },
     "bibtex": {
          "title": "BibTeX Format Description",
@@ -126,7 +126,7 @@ var localBiblio = {
     },
     "webschemas-a11y": {
     	"title": "WebSchemas Accessibility",
-    	"href": "http://www.w3.org/wiki/WebSchemas/Accessibility"
+    	"href": "https://www.w3.org/wiki/WebSchemas/Accessibility"
     },
     "mfrel": {
     	"title": "Microformats Wiki: existing rel values. Microformats.",
