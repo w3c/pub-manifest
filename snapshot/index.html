@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="generator" content="ReSpec 24.34.1" />
+		<meta name="generator" content="ReSpec 24.35.1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<style>
 			/* --- EXAMPLES --- */
@@ -414,6 +414,11 @@
 					display: none;
 				}
 			}</style>
+		<meta name="description"
+			content="This specification defines a general manifest format for expressing information about a digital
+				publication. It uses [schema.org] metadata augmented to include various structural properties about
+				publications, serialized in [json-ld11], to enable interoperability between publishing formats while
+				accommodating variances in the information that needs to be expressed." />
 		<link rel="canonical" href="https://www.w3.org/TR/pub-manifest/" />
 		<style>
 			/*
@@ -591,16 +596,20 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
         },
         {
             "type": "LinkedResource",
-            "url": "https://www.w3.org/StyleSheets/TR/2016/W3C-WD",
+            "url": "https://www.w3.org/StyleSheets/TR/2016/W3C-CR",
             "rel": "stylesheet",
             "encodingFormat": "text/css",
             "description": "CSS file depending on the status of the document"
         },
         {
             "type": "LinkedResource",
-            "url": "https://www.w3.org/StyleSheets/TR/2016/logos/WD",
+            "url": "https://www.w3.org/StyleSheets/TR/2016/logos/CR",
             "encodingFormat": "image/svg+xml",
             "description": "Sidebar logo reflecting the status of the document"
+        },
+        {
+            "type": "LinkedResource",
+            "url": "profile-conformance"
         }
     ],
     "links": [
@@ -624,8 +633,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
         }
     ],
     "id": "https://www.w3.org/TR/pub-manifest/",
-    "url": "https://www.w3.org/TR/2019/WD-pub-manifest-20191118/",
-    "datePublished": "2019-11-18",
+    "url": "https://www.w3.org/TR/2019/CR-pub-manifest-20191205/",
+    "datePublished": "2019-12-05",
     "editor": [
         {
             "type": "Person",
@@ -658,10 +667,12 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
     null
   ],
   "wg": "Publishing Working Group",
-  "specStatus": "WD",
+  "specStatus": "CR",
   "shortName": "pub-manifest",
-  "previousPublishDate": "2019-09-11",
+  "previousPublishDate": "2019-11-18",
   "previousMaturity": "WD",
+  "implementationReportURI": "https://www.w3.org/publishing/groups/publ-wg/implementation/results.html",
+  "crEnd": "2020-03-31",
   "edDraftURI": "https://w3c.github.io/pub-manifest/",
   "editors": [
     {
@@ -820,29 +831,24 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
       "id": "mfrel"
     }
   },
-  "publishDate": "2019-11-18",
-  "publishISODate": "2019-11-18T00:00:00.000Z",
-  "generatedSubtitle": "Working Draft 18 November 2019"
+  "publishDate": "2019-12-05",
+  "publishISODate": "2019-12-05T00:00:00.000Z",
+  "generatedSubtitle": "Candidate Recommendation 05 December 2019"
 }</script>
-		<meta name="description"
-			content="This specification defines a general manifest format for expressing information about a digital
-				publication. It uses [schema.org] metadata augmented to include various structural properties about
-				publications, serialized in [json-ld11], to enable interoperability between publishing formats while
-				accommodating variances in the information that needs to be expressed." />
-		<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WD" />
+		<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-CR" />
 	</head>
 	<body class="h-entry"><div class="head">
 			<a class="logo" href="https://www.w3.org/"><img alt="W3C"
 					src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72" height="48" /></a>
 			<h1 id="title" class="title p-name">Publication Manifest</h1>
 
-			<h2> W3C Working Draft <time class="dt-published" datetime="2019-11-18">18 November 2019</time>
+			<h2> W3C Candidate Recommendation <time class="dt-published" datetime="2019-12-05">05 December 2019</time>
 			</h2>
 			<dl>
 				<dt>This version:</dt>
 				<dd>
-					<a class="u-url" href="https://www.w3.org/TR/2019/WD-pub-manifest-20191118/"
-						>https://www.w3.org/TR/2019/WD-pub-manifest-20191118/</a>
+					<a class="u-url" href="https://www.w3.org/TR/2019/CR-pub-manifest-20191205/"
+						>https://www.w3.org/TR/2019/CR-pub-manifest-20191205/</a>
 				</dd>
 				<dt>Latest published version:</dt>
 				<dd>
@@ -851,12 +857,16 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 				<dt>Latest editor's draft:</dt>
 				<dd><a href="https://w3c.github.io/pub-manifest/">https://w3c.github.io/pub-manifest/</a></dd>
 
-
+				<dt>Implementation report:</dt>
+				<dd>
+					<a href="https://www.w3.org/publishing/groups/publ-wg/implementation/results.html"
+						>https://www.w3.org/publishing/groups/publ-wg/implementation/results.html</a>
+				</dd>
 
 
 				<dt>Previous version:</dt>
-				<dd><a href="https://www.w3.org/TR/2019/WD-pub-manifest-20190911/"
-						>https://www.w3.org/TR/2019/WD-pub-manifest-20190911/</a></dd>
+				<dd><a href="https://www.w3.org/TR/2019/WD-pub-manifest-20191118/"
+						>https://www.w3.org/TR/2019/WD-pub-manifest-20191118/</a></dd>
 
 				<dt>Editors:</dt>
 				<dd class="p-author h-card vcard" data-editor-id="51655"><span class="p-name fn">Matt Garrish</span> (<a
@@ -926,16 +936,25 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 						href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical
 						reports index</a> at https://www.w3.org/TR/.</em></p>
 			<p> This document was published by the <a href="https://www.w3.org/publishing/groups/publ-wg/">Publishing
-					Working Group</a> as a Working Draft. This document is intended to become a <abbr
+					Working Group</a> as a Candidate Recommendation. This document is intended to become a <abbr
 					title="World Wide Web Consortium">W3C</abbr> Recommendation. </p>
 			<p>
 				<a href="https://github.com/w3c/pub-manifest/issues/">GitHub Issues</a> are preferred for discussion of
 				this specification. Alternatively, you can send comments to our mailing list. Please send them to <a
 					href="mailto:public-publ-wg@w3.org">public-publ-wg@w3.org</a> (<a
 					href="https://lists.w3.org/Archives/Public/public-publ-wg/">archives</a>). </p>
-			<p> Publication as a Working Draft does not imply endorsement by the <abbr title="World Wide Web Consortium"
-					>W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other
-				documents at any time. It is inappropriate to cite this document as other than work in progress. </p>
+			<p>
+				<abbr title="World Wide Web Consortium">W3C</abbr> publishes a Candidate Recommendation to indicate that
+				the document is believed to be stable and to encourage implementation by the developer community. This
+				Candidate Recommendation is expected to advance to Proposed Recommendation no earlier than 31 March
+				2020. </p>
+			<p> Please see the Working Group's <a
+					href="https://www.w3.org/publishing/groups/publ-wg/implementation/results.html">implementation
+					report</a>. </p>
+			<p> Publication as a Candidate Recommendation does not imply endorsement by the <abbr
+					title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be
+				updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document
+				as other than work in progress. </p>
 			<p> This document was produced by a group operating under the <a
 					href="https://www.w3.org/Consortium/Patent-Policy/"><abbr title="World Wide Web Consortium"
 						>W3C</abbr> Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a
@@ -2103,7 +2122,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
         {
             <span class="hljs-attr">"type"</span>: <span class="hljs-string">"LinkedResource"</span>,
             <span class="hljs-attr">"url"</span>: <span class="hljs-string">"chapter1.json"</span>,
-            <span class="hljs-attr">"encodingFormat"</span>: <span class="hljs-string">"application/vnd.wp-sync-media+json"</span>,
+            <span class="hljs-attr">"encodingFormat"</span>: <span class="hljs-string">"application/vnd.syncnarr+json"</span>,
             <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"PT1669S"</span>
         }
     ]
@@ -2196,18 +2215,6 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 						document that references the manifest <em>unless</em> the document declares a base URL (i.e., in
 						a <a href="https://html.spec.whatwg.org/multipage/#the-base-element"><code>&lt;base&gt;</code>
 							element</a> in its header).</p>
-
-					<div class="note" role="note" id="issue-container-generatedID-4">
-						<div role="heading" class="note-title marker" id="h-note-4" aria-level="5">
-							<span>Note</span>
-						</div>
-						<p class=""><abbr title="Uniform Resource Locators">URLs</abbr> allow for the usage of
-							characters from Unicode following&#160;[<cite><a class="bibref" href="#bib-rfc3987"
-									title="Internationalized Resource Identifiers (IRIs)" data-link-type="biblio"
-									>rfc3987</a></cite>]. See <a
-								href="https://www.w3.org/TR/html/references.html#biblio-url">the note in the HTML5
-								specification</a> for further details.</p>
-					</div>
 				</section>
 
 				<section id="value-id">
@@ -2344,8 +2351,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 						href="#manifest-lang-dir-global">globally</a> as well as on <a href="#manifest-lang-dir-local"
 						>individual items</a> to aid user agents in interpreting and presenting the metadata. </p>
 
-				<div class="note" role="note" id="issue-container-generatedID-5">
-					<div role="heading" class="note-title marker" id="h-note-5" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-4">
+					<div role="heading" class="note-title marker" id="h-note-4" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class=""> The ability to set the base direction is a JSON-LD&#160;1.1&#160;[<cite><a
@@ -2501,7 +2508,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
         {
             <span class="hljs-string">"value"</span>: <span class="hljs-string">"HTML و CSS: تصميم و إنشاء مواقع الويب"</span>,
             <span class="hljs-string">"direction"</span>: <span class="hljs-string">"rtl"</span>
-        }
+        },
         {
             <span class="hljs-string">"value"</span>    : <span class="hljs-string">"HTML and CSS: Design and Build Websites"</span>,
             <span class="hljs-string">"language"</span> : <span class="hljs-string">"en"</span>
@@ -2509,8 +2516,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
     ]
 }</code></pre>
 					</aside>
-					<div class="note" role="note" id="issue-container-generatedID-6">
-						<div role="heading" class="note-title marker" id="h-note-6" aria-level="5">
+					<div class="note" role="note" id="issue-container-generatedID-5">
+						<div role="heading" class="note-title marker" id="h-note-5" aria-level="5">
 							<span>Note</span>
 						</div>
 						<div class="">
@@ -2530,8 +2537,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 						also be the (JSON) value of <code>null</code>, indicating that no explicit language,
 						respectively direction, is set. </p>
 
-					<div class="note" role="note" id="issue-container-generatedID-7">
-						<div role="heading" class="note-title marker" id="h-note-7" aria-level="5">
+					<div class="note" role="note" id="issue-container-generatedID-6">
+						<div role="heading" class="note-title marker" id="h-note-6" aria-level="5">
 							<span>Note</span>
 						</div>
 						<p class=""> Setting the value of <code>language</code> to <code>null</code> can be useful if a
@@ -2619,8 +2626,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 				<p>User agents <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> fail to process manifests that are
 					not valid to their declared Schema.org type(s).</p>
 
-				<div class="note" role="note" id="issue-container-generatedID-8">
-					<div role="heading" class="note-title marker" id="h-note-8" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-7">
+					<div role="heading" class="note-title marker" id="h-note-7" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class="">Refer to the Schema.org site for the complete <a
@@ -2667,14 +2674,14 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 
 				<p>The URL to use for a profile is defined in its respective specification.</p>
 
-				<div class="note" role="note" id="issue-container-generatedID-9">
-					<div role="heading" class="note-title marker" id="h-note-9" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-8">
+					<div role="heading" class="note-title marker" id="h-note-8" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class="">The <code>conformsTo</code> property can also be used to indicate conformance to other
 						specifications and standards (e.g., to [<cite><a class="bibref" href="#bib-wcag21"
 								title="Web Content Accessibility Guidelines (WCAG) 2.1" data-link-type="biblio"
-								>WCAG21</a></cite>]).</p>
+								>wcag21</a></cite>]).</p>
 				</div>
 
 				<div class="example"
@@ -2688,7 +2695,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 					</div>
 					<pre aria-busy="false"><code class="hljs javascript">{
     …
-    <span class="hljs-string">"conformsTo"</span> : <span class="hljs-string">"https://www.w3.org/TR/audiobooks"</span>,
+    <span class="hljs-string">"conformsTo"</span> : <span class="hljs-string">"https://www.w3.org/TR/audiobooks/"</span>,
     …
 }</code></pre>
 				</div>
@@ -2854,8 +2861,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 							</tbody>
 						</table>
 
-						<div class="note" role="note" id="issue-container-generatedID-10">
-							<div role="heading" class="note-title marker" id="h-note-10" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-9">
+							<div role="heading" class="note-title marker" id="h-note-9" aria-level="6">
 								<span>Note</span>
 							</div>
 							<p class="">Detailed descriptions of these properties, including the expected values to use
@@ -2864,8 +2871,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 									>webschemas-a11y</a></cite>].</p>
 						</div>
 
-						<div class="note" role="note" id="issue-container-generatedID-11">
-							<div role="heading" class="note-title marker" id="h-note-11" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-10">
+							<div role="heading" class="note-title marker" id="h-note-10" aria-level="6">
 								<span>Note</span>
 							</div>
 							<p class="">A reference to a detailed <a href="#accessibility-report">accessibility
@@ -2944,8 +2951,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 							but all the addresses <em class="rfc2119" title="MUST">MUST</em> resolve to the same
 							document.</p>
 
-						<div class="note" role="note" id="issue-container-generatedID-12">
-							<div role="heading" class="note-title marker" id="h-note-12" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-11">
+							<div role="heading" class="note-title marker" id="h-note-11" aria-level="6">
 								<span>Note</span>
 							</div>
 							<div class="">The publication's address can also be used as value for an identifier link
@@ -3004,8 +3011,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 							</tbody>
 						</table>
 
-						<div class="note" role="note" id="issue-container-generatedID-13">
-							<div role="heading" class="note-title marker" id="h-note-13" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-12">
+							<div role="heading" class="note-title marker" id="h-note-12" aria-level="6">
 								<span>Note</span>
 							</div>
 							<p class="">Ensuring uniqueness of canonical identifiers is outside the scope of this
@@ -3401,8 +3408,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 }</code></pre>
 						</div>
 
-						<div class="note" role="note" id="issue-container-generatedID-14">
-							<div role="heading" class="note-title marker" id="h-note-14" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-13">
+							<div role="heading" class="note-title marker" id="h-note-13" aria-level="6">
 								<span>Note</span>
 							</div>
 							<p class=""> The <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">relevant
@@ -3609,8 +3616,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 							specified, the first entry in the <code>inLanguage</code> array <em class="rfc2119"
 								title="MUST">MUST</em> be recognized as the primary.</p>
 
-						<div class="note" role="note" id="issue-container-generatedID-15">
-							<div role="heading" class="note-title marker" id="h-note-15" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-14">
+							<div role="heading" class="note-title marker" id="h-note-14" aria-level="6">
 								<span>Note</span>
 							</div>
 							<p class="">It is important to differentiate the language <em>of the publication</em> from
@@ -3733,8 +3740,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 							is defined in <a href="#add-default-values" class="sec-ref">§&#160;<bdi class="secno">7.4.3
 								</bdi>Add Default Values</a>.</p>
 
-						<div class="note" role="note" id="issue-container-generatedID-16">
-							<div role="heading" class="note-title marker" id="h-note-16" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-15">
+							<div role="heading" class="note-title marker" id="h-note-15" aria-level="6">
 								<span>Note</span>
 							</div>
 							<p class="">A user agent is not expected to produce a <a
@@ -3772,8 +3779,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 						like the <a href="#privacy-policy">privacy policy</a>, and <a href="#structural-rel">structural
 							resources</a> like the <a href="#table-of-contents">table of contents</a>.</p>
 
-					<div class="note" role="note" id="issue-container-generatedID-17">
-						<div role="heading" class="note-title marker" id="h-note-17" aria-level="5">
+					<div class="note" role="note" id="issue-container-generatedID-16">
+						<div role="heading" class="note-title marker" id="h-note-16" aria-level="5">
 							<span>Note</span>
 						</div>
 						<p class="">It is not necessary to include a reference to the manifest in any of these
@@ -4197,7 +4204,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
     …
 }</code></pre>
 						</div>
-						<div class="note" id="issue-container-generatedID-18">
+						<div class="note" id="issue-container-generatedID-17">
 							<div role="heading" class="ednote-title marker" id="h-ednote" aria-level="6">
 								<span>Editor's note</span>
 							</div>
@@ -4223,8 +4230,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 									class="bibref" href="#bib-json-ld11" title="JSON-LD 1.1" data-link-type="biblio"
 									>json-ld11</a></cite>], with prefixes defined as part of the context.</p>
 
-						<div class="note" role="note" id="issue-container-generatedID-19">
-							<div role="heading" class="note-title marker" id="h-note-18" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-18">
+							<div role="heading" class="note-title marker" id="h-note-17" aria-level="6">
 								<span>Note</span>
 							</div>
 							<p class="">Proper use of prefixes and compact IRIs is necessary to use a manifest with a
@@ -4331,7 +4338,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 						<p>The link to the cover <em class="rfc2119" title="MUST NOT">MUST NOT</em> be specified in the
 								<a href="#links">links list</a>.</p>
 
-						<div class="note" id="issue-container-generatedID-20">
+						<div class="note" id="issue-container-generatedID-19">
 							<div role="heading" class="ednote-title marker" id="h-ednote-0" aria-level="6">
 								<span>Editor's note</span>
 							</div>
@@ -4362,10 +4369,10 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 
 						<p>If the cover is an image (whether embedded in an HTML resource or not), it is strongly
 							advised to follow <a href="https://www.w3.org/TR/WCAG/#non-text-content">Success Criterion
-								1.1.1</a>&#160;[<cite><a class="bibref" href="#bib-wcag"
-									title="Web Content Accessibility Guidelines 1.0" data-link-type="biblio"
-								>WCAG</a></cite>] for the provision of alternative text and extended descriptions. For
-							image formats that do not provide the ability to embed this information, the <a
+								1.1.1</a>&#160;[<cite><a class="bibref" href="#bib-wcag21"
+									title="Web Content Accessibility Guidelines (WCAG) 2.1" data-link-type="biblio"
+									>wcag21</a></cite>] for the provision of alternative text and extended descriptions.
+							For image formats that do not provide the ability to embed this information, the <a
 								href="#linkedresource-name"><code>name</code></a> and <a
 								href="#linkedresource-description"><code>description</code></a> properties of <a
 								href="#dfn-linkedresources" class="internalDFN" data-link-type="dfn"
@@ -4477,7 +4484,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 
 						<p>The page list is identified by the <code>pagelist</code> link relation.</p>
 
-						<div class="note" id="issue-container-generatedID-21">
+						<div class="note" id="issue-container-generatedID-20">
 							<div role="heading" class="ednote-title marker" id="h-ednote-1" aria-level="6">
 								<span>Editor's note</span>
 							</div>
@@ -4586,7 +4593,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 						<p>An accessibility report is identified using the <code>accessibility-report</code> link
 							relation.</p>
 
-						<div class="note" id="issue-container-generatedID-22">
+						<div class="note" id="issue-container-generatedID-21">
 							<div role="heading" class="ednote-title marker" id="h-ednote-2" aria-level="6">
 								<span>Editor's note</span>
 							</div>
@@ -4598,8 +4605,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 							a resource of the publication so that it is available, for example, when a publication is
 							read offline.</p>
 
-						<div class="note" role="note" id="issue-container-generatedID-23">
-							<div role="heading" class="note-title marker" id="h-note-19" aria-level="6">
+						<div class="note" role="note" id="issue-container-generatedID-22">
+							<div role="heading" class="note-title marker" id="h-note-18" aria-level="6">
 								<span>Note</span>
 							</div>
 							<p class="">Providing the accessibility report in a human-readable format, such as HTML
@@ -4856,7 +4863,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 				<p>When a <a href="#dfn-digital-publications" class="internalDFN" data-link-type="dfn">digital
 						publication</a> format allows manifests to be embedded within an HTML document, the manifest <em
 						class="rfc2119" title="MUST">MUST</em> be included in a <a
-						href="https://www.w3.org/TR/html5/semantics-scripting.html#the-script-element"
+						href="https://html.spec.whatwg.org/multipage/scripting.html#the-script-element"
 							><code>script</code> element</a>&#160;[<cite><a class="bibref" href="#bib-html"
 							title="HTML Standard" data-link-type="biblio">html</a></cite>] whose <a
 						href="https://www.w3.org/TR/json-ld11/#embedding-json-ld-in-html-documents"><code>type</code>
@@ -4915,8 +4922,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 						>infra</a></cite>] <a href="https://infra.spec.whatwg.org/#ordered-map">map</a> of the data
 					being returned.</p>
 
-				<div class="note" role="note" id="issue-container-generatedID-24">
-					<div role="heading" class="note-title marker" id="h-note-20" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-23">
+					<div role="heading" class="note-title marker" id="h-note-19" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class="">An actual implementation of this algorithm will use the corresponding constructs and
@@ -4969,8 +4976,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 				<p>If a context is not provided to a function, the term being processed is considered part of the global
 					context (i.e., it is a direct child of the manifest).</p>
 
-				<div class="note" role="note" id="issue-container-generatedID-25">
-					<div role="heading" class="note-title marker" id="h-note-21" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-24">
+					<div role="heading" class="note-title marker" id="h-note-20" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class="">When extending the list of recognized types, the <a href="#dfn-normalize-data"
@@ -4996,8 +5003,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 							href="#manifest-discovery">references the manifest</a>, when available.</li>
 				</ul>
 
-				<div class="note" role="note" id="issue-container-generatedID-26">
-					<div role="heading" class="note-title marker" id="h-note-22" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-25">
+					<div role="heading" class="note-title marker" id="h-note-21" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class="">This algorithm does not describe how the manifest is discovered and obtained. The steps
@@ -5073,8 +5080,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 									rendering.</p>
 							</li>
 						</ol>
-						<div class="note" role="note" id="issue-container-generatedID-27">
-							<div role="heading" class="note-title marker" id="h-note-23" aria-level="4">
+						<div class="note" role="note" id="issue-container-generatedID-26">
+							<div role="heading" class="note-title marker" id="h-note-22" aria-level="4">
 								<span>Note</span>
 							</div>
 							<p class="">The value of <var>manifest["conformsTo"]</var> could be a <a
@@ -5183,8 +5190,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 					</li>
 				</ol>
 
-				<div class="note" role="note" id="issue-container-generatedID-28">
-					<div role="heading" class="note-title marker" id="h-note-24" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-27">
+					<div role="heading" class="note-title marker" id="h-note-23" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class="">For a visualization of the resulting structure, see <a
@@ -6326,8 +6333,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 												>validation error</a>, return failure.</p>
 									</li>
 								</ol>
-								<div class="note" role="note" id="issue-container-generatedID-29">
-									<div role="heading" class="note-title marker" id="h-note-25" aria-level="6">
+								<div class="note" role="note" id="issue-container-generatedID-28">
+									<div role="heading" class="note-title marker" id="h-note-24" aria-level="6">
 										<span>Note</span>
 									</div>
 									<p class="">This step currently only exists for use by <a href="#dfn-profiles"
@@ -6630,7 +6637,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 					as defined in <a href="#manifest" class="sec-ref">§&#160;<bdi class="secno">4. </bdi>Publication
 						Manifest</a>.</li>
 				<li>It <em class="rfc2119" title="MUST">MUST</em> define a unique conformance URL and require that
-					conforming publications include this URL in their <a href="#profile-conformance"
+					conforming publications include this URL in their <a href="profile-conformance"
 							><code>conformsTo</code> property</a>.</li>
 				<li>One or both <a href="#manifest-link">linking methods</a>
 					<em class="rfc2119" title="MUST">MUST</em> be used in the discovery of the manifest.</li>
@@ -6652,7 +6659,7 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 					</ul>
 				</li>
 			</ol>
-			<div class="note" id="issue-container-generatedID-30">
+			<div class="note" id="issue-container-generatedID-29">
 				<div role="heading" class="ednote-title marker" id="h-ednote-3" aria-level="3">
 					<span>Editor's note</span>
 				</div>
@@ -6713,8 +6720,8 @@ github.com style (c) Vasily Polovnyov &lt;vast@whiteants.net>
 					the manifest after <a href="#manifest-processing">processing</a> using [<cite><a class="bibref"
 							href="#bib-webidl" title="Web IDL" data-link-type="biblio">WebIDL</a></cite>].</p>
 
-				<div class="note" role="note" id="issue-container-generatedID-31">
-					<div role="heading" class="note-title marker" id="h-note-26" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-30">
+					<div role="heading" class="note-title marker" id="h-note-25" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class="">This specification does not define an API for exposing the manifest data.</p>
@@ -6887,11 +6894,11 @@ enum TextDirection {
 				<p><em>This section is non-normative.</em></p>
 
 				<p>To facilitate navigation within pages and across sites, HTML uses the <a
-						href="https://www.w3.org/TR/html/sections.html#the-nav-element"><code>nav</code>
-							element</a>&#160;[<cite><a class="bibref" href="#bib-html" title="HTML Standard"
+						href="https://html.spec.whatwg.org/multipage/sections.html#the-nav-element"><code>nav</code>
+						element</a>&#160;[<cite><a class="bibref" href="#bib-html" title="HTML Standard"
 							data-link-type="biblio">html</a></cite>] to express lists of links. Although generic in
 					nature by default, the purpose of a <code>nav</code> element can be more specifically identified by
-					use of the <a href="https://www.w3.org/TR/html/dom.html#aria-role-attribute"><code>role</code>
+					use of the <a href="https://html.spec.whatwg.org/multipage/dom.html#wai-aria"><code>role</code>
 						attribute</a>&#160;[<cite><a class="bibref" href="#bib-html" title="HTML Standard"
 							data-link-type="biblio">html</a></cite>]. In particular, the <code>doc-toc</code> role from
 					the [<cite><a class="bibref" href="#bib-dpub-aria-1.0"
@@ -6910,13 +6917,13 @@ enum TextDirection {
 
 				<p>Authors have a choice of lists (ordered or unordered) to construct their table of contents. By
 					tagging each link within these lists in anchor tags (<a
-						href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"><code>a</code>
-						elements</a>), user agents can easily differentiate the information they need from any
-					peripheral content (asides) or stylistic tagging that has also been added. The table of contents can
-					consist of both active links (with an <code>href</code> attribute) and inactive links (excluding the
-						<code>href</code> attribute), providing additional flexibility in how the table of contents is
-					constructed (e.g., to omit links to certain headings or only link to certain content in a
-					preview).</p>
+						href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element"
+							><code>a</code> elements</a>), user agents can easily differentiate the information they
+					need from any peripheral content (asides) or stylistic tagging that has also been added. The table
+					of contents can consist of both active links (with an <code>href</code> attribute) and inactive
+					links (excluding the <code>href</code> attribute), providing additional flexibility in how the table
+					of contents is constructed (e.g., to omit links to certain headings or only link to certain content
+					in a preview).</p>
 			</section>
 
 			<section id="app-toc-html">
@@ -6925,9 +6932,9 @@ enum TextDirection {
 
 				<p>The table of contents is expressed via an [<cite><a class="bibref" href="#bib-html"
 							title="HTML Standard" data-link-type="biblio">html</a></cite>]&#160;element (typically a <a
-						href="https://www.w3.org/TR/html/sections.html#the-nav-element"><code>nav</code> element</a>).
-					This element <em class="rfc2119" title="MUST">MUST</em> be identified by the <code>role</code>
-							attribute&#160;[<cite><a class="bibref" href="#bib-html" title="HTML Standard"
+						href="https://html.spec.whatwg.org/multipage/sections.html#the-nav-element"><code>nav</code>
+						element</a>). This element <em class="rfc2119" title="MUST">MUST</em> be identified by the
+						<code>role</code> attribute&#160;[<cite><a class="bibref" href="#bib-html" title="HTML Standard"
 							data-link-type="biblio">html</a></cite>] value "<code>doc-toc</code>"&#160;[<cite><a
 							class="bibref" href="#bib-dpub-aria-1.0" title="Digital Publishing WAI-ARIA Module 1.0"
 							data-link-type="biblio">dpub-aria-1.0</a></cite>], and <em class="rfc2119" title="MUST"
@@ -6949,7 +6956,7 @@ enum TextDirection {
 							a placeholder title when one is needed, it is advised to add one. Titles are specified using
 							any of the [<cite><a class="bibref" href="#bib-html" title="HTML Standard"
 									data-link-type="biblio">html</a></cite>]&#160;<a
-								href="https://www.w3.org/TR/html/sections.html#the-h1-h2-h3-h4-h5-and-h6-elements"
+								href="https://html.spec.whatwg.org/multipage/sections.html#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements"
 									><code>h1</code> through <code>h6</code> elements</a>. Note that only the first such
 							element is recognized as the title. If a heading element is not found before the <a
 								href="#toc-list-links">list of links</a>, user agents will assume that one has not been
@@ -6959,14 +6966,14 @@ enum TextDirection {
 					<dd>
 						<p>The first [<cite><a class="bibref" href="#bib-html" title="HTML Standard"
 									data-link-type="biblio">html</a></cite>]&#160;<a
-								href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"
-								><code>ol</code></a> or <a
-								href="https://www.w3.org/TR/html/grouping-content.html#the-ul-element"
-								><code>ul</code></a> list element encountered in the <code>nav</code> element is assumed
-							to contain the list that defines the links into the content. This list will be found even if
-							it is nested inside of <a
-								href="https://www.w3.org/TR/html/grouping-content.html#the-div-element"
-								><code>div</code></a> elements, for example, as the algorithm <a
+								href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"
+									><code>ol</code></a> or <a
+								href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"
+									><code>ul</code></a> list element encountered in the <code>nav</code> element is
+							assumed to contain the list that defines the links into the content. This list will be found
+							even if it is nested inside of <a
+								href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-div-element"
+									><code>div</code></a> elements, for example, as the algorithm <a
 								href="#toc-ignored-elements">ignores elements</a> that are not relevant to its
 							processing. The list cannot occur inside of any <a href="#toc-skipped-elements">skipped
 								elements</a>, however, since their internal contents are not evaluated.</p>
@@ -6977,14 +6984,16 @@ enum TextDirection {
 					<dt id="toc-branches">Branches</dt>
 					<dd>
 						<p>If the table of contents is considered as a tree of links, then each list item (<a
-								href="https://www.w3.org/TR/html/grouping-content.html#the-li-element"><code>li</code>
-								element</a>) inside of the <a href="#toc-list-links">list of links</a> represents one
-							branch. Each of these branches has to have a name and optional destination in order to be
-							presented to users, and this information is obtained from the first <a
-								href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"><code>a</code>
-								element</a> found within the list item, <a href="#toc-ignored-elements">wherever it is
-								nested</a> (again, excluding any <code>a</code> elements inside of <a
-								href="#toc-skipped-elements">skipped elements</a>.)</p>
+								href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element"
+									><code>li</code> element</a>) inside of the <a href="#toc-list-links">list of
+								links</a> represents one branch. Each of these branches has to have a name and optional
+							destination in order to be presented to users, and this information is obtained from the
+							first <a
+								href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element"
+									><code>a</code> element</a> found within the list item, <a
+								href="#toc-ignored-elements">wherever it is nested</a> (again, excluding any
+								<code>a</code> elements inside of <a href="#toc-skipped-elements">skipped
+							elements</a>.)</p>
 						<p>The link destination for the branch is obtained from the <code>a</code> element's
 								<code>href</code> attribute, when specified. This attribute can be omitted if a link is
 							not available (e.g., in a preview) or not relevant (e.g., a grouping header). When providing
@@ -7001,15 +7010,16 @@ enum TextDirection {
 						<p>A small set of elements are ignored when the parsing table of contents to avoid
 							misinterpretation. These are the [<cite><a class="bibref" href="#bib-html"
 									title="HTML Standard" data-link-type="biblio">html</a></cite>]&#160;<a
-								href="https://www.w3.org/TR/html/dom.html#sectioning-content">sectioning content
-								elements</a> and <a href="https://www.w3.org/TR/html/sections.html#sectioning-roots"
-								>sectioning root elements</a>. The reason they are ignored is because they can defined
-							their own outlines (i.e., they can represent embedded content that is self-contained and not
+								href="https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2">sectioning
+								content elements</a> and <a
+								href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root">sectioning
+								root elements</a>. The reason they are ignored is because they can defined their own
+							outlines (i.e., they can represent embedded content that is self-contained and not
 							necessarily related to the structure of content links).</p>
 						<p>Any element that has its <a
-								href="https://www.w3.org/TR/html/editing.html#the-hidden-attribute"><code>hidden</code>
-								attribute</a> set is also skipped, since hidden elements are not intended to be directly
-							accessed by users.</p>
+								href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
+									><code>hidden</code> attribute</a> set is also skipped, since hidden elements are
+							not intended to be directly accessed by users.</p>
 						<p>Although these elements can be included in the <code>nav</code> element, care has to be taken
 							not to embed important content within them (e.g., do not wrap a <code>section</code> element
 							around the list item that contains all the links into the content).</p>
@@ -7142,14 +7152,15 @@ enum TextDirection {
 
 				<p>This section defines an algorithm for extracting a table of contents from a <code>nav</code> element.
 					It is defined in terms of a walk over the nodes of a DOM tree, in <a
-						href="https://www.w3.org/TR/html/infrastructure.html#tree-order">tree order</a>, with each node
-					being visited when it is <em>entered</em> and when it is <em>exited</em> during the walk. Each time
-					a node is visited, it can be seen as triggering an <em>enter</em> or <em>exit</em> event. In some
-					steps, user agents are provided a choice in how to process the content to provide flexibility for
-					different presentation models.</p>
+						href="https://dom.spec.whatwg.org/#concept-tree-order">tree order</a>&#160;[<cite><a
+							class="bibref" href="#bib-dom" title="DOM Standard" data-link-type="biblio">dom</a></cite>],
+					with each node being visited when it is <em>entered</em> and when it is <em>exited</em> during the
+					walk. Each time a node is visited, it can be seen as triggering an <em>enter</em> or <em>exit</em>
+					event. In some steps, user agents are provided a choice in how to process the content to provide
+					flexibility for different presentation models.</p>
 
-				<div class="note" role="note" id="issue-container-generatedID-32">
-					<div role="heading" class="note-title marker" id="h-note-27" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-31">
+					<div role="heading" class="note-title marker" id="h-note-26" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class="">User agents can process and internalize the resulting structure in whatever language and
@@ -7159,9 +7170,10 @@ enum TextDirection {
 				<p>For the purposes of this algorithm, a <dfn data-dfn-type="dfn" id="dfn-list-element">list
 						element</dfn> is defined as either an [<cite><a class="bibref" href="#bib-html"
 							title="HTML Standard" data-link-type="biblio">html</a></cite>]&#160;<a
-						href="https://www.w3.org/TR/html/grouping-content.html#the-ol-element"><code>ol</code></a> or <a
-						href="https://www.w3.org/TR/html/grouping-content.html#the-ul-element"><code>ul</code></a>
-					element.</p>
+						href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"
+							><code>ol</code></a> or <a
+						href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"
+							><code>ul</code></a> element.</p>
 
 				<p>The following algorithm <em class="rfc2119" title="MUST">MUST</em> be applied to a walk of a DOM
 					subtree rooted at the table of contents element determined as follows:</p>
@@ -7217,15 +7229,17 @@ enum TextDirection {
 					</li>
 
 					<li id="toc-walk-dom">
-						<p>Walk over the DOM in <a href="https://www.w3.org/TR/html/infrastructure.html#tree-order">tree
-								order</a>, starting with the element the table of contents is being built from, and
-							trigger the first relevant step below for each element as the walk enters and exits it.</p>
+						<p>Walk over the DOM in <a href="https://dom.spec.whatwg.org/#concept-tree-order">tree
+									order</a>&#160;[<cite><a class="bibref" href="#bib-dom" title="DOM Standard"
+									data-link-type="biblio">dom</a></cite>], starting with the element the table of
+							contents is being built from, and trigger the first relevant step below for each element as
+							the walk enters and exits it.</p>
 						<ol>
 							<li id="toc-dom-enter-heading">
 								<p>
 									<strong>When entering a <a
-											href="https://www.w3.org/TR/html/dom.html#heading-content-2">heading
-											content</a> element:</strong>
+											href="https://html.spec.whatwg.org/multipage/dom.html#heading-content-2"
+											>heading content</a> element:</strong>
 								</p>
 								<p>Run these steps:</p>
 								<ol>
@@ -7373,9 +7387,9 @@ enum TextDirection {
 							<li id="toc-dom-enter-li">
 								<p>
 									<strong>When entering a <a
-											href="https://www.w3.org/TR/html/grouping-content.html#the-li-element">list
-											item</a> element, set <var>current_toc_branch</var> to the following <a
-											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
+											href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element"
+											>list item</a> element, set <var>current_toc_branch</var> to the following
+											<a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
 								</p>
 								<pre aria-busy="false"><code class="hljs javascript">«[
     <span class="hljs-string">"name"</span> → <span class="hljs-string">""</span>,
@@ -7397,8 +7411,8 @@ enum TextDirection {
 							<li id="toc-dom-exist-list">
 								<p>
 									<strong>When exiting a <a
-											href="https://www.w3.org/TR/html/grouping-content.html#the-li-element">list
-											item</a> element:</strong>
+											href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element"
+											>list item</a> element:</strong>
 								</p>
 								<p>Run these steps:</p>
 								<ol>
@@ -7499,7 +7513,7 @@ enum TextDirection {
 							<li id="toc-dom-enter-a">
 								<p>
 									<strong>When entering an <a
-											href="https://www.w3.org/TR/html/textlevel-semantics.html#the-a-element"
+											href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element"
 											>anchor</a> element and <var>current_toc_branch</var> is not <a
 											href="https://infra.spec.whatwg.org/#nulls">null</a>:</strong>
 								</p>
@@ -7595,11 +7609,11 @@ enum TextDirection {
 							<li id="toc-dom-enter-sectioning">
 								<p>
 									<strong>When entering a <a
-											href="https://www.w3.org/TR/html/dom.html#sectioning-content-2">sectioning
-											content</a> element, a <a
-											href="https://www.w3.org/TR/html/sections.html#sectioning-roots">sectioning
-											root</a> element, or an element with a <a
-											href="https://www.w3.org/TR/html/editing.html#element-attrdef-global-hidden"
+											href="https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2"
+											>sectioning content</a> element, a <a
+											href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root"
+											>sectioning root</a> element, or an element with a <a
+											href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
 											>hidden</a> attribute:</strong>
 								</p>
 								<p>Exit the element and continue processing with the next element.</p>
@@ -7652,8 +7666,8 @@ enum TextDirection {
 				<h3 id="d-1-link-relation-type-registration"><bdi class="secno">D.1 </bdi>Link relation type
 						registration<a class="self-link" aria-label="§" href="#link-relation-type-registration"
 					></a></h3>
-				<div class="note" role="note" id="issue-container-generatedID-33">
-					<div role="heading" class="note-title marker" id="h-note-28" aria-level="4">
+				<div class="note" role="note" id="issue-container-generatedID-32">
+					<div role="heading" class="note-title marker" id="h-note-27" aria-level="4">
 						<span>Note</span>
 					</div>
 					<p class=""> A request to register the <code>manifest</code> link relation type will be submitted to
@@ -7845,8 +7859,8 @@ enum TextDirection {
 						href="#audiobook"></a></h3>
 
 				<p>The following example shows a manifest that conforms to the <a
-						href="https://www.w3.org/TR/audiobooks">Audiobooks profile</a> [<cite><a class="bibref"
-							href="#bib-audiobooks" title="Audiobook Profile for Publication Manifest"
+						href="https://www.w3.org/TR/audiobooks/">Audiobooks profile</a> [<cite><a class="bibref"
+							href="#bib-audiobooks" title="Audiobook Profile for Web Publications"
 							data-link-type="biblio">audiobooks</a></cite>].</p>
 
 				<p>A <a href="https://w3c.github.io/pub-manifest/experiments/audiobook/flatland-canonical.json">JSON
@@ -8149,7 +8163,8 @@ enum TextDirection {
 							<code>inLanguage</code>
 						</td>
 						<td>
-							<a href="#inLanguage"></a>
+							<a href="#inLanguage" class="sec-ref">§&#160;<bdi class="secno">4.7.1.9 </bdi>Publication
+								Language</a>
 						</td>
 					</tr>
 					<tr>
@@ -8449,10 +8464,10 @@ enum TextDirection {
 						Phillips; M. Davis. IETF. September 2009. IETF Best Current Practice. URL: <a
 							href="https://tools.ietf.org/html/bcp47">https://tools.ietf.org/html/bcp47</a></dd>
 					<dt id="bib-bibo">[bibo]</dt>
-					<dd><a href="http://bibliontology.org/specification"><cite>Bibliographic Ontology
+					<dd><a href="http://bibliographic-ontology.org/specification"><cite>Bibliographic Ontology
 								Specification</cite></a>. Bruce D'Arcus; Frédérick Giasson. Structured Dynamics LLC. 11
-						May 2016. URL: <a href="http://bibliontology.org/specification"
-							>http://bibliontology.org/specification</a></dd>
+						May 2016. URL: <a href="http://bibliographic-ontology.org/specification"
+							>http://bibliographic-ontology.org/specification</a></dd>
 					<dt id="bib-bibtex">[bibtex]</dt>
 					<dd><a href="http://www.bibtex.org/Format/"><cite>BibTeX Format Description</cite></a>. URL: <a
 							href="http://www.bibtex.org/Format/">http://www.bibtex.org/Format/</a></dd>
@@ -8514,7 +8529,7 @@ enum TextDirection {
 							>https://tools.ietf.org/html/rfc4627</a></dd>
 					<dt id="bib-json-ld11">[json-ld11]</dt>
 					<dd><a href="https://www.w3.org/TR/json-ld11/"><cite>JSON-LD 1.1</cite></a>. Gregg Kellogg;
-						Pierre-Antoine Champin; Dave Longley. W3C. 12 November 2019. W3C Working Draft. URL: <a
+						Pierre-Antoine Champin; Dave Longley. W3C. 18 October 2019. W3C Working Draft. URL: <a
 							href="https://www.w3.org/TR/json-ld11/">https://www.w3.org/TR/json-ld11/</a></dd>
 					<dt id="bib-mfrel">[mfrel]</dt>
 					<dd><a href="http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions"
@@ -8556,11 +8571,6 @@ enum TextDirection {
 					<dd><a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Anne van Kesteren. WHATWG.
 						Living Standard. URL: <a href="https://url.spec.whatwg.org/"
 						>https://url.spec.whatwg.org/</a></dd>
-					<dt id="bib-wcag">[WCAG]</dt>
-					<dd><a href="https://www.w3.org/TR/WAI-WEBCONTENT/"><cite>Web Content Accessibility Guidelines
-								1.0</cite></a>. Wendy Chisholm; Gregg Vanderheiden; Ian Jacobs. W3C. 5 May 1999. W3C
-						Recommendation. URL: <a href="https://www.w3.org/TR/WAI-WEBCONTENT/"
-							>https://www.w3.org/TR/WAI-WEBCONTENT/</a></dd>
 					<dt id="bib-wcag21">[wcag21]</dt>
 					<dd><a href="https://www.w3.org/TR/WCAG21/"><cite>Web Content Accessibility Guidelines (WCAG)
 								2.1</cite></a>. Andrew Kirkpatrick; Joshue O Connor; Alastair Campbell; Michael Cooper.
@@ -8573,8 +8583,8 @@ enum TextDirection {
 						class="self-link" aria-label="§" href="#informative-references"></a></h3>
 				<dl class="bibliography">
 					<dt id="bib-audiobooks">[audiobooks]</dt>
-					<dd><a href="https://www.w3.org/TR/audiobooks/"><cite>Audiobook Profile for Publication
-								Manifest</cite></a>. Wendy Reid. W3C. 11 September 2019. W3C Working Draft. URL: <a
+					<dd><a href="https://www.w3.org/TR/audiobooks/"><cite>Audiobook Profile for Web
+							Publications</cite></a>. Wendy Reid. W3C. 20 June 2019. W3C Working Draft. URL: <a
 							href="https://www.w3.org/TR/audiobooks/">https://www.w3.org/TR/audiobooks/</a></dd>
 					<dt id="bib-ecma-404">[ecma-404]</dt>
 					<dd><a href="https://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"><cite>The
@@ -8597,10 +8607,6 @@ enum TextDirection {
 						Nelson; G. Bilder; J. Kunze; S. Warner. IETF. URL: <a
 							href="https://tools.ietf.org/html/draft-vandesompel-identifier-00"
 							>https://tools.ietf.org/html/draft-vandesompel-identifier-00</a></dd>
-					<dt id="bib-rfc3987">[rfc3987]</dt>
-					<dd><a href="https://tools.ietf.org/html/rfc3987"><cite>Internationalized Resource Identifiers
-								(IRIs)</cite></a>. M. Duerst; M. Suignard. IETF. January 2005. Proposed Standard. URL:
-							<a href="https://tools.ietf.org/html/rfc3987">https://tools.ietf.org/html/rfc3987</a></dd>
 					<dt id="bib-string-meta">[string-meta]</dt>
 					<dd><a href="https://w3c.github.io/string-meta/"><cite>Requirements for Language and Direction
 								Metadata in Data Formats</cite></a>. Addison Phillips; Richard Ishida. 2017-12-01. URL:
