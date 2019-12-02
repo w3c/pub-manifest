@@ -1,9 +1,4 @@
 # ECHIDNA configuration
 index.html
 common/css/common.css
-images/canonicalize_manifest.png
-images/canonicalize_manifest.svg
-images/clean_up_data.png
-images/clean_up_data.svg
-images/convert_manifest.png
-images/convert_manifest.svg
+
