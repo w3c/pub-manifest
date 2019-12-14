@@ -4910,14 +4910,14 @@ dictionary LocalizableString {
 									<summary>Explanation</summary>
 									<p>This algorithm does not process multiple lists in a single branch or at the root
 										of the <code>nav</code> element, so if a list has already been encountered (the
-											<code>entries</code> property contains one or more branches or is set to <a
+											<var>entries</var> property contains one or more branches or is set to <a
 											href="https://infra.spec.whatwg.org/#nulls">null</a>), this list is
 										skipped.</p>
-									<p>If a list is encountered and the table of contents (<code>toc</code>) still does
+									<p>If a list is encountered and the table of contents (<var>toc</var>) still does
 										not have a name (i.e., no heading element has been encountered), the table of
 										contents is assumed to not have a heading (i.e., the heading for the table of
 										contents cannot appear after the first list of entries). The value of the
-											<code>name</code> property is changed from an empty string to <a
+											<var>name</var> property is changed from an empty string to <a
 											href="https://infra.spec.whatwg.org/#nulls">null</a> as no further headings
 										encountered apply, either.</p>
 								</details>
@@ -5023,9 +5023,9 @@ dictionary LocalizableString {
 										either supply a placeholder value of its own creation or set the value to null.
 										If it does not have a name or any branches, it is invalid and is discarded.</p>
 									<p>To determine where to merge the branch, the stack is checked. If there are no
-										items in the stack, it is added into the <code>entries</code> property of the
-										root <em>toc</em> object (i.e., it is a top-level branch). Otherwise, it gets
-										added into the <code>entries</code> property of the object immediately preceding
+										items in the stack, it is added into the <var>entries</var> property of the root
+											<em>toc</em> object (i.e., it is a top-level branch). Otherwise, it gets
+										added into the <var>entries</var> property of the object immediately preceding
 										it in the stack.</p>
 									<p>As a final step, <var>current_toc_branch</var> is reset back to
 										<code>null</code>.</p>
@@ -5094,10 +5094,10 @@ dictionary LocalizableString {
 															>accessible name</a>&#160;[[accname-1.1]] of the
 														element).</li>
 												</ul>
-												<p>If the resulting value of <code>current_toc_branch["name"]</code> is
-													an empty string (e.g., after removing any presentational elements
-													and trimming all leading and trailing whitespace), set
-														<code>current_toc_branch["name"]</code> property to <a
+												<p>If the resulting value of <var>current_toc_branch["name"]</var> is an
+													empty string (e.g., after removing any presentational elements and
+													trimming all leading and trailing whitespace), set
+														<var>current_toc_branch["name"]</var> property to <a
 														href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 											</li>
 											<li>If the element has an <code>href</code> attribute and the URL in the
@@ -5123,12 +5123,12 @@ dictionary LocalizableString {
 								</ol>
 								<details>
 									<summary>Explanation</summary>
-									<p>This step processes anchor tags to obtain values for the <code>name</code> and
-											<code>url</code> properties of a branch.</p>
+									<p>This step processes anchor tags to obtain values for the <var>name</var> and
+											<var>url</var> properties of a branch.</p>
 									<p>If the name of the current branch is already defined, then processing of this
 										element is terminated (i.e., to avoid processing multiple links for a single
 										branch).</p>
-									<p>Whether a user agent sets the <code>name</code> of the entry to the descendant
+									<p>Whether a user agent sets the <var>name</var> of the entry to the descendant
 										content of the <code>a</code> element, or generates a text string from it,
 										depends on whether it will re-use any descendant tagging in the presentation
 										(e.g., to retain images, MathML, ruby and other content that does not translate
@@ -5196,6 +5196,19 @@ dictionary LocalizableString {
 						</details>
 					</li>
 				</ol>
+			</section>
+		</section>
+		<section>
+			<h2>Change Log</h2>
+
+			<section>
+				<h3>Changes since Candidate Recommendation</h3>
+				<ul>
+					<li>xx-Dec-2019: The table of contents processing algorithm has been updated to fix several bugs in
+						the expected outcomes. See issues <a href="https://github.com/w3c/pub-manifest/issues/177"
+							>177</a> and <a href="https://github.com/w3c/pub-manifest/issues/179">179</a> for more
+						details.</li>
+				</ul>
 			</section>
 		</section>
 		<section id="iana-consideration" class="appendix informative">
