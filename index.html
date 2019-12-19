@@ -4741,8 +4741,7 @@ dictionary LocalizableString {
 					some steps, user agents are provided a choice in how to process the content to provide flexibility
 					for different presentation models.</p>
 
-				<p class="note">User agents can process and internalize the resulting structure in whatever language and
-					form is appropriate.</p>
+				<p class="note">User agents can process and internalize the resulting structure in whatever language and form is appropriate.</p>
 
 				<p>For the purposes of this algorithm, a <dfn>list element</dfn> is defined as either an
 						[[!html]]&#160;<a
@@ -4765,6 +4764,8 @@ dictionary LocalizableString {
 								<code>doc-toc</code>.</p>
 					</li>
 				</ol>
+
+				<p>The algorithm to locate the table of content element is executed on the structural resource defined in <a href="#pub-table-of-contents"></a>. A <a>profile</a> may also specify other possible resources.</p>
 
 				<p>If a table of contents element is not found, the publication does not have a table of contents that
 					can be used for machine rendering purposes.</p>
