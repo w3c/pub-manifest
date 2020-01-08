@@ -4838,7 +4838,7 @@ dictionary LocalizableString {
 											whitespace), set <var>toc["name"]</var> either to a placeholder value or to
 												<a href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 									</li>
-									<li>Omit the element and continue processing with the next element.</li>
+									<li>Skip further processing of the element and continue to the next.</li>
 								</ol>
 								<details>
 									<summary>Explanation</summary>
@@ -4885,8 +4885,7 @@ dictionary LocalizableString {
 										<ol>
 											<li>If <var>current_toc_branch["entries"]</var> is <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a> or a non-empty
-													<a href="https://infra.spec.whatwg.org/#list">list</a>, omit the
-												element and continue processing with the next element.</li>
+													<a href="https://infra.spec.whatwg.org/#list">list</a>, skip further processing of the element and continue to the next.</li>
 											<li>Otherwise, <a href="https://infra.spec.whatwg.org/#stack-push">push</a>
 												<var>current_toc_branch</var> onto <var>branches</var> and then set
 													<var>current_toc_branch</var> to <a
@@ -4898,8 +4897,7 @@ dictionary LocalizableString {
 										<ol>
 											<li>If <var>toc["entries"]</var> is <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a> or a non-empty
-													<a href="https://infra.spec.whatwg.org/#list">list</a>, omit the
-												element and continue processing with the next element.</li>
+													<a href="https://infra.spec.whatwg.org/#list">list</a>, skip further processing of the element and continue to the next.</li>
 											<li>Otherwise, do nothing.</li>
 										</ol>
 									</li>
@@ -5116,7 +5114,7 @@ dictionary LocalizableString {
 												Otherwise, set <var>current_toc_branch["rel"]</var> to <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
 										</ol>
-										<p>Omit the element and continue processing with the next element.</p>
+										<p>Skip further processing of the element and continue to the next.</p>
 									</li>
 								</ol>
 								<details>
@@ -5157,7 +5155,7 @@ dictionary LocalizableString {
 											href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
 											>hidden</a> attribute:</strong>
 								</p>
-								<p>Omit the element and continue processing with the next element.</p>
+								<p>Skip further processing of the element and continue to the next.</p>
 								<details>
 									<summary>Explanation</summary>
 									<p>As sectioning and sectioning root elements can define their own outlines,
