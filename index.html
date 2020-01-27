@@ -4552,9 +4552,9 @@ dictionary LocalizableString {
 				<p>The table of contents is expressed via an [[!html]]&#160;element (typically a <a
 						href="https://html.spec.whatwg.org/multipage/sections.html#the-nav-element"><code>nav</code>
 						element</a>). This element MUST be identified by the <code>role</code> attribute&#160;[[!html]]
-					value "<code>doc-toc</code>"&#160;[[!dpub-aria-1.0]], and MUST be the first element in the document
-					in <a href="https://dom.spec.whatwg.org/#concept-tree-order">document tree order</a>&#160;[[!dom]]
-					with that <code>role</code> value.</p>
+					value "<code>doc-toc</code>"&#160;[[!dpub-aria-1.0]], and SHOULD be the first element in the
+					document in <a href="https://dom.spec.whatwg.org/#concept-tree-order">document tree
+					order</a>&#160;[[!dom]] with that <code>role</code> value. The element MAY be hidden from users.</p>
 
 				<p>The manifest SHOULD <a href="#table-of-contents">identify the resource</a> that contains the table of
 					contents.</p>
@@ -4772,7 +4772,9 @@ dictionary LocalizableString {
 					</li>
 					<li>
 						<p>otherwise, the first element in document order with the <code>role</code> attribute value
-								<code>doc-toc</code>.</p>
+								<code>doc-toc</code>, regardless of whether the element has been <a
+								href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
+								>declaratively hidden</a>&#160;[[!html]] or styled by CSS not to be visible.</p>
 					</li>
 				</ol>
 
