@@ -4544,6 +4544,14 @@ dictionary LocalizableString {
 					links (excluding the <code>href</code> attribute), providing additional flexibility in how the table
 					of contents is constructed (e.g., to omit links to certain headings or only link to certain content
 					in a preview).</p>
+
+				<p>Note, however, that user agents are <strong>not required</strong> to preserve the presentational
+					aspects of the table of contents (i.e., the user agent is typically extracting the information in
+					order to present it in a common way across all publications). User agents are only expected to
+					retain the text content of the link elements, for example, so text styling, inline images and other
+					non-text content might be lost. Similarly, list styling and even how many levels deep of linking to
+					display are at the discretion of the user agent. For this reason, linking to the presentational
+					table of contents so that users are not limited to the machine-processed one is advised.</p>
 			</section>
 
 			<section id="app-toc-html">
@@ -5625,5 +5633,5 @@ dictionary LocalizableString {
 			</table>
 		</section>
 		<section id="ack" data-include="common/html/acknowledgements.html" data-include-replace="true"></section>
-	</body>
+	</body> 
 </html>
