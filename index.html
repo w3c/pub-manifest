@@ -4741,9 +4741,13 @@ dictionary LocalizableString {
 					some steps, user agents are provided a choice in how to process the content to provide flexibility
 					for different presentation models.</p>
 
-				<p class="note">This algorithm is not defined in purely event driven terms, as inspecting all descendant nodes is not always necessary to obtain the needed information from the DOM. In some cases, an element, and all its descendants, is omitted immediately after it is processed on <em>enter</em>. An event approach could be applied, but would require modifying the algorithm to process/ignore the omitted nodes.</p>
-	
-	
+				<p class="note">This algorithm is not defined in purely event driven terms, as inspecting all descendant
+					nodes is not always necessary to obtain the needed information from the DOM. In some cases, an
+					element, and all its descendants, is omitted immediately after it is processed on <em>enter</em>. An
+					event approach could be applied, but would require modifying the algorithm to process/ignore the
+					omitted nodes.</p>
+
+
 				<p class="note">User agents can process and internalize the resulting structure in whatever language and
 					form is appropriate.</p>
 
@@ -4885,7 +4889,8 @@ dictionary LocalizableString {
 										<ol>
 											<li>If <var>current_toc_branch["entries"]</var> is <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a> or a non-empty
-													<a href="https://infra.spec.whatwg.org/#list">list</a>, skip further processing of the element and continue to the next.</li>
+													<a href="https://infra.spec.whatwg.org/#list">list</a>, skip further
+												processing of the element and continue to the next.</li>
 											<li>Otherwise, <a href="https://infra.spec.whatwg.org/#stack-push">push</a>
 												<var>current_toc_branch</var> onto <var>branches</var> and then set
 													<var>current_toc_branch</var> to <a
@@ -4897,7 +4902,8 @@ dictionary LocalizableString {
 										<ol>
 											<li>If <var>toc["entries"]</var> is <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a> or a non-empty
-													<a href="https://infra.spec.whatwg.org/#list">list</a>, skip further processing of the element and continue to the next.</li>
+													<a href="https://infra.spec.whatwg.org/#list">list</a>, skip further
+												processing of the element and continue to the next.</li>
 											<li>Otherwise, do nothing.</li>
 										</ol>
 									</li>
@@ -4955,8 +4961,8 @@ dictionary LocalizableString {
 								</p>
 								<pre>«[
     "name" → "",
-    "url"  → "",
-    "type" → "",
+    "url"  → null,
+    "type" → null,
     "rel"  → null,
     "entries" → « »
 ]»</pre>
@@ -5099,20 +5105,16 @@ dictionary LocalizableString {
 											<li>If the element has an <code>href</code> attribute and the URL in the
 												attribute resolves to a resource in <a href="#reslist-end"
 													>uniqueResources</a>, set <var>current_toc_branch["url"]</var> to
-												the value. Otherwise, set <var>current_toc_branch["url"]</var> to <a
-													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
+												the value.</li>
 											<li>If the element has a <code>type</code> attribute, and the value of the
 												attribute is not an empty string after trimming leading and trailing
 												white space, set <var>current_toc_branch["type"]</var> to the trimmed
-												value. Otherwise, set <var>current_toc_branch["type"]</var> to <a
-													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
+												value.</li>
 											<li>If the element has a <code>rel</code> attribute, and the value of the
 												attribute is not an empty string after trimming leading and trailing
 												white space, split the trimmed value on whitespace and set
 													<var>current_toc_branch["rel"]</var> to the resulting <a
-													href="https://infra.spec.whatwg.org/#list">list</a> of tokens.
-												Otherwise, set <var>current_toc_branch["rel"]</var> to <a
-													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
+													href="https://infra.spec.whatwg.org/#list">list</a> of tokens.</li>
 										</ol>
 										<p>Skip further processing of the element and continue to the next.</p>
 									</li>
@@ -5200,10 +5202,12 @@ dictionary LocalizableString {
 			<section>
 				<h3>Changes since Candidate Recommendation</h3>
 				<ul>
-					<li>xx-Dec-2019: The table of contents processing algorithm has been updated to fix several bugs and editorial issues in
-						the expected outcomes. See issues <a href="https://github.com/w3c/pub-manifest/issues/177"
-							>177</a> and <a href="https://github.com/w3c/pub-manifest/issues/179">179</a>, as well as pull requests <a href="https://github.com/w3c/pub-manifest/pull/180">180</a> and <a href="https://github.com/w3c/pub-manifest/pull/182">182</a> for more
-						details.</li>
+					<li>xx-Dec-2019: The table of contents processing algorithm has been updated to fix several bugs and
+						editorial issues in the expected outcomes. See issues <a
+							href="https://github.com/w3c/pub-manifest/issues/177">177</a> and <a
+							href="https://github.com/w3c/pub-manifest/issues/179">179</a>, as well as pull requests <a
+							href="https://github.com/w3c/pub-manifest/pull/180">180</a> and <a
+							href="https://github.com/w3c/pub-manifest/pull/182">182</a> for more details.</li>
 				</ul>
 			</section>
 		</section>
