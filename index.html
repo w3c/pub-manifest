@@ -2587,7 +2587,7 @@
 }</pre>
 					</section>
 
-					<section id="pub-table-of-contents">
+					<section id="contents">
 						<h5>Table of Contents</h5>
 
 						<p>The table of contents is a navigational aid that provides links to the major structural
@@ -2598,7 +2598,10 @@
 
 						<p>Only one resource MAY be identified as containing the table of contents. If multiple
 							instances are specified, user agents MUST use the first instance encountered, with
-							precedence given to the <a href="#default-reading-order">reading order</a>.</p>
+							precedence given to resources in the <a href="#default-reading-order">reading order</a>.</p>
+
+						<p><a>Profiles</a> of this specification MAY define how to locate a resource containing the
+							table of contents when no resource is identified by the <code>contents</code> relation.</p>
 
 						<p>The link to the table of contents MUST NOT be specified in the <a href="#links">links
 								list</a>.</p>
@@ -4766,6 +4769,9 @@ dictionary LocalizableString {
 					</li>
 				</ol>
 
+				<p class="note">The rules for locating the resource containing the table of contents element are defined
+					in <a href="#contents"></a>.</p>
+
 				<p>If a table of contents element is not found, the publication does not have a table of contents that
 					can be used for machine rendering purposes.</p>
 
@@ -5562,7 +5568,7 @@ dictionary LocalizableString {
 							<code>contents</code>
 						</td>
 						<td>
-							<a href="#pub-table-of-contents"></a>
+							<a href="#contents"></a>
 						</td>
 					</tr>
 					<tr>
