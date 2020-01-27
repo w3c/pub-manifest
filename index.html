@@ -4751,8 +4751,8 @@ dictionary LocalizableString {
 					skipped nodes.</p>
 
 
-				<p class="note">User agents can process and internalize the resulting structure in whatever language and
-					form is appropriate.</p>
+				<p class="note">User agents can process and internalize the resulting structure using any language that
+					can represent the final form of the data.</p>
 
 				<p>For the purposes of this algorithm, a <dfn>list element</dfn> is defined as either an
 						[[!html]]&#160;<a
@@ -4950,8 +4950,8 @@ dictionary LocalizableString {
 								</ol>
 								<details>
 									<summary>Explanation</summary>
-									<p>This step resets <var>current_toc_node</var> back to the parent object after
-										all of its child branches have been processed.</p>
+									<p>This step resets <var>current_toc_node</var> back to the parent object after all
+										of its child branches have been processed.</p>
 									<p>If there are no branches in the stack, the <var>toc.entries</var> is set to null
 										if it doesn't contain any items (to avoid processing any further lists at the
 										root level).</p>
@@ -4962,8 +4962,8 @@ dictionary LocalizableString {
 								<p>
 									<strong>When entering a <a
 											href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element"
-											>list item</a> element, set <var>current_toc_node</var> to the following
-											<a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
+											>list item</a> element, set <var>current_toc_node</var> to the following <a
+											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
 								</p>
 								<pre>«[
     "name" → null,
@@ -5091,8 +5091,7 @@ dictionary LocalizableString {
 										<p>Otherwise:</p>
 										<ol>
 											<li>
-												<p>Set <var>current_toc_node["name"]</var> to one of the
-													following:</p>
+												<p>Set <var>current_toc_node["name"]</var> to one of the following:</p>
 												<ul>
 													<li>the descendant content of the anchor element (to preserve any
 														HTML tags);</li>
@@ -5105,8 +5104,8 @@ dictionary LocalizableString {
 											</li>
 											<li>If the element has an <code>href</code> attribute and the URL in the
 												attribute resolves to a resource in <a href="#reslist-end"
-													>uniqueResources</a>, set <var>current_toc_node["url"]</var> to
-												the value.</li>
+													>uniqueResources</a>, set <var>current_toc_node["url"]</var> to the
+												value.</li>
 											<li>If the element has a <code>type</code> attribute, and the value of the
 												attribute is not an empty string after trimming leading and trailing
 												white space, set <var>current_toc_node["type"]</var> to the trimmed
@@ -5217,8 +5216,8 @@ dictionary LocalizableString {
 
 			<section>
 				<h3>Link relation type registration</h3>
-				<p class="note"> A request to register the <code>publication</code> link relation type will be submitted to
-					IANA. </p>
+				<p class="note"> A request to register the <code>publication</code> link relation type will be submitted
+					to IANA. </p>
 				<dl>
 					<dt>Relation Name:</dt>
 					<dd>publication</dd>
