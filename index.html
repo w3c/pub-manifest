@@ -4960,7 +4960,7 @@ dictionary LocalizableString {
 											<a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
 								</p>
 								<pre>«[
-    "name" → "",
+    "name" → null,
     "url"  → null,
     "type" → null,
     "rel"  → null,
@@ -5078,8 +5078,8 @@ dictionary LocalizableString {
 								<p>Run these steps:</p>
 								<ol>
 									<li>
-										<p>If <var>current_toc_branch["name"]</var> is not an empty <a
-												href="https://infra.spec.whatwg.org/#string">string</a>, do nothing.</p>
+										<p>If <var>current_toc_branch["name"]</var> is not <a
+												href="https://infra.spec.whatwg.org/#nulls">null</a>, do nothing.</p>
 									</li>
 									<li>
 										<p>Otherwise:</p>
@@ -5096,11 +5096,6 @@ dictionary LocalizableString {
 															>accessible name</a>&#160;[[accname-1.1]] of the
 														element).</li>
 												</ul>
-												<p>If the resulting value of <var>current_toc_branch["name"]</var> is an
-													empty string (e.g., after removing any presentational elements and
-													trimming all leading and trailing whitespace), set
-														<var>current_toc_branch["name"]</var> property to <a
-														href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 											</li>
 											<li>If the element has an <code>href</code> attribute and the URL in the
 												attribute resolves to a resource in <a href="#reslist-end"
