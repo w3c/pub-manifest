@@ -4802,11 +4802,11 @@ dictionary LocalizableString {
 					</li>
 
 					<li id="toc-initialize-current">
-						<p>Let <var>current_toc_branch</var> be a variable set to <a
+						<p>Let <var>current_toc_node</var> be a variable set to <a
 								href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 						<details>
 							<summary>Explanation</summary>
-							<p><var>current_toc_branch</var> is used to hold the map that represents the branch of the
+							<p><var>current_toc_node</var> is used to hold the map that represents the branch of the
 								table of contents that is currently being processed.</p>
 						</details>
 					</li>
@@ -4884,16 +4884,16 @@ dictionary LocalizableString {
 												>null</a>.</p>
 									</li>
 									<li>
-										<p>If <em>current_toc_branch</em> is not <a
+										<p>If <em>current_toc_node</em> is not <a
 												href="https://infra.spec.whatwg.org/#nulls">null</a>:</p>
 										<ol>
-											<li>If <var>current_toc_branch["entries"]</var> is <a
+											<li>If <var>current_toc_node["entries"]</var> is <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a> or a non-empty
 													<a href="https://infra.spec.whatwg.org/#list">list</a>, skip further
 												processing of the element and continue to the next.</li>
 											<li>Otherwise, <a href="https://infra.spec.whatwg.org/#stack-push">push</a>
-												<var>current_toc_branch</var> onto <var>branches</var> and then set
-													<var>current_toc_branch</var> to <a
+												<var>current_toc_node</var> onto <var>branches</var> and then set
+													<var>current_toc_node</var> to <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a>.</li>
 										</ol>
 									</li>
@@ -4934,7 +4934,7 @@ dictionary LocalizableString {
 										<p>If <var>branches</var> is not empty, <a
 												href="https://infra.spec.whatwg.org/#stack-pop">pop</a> the top <a
 												href="https://infra.spec.whatwg.org/#ordered-map">map</a> from
-												<var>branches</var> and set <var>current_toc_branch</var> to it.</p>
+												<var>branches</var> and set <var>current_toc_node</var> to it.</p>
 									</li>
 									<li>
 										<p>Otherwise, if <var>toc.entries</var> contains an empty <a
@@ -4944,7 +4944,7 @@ dictionary LocalizableString {
 								</ol>
 								<details>
 									<summary>Explanation</summary>
-									<p>This step resets <var>current_toc_branch</var> back to the parent object after
+									<p>This step resets <var>current_toc_node</var> back to the parent object after
 										all of its child branches have been processed.</p>
 									<p>If there are no branches in the stack, the <var>toc.entries</var> is set to null
 										if it doesn't contain any items (to avoid processing any further lists at the
@@ -4956,7 +4956,7 @@ dictionary LocalizableString {
 								<p>
 									<strong>When entering a <a
 											href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element"
-											>list item</a> element, set <var>current_toc_branch</var> to the following
+											>list item</a> element, set <var>current_toc_node</var> to the following
 											<a href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</strong>
 								</p>
 								<pre>«[
@@ -4970,7 +4970,7 @@ dictionary LocalizableString {
 									<summary>Explanation</summary>
 									<p>Each list item represents a possible new branch in the table of contents, so
 										whenever one is encountered a new blank object is created in
-											<var>current_toc_branch</var>.</p>
+											<var>current_toc_node</var>.</p>
 									<p>This object gets populated with information as a descendant <code>a</code>
 										element and list are encountered.</p>
 								</details>
@@ -4985,18 +4985,18 @@ dictionary LocalizableString {
 								<p>Run these steps:</p>
 								<ol>
 									<li>
-										<p>If <var>current_toc_branch["entries"]</var> contains an empty <a
+										<p>If <var>current_toc_node["entries"]</var> contains an empty <a
 												href="https://infra.spec.whatwg.org/#list">list</a>, set it to <a
 												href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 									</li>
 									<li>
-										<p>If <var>current_toc_branch["name"]</var> is an empty string:</p>
+										<p>If <var>current_toc_node["name"]</var> is an empty string:</p>
 										<ol>
-											<li>if <var>current_toc_branch["entries"]</var> is not <a
+											<li>if <var>current_toc_node["entries"]</var> is not <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a>, set
-													<var>current_toc_branch["name"]</var> to a placeholder value or <a
+													<var>current_toc_node["name"]</var> to a placeholder value or <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a>;</li>
-											<li>otherwise, set <var>current_toc_branch</var> to <a
+											<li>otherwise, set <var>current_toc_node</var> to <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a> and exit this
 												processing step.</li>
 										</ol>
@@ -5004,15 +5004,15 @@ dictionary LocalizableString {
 									<li>
 										<p>If <var>branches</var> is not empty, <a
 												href="https://infra.spec.whatwg.org/#list-append">append</a>
-											<var>current_toc_branch</var> to the <var>entries</var> property of the <a
+											<var>current_toc_node</var> to the <var>entries</var> property of the <a
 												href="https://infra.spec.whatwg.org/#ordered-map">map</a> at the top of
 												<var>branches</var>. Otherwise, <a
 												href="https://infra.spec.whatwg.org/#list-append">append</a>
-											<var>current_toc_branch</var> to <var>toc["entries"]</var>.</p>
+											<var>current_toc_node</var> to <var>toc["entries"]</var>.</p>
 									</li>
 
 									<li>
-										<p>Set <var>current_toc_branch</var> to <a
+										<p>Set <var>current_toc_node</var> to <a
 												href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 									</li>
 								</ol>
@@ -5029,7 +5029,7 @@ dictionary LocalizableString {
 											<em>toc</em> object (i.e., it is a top-level branch). Otherwise, it gets
 										added into the <var>entries</var> property of the object immediately preceding
 										it in the stack.</p>
-									<p>As a final step, <var>current_toc_branch</var> is reset back to
+									<p>As a final step, <var>current_toc_node</var> is reset back to
 										<code>null</code>.</p>
 									<aside class="example" title="Visualization of a branch merge.">
 										<p>If the following map is in <var>branches</var>:</p>
@@ -5040,7 +5040,7 @@ dictionary LocalizableString {
     "rel"     → null,
     "entries" → « »
 ]»</pre>
-										<p>And the following map is in <var>current_toc_branch:</var></p>
+										<p>And the following map is in <var>current_toc_node:</var></p>
 										<pre>«[
     "name"    → "Section 1.1",
     "url"     → "http://example.com/contents.html#s1.1",
@@ -5072,20 +5072,20 @@ dictionary LocalizableString {
 								<p>
 									<strong>When entering an <a
 											href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element"
-											>anchor</a> element and <var>current_toc_branch</var> is not <a
+											>anchor</a> element and <var>current_toc_node</var> is not <a
 											href="https://infra.spec.whatwg.org/#nulls">null</a>:</strong>
 								</p>
 								<p>Run these steps:</p>
 								<ol>
 									<li>
-										<p>If <var>current_toc_branch["name"]</var> is not <a
+										<p>If <var>current_toc_node["name"]</var> is not <a
 												href="https://infra.spec.whatwg.org/#nulls">null</a>, do nothing.</p>
 									</li>
 									<li>
 										<p>Otherwise:</p>
 										<ol>
 											<li>
-												<p>Set <var>current_toc_branch["name"]</var> to one of the
+												<p>Set <var>current_toc_node["name"]</var> to one of the
 													following:</p>
 												<ul>
 													<li>the descendant content of the anchor element (to preserve any
@@ -5099,16 +5099,16 @@ dictionary LocalizableString {
 											</li>
 											<li>If the element has an <code>href</code> attribute and the URL in the
 												attribute resolves to a resource in <a href="#reslist-end"
-													>uniqueResources</a>, set <var>current_toc_branch["url"]</var> to
+													>uniqueResources</a>, set <var>current_toc_node["url"]</var> to
 												the value.</li>
 											<li>If the element has a <code>type</code> attribute, and the value of the
 												attribute is not an empty string after trimming leading and trailing
-												white space, set <var>current_toc_branch["type"]</var> to the trimmed
+												white space, set <var>current_toc_node["type"]</var> to the trimmed
 												value.</li>
 											<li>If the element has a <code>rel</code> attribute, and the value of the
 												attribute is not an empty string after trimming leading and trailing
 												white space, split the trimmed value on whitespace and set
-													<var>current_toc_branch["rel"]</var> to the resulting <a
+													<var>current_toc_node["rel"]</var> to the resulting <a
 													href="https://infra.spec.whatwg.org/#list">list</a> of tokens.</li>
 										</ol>
 										<p>Skip further processing of the element and continue to the next.</p>
