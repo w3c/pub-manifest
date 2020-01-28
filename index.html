@@ -2596,10 +2596,10 @@
 						<p>The table of contents is a navigational aid that provides links to the major structural
 							sections of a <a>digital publication</a>.</p>
 
-						<p>The <dfn data-lt="toc">table of contents</dfn> is identified by the <code>contents</code>
-							link relation&#160;[[!iana-link-relations]]. The <a>URL</a> expressed in the
-								<code>url</code> term of the resource that identifies the table of contents MUST NOT
-							include a fragment identifier.</p>
+						<p>The resource that contains the <dfn data-lt="toc">table of contents</dfn> is identified by
+							the <code>contents</code> link relation&#160;[[!iana-link-relations]]. The table of contents
+							proper is the first element inside that resource with the <code>role</code> value
+								<code>doc-toc</code>, as defined in <a href="#app-toc-html"></a>.</p>
 
 						<p>Only one resource MAY be identified as containing the table of contents. If multiple
 							instances are specified, user agents MUST use the first instance encountered, with
