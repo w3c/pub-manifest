@@ -4579,9 +4579,9 @@ dictionary LocalizableString {
 				<p>The table of contents is expressed via an [[!html]]&#160;element (typically a <a
 						href="https://html.spec.whatwg.org/multipage/sections.html#the-nav-element"><code>nav</code>
 						element</a>). This element MUST be identified by the <code>role</code> attribute&#160;[[!html]]
-					value "<code>doc-toc</code>"&#160;[[!dpub-aria-1.0]], and SHOULD be the first element in the
-					document in <a href="https://dom.spec.whatwg.org/#concept-tree-order">document tree
-					order</a>&#160;[[!dom]] with that <code>role</code> value. The element MAY be hidden from users.</p>
+					value "<code>doc-toc</code>"&#160;[[!dpub-aria-1.0]], and MUST be the first element in the document
+					in <a href="https://dom.spec.whatwg.org/#concept-tree-order">document tree order</a>&#160;[[!dom]]
+					with that <code>role</code> value. The element MAY be hidden from users.</p>
 
 				<p>The manifest SHOULD <a href="#table-of-contents">identify the resource</a> that contains the table of
 					contents.</p>
@@ -5214,19 +5214,30 @@ dictionary LocalizableString {
 				</ol>
 			</section>
 		</section>
-		<section>
+		<section id="change-log">
 			<h2>Change Log</h2>
 
 			<section>
 				<h3>Changes since Candidate Recommendation</h3>
+				<p>The following substantive changes have been made since the last release:</p>
 				<ul>
-					<li>xx-Dec-2019: The table of contents processing algorithm has been updated to fix several bugs and
+					<li>28-Jan-2020: Reverted to using only role=doc-toc to identify the table of contents due to
+						problems with using fragments identifiers. See issue <a
+							href="https://github.com/w3c/pub-manifest/issues/176">176</a>.</li>
+					<li>28-Jan-2020: Clarified that visual hiding does not affect the selection of the table of
+						contents. See issue <a href="https://github.com/w3c/pub-manifest/issues/176">176</a>.</li>
+					<li>28-Jan-2020: Added an extension point for profiles to add processing requirements for the
+						context. See issue <a href="https://github.com/w3c/pub-manifest/issues/186">186</a>.</li>
+					<li>27-Jan-2020: The table of contents processing algorithm has been updated to fix several bugs and
 						editorial issues in the expected outcomes. See issues <a
 							href="https://github.com/w3c/pub-manifest/issues/177">177</a> and <a
 							href="https://github.com/w3c/pub-manifest/issues/179">179</a>, as well as pull requests <a
 							href="https://github.com/w3c/pub-manifest/pull/180">180</a> and <a
 							href="https://github.com/w3c/pub-manifest/pull/182">182</a> for more details.</li>
 				</ul>
+				<p>For a complete list of issues addressed, refer to the <a
+						href="https://github.com/w3c/pub-manifest/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc"
+						>GitHub tracker</a>.</p>
 			</section>
 		</section>
 		<section id="iana-consideration" class="appendix informative">
