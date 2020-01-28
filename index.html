@@ -930,6 +930,11 @@
 					<li>the <dfn>publication context</dfn>: <code>https://www.w3.org/ns/pub-context</code></li>
 				</ol>
 
+				<p class="note">Although Schema.org is often referenced using the <code>http</code> URI scheme, <a
+						href="https://schema.org/docs/faq.html#19">the vocabulary is being migrated</a> to use the
+					secure <code>https</code> scheme as its default. As a result, only the <code>https</code> scheme is
+					recognized in the publication manifest context.</p>
+
 				<pre class="example" title="Setting the context declaration.">{
     "@context" : [
         "https://schema.org",
@@ -942,10 +947,8 @@
 					requirement for the <a href="https://schema.org/creator">creator</a> property to be order
 					preserving).</p>
 
-				<p>Although Schema.org is often referenced using the <code>http</code> URI scheme, <a
-						href="https://schema.org/docs/faq.html#19">the vocabulary is being migrated</a> to use the
-					secure <code>https</code> scheme as its default. The use of <code>https</code> when referencing
-					Schema.org in the manifest is REQUIRED by this specification.</p>
+				<p><a>Profiles</a> of this specification MAY require additional context URLs, but such URLs MUST be
+					ordered after these two components.</p>
 
 				<p>The context can be extended by including additional paramaters &#8212; such as the <a
 						href="#manifest-context">global language and direction declarations</a> &#8212; in an object
@@ -3027,6 +3030,20 @@
 								and base direction, respectively, for localizable strings without a declaration.</p>
 							<p>The iterator moves backwards through <var>@context</var> as the last language and
 								direction declarations override any earlier ones.</p>
+						</details>
+					</li>
+
+					<li id="processing-context-extension">
+						<p>(<a href="#manifest-context"></a>) If a <a>profile</a> requires additional validation of the
+							manifest context, those steps are performed here.</p>
+						<details>
+							<summary>Explanation</summary>
+							<p>This extension step allows verification of any information a profile requires be present
+								in the manifest context (e.g., additional context URLs or parameters). These steps have
+								to be performed at this point, as <code>@context</code> terms are removed as part of the
+									<a href="#processing-normalize">data normalization</a> in the next step. A more
+								general step for processing profile data is provided at a <a
+									href="#processing-extension">later step</a>.</p>
 						</details>
 					</li>
 
