@@ -930,6 +930,11 @@
 					<li>the <dfn>publication context</dfn>: <code>https://www.w3.org/ns/pub-context</code></li>
 				</ol>
 
+				<p class="note">Although Schema.org is often referenced using the <code>http</code> URI scheme, <a
+						href="https://schema.org/docs/faq.html#19">the vocabulary is being migrated</a> to use the
+					secure <code>https</code> scheme as its default. As a result, only the <code>https</code> scheme is
+					recognized in the publication manifest context.</p>
+
 				<pre class="example" title="Setting the context declaration.">{
     "@context" : [
         "https://schema.org",
