@@ -2597,7 +2597,9 @@
 							sections of a <a>digital publication</a>.</p>
 
 						<p>The <dfn data-lt="toc">table of contents</dfn> is identified by the <code>contents</code>
-							link relation&#160;[[!iana-link-relations]].</p>
+							link relation&#160;[[!iana-link-relations]]. The <a>URL</a> expressed in the
+								<code>url</code> term of the resource that identifies the table of contents MUST NOT
+							include a fragment identifier.</p>
 
 						<p>Only one resource MAY be identified as containing the table of contents. If multiple
 							instances are specified, user agents MUST use the first instance encountered, with
@@ -4786,22 +4788,11 @@ dictionary LocalizableString {
 						href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element"
 							><code>ul</code></a> element.</p>
 
-				<p>The following algorithm MUST be applied to a walk of a DOM subtree rooted at the table of contents
-					element determined as follows:</p>
-
-				<ol>
-					<li>
-						<p>if the <code>LinkedResource</code> that identifies the table of contents includes a fragment
-							identifier in its URL, the element referenced by the fragment identifier, provided the
-							element has the <code>role</code> attribute value <code>doc-toc</code>.</p>
-					</li>
-					<li>
-						<p>otherwise, the first element in document order with the <code>role</code> attribute value
-								<code>doc-toc</code>, regardless of whether the element has been <a
-								href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
-								>declaratively hidden</a>&#160;[[!html]] or styled by CSS not to be visible.</p>
-					</li>
-				</ol>
+				<p>The following algorithm MUST be applied to a walk of a DOM subtree rooted at the first element in
+					document order with the <code>role</code> attribute value <code>doc-toc</code>, regardless of
+					whether the element has been <a
+						href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
+						>declaratively hidden</a>&#160;[[!html]] or styled by CSS not to be visible:</p>
 
 				<p class="note">The rules for locating the resource containing the table of contents element are defined
 					in <a href="#contents"></a>.</p>
@@ -5652,5 +5643,5 @@ dictionary LocalizableString {
 			</table>
 		</section>
 		<section id="ack" data-include="common/html/acknowledgements.html" data-include-replace="true"></section>
-	</body> 
+	</body>
 </html>
