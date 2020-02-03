@@ -201,7 +201,7 @@ var manifestProcessor = (function() {
 						resolve(data);
 					}
 					else {
-						console.error('Manifest could not be located');
+						console.error('Manifest ' + manifest_link + ' could not be located');
 						reject('Manifest could not be located');
 					}
 				}
