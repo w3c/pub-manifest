@@ -69,7 +69,7 @@ function getTestList() {
 	return new Promise( function(resolve, reject) {
 		
 		$.ajax({
-			url:       'https://github.com/w3c/publ-tests/tree/report/manifest2internal/publication_manifest/manifest_processing/tests/index.json',
+			url:       'https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/index.json',
 			cache:     false,
 			success: function(data) {
 				resolve(data);
