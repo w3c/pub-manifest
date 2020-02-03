@@ -2,7 +2,10 @@
 function generateResults(testsuite) {
 
 	getTestList(testsuite)
-		.then ( function(tests,testsuite) {
+		.then ( function(data) {
+			
+			var testsuite = data.testsuite;
+			var tests = data.data;
 			
 			var results = document.getElementById('results');
 			var manifest_link = document.getElementById('manifest-link');
@@ -19,7 +22,7 @@ function generateResults(testsuite) {
 				for (var z = 0; z < testgroup['tests'].length; z++) {
 				
 					var test = testgroup['tests'][z];
-					manifest_link.href = test_base_url + testsuite + '/manifest_processing/test_' + test['id'] + '.jsonld'
+					manifest_link.href = test_base_url + testsuite + '/manifest_processing/tests/test_' + test['id'] + '.jsonld'
 					
 					if (test.hasOwnProperty('media-type') && test['media-type'] == 'application/ld+json') {
 						manifestProcessor.processManifest({'test' : test, 'flags' : { 'skipAudioInReadingOrder' : 1 }})
@@ -62,11 +65,14 @@ function generateResults(testsuite) {
 function getTestList(testsuite) {
 	return new Promise( function(resolve, reject) {
 		
+		var url = 'https://w3c.github.io/publ-tests/' + testsuite + '/manifest_processing/tests/index.json';
+		
 		$.ajax({
-			url:       'https://w3c.github.io/publ-tests/' + testsuite + '/manifest_processing/tests/index.json',
+			url:       url,
 			cache:     false,
-			success: function(data) {
-				resolve(data, testsuite);
+			success: function(testlist) {
+				var data = {'testsuite': testsuite, 'data': testlist}
+				resolve(data);
 			},
 			error: function(xhr, status, error) {
 				console.error('Test suite config file not found or an error occurred retrieving.');

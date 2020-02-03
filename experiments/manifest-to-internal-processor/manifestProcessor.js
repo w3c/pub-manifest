@@ -213,7 +213,7 @@ var manifestProcessor = (function() {
 							resolve(JSON.stringify(data));
 						},
 						error: function(xhr, status, error) {
-							console.error('Manifest not found or an error occurred retrieving.');
+							console.error('Manifest ' + manifest_link + ' not found or an error occurred retrieving.');
 							reject('Manifest not found or an error occurred retrieving.');
 						}
 					});
