@@ -1,10 +1,9 @@
 
-function generateResults() {
+function generateResults(testsuite) {
 
-	getTestList()
-		.then ( function(tests) {
+	getTestList(testsuite)
+		.then ( function(tests,testsuite) {
 			
-			var testsuites = ['publication_manifest', 'audiobooks'];
 			var results = document.getElementById('results');
 			var manifest_link = document.getElementById('manifest-link');
 			var test_base_url = 'https://w3c.github.io/publ-tests/';
@@ -13,46 +12,41 @@ function generateResults() {
 				results.removeChild(results.firstChild);
 			}
 			
-			for (var j = 0; j < testsuites.length; j++) {
+			for (var t = 0; t < tests['tests'].length; t++) {
+			
+				var testgroup = tests['tests'][t];
 				
-				var testsuite = testsuites[j];
+				for (var z = 0; z < testgroup['tests'].length; z++) {
 				
-				for (var t = 0; t < tests['tests'].length; t++) {
-				
-					var testgroup = tests['tests'][t];
+					var test = testgroup['tests'][z];
+					manifest_link.href = test_base_url + testsuite + '/manifest_processing/test_' + test['id'] + '.jsonld'
 					
-					for (var z = 0; z < testgroup['tests'].length; z++) {
-					
-						var test = testgroup['tests'][z];
-						manifest_link.href = test_base_url + testsuite + '/manifest_processing/test_' + test['id'] + '.jsonld'
+					if (test.hasOwnProperty('media-type') && test['media-type'] == 'application/ld+json') {
+						manifestProcessor.processManifest({'test' : test, 'flags' : { 'skipAudioInReadingOrder' : 1 }})
+							.then(function(processed) {
+								var test_result = processResult(processed);
+								results.appendChild(test_result);
+							})
+							.catch(function(processed) {
+								var test_result = processResult(processed);
+								results.appendChild(test_result);
+							});
+					}
+					else {
+						var err = test.hasOwnProperty('media-type') ? 
+									(test['media-type'] == 'text/html' ? 'This test can only be run on an embedded manifest.' 
+																			: 'This test has the unknown media type "' + test['media-type'] + '".')
+									: 'The media-type of this test must be specified in the configuration file in order to process.'
 						
-						if (test.hasOwnProperty('media-type') && test['media-type'] == 'application/ld+json') {
-							manifestProcessor.processManifest({'test' : test, 'flags' : { 'skipAudioInReadingOrder' : 1 }})
-								.then(function(processed) {
-									var test_result = processResult(processed);
-									results.appendChild(test_result);
-								})
-								.catch(function(processed) {
-									var test_result = processResult(processed);
-									results.appendChild(test_result);
-								});
-						}
-						else {
-							var err = test.hasOwnProperty('media-type') ? 
-										(test['media-type'] == 'text/html' ? 'This test can only be run on an embedded manifest.' 
-																				: 'This test has the unknown media type "' + test['media-type'] + '".')
-										: 'The media-type of this test must be specified in the configuration file in order to process.'
-							
-							var warning = {
-								'internal_rep' : null,
-								'manifest_link' : manifest_link.href,
-								'test' : test,
-								'skipped' : true,
-								'error' : err 
-							};
-							var test_result = processResult(warning);
-							results.appendChild(test_result);
-						}
+						var warning = {
+							'internal_rep' : null,
+							'manifest_link' : manifest_link.href,
+							'test' : test,
+							'skipped' : true,
+							'error' : err 
+						};
+						var test_result = processResult(warning);
+						results.appendChild(test_result);
 					}
 				}
 			}
@@ -65,14 +59,14 @@ function generateResults() {
 
 }
 
-function getTestList() {
+function getTestList(testsuite) {
 	return new Promise( function(resolve, reject) {
 		
 		$.ajax({
-			url:       'https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/index.json',
+			url:       'https://w3c.github.io/publ-tests/' + testsuite + '/manifest_processing/tests/index.json',
 			cache:     false,
 			success: function(data) {
-				resolve(data);
+				resolve(data, testsuite);
 			},
 			error: function(xhr, status, error) {
 				console.error('Test suite config file not found or an error occurred retrieving.');
