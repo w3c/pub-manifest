@@ -17,9 +17,9 @@ function generateResults() {
 				
 				var testsuite = testsuites[j];
 				
-				for (var t = 0; t < tests[testsuite]['tests'].length; t++) {
+				for (var t = 0; t < tests['tests'].length; t++) {
 				
-					var testgroup = tests[testsuite]['tests'][t];
+					var testgroup = tests['tests'][t];
 					
 					for (var z = 0; z < testgroup['tests'].length; z++) {
 					
