@@ -7,7 +7,7 @@ function generateResults() {
 			var testsuites = ['generic', 'audiobooks'];
 			var results = document.getElementById('results');
 			var manifest_link = document.getElementById('manifest-link');
-			var test_base_url = 'https://iherman.github.io/pub_manifest_api_tests/tests/';
+			var test_base_url = 'https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/';
 			
 			while(results.hasChildNodes()){
 				results.removeChild(results.firstChild);
@@ -69,7 +69,7 @@ function getTestList() {
 	return new Promise( function(resolve, reject) {
 		
 		$.ajax({
-			url:       'https://iherman.github.io/pub_manifest_api_tests/tests/index.json',
+			url:       'https://github.com/w3c/publ-tests/tree/report/manifest2internal/publication_manifest/manifest_processing/tests/index.json',
 			cache:     false,
 			success: function(data) {
 				resolve(data);
