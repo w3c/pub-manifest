@@ -4,10 +4,10 @@ function generateResults() {
 	getTestList()
 		.then ( function(tests) {
 			
-			var testsuites = ['generic', 'audiobooks'];
+			var testsuites = ['publication_manifest', 'audiobooks'];
 			var results = document.getElementById('results');
 			var manifest_link = document.getElementById('manifest-link');
-			var test_base_url = 'https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/';
+			var test_base_url = 'https://w3c.github.io/publ-tests/';
 			
 			while(results.hasChildNodes()){
 				results.removeChild(results.firstChild);
@@ -24,7 +24,7 @@ function generateResults() {
 					for (var z = 0; z < testgroup['tests'].length; z++) {
 					
 						var test = testgroup['tests'][z];
-						manifest_link.href = test_base_url + testsuite + '/test_' + test['id'] + '.jsonld'
+						manifest_link.href = test_base_url + testsuite + '/manifest_processing/test_' + test['id'] + '.jsonld'
 						
 						if (test.hasOwnProperty('media-type') && test['media-type'] == 'application/ld+json') {
 							manifestProcessor.processManifest({'test' : test, 'flags' : { 'skipAudioInReadingOrder' : 1 }})
