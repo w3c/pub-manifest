@@ -5,6 +5,7 @@
 		<title>Publication Manifest Test Suite Results</title>
 		<link id="manifest-link" href="ignore" rel="publication">
 		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="duration.js"></script>
 		<style>
 			body {
 				font-family: Arial,sans-serif;
@@ -66,6 +67,7 @@
 		<script src="manifestProcessor.js"></script>
 		<script src="testsuite.js"></script>
 		<script>
+			clearPreviousRun();
 			generateResults('publication_manifest');
 			generateResults('audiobooks');
 		</script>

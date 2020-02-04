@@ -31,6 +31,7 @@ var manifestProcessor = (function() {
 		'accessModeSufficient': [''],
 		'accessibilityFeature': [''],
 		'accessibilityHazard': [''],
+		'accessibilitySummary': [''],
 		'artist': [''],
 		'author': [''],
 		'colorist': [''],
@@ -642,6 +643,7 @@ var manifestProcessor = (function() {
 			// step 2 - publication type
 			
 			if (!data.hasOwnProperty('type') || data['type'].length == 0) {
+				console.warn('type should be specified. Setting to Audiobook.');
 				data['type'] = ['Audiobook'];
 			}
 			
@@ -722,11 +724,68 @@ var manifestProcessor = (function() {
 			
 			// step 3 - recommended resources
 			
+			var reslist = ['readingOrder','resources'];
+			var cover = false;
+			
+			for (var n = 0; n < reslist.length; n++) {
+			
+				if (data.hasOwnProperty(reslist[n])) {
+				
+					var resource = data[reslist[n]];
+					
+					for (var p = 0; p < resource.length; p++) {
+						if (resource[p].hasOwnProperty('rel')) {
+							for (var q = 0; q < resource[p]['rel'].length; q++) {
+								if (resource[p]['rel'][q] == 'cover') {
+									cover = true;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			if (!cover) {
+				console.warn('A resource designated as the cover was not found.');
+			}
 			
 			// step 4 - durations
 			
+			var resourceDuration = 0;
 			
-			
+			if (data.hasOwnProperty('duration')) {
+				
+				var totalDuration;
+				
+				try { 
+					var tdur = new Duration(data['duration']);
+					totalDuration = tdur.inSeconds();
+				}
+				catch (e) {
+					console.warn('Something bad happened parsing the total duration ' + data['duration']);
+				}
+				
+				var resourceDuration = 0;
+				
+				for (var e = 0; e < data['readingOrder'].length; e++) {
+					if (data['readingOrder'][e].hasOwnProperty('duration')) {
+						try {
+							var dur = new Duration(data['readingOrder'][e]['duration']);
+							resourceDuration += dur.inSeconds();
+						}
+						catch (e) {
+							console.warn('Problem parsing duration ' + data['readingOrder'][e]['duration']);
+						}
+					}
+				}
+				
+				if (totalDuration != resourceDuration) {
+					console.warn('Total duration ' + totalDuration + ' does not equal the sum of the resource durations ' + resourceDuration);
+				}
+			}
+			else {
+				console.warn('Total duration not specified. Cannot verify the sum duration of the individual resources.');
+			}
 		}
 		
 		// step 3 - check type is set

@@ -11,10 +11,6 @@ function generateResults(testsuite) {
 			var manifest_link = document.getElementById('manifest-link');
 			var test_base_url = 'https://w3c.github.io/publ-tests/';
 			
-			while(results.hasChildNodes()){
-				results.removeChild(results.firstChild);
-			}
-			
 			for (var t = 0; t < tests['tests'].length; t++) {
 			
 				var testgroup = tests['tests'][t];
@@ -61,6 +57,15 @@ function generateResults(testsuite) {
 		});
 
 }
+
+
+function clearPreviousRun() {
+	var results = document.getElementById('results');
+	while(results.hasChildNodes()){
+		results.removeChild(results.firstChild);
+	}
+}
+
 
 function getTestList(testsuite) {
 	return new Promise( function(resolve, reject) {
