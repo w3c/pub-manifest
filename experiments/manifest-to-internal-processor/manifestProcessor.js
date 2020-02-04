@@ -346,7 +346,14 @@ var manifestProcessor = (function() {
 		
 		// step 7 - run data validation checks
 		
-		processed = dataValidation(processed);
+		try {
+			processed = dataValidation(processed);
+		}
+		
+		catch(e) {
+			console.error('Terminating processing.');
+			return null;
+		}
 		
 		// step 8 - add html defaults
 		
@@ -618,17 +625,27 @@ var manifestProcessor = (function() {
 				throw new Error();
 			}
 			
-			if (_flags.hasOwnProperty('skipAudioInReadingOrder')) {
-				console.info('Audiobook media restrictions in reading order were skipped. Check manually.');
-			}
-			
 			else {
+				var audioType = new RegExp('^audio\/');
+				
 				for (var i = data['readingOrder'].length - 1; i >= 0; i--) {
-					if (!data['readingOrder'][i].hasOwnProperty('encodingFormat') || !data['readingOrder'][i]['encodingFormat'].match(/^audio\//i)) {
-						var isAudio = new Audio(data['readingOrder'][i]['url']);
-						if (!isAudio.duration) {
+					if (data['readingOrder'][i].hasOwnProperty('encodingFormat')) {
+						if (!audioType.test(data['readingOrder'][i]['encodingFormat'])) {
 							console.error('Audiobook cannot have non-audio resources in the reading order.');
 							data['readingOrder'].splice(i,1);
+						}
+					}
+					
+					else {
+						if (_flags.hasOwnProperty('skipAudioInReadingOrder')) {
+							console.info('Audiobook media sniffing in reading order was skipped. Check manually.');
+						}
+						else {
+							var isAudio = new Audio(data['readingOrder'][i]['url']);
+							if (!isAudio.duration) {
+								console.error('Audiobook cannot have non-audio resources in the reading order.');
+								data['readingOrder'].splice(i,1);
+							}
 						}
 					}
 				}
@@ -722,7 +739,7 @@ var manifestProcessor = (function() {
 				console.warn('type is a recommended property for audiobooks.');
 			}
 			
-			// step 3 - recommended resources
+			// step 3 - recommended resource info
 			
 			var reslist = ['readingOrder','resources'];
 			var cover = false;
@@ -734,11 +751,20 @@ var manifestProcessor = (function() {
 					var resource = data[reslist[n]];
 					
 					for (var p = 0; p < resource.length; p++) {
+						
+						// check if the cover
 						if (resource[p].hasOwnProperty('rel')) {
 							for (var q = 0; q < resource[p]['rel'].length; q++) {
 								if (resource[p]['rel'][q] == 'cover') {
 									cover = true;
 								}
+							}
+						}
+						
+						// check that duration is set on reading order resources
+						if (reslist[n] == 'readingOrder') {
+							if (!resource[p].hasOwnProperty('duration')) {
+								console.warn('Entries in the reading order should specify their duration.');
 							}
 						}
 					}
@@ -753,7 +779,7 @@ var manifestProcessor = (function() {
 			
 			var resourceDuration = 0;
 			
-			if (data.hasOwnProperty('duration')) {
+			if (data.hasOwnProperty('duration') && duration.test(data['duration'])) {
 				
 				var totalDuration;
 				
@@ -1021,10 +1047,10 @@ var manifestProcessor = (function() {
 				}
 				
 				// check durations
-				if (value[i].hasOwnProperty('length')) {
-					if (value[i]['length'] < 0) {
-						console.error('Resource lengths cannot be negative numbers.');
-						delete(value[i]['length']);
+				if (value[i].hasOwnProperty('duration')) {
+					if (!duration.test(value[i]['duration'])) {
+						console.error('Invalid duration "' + value[i]['duration'] + '" specified on linked resource.');
+						delete(value[i]['duration']);
 					}
 				}
 			}
