@@ -186,7 +186,7 @@ var manifestProcessor = (function() {
 						
 						var baseElem = document.getElementsByTagName("base");
 						
-						if (baseElem) {
+						if (baseElem.length) {
 							base = baseElem[0].href;
 						}
 					}
@@ -1384,6 +1384,7 @@ var manifestProcessor = (function() {
 				}
 			}
 			else {
+				console.warn('Publication should specify a name. Automatically generating one.');
 				processed.name.value = 'Untitled Publication';
 				processed.name.language = 'en';
 				processed.name.direction = 'ltr';
