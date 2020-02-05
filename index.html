@@ -706,6 +706,8 @@
 									<td>The relation of the resource to the publication. OPTIONAL.</td>
 									<td>
 										<p>One or more <a href="#manifest-rel">relations</a>.</p>
+										<p>Keywords are <a href="https://infra.spec.whatwg.org/#ascii-case-insensitive"
+												>ASCII case-insensitive</a> [[!infra]] and MUST be compared as such.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
@@ -3710,8 +3712,8 @@
 								<li id="links-check-struct-rel">
 									<p>if <var>link["rel"]</var>
 										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> any of the
-										values "<code>contents</code>", "<code>pagelist</code>" or "<code>cover</code>",
-											<a>validation error</a>, <a
+										case-insensitive values "<code>contents</code>", "<code>pagelist</code>" or
+											"<code>cover</code>", <a>validation error</a>, <a
 											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 										<var>link</var> from <var>data["links"]</var>.</p>
 								</li>
@@ -3740,22 +3742,22 @@
 									<p>If more than one <a href="https://infra.spec.whatwg.org/#list-item">item</a> in
 											<var>resources</var> has a <var>rel</var>
 										<a href="https://infra.spec.whatwg.org/#map-entry">entry</a> that <a
-											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the value
-											"<code>contents</code>", <a>validation error</a>.</p>
+											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+										case-insensitive value "<code>contents</code>", <a>validation error</a>.</p>
 								</li>
 								<li id="rel-check-pagelist">
 									<p>If more than one <a href="https://infra.spec.whatwg.org/#list-item">item</a> in
 											<var>resources</var> has a <var>rel</var>
 										<a href="https://infra.spec.whatwg.org/#map-entry">entry</a> that <a
-											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the value
-											"<code>pagelist</code>", <a>validation error</a>.</p>
+											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+										case-insensitive value "<code>pagelist</code>", <a>validation error</a>.</p>
 								</li>
 								<li id="rel-check-covers">
 									<p>If more than one <a href="https://infra.spec.whatwg.org/#list-item">item</a> in
 											<var>resources</var> has a <var>rel</var>
 										<a href="https://infra.spec.whatwg.org/#map-entry">entry</a> that <a
-											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the value
-											"<code>cover</code>", <a>validation error</a>.</p>
+											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+										case-insensitive value "<code>cover</code>", <a>validation error</a>.</p>
 									<p>If the cover(s) have an <var>encodingFormat</var>
 										<a href="https://infra.spec.whatwg.org/#map-entry">entry</a> that specifies an
 										image media type (<code>image/*</code>), and do not have a <var>name</var>
