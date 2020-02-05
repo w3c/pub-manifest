@@ -13,7 +13,7 @@ var manifestProcessor = (function() {
 		'https://www.w3.org/TR/pub-manifest/': 'generic'
 	};
 	
-	var bodyRelValues = new Set('contents', 'cover', 'pagelist');
+	var bodyRelValues = new Set(['contents', 'cover', 'pagelist']);
 	
 	var expectsObject = {
 		'accessModeSufficient': ['']
@@ -376,7 +376,7 @@ var manifestProcessor = (function() {
 					res: for (var i = 0; i < processed['resources'].length; i++) {
 						if (processed['resources'][i].hasOwnProperty('rel')) {
 							for (var j = 0; j < processed['resources'][i]['rel'].length; j++) {
-								if (processed['resources'][i]['rel'][j] == 'contents') {
+								if (processed['resources'][i]['rel'][j].toLowerCase() == 'contents') {
 									toc = true;
 									break res;
 								}
@@ -502,7 +502,13 @@ var manifestProcessor = (function() {
 			for (var i = normalized.length - 1; i >= 0; i--) {
 				var type = typeof(normalized[i]);
 				if (type === 'string') {
-					normalized[i] = {"type": ["LinkedResource"], "url": convertAbsoluteURL(normalized[i], base)};
+					try {
+						normalized[i] = {"type": ["LinkedResource"], "url": convertAbsoluteURL(normalized[i], base)};
+					}
+					catch(e) {
+						console.error('Invalid absolute URL generated from ' + normalized[i]);
+						normalized.splice(i,1);
+					}
 				}
 				else if (Array.isArray(normalized[i]) || type !== 'object') {
 					console.error(key + ' requires only strings or objects in its array. Found ' + type + '. Removing from array.');
@@ -592,7 +598,7 @@ var manifestProcessor = (function() {
 	function convertAbsoluteURL(data, base) {
 		if (typeof(data) === 'string') {
 			var url = new URL(data, base);
-			return url.toString();
+			return url.toString()
 		}
 		else {
 			console.error(key + ' requires a string. Found ' + type + '.');
@@ -755,7 +761,7 @@ var manifestProcessor = (function() {
 						// check if the cover
 						if (resource[p].hasOwnProperty('rel')) {
 							for (var q = 0; q < resource[p]['rel'].length; q++) {
-								if (resource[p]['rel'][q] == 'cover') {
+								if (resource[p]['rel'][q].toLowerCase() == 'cover') {
 									cover = true;
 								}
 							}
@@ -838,6 +844,16 @@ var manifestProcessor = (function() {
 			console.warn('A canonical identifier should be specified.');
 		}
 		
+		else {
+			try {
+				var canonical = new URL(data['id']);
+			}
+			catch(e) {
+				console.warn('The canonical identifier is not a valid URL.');
+				delete(data['id']);
+			}
+		}
+		
 		// step 6 - valid duration
 		
 		if (data.hasOwnProperty('duration')) {
@@ -900,25 +916,72 @@ var manifestProcessor = (function() {
 		
 		if (data['links']) {
 			for (var i = data['links'].length - 1; i >= 0; i--) {
-				var url = data['links'][i]['url'];
+				
+				var url = data['links'][i]['url'].replace(/[#?].*$/, '');
+				
 				if (data['uniqueResources'].has(url)) {
-					console.error('Linked resource ' + url + ' cannot also be publication resources.');
+					console.error('Linked resource ' + data['links'][i]['url'] + ' cannot also be a publication resource.');
 					data['links'].splice(i,1);
 					continue;
 				}
+				
 				if (data['links'][i].hasOwnProperty('rel')) {
 					for (var j = 0; j < data['links'][i]['rel'].length; j++) {
-						if (bodyRelValues.has(data['links'][i]['rel'][j])) {
-							console.error('Link relation ' + data['links'][i]['rel'][j] + ' cannot also be used in the links section.');
+						var rel = data['links'][i]['rel'][j].toLowerCase();
+						if (bodyRelValues.has(rel)) {
+							console.error('Link relation ' + rel + ' must not appear in the links section.');
 							data['links'].splice(i,1);
 							break;
+						}
+					}
+				}
+				else {
+					console.error('Resource ' + data['links'][i]['url'] + ' in the links section does not specify a rel value.');
+				}
+			}
+		}
+		
+		// step 13 - structural resource checks
+		
+		
+		var relres = data.hasOwnProperty('readingOrder') ? data['readingOrder'] : [];
+		
+		if (data.hasOwnProperty('resources')) {
+			relres = relres.concat(data['resources']);
+		}
+		
+		var rel_flags = {'cover' : false, 'pagelist': false, 'contents': false};
+		var imageType = new RegExp('image/');
+		
+		if (relres.length) {
+			for (var u = 0; u < relres.length; u++) {
+				if (relres[u].hasOwnProperty('rel')) {
+					for (var b = 0; b < relres[u]['rel'].length; b++) {
+						var rel = relres[u]['rel'][b].toLowerCase();
+						if (rel_flags.hasOwnProperty(rel)) {
+							if (rel_flags[rel]) {
+								console.error('Link relation ' + rel + ' specified multiple times.');
+							}
+							else {
+								rel_flags[rel] = true;
+							}
+						}
+						
+						if (rel == 'cover') {
+							if (relres[u].hasOwnProperty('encodingFormat')) {
+								if (imageType.test(relres[u].encodingFormat)) {
+									if (!relres[u].hasOwnProperty('name')) {
+										console.warn('Cover image should include alternative text in a name property.');
+									}
+								}
+							}
 						}
 					}
 				}
 			}
 		}
 		
-		// step 13 - remove empty arrays
+		// step 14 - remove empty arrays
 		
 		for (var term in data) {
 			try {
@@ -929,7 +992,7 @@ var manifestProcessor = (function() {
 			}
 		}
 		
-		// step 14 - return data
+		// step 15 - return data
 		
 		return data;
 	}
