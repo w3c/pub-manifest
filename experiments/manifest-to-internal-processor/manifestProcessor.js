@@ -177,7 +177,26 @@ var manifestProcessor = (function() {
 						throw new Error()
 					}
 					
-					var base = location.href.substring(0, location.href.lastIndexOf("/")+1);
+					var base = '';
+					var doc_path = [location.protocol, '//', location.host, location.pathname].join('');;
+					
+					if (manifest_link.indexOf(doc_path) == 0 || manifest_link.indexOf('#') == 0) {
+						// manifest is embedded
+						base = location.href.substring(0, location.href.lastIndexOf("/")+1);
+						
+						var baseElem = document.getElementsByTagName("base");
+						
+						if (baseElem) {
+							base = baseElem[0].href;
+						}
+					}
+					
+					else  {
+						// use the manifest path
+						base = manifest_link.substring(0, location.href.lastIndexOf("/")+1);
+					}
+					
+					
 					var doc = document;
 					
 					var internal_rep = processManifestData(data, base, doc);
