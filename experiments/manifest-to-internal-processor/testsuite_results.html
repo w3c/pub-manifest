@@ -1,0 +1,4532 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Publication Manifest Test Suite Results</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				font-size: 62.5%;
+				background-color: rgb(245, 245, 245);
+			}
+			h1 {
+				font-size: 1.6rem;
+			}
+			h2 {
+				font-size: 0.9rem;
+				background-color: rgb(0, 0, 90);
+				color: rgb(255, 255, 255);
+				padding: 0.3rem;
+				margin: -0.3rem -0.3rem 0 -0.3rem;
+			}
+			section.test {
+				border: 0.1rem solid black;
+				padding: 0.3rem;
+				margin-top: 1rem;
+			}
+			p,
+			li {
+				font-size: 1rem;
+				max-width: 60rem;
+			}
+			pre {
+				font-size: 0.8rem;
+				background-color: rgb(255, 255, 250);
+			}
+			li {
+				padding: 0.3rem;
+				border-bottom: 0.1rem solid lightgrey;
+			}
+			.warn {
+				background-color: rgb(255, 255, 240);
+			}
+			.error {
+				background-color: rgb(255, 200, 200);
+			}
+			.valid {
+				background-color: rgb(144, 238, 144);
+			}
+			pre {
+				height: 10rem;
+				overflow: scroll;
+			}
+			a {
+				color: rgb(255, 215, 0);
+			}</style>
+	</head>
+	<body>
+		<section id="test-suite">
+			<h1>Publication Manifest Test Suite Results</h1>
+
+			<div id="results">
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.2.5.01.jsonld"
+							>test_m4.2.5.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> In case of an embedded manifest, 'base' is the URL of
+						the embedded document</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.2.5.02.jsonld"
+							>test_m4.2.5.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> In case of an embedded manifest, 'base' is the value
+						of the base tag of the embedded document</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.2.5.03.jsonld"
+							>test_m4.2.5.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> In case of an linked manifest, 'base' is the URL of
+						the linked JSON manifest</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m6.01.jsonld"
+							>test_m6.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The manifest may be linked via a 'link' element in the
+						primary entry page</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m6.02.jsonld"
+							>test_m6.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The manifest may embedded, via a 'script' element,
+						into the primary entry page</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m6.03.jsonld"
+							>test_m6.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> If the 'name' entry is not present, the 'title'
+						element of the primary entry page may be used instead</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m6.04.jsonld"
+							>test_m6.04</a>:</h2>
+					<p class="desc"><strong>Description:</strong> When reusing the title for 'name', the language and
+						direction set in HTML is valid</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m6.05.jsonld"
+							>test_m6.05</a>:</h2>
+					<p class="desc"><strong>Description:</strong> If the 'readingOrder' is empty, the URL of the Primary
+						Entry Page is used as a default</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m6.06.jsonld"
+							>test_m6.06</a>:</h2>
+					<p class="desc"><strong>Description:</strong> There should be either a 'name' or a usable 'title' in
+						the Primary Entry Page.</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a4.2.01.jsonld"
+							>test_a4.2.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A manifest may be linked via a 'link' element in the
+						primary entry page, with the TOC reference in the manifest</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a4.2.02.jsonld"
+							>test_a4.2.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A manifest without a TOC may be linked via a 'link'
+						element in the primary entry page but with a TOC within the HTML file</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a4.2.03.jsonld"
+							>test_a4.2.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A manifest may be embedded via a 'script' element in
+						the primary entry page, with the TOC reference in the manifest</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a4.2.04.jsonld"
+							>test_a4.2.04</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A manifest without a TOC embedded via a 'script'
+						element in the primary entry page but with a TOC within the HTML file</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a4.2.05.jsonld"
+							>test_a4.2.05</a>:</h2>
+					<p class="desc"><strong>Description:</strong> There must be a TOC, either in the manifest (linked or
+						embedded) or in the Primary Entry Page</p>
+					<p class="error">ERROR: This test can only be run on an embedded manifest.</p>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.01.jsonld"
+							>test_m4.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Basic, correct manifest, usable to test a local
+						setup</p>
+					<p class="desc"><strong>Expected Result:</strong> Output the manifest</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.3.01.jsonld"
+							>test_m4.3.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The manifest must have a '@context'</p>
+					<p class="desc"><strong>Expected Result:</strong> Return empty</p>
+					<p class="desc"><strong>Expected Errors:</strong> Fatal error on missing context</p>
+					<pre class="manifest">Failed to generate internal representation.</pre>
+					<ul>
+						<li class="error">ERROR: @context not set.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.3.02.jsonld"
+							>test_m4.3.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The manifest '@context' must contain the schema.org
+						and the publication manifest context references.</p>
+					<p class="desc"><strong>Expected Result:</strong> Return empty</p>
+					<p class="desc"><strong>Expected Errors:</strong> Fatal error on missing context</p>
+					<pre class="manifest">Failed to generate internal representation.</pre>
+					<ul>
+						<li class="error">ERROR: First two declarations in @context must be "https://schema.org" and
+							"https://www.w3.org/ns/pub-context"</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.4.01.jsonld"
+							>test_m4.4.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The global language value can be set as part of the
+						'@context' array</p>
+					<p class="desc"><strong>Expected Result:</strong> Language 'en' set for all strings</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book",
+			"language": "en"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.4.03.jsonld"
+							>test_m4.4.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The global base direction value can be set as part of
+						the '@context' array</p>
+					<p class="desc"><strong>Expected Result:</strong> Direction ltr set for all strings</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book",
+			"direction": "ltr"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.4.02.jsonld"
+							>test_m4.4.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The global language value must be valid BCP47</p>
+					<p class="desc"><strong>Expected Result:</strong> No effect on output (value ignored)</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on incorrect BCP47 value</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Invalid global language tag "@bogus" found.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.6.01.jsonld"
+							>test_m4.6.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> There should be a 'conformsTo' value in the manifest;
+						a default is set if missing</p>
+					<p class="desc"><strong>Expected Result:</strong> Set 'profile' to user agents default</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on missing conformance</p>
+					<pre class="manifest">Failed to generate internal representation.</pre>
+					<ul>
+						<li class="error">ERROR: No profile specified. (No testing for compatible profiles in this
+							processor.)</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.5.01.jsonld"
+							>test_m4.5.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The 'type' of the manifest should be set; if missing,
+						'CreativeWork' is added by default</p>
+					<p class="desc"><strong>Expected Result:</strong> The CreativeWork type should be added</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error (no type)</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"type": [
+		"CreativeWork"
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: Publication type not set.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.6.02.jsonld"
+							>test_m4.6.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The user agent has a set of profile references it
+						understands, other values are ignored</p>
+					<p class="desc"><strong>Expected Result:</strong> Set 'profile' to user agents default</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on no known conformance</p>
+					<pre class="manifest">Failed to generate internal representation.</pre>
+					<ul>
+						<li class="error">ERROR: No profiles recognized. (No testing for compatible profiles in this
+							processor.)</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.4.04.jsonld"
+							>test_m4.4.04</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The global base direction value must 'ltr' or
+						'rtl'</p>
+					<p class="desc"><strong>Expected Result:</strong> No effect on output (value ignored)</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on incorrect base direction
+						value</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Invalid global direction "bogus" found.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.5.02.jsonld"
+							>test_m4.5.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The 'type' value can be set to other values</p>
+					<p class="desc"><strong>Expected Result:</strong> no change on the document</p>
+					<p class="desc"><strong>Expected Errors:</strong> None</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"type": [
+		"Book"
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.4.05.jsonld"
+							>test_m4.4.05</a>:</h2>
+					<p class="desc"><strong>Description:</strong> If several global language, resp. base direction
+						values are set, the last one wins in both cases</p>
+					<p class="desc"><strong>Expected Result:</strong> Strings should be set with 'language:en' and
+						'direction:ltr'</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book",
+			"language": "en",
+			"direction": "ltr"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.6.03.jsonld"
+							>test_m4.6.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Non-default conformance value can be set that the user
+						agent understands</p>
+					<p class="desc"><strong>Expected Result:</strong> Set 'profile' to the audiobooks profile value</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: abridged is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessMode is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessModeSufficient is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessibilityFeature is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessibilityHazard is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessibilitySummary is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: author is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: dateModified is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: datePublished is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: duration is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: inLanguage is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: readBy is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: readingProgression is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: resource is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: Entries in the reading order should specify their duration.</li>
+						<li class="warn">WARNING: A resource designated as the cover was not found.</li>
+						<li class="warn">WARNING: Total duration not specified. Cannot verify the sum duration of the
+							individual resources.</li>
+						<li class="warn">WARNING: No table of contents found in the publication.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.1.01.jsonld"
+							>test_m4.7.1.1.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The value of 'abridged' must be a boolean</p>
+					<p class="desc"><strong>Expected Result:</strong> The value of abridged should be removed from the
+						result</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on abridged</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: abridged requires a boolean.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.2.02.jsonld"
+							>test_m4.7.1.2.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The value of 'accessModeSufficient' has a strict
+						structure per schema.org; illegal values should be removed</p>
+					<p class="desc"><strong>Expected Result:</strong> The illegal value (visual) should be removed</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on the incorrect data</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"accessModeSufficient": [
+		{
+			"type": "ItemList",
+			"itemListElement": [
+				"textual",
+				"visual"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: accessModeSufficient requires an object.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.2.01.jsonld"
+							>test_m4.7.1.2.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Simple a11y terms can also be set as single
+						literals</p>
+					<p class="desc"><strong>Expected Result:</strong> All values should be turned into arrays of
+						literals</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"accessibilityFeature": [
+		"bookmarks"
+	],
+	"accessibilityHazard": [
+		"flashing",
+		"sound"
+	],
+	"accessibilityControl": [
+		"fullKeyboardControl",
+		"fullVoiceControl"
+	],
+	"accessMode": [
+		"visual"
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.3.01.jsonld"
+							>test_m4.7.1.3.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All URL values for 'url' can be relative, expanded via
+						base</p>
+					<p class="desc"><strong>Expected Result:</strong> Value of URL should be absolute</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://w3c.github.io/publ-tests/publication_manifest/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.3.02.jsonld"
+							>test_m4.7.1.3.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All URL values for an 'url' within an array can be
+						relative, expanded via base</p>
+					<p class="desc"><strong>Expected Result:</strong> Value of all URLs in the array should be
+						absolute</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://w3c.github.io/publ-tests/publication_manifest/book",
+		"https://w3c.github.io/publ-tests/publication_manifest/same_book_elsewhere"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.4.02.jsonld"
+							>test_m4.7.1.4.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The manifest should contain a value for 'id'</p>
+					<p class="desc"><strong>Expected Result:</strong> Output unchanged</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on the missing ID</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: A canonical identifier should be specified.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.3.03.jsonld"
+							>test_m4.7.1.3.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The values of the 'url' term must be a valid URL</p>
+					<p class="desc"><strong>Expected Result:</strong> The invalid URL should be removed</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on the URL</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://w3c.github.io/publ-tests/publication_manifest/book",
+		"https://w3c.github.io/publ-tests/publication_manifest/%incorrect_elsewhere"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.5.01.jsonld"
+							>test_m4.7.1.5.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Persons can be provided as single strings</p>
+					<p class="desc"><strong>Expected Result:</strong> Array of names turned into an array of Persons</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		},
+		{
+			"type": "Person",
+			"name": "Peter Somebody"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.5.02.jsonld"
+							>test_m4.7.1.5.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A single person is not required to be in an array</p>
+					<p class="desc"><strong>Expected Result:</strong> The single term is turned into a one-element Array
+						of Persons</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.4.01.jsonld"
+							>test_m4.7.1.4.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The value of 'id' must be a valid URL</p>
+					<p class="desc"><strong>Expected Result:</strong> Value of invalid URL should be removed</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on the URL</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: The canonical identifier is not a valid URL.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.5.03.jsonld"
+							>test_m4.7.1.5.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> An entity should have a name</p>
+					<p class="desc"><strong>Expected Result:</strong> The entry without a name is removed from the
+						array</p>
+					<p class="desc"><strong>Expected Errors:</strong> validation error on missing name</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Item 1 in author does not have a name</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.5.04.jsonld"
+							>test_m4.7.1.5.04</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All creators defined in the specification, and only
+						those, should have the same behaviors (copy of m47502)</p>
+					<p class="desc"><strong>Expected Result:</strong> All the defined creator values should be turned
+						into array; this does not apply to extra terms like 'auteur'</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"artist": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"colorist": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"contributor": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"creator": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"editor": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"illustrator": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"inker": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"letterer": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"penciler": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"publisher": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"readBy": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"translator": [
+		{
+			"type": "Person",
+			"name": "John Doe"
+		}
+	],
+	"auteur": "John Doe",
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.6.01.jsonld"
+							>test_m4.7.1.6.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Duration should have the right ISO format (incorrect
+						value)</p>
+					<p class="desc"><strong>Expected Result:</strong> Duration should be removed from output</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on incorrect duration format</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: The duration must be a valid ISO 8601 duration.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.6.02.jsonld"
+							>test_m4.7.1.6.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Duration should have the right ISO format (correct
+						value)</p>
+					<p class="desc"><strong>Expected Result:</strong> Duration value should be present in the output</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"duration": "PT5M",
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.6.04.jsonld"
+							>test_m4.7.1.6.04</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Duration should have the right ISO format also in a
+						linked resource (correct value)</p>
+					<p class="desc"><strong>Expected Result:</strong> Duration value should be present in the output</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+			"duration": "PT5M",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.7.01.jsonld"
+							>test_m4.7.1.7.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Both 'datePublished' and 'dateModified' must be in ISO
+						format (incorrect values)</p>
+					<p class="desc"><strong>Expected Result:</strong> Both 'datePublished' and 'dateModified' are
+						incorrect, and should be removed from output</p>
+					<p class="desc"><strong>Expected Errors:</strong> incorrect publication dates</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: The last modified date must be a valid ISO 8601 dateTime.</li>
+						<li class="error">ERROR: The publication date must be a valid ISO 8601 dateTime.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.6.03.jsonld"
+							>test_m4.7.1.6.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Duration should have the right ISO format also in a
+						linked resource (incorrect value)</p>
+					<p class="desc"><strong>Expected Result:</strong> Duration should be removed from output</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on incorrect duration format</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Invalid duration "bogus duration value" specified on linked
+							resource.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.2.03.jsonld"
+							>test_m4.7.1.2.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The value of 'accessModeSufficient' has a strict
+						structure per schema.org; illegal values should be removed</p>
+					<p class="desc"><strong>Expected Result:</strong> Both values being invalid, the key should be
+						removed altogether</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on the incorrect data</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: accessModeSufficient requires an object.</li>
+						<li class="error">ERROR: accessModeSufficient must only contain ItemList objects.</li>
+						<li class="error">ERROR: Empty array.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.7.02.jsonld"
+							>test_m4.7.1.7.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Both 'datePublished' and 'dateModified' must be in ISO
+						format (correct values)</p>
+					<p class="desc"><strong>Expected Result:</strong> Both 'datePublished' and 'dateModified' are
+						correct, and should be present in the output</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"datePublished": "2019-10-01",
+	"dateModified": "2019-10-24",
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.9.02.jsonld"
+							>test_m4.7.1.9.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The value of 'inLanguage' value may be an array, each
+						element a valid BCP47</p>
+					<p class="desc"><strong>Expected Result:</strong> Incorrect values must be removed from the
+						array</p>
+					<p class="desc"><strong>Expected Errors:</strong> validation error on incorrect BCP47 value</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"inLanguage": [
+		"en"
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: The language tag "@bogus" is not well formed.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.10.01.jsonld"
+							>test_m4.7.1.10.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The value of 'readingProgression' value must ltr or
+						rtl</p>
+					<p class="desc"><strong>Expected Result:</strong> Value of readingProgression must be checked, and
+						set to the default 'ltr'</p>
+					<p class="desc"><strong>Expected Errors:</strong> validation error on incorrect direction</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: The reading progression must be "ltr" or "rtl".</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.11.02.jsonld"
+							>test_m4.7.1.11.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The title (ie, 'name') is a natural language text, the
+						global language and direction must be set</p>
+					<p class="desc"><strong>Expected Result:</strong> Convert the simple string into a text labeled as
+						English, and direction ltr</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book",
+			"language": "en",
+			"direction": "ltr"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.11.01.jsonld"
+							>test_m4.7.1.11.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The title (ie, 'name') can be set as a simple string,
+						as an abbreviation for localizable texts</p>
+					<p class="desc"><strong>Expected Result:</strong> Convert the simple string into an array of
+						Localizable string</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.11.03.jsonld"
+							>test_m4.7.1.11.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The title (ie, 'name') is an array of natural language
+						texts, each can have its language and direction set individually</p>
+					<p class="desc"><strong>Expected Result:</strong> Convert the two items into arabic and direction
+						rtl for the first, and english and ltr for the second</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"name": [
+		{
+			"value": "HTML و CSS: تصميم و إنشاء مواقع الويب",
+			"direction": "rtl",
+			"language": "ar"
+		},
+		{
+			"value": "HTML and CSS: Design and Build Websites",
+			"language": "en",
+			"direction": "ltr"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.1.01.jsonld"
+							>test_m4.7.2.1.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The 'readingOrder' can be expressed as a single
+						relative URL</p>
+					<p class="desc"><strong>Expected Result:</strong> The input is converted into an array of a single
+						object, with the 'url' set to the absolute URL</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.1.02.jsonld"
+							>test_m4.7.2.1.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All URL-s must be valid; invalid values are
+						removed</p>
+					<p class="desc"><strong>Expected Result:</strong> The second entry in 'readingOrder' is removed from
+						the final list</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on invalid URL, and a validation
+						error on removing the corresponding Linked Resource</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		},
+		{
+			"url": "http://example.w3.org/%illegal.html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"http://example.w3.org/%illegal.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.1.9.01.jsonld"
+							>test_m4.7.1.9.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The value of 'inLanguage' must be valid BCP47</p>
+					<p class="desc"><strong>Expected Result:</strong> Value of 'inLanguage' must be checked, and removed
+						(as invalid)</p>
+					<p class="desc"><strong>Expected Errors:</strong> validation error on incorrect BCP47 value</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: The language tag "@bogus" is not well formed.</li>
+						<li class="error">ERROR: Empty array.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.1.04.jsonld"
+							>test_m4.7.2.1.04</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Duplicate URLs generate warning but stay in the
+						list</p>
+					<p class="desc"><strong>Expected Result:</strong> The output does not change</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on repeated URLs</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter2.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html#withfragment"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter3.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter2.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter2.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter3.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: Duplicate resource
+							https://w3c.github.io/publ-tests/publication_manifest/chapter1.html declared.</li>
+						<li class="warn">WARNING: Duplicate resource
+							https://w3c.github.io/publ-tests/publication_manifest/chapter2.html declared.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.2.02.jsonld"
+							>test_m4.7.2.2.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All URL-s in 'resources' must be valid; invalid values
+						are removed</p>
+					<p class="desc"><strong>Expected Result:</strong> The second entry in 'resources' is removed from
+						the final list</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on invalid URL</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"resources": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/other_link1.html"
+		},
+		{
+			"url": "http://example.w3.org/%illegal.html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/other_link1.html",
+		"http://example.w3.org/%illegal.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.2.01.jsonld"
+							>test_m4.7.2.2.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The 'resources' can be expressed as a single relative
+						URL</p>
+					<p class="desc"><strong>Expected Result:</strong> The input is converted into an array of a single
+						object, with the 'url' set to the absolute URL</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"resources": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/other_link1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/other_link1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.1.03.jsonld"
+							>test_m4.7.2.1.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A missing 'readingOrder' is replaced by a default</p>
+					<p class="desc"><strong>Expected Result:</strong> A 'readingOrder' is added with a single link set
+						to the HTML Nodes Document.URL. If none provided, validation error</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on invalid URL, and a validation
+						error on removing the corresponding Linked Resource</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [],
+	"readingOrder": [
+		{
+			"url": "http://localhost/pub-manifest/experiments/manifest-to-internal-processor/testsuite.html"
+		}
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.3.01.jsonld"
+							>test_m4.7.2.3.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The 'links' can be expressed as a single relative
+						URL</p>
+					<p class="desc"><strong>Expected Result:</strong> The input is converted into an array of a single
+						object, with the 'url' set to the absolute URL</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"links": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/other_link1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/other_link1.html in the links section
+							does not specify a rel value.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.2.03.jsonld"
+							>test_m4.7.2.2.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Duplicate URL-s removed from 'resources'</p>
+					<p class="desc"><strong>Expected Result:</strong> The third entry in 'resources' is removed from the
+						final list</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on repeated resources</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"resources": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/other_link1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/another_link2.html"
+		},
+		{
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/other_link1.html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/other_link1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/another_link2.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: Duplicate resource
+							https://w3c.github.io/publ-tests/publication_manifest/other_link1.html declared.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.3.02.jsonld"
+							>test_m4.7.2.3.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All URL-s in 'links' must be valid; invalid values are
+						removed</p>
+					<p class="desc"><strong>Expected Result:</strong> The second entry in 'links' is removed from the
+						final list</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on invalid URL</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"links": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/other_link1.html"
+		},
+		{
+			"url": "http://example.w3.org/%illegal.html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Resource http://example.w3.org/%illegal.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/other_link1.html in the links section
+							does not specify a rel value.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.3.04.jsonld"
+							>test_m4.7.2.3.04</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All URL-s (ignoring fragment id-s) in 'links' must be
+						disjoint from the ones in 'readingOrder' or 'resources'.</p>
+					<p class="desc"><strong>Expected Result:</strong> The chapter1.html, link1.html, and link3.html are
+						removed from links</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on a link appearing in bounds</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link3.html#fragment"
+		}
+	],
+	"resources": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link1.html"
+		}
+	],
+	"links": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link2.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link2.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link4.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/link3.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/link1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link4.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Linked resource
+							https://w3c.github.io/publ-tests/publication_manifest/chapter1.html cannot also be a
+							publication resource.</li>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link2.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Linked resource
+							https://w3c.github.io/publ-tests/publication_manifest/link3.html cannot also be a
+							publication resource.</li>
+						<li class="error">ERROR: Linked resource
+							https://w3c.github.io/publ-tests/publication_manifest/link1.html#fragment cannot also be a
+							publication resource.</li>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link2.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Linked resource
+							https://w3c.github.io/publ-tests/publication_manifest/link1.html cannot also be a
+							publication resource.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.3.03.jsonld"
+							>test_m4.7.2.3.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Entries in 'links' must not appear in
+						'readingOrder'</p>
+					<p class="desc"><strong>Expected Result:</strong> The 'chapter1.html' entry is removed from
+						'links'</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on a link appearing in bounds</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"links": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link2.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link3.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link2.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link4.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link4.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Linked resource
+							https://w3c.github.io/publ-tests/publication_manifest/chapter1.html cannot also be a
+							publication resource.</li>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link2.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link3.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link1.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link2.html in the links section does
+							not specify a rel value.</li>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link1.html in the links section does
+							not specify a rel value.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.3.05.jsonld"
+							>test_m4.7.2.3.05</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Cover page, toc reference, or pagelist reference
+						should not appear in 'links'</p>
+					<p class="desc"><strong>Expected Result:</strong> The links2.html, links4.html, and links6.html
+						entries should be removed from the final links; others should be listed.</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on all three faulty links.</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"links": [
+		{
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link7.html",
+			"rel": [
+				"something"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Link relation pagelist must not appear in the links section.</li>
+						<li class="error">ERROR: Link relation contents must not appear in the links section.</li>
+						<li class="error">ERROR: Link relation cover must not appear in the links section.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.3.2.01.jsonld"
+							>test_m4.7.3.2.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Extra term values with, possibly, extra namespace
+						declaration must be accepted and added to the output</p>
+					<p class="desc"><strong>Expected Result:</strong> The manifest should leave the extra values in the
+						output</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"ex:region": "North America",
+	"copyrightYear": "2015",
+	"copyrightHolder": "World Wide Web Consortium",
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.2.3.06.jsonld"
+							>test_m4.7.2.3.06</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Each entry in 'links' should have its 'rel' value
+						set</p>
+					<p class="desc"><strong>Expected Result:</strong> Output should be unchanged</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on missing rel.</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"links": [
+		{
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link2.html",
+			"rel": [
+				"something"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/link3.html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Resource
+							https://w3c.github.io/publ-tests/publication_manifest/link3.html in the links section does
+							not specify a rel value.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.7.3.2.02.jsonld"
+							>test_m4.7.3.2.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Extra term values in entities and in linked resources
+						must be accepted and added to the output</p>
+					<p class="desc"><strong>Expected Result:</strong> The manifest should leave the extra values in the
+						output</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+			"copyrightYear": "2015",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"author": [
+		{
+			"name": [
+				{
+					"value": "John Doe"
+				}
+			],
+			"orderBy": "Doe",
+			"type": [
+				"Person"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.8.1.1.01.jsonld"
+							>test_m4.8.1.1.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> There should not be a repeated definition of cover</p>
+					<p class="desc"><strong>Expected Result:</strong> The second occurrence of cover should be
+						flagged</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on cover</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"resources": [
+		{
+			"name": [
+				{
+					"value": "cover page #1"
+				}
+			],
+			"description": [
+				{
+					"value": "This is a cover page #1"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/cover1.png",
+			"rel": [
+				"cover"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"name": [
+				{
+					"value": "This is another resource"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/something.svg",
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"name": [
+				{
+					"value": "cover page #2"
+				}
+			],
+			"description": [
+				{
+					"value": "This is a cover page #2 (should be in alternate...)"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/cover2.png",
+			"rel": [
+				"cover"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/cover1.png",
+		"https://w3c.github.io/publ-tests/publication_manifest/something.svg",
+		"https://w3c.github.io/publ-tests/publication_manifest/cover2.png"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Link relation cover specified multiple times.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.8.1.1.02.jsonld"
+							>test_m4.8.1.1.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A cover referring to an image should have a 'name'</p>
+					<p class="desc"><strong>Expected Result:</strong> Validation error generation</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on missing name</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"resources": [
+		{
+			"description": [
+				{
+					"value": "This is a cover page"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/cover.png",
+			"encodingFormat": "image/png",
+			"rel": [
+				"cover"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/cover.png"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: Cover image should include alternative text in a name property.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.8.1.1.03.jsonld"
+							>test_m4.8.1.1.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A cover referring to a non-image without a 'name' is
+						fine</p>
+					<p class="desc"><strong>Expected Result:</strong> No change on the output</p>
+					<p class="desc"><strong>Expected Errors:</strong> None</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"resources": [
+		{
+			"description": [
+				{
+					"value": "This is a cover page"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/cover.json",
+			"encodingFormat": "application/json",
+			"rel": [
+				"cover"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/cover.json"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.8.1.2.01.jsonld"
+							>test_m4.8.1.2.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> There should be only one page list</p>
+					<p class="desc"><strong>Expected Result:</strong> The second occurrence of page list should be
+						flagged</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on page list</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"resources": [
+		{
+			"name": [
+				{
+					"value": "page list #1"
+				}
+			],
+			"description": [
+				{
+					"value": "This is a page list #1"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/pagelist1.html",
+			"rel": [
+				"pagelist"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"name": [
+				{
+					"value": "This is another resource"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/something.svg",
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"name": [
+				{
+					"value": "cover page #2"
+				}
+			],
+			"description": [
+				{
+					"value": "This is page list #2"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/pagelist2.html",
+			"rel": [
+				"pagelist"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/pagelist1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/something.svg",
+		"https://w3c.github.io/publ-tests/publication_manifest/pagelist2.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Link relation pagelist specified multiple times.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m4.8.1.3.01.jsonld"
+							>test_m4.8.1.3.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> There should be only one TOC reference</p>
+					<p class="desc"><strong>Expected Result:</strong> The second occurrence of TOC should be flagged</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on TOC</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"resources": [
+		{
+			"name": [
+				{
+					"value": "TOC #1"
+				}
+			],
+			"description": [
+				{
+					"value": "This is TOC #1"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/toc1.html",
+			"rel": [
+				"contents"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"name": [
+				{
+					"value": "This is another resource"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/something.svg",
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"name": [
+				{
+					"value": "TOC #2"
+				}
+			],
+			"description": [
+				{
+					"value": "This is TOC #2"
+				}
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/toc2.html",
+			"rel": [
+				"contents"
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/toc1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/something.svg",
+		"https://w3c.github.io/publ-tests/publication_manifest/toc2.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Link relation contents specified multiple times.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m5.01.jsonld"
+							>test_m5.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Calculation of bounds should include only the URL-s
+						without fragment identifiers</p>
+					<p class="desc"><strong>Expected Result:</strong> The 'uniqueResources' array contains URL-s without
+						fragments</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter2.html#first"
+		}
+	],
+	"resources": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/extraResource1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/extraResource2.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter2.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/extraResource1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/extraResource2.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/publication_manifest/manifest_processing/tests/test_m5.02.jsonld"
+							>test_m5.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Each value on bounds should be different</p>
+					<p class="desc"><strong>Expected Result:</strong> The 'uniqueResources' array contains unique URL-s
+						only</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/pub-manifest/",
+	"type": [
+		"CreativeWork"
+	],
+	"name": [
+		{
+			"value": "My Wonderful Book"
+		}
+	],
+	"id": "urn:isbn:1234567890",
+	"url": [
+		"https://example.org/book"
+	],
+	"conformsTo": [
+		"https://www.w3.org/TR/pub-manifest/"
+	],
+	"readingOrder": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter2.html#first"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html#second"
+		}
+	],
+	"resources": [
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/extraResource1.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/extraResource2.html"
+		},
+		{
+			"type": [
+				"LinkedResource"
+			],
+			"url": "https://w3c.github.io/publ-tests/publication_manifest/chapter1.html"
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/chapter2.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/extraResource1.html",
+		"https://w3c.github.io/publ-tests/publication_manifest/extraResource2.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: Duplicate resource
+							https://w3c.github.io/publ-tests/publication_manifest/chapter1.html declared.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.02.jsonld"
+							>test_a5.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Minimally correct audio manifest, usable for testing
+						overall setup</p>
+					<p class="desc"><strong>Expected Result:</strong> Output the manifest</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"type": [
+		"Audiobook"
+	],
+	"id": "https://librivox.org/flatland-a-romance-of-many-dimensions-by-edwin-abbott-abbott/",
+	"url": [
+		"https://w3c.github.io/pub-manifest/experiments/audiobook/"
+	],
+	"name": [
+		{
+			"value": "Flatland: A Romance of Many Dimensions"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "Edwin Abbott Abbott"
+		}
+	],
+	"readBy": [
+		{
+			"type": "Person",
+			"name": "Ruth Golding"
+		}
+	],
+	"inLanguage": [
+		"en"
+	],
+	"dateModified": "2019-11-14",
+	"datePublished": "2008-10-12",
+	"duration": "PT1371S",
+	"abridged": false,
+	"accessMode": [
+		"audio"
+	],
+	"accessModeSufficient": [
+		{
+			"type": "ItemList",
+			"itemListElement": [
+				"audio"
+			],
+			"description": "Audio"
+		}
+	],
+	"accessibilityFeature": [
+		"readingOrder",
+		"unlocked"
+	],
+	"accessibilityHazard": [
+		"noSoundHazard"
+	],
+	"accessibilitySummary": [
+		{
+			"value": "This is just a test summary"
+		}
+	],
+	"readingProgression": "ltr",
+	"resources": [
+		{
+			"rel": [
+				"cover"
+			],
+			"url": "http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+			"encodingFormat": "image/jpeg",
+			"name": [
+				{
+					"value": "Cover page with title and author"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"rel": [
+				"contents"
+			],
+			"url": "https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html",
+			"encodingFormat": "text/html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingOrder": [
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 1, Sections 1 - 3"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"uniqueResources": [
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+		"http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+		"https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.01.jsonld"
+							>test_a5.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> Correct audio manifest, usable for testing overall
+						setup</p>
+					<p class="desc"><strong>Expected Result:</strong> Output the manifest</p>
+					<p class="desc"><strong>Expected Errors:</strong> none</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"type": [
+		"Audiobook"
+	],
+	"id": "https://librivox.org/flatland-a-romance-of-many-dimensions-by-edwin-abbott-abbott/",
+	"url": [
+		"https://w3c.github.io/pub-manifest/experiments/audiobook/"
+	],
+	"name": [
+		{
+			"value": "Flatland: A Romance of Many Dimensions"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "Edwin Abbott Abbott"
+		}
+	],
+	"readBy": [
+		{
+			"type": "Person",
+			"name": "Ruth Golding"
+		}
+	],
+	"publisher": [
+		{
+			"type": "Person",
+			"name": "Librivox"
+		}
+	],
+	"inLanguage": [
+		"en"
+	],
+	"dateModified": "2019-11-14",
+	"datePublished": "2008-10-12",
+	"duration": "PT13774S",
+	"abridged": false,
+	"accessMode": [
+		"audio"
+	],
+	"accessModeSufficient": [
+		{
+			"type": "ItemList",
+			"itemListElement": [
+				"audio"
+			],
+			"description": "Audio"
+		}
+	],
+	"accessibilityFeature": [
+		"readingOrder",
+		"unlocked"
+	],
+	"accessibilityHazard": [
+		"noSoundHazard"
+	],
+	"accessibilitySummary": [
+		{
+			"value": "This is just a test summary"
+		}
+	],
+	"readingProgression": "ltr",
+	"resources": [
+		{
+			"rel": [
+				"cover"
+			],
+			"url": "http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+			"encodingFormat": "image/jpeg",
+			"name": [
+				{
+					"value": "Cover page with title and author"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"rel": [
+				"contents"
+			],
+			"url": "https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html",
+			"encodingFormat": "text/html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingOrder": [
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 1, Sections 1 - 3"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_2_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1669S",
+			"name": [
+				{
+					"value": "Part 1, Sections 4 - 5"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_3_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1506S",
+			"name": [
+				{
+					"value": "Part 1, Sections 6 - 7"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_4_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1669S",
+			"name": [
+				{
+					"value": "Part 1, Sections 8 - 10"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_5_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1506S",
+			"name": [
+				{
+					"value": "Part 1, Sections 11 - 12"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_6_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1798S",
+			"name": [
+				{
+					"value": "Part 2, Sections 13 - 14"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_7_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1225S",
+			"name": [
+				{
+					"value": "Part 2, Sections 15 - 17"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_8_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 2, Sections 18 - 20"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_9_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1659S",
+			"name": [
+				{
+					"value": "Part 2, Sections 21 - 22"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"uniqueResources": [
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_2_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_3_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_4_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_5_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_6_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_7_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_8_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_9_abbott.mp3",
+		"http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+		"https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html"
+	]
+}</pre>
+					<ul>
+						<li class="valid">Manifest validated successfully.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.4.01.jsonld"
+							>test_a5.4.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> If no 'type' is set, the term 'Audiobook' is used</p>
+					<p class="desc"><strong>Expected Result:</strong> The Audiobook type should be added</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error (no type)</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"id": "https://librivox.org/flatland-a-romance-of-many-dimensions-by-edwin-abbott-abbott/",
+	"url": [
+		"https://w3c.github.io/pub-manifest/experiments/audiobook/"
+	],
+	"name": [
+		{
+			"value": "Flatland: A Romance of Many Dimensions"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "Edwin Abbott Abbott"
+		}
+	],
+	"readBy": [
+		{
+			"type": "Person",
+			"name": "Ruth Golding"
+		}
+	],
+	"inLanguage": [
+		"en"
+	],
+	"dateModified": "2019-11-14",
+	"datePublished": "2008-10-12",
+	"duration": "PT1371S",
+	"abridged": false,
+	"accessMode": [
+		"audio"
+	],
+	"accessModeSufficient": [
+		{
+			"type": "ItemList",
+			"itemListElement": [
+				"audio"
+			],
+			"description": "Audio"
+		}
+	],
+	"accessibilityFeature": [
+		"readingOrder",
+		"unlocked"
+	],
+	"accessibilityHazard": [
+		"noSoundHazard"
+	],
+	"accessibilitySummary": [
+		{
+			"value": "This is just a test summary"
+		}
+	],
+	"readingProgression": "ltr",
+	"resources": [
+		{
+			"rel": [
+				"cover"
+			],
+			"url": "http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+			"encodingFormat": "image/jpeg",
+			"name": [
+				{
+					"value": "Cover page with title and author"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"rel": [
+				"contents"
+			],
+			"url": "https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html",
+			"encodingFormat": "text/html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingOrder": [
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 1, Sections 1 - 3"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"type": [
+		"Audiobook"
+	],
+	"uniqueResources": [
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+		"http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+		"https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: type should be specified. Setting to Audiobook.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.5.02.jsonld"
+							>test_a5.5.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The global duration value, if present, should be the
+						sum of the durations in the reading order</p>
+					<p class="desc"><strong>Expected Result:</strong> Output the manifest</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation errors for inconsistent duration
+						value</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"type": [
+		"Audiobook"
+	],
+	"id": "https://librivox.org/flatland-a-romance-of-many-dimensions-by-edwin-abbott-abbott/",
+	"url": [
+		"https://w3c.github.io/pub-manifest/experiments/audiobook/"
+	],
+	"name": [
+		{
+			"value": "Flatland: A Romance of Many Dimensions",
+			"language": "en"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "Edwin Abbott Abbott"
+		}
+	],
+	"readBy": [
+		{
+			"type": "Person",
+			"name": "Ruth Golding"
+		}
+	],
+	"publisher": [
+		{
+			"type": "Person",
+			"name": "Librivox"
+		}
+	],
+	"inLanguage": [
+		"en"
+	],
+	"dateModified": "2019-11-14",
+	"datePublished": "2008-10-12",
+	"duration": "PT13774S",
+	"license": "https://creativecommons.org/publicdomain/zero/1.0/",
+	"abridged": false,
+	"accessMode": [
+		"audio"
+	],
+	"accessModeSufficient": [
+		{
+			"type": "ItemList",
+			"itemListElement": [
+				"audio"
+			],
+			"description": "Audio"
+		}
+	],
+	"accessibilityFeature": [
+		"readingOrder",
+		"unlocked"
+	],
+	"accessibilityHazard": [
+		"noSoundHazard"
+	],
+	"accessibilitySummary": [
+		{
+			"value": "This is just a test summary",
+			"language": "en"
+		}
+	],
+	"readingProgression": "ltr",
+	"resources": [
+		{
+			"rel": [
+				"cover"
+			],
+			"url": "http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+			"encodingFormat": "image/jpeg",
+			"name": [
+				{
+					"value": "Cover page with title and author",
+					"language": "en"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"rel": [
+				"contents"
+			],
+			"url": "https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html",
+			"encodingFormat": "text/html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingOrder": [
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 1, Sections 1 - 3",
+					"language": "en"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_2_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1669S",
+			"name": [
+				{
+					"value": "Part 1, Sections 4 - 5",
+					"language": "en"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_3_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1506S",
+			"name": [
+				{
+					"value": "Part 1, Sections 6 - 7",
+					"language": "en"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"uniqueResources": [
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_2_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_3_abbott.mp3",
+		"http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+		"https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: Total duration 13774 does not equal the sum of the resource durations
+							4546</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.5.01.jsonld"
+							>test_a5.5.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The audiobook defines a number of recommended
+						properties (see §5.5)</p>
+					<p class="desc"><strong>Expected Result:</strong> All the recommended properties in §5.5 should be
+						reported as missing</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation errors for the list of recommended
+						properties</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"type": [
+		"Audiobook"
+	],
+	"url": [
+		"https://w3c.github.io/pub-manifest/experiments/audiobook/"
+	],
+	"name": [
+		{
+			"value": "Flatland: A Romance of Many Dimensions"
+		}
+	],
+	"readingOrder": [
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 1, Sections 1 - 3"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingProgression": "ltr",
+	"uniqueResources": [
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: abridged is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessMode is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessModeSufficient is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessibilityFeature is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessibilityHazard is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: accessibilitySummary is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: author is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: dateModified is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: datePublished is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: duration is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: id is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: inLanguage is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: readBy is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: readingProgression is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: resource is a recommended property for audiobooks.</li>
+						<li class="warn">WARNING: A resource designated as the cover was not found.</li>
+						<li class="warn">WARNING: Total duration not specified. Cannot verify the sum duration of the
+							individual resources.</li>
+						<li class="warn">WARNING: A canonical identifier should be specified.</li>
+						<li class="warn">WARNING: No table of contents found in the publication.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.6.02.jsonld"
+							>test_a5.6.02</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All 'readingOrder' values must be an audio object</p>
+					<p class="desc"><strong>Expected Result:</strong> The manifest should be returned with last-but-one
+						entry removed (only audio object remain)</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation error on that extra item</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"type": [
+		"Audiobook"
+	],
+	"id": "https://librivox.org/flatland-a-romance-of-many-dimensions-by-edwin-abbott-abbott/",
+	"url": [
+		"https://w3c.github.io/pub-manifest/experiments/audiobook/"
+	],
+	"name": [
+		{
+			"value": "Flatland: A Romance of Many Dimensions"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "Edwin Abbott Abbott"
+		}
+	],
+	"readBy": [
+		{
+			"type": "Person",
+			"name": "Ruth Golding"
+		}
+	],
+	"publisher": [
+		{
+			"type": "Person",
+			"name": "Librivox"
+		}
+	],
+	"inLanguage": [
+		"en"
+	],
+	"dateModified": "2019-11-14",
+	"datePublished": "2008-10-12",
+	"duration": "PT13774S",
+	"license": "https://creativecommons.org/publicdomain/zero/1.0/",
+	"abridged": false,
+	"accessMode": [
+		"audio"
+	],
+	"accessModeSufficient": [
+		{
+			"type": "ItemList",
+			"itemListElement": [
+				"audio"
+			],
+			"description": "Audio"
+		}
+	],
+	"accessibilityFeature": [
+		"readingOrder",
+		"unlocked"
+	],
+	"accessibilityHazard": [
+		"noSoundHazard"
+	],
+	"accessibilitySummary": [
+		{
+			"value": "This is just a test summary"
+		}
+	],
+	"readingProgression": "ltr",
+	"resources": [
+		{
+			"rel": [
+				"cover"
+			],
+			"url": "http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+			"encodingFormat": "image/jpeg",
+			"name": [
+				{
+					"value": "Cover page with title and author"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"rel": [
+				"contents"
+			],
+			"url": "https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html",
+			"encodingFormat": "text/html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingOrder": [
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 1, Sections 1 - 3"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_2_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1669S",
+			"name": [
+				{
+					"value": "Part 1, Sections 4 - 5"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_3_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1506S",
+			"name": [
+				{
+					"value": "Part 1, Sections 6 - 7"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_4_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1669S",
+			"name": [
+				{
+					"value": "Part 1, Sections 8 - 10"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_5_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1506S",
+			"name": [
+				{
+					"value": "Part 1, Sections 11 - 12"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_6_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1798S",
+			"name": [
+				{
+					"value": "Part 2, Sections 13 - 14"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_7_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1225S",
+			"name": [
+				{
+					"value": "Part 2, Sections 15 - 17"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_8_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 2, Sections 18 - 20"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_9_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1659S",
+			"name": [
+				{
+					"value": "Part 2, Sections 21 - 22"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"uniqueResources": [
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_2_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_3_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_4_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_5_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_6_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_7_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_8_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_9_abbott.mp3",
+		"http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+		"https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html"
+	]
+}</pre>
+					<ul>
+						<li class="error">ERROR: Audiobook cannot have non-audio resources in the reading order.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.6.01.jsonld"
+							>test_a5.6.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> The 'readingOrder' must have at least one audio
+						object</p>
+					<p class="desc"><strong>Expected Result:</strong> Empty manifest should be returned</p>
+					<p class="desc"><strong>Expected Errors:</strong> Fatal error on missing audio file</p>
+					<pre class="manifest">Failed to generate internal representation.</pre>
+					<ul>
+						<li class="error">ERROR: Audiobook cannot have non-audio resources in the reading order.</li>
+						<li class="error">ERROR: Audiobook cannot have non-audio resources in the reading order.</li>
+						<li class="error">ERROR: Audiobook must have a reading order</li>
+						<li class="error">ERROR: Terminating processing.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.7.01.jsonld"
+							>test_a5.7.01</a>:</h2>
+					<p class="desc"><strong>Description:</strong> A cover page should be set</p>
+					<p class="desc"><strong>Expected Result:</strong> Links with 'rel' including cover should be
+						reported as missing</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation errors for missing cover</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"type": [
+		"Audiobook"
+	],
+	"id": "https://librivox.org/flatland-a-romance-of-many-dimensions-by-edwin-abbott-abbott/",
+	"url": [
+		"https://w3c.github.io/pub-manifest/experiments/audiobook/"
+	],
+	"name": [
+		{
+			"value": "Flatland: A Romance of Many Dimensions"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "Edwin Abbott Abbott"
+		}
+	],
+	"readBy": [
+		{
+			"type": "Person",
+			"name": "Ruth Golding"
+		}
+	],
+	"inLanguage": [
+		"en"
+	],
+	"dateModified": "2019-11-14",
+	"datePublished": "2008-10-12",
+	"duration": "PT1371S",
+	"abridged": false,
+	"accessMode": [
+		"audio"
+	],
+	"accessModeSufficient": [
+		{
+			"type": "ItemList",
+			"itemListElement": [
+				"audio"
+			],
+			"description": "Audio"
+		}
+	],
+	"accessibilityFeature": [
+		"readingOrder",
+		"unlocked"
+	],
+	"accessibilityHazard": [
+		"noSoundHazard"
+	],
+	"accessibilitySummary": [
+		{
+			"value": "This is just a test summary"
+		}
+	],
+	"readingProgression": "ltr",
+	"resources": [
+		{
+			"rel": [
+				"contents"
+			],
+			"url": "https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html",
+			"encodingFormat": "text/html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingOrder": [
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 1, Sections 1 - 3"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"uniqueResources": [
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+		"https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: A resource designated as the cover was not found.</li>
+					</ul>
+				</section>
+				<section class="test">
+					<h2>Result for <a
+							href="https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/test_a5.5.03.jsonld"
+							>test_a5.5.03</a>:</h2>
+					<p class="desc"><strong>Description:</strong> All entries in `readingOrder` should have their
+						duration values set</p>
+					<p class="desc"><strong>Expected Result:</strong> Output the manifest</p>
+					<p class="desc"><strong>Expected Errors:</strong> Validation errors for the missing duration
+						value</p>
+					<pre class="manifest">{
+	"profile": "https://www.w3.org/TR/audiobooks/",
+	"conformsTo": [
+		"https://www.w3.org/TR/audiobooks/"
+	],
+	"type": [
+		"Audiobook"
+	],
+	"id": "https://librivox.org/flatland-a-romance-of-many-dimensions-by-edwin-abbott-abbott/",
+	"url": [
+		"https://w3c.github.io/pub-manifest/experiments/audiobook/"
+	],
+	"name": [
+		{
+			"value": "Flatland: A Romance of Many Dimensions",
+			"language": "en"
+		}
+	],
+	"author": [
+		{
+			"type": "Person",
+			"name": "Edwin Abbott Abbott"
+		}
+	],
+	"readBy": [
+		{
+			"type": "Person",
+			"name": "Ruth Golding"
+		}
+	],
+	"publisher": [
+		{
+			"type": "Person",
+			"name": "Librivox"
+		}
+	],
+	"inLanguage": [
+		"en"
+	],
+	"dateModified": "2019-11-14",
+	"datePublished": "2008-10-12",
+	"duration": "PT2877S",
+	"license": "https://creativecommons.org/publicdomain/zero/1.0/",
+	"abridged": false,
+	"accessMode": [
+		"audio"
+	],
+	"accessModeSufficient": [
+		{
+			"type": "ItemList",
+			"itemListElement": [
+				"audio"
+			],
+			"description": "Audio"
+		}
+	],
+	"accessibilityFeature": [
+		"readingOrder",
+		"unlocked"
+	],
+	"accessibilityHazard": [
+		"noSoundHazard"
+	],
+	"accessibilitySummary": [
+		{
+			"value": "This is just a test summary",
+			"language": "en"
+		}
+	],
+	"readingProgression": "ltr",
+	"resources": [
+		{
+			"rel": [
+				"cover"
+			],
+			"url": "http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+			"encodingFormat": "image/jpeg",
+			"name": [
+				{
+					"value": "Cover page with title and author",
+					"language": "en"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"rel": [
+				"contents"
+			],
+			"url": "https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html",
+			"encodingFormat": "text/html",
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"readingOrder": [
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1371S",
+			"name": [
+				{
+					"value": "Part 1, Sections 1 - 3",
+					"language": "en"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_2_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"name": [
+				{
+					"value": "Part 1, Sections 4 - 5",
+					"language": "en"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		},
+		{
+			"url": "http://www.archive.org/download/flatland_rg_librivox/flatland_3_abbott.mp3",
+			"encodingFormat": "audio/mpeg",
+			"duration": "PT1506S",
+			"name": [
+				{
+					"value": "Part 1, Sections 6 - 7",
+					"language": "en"
+				}
+			],
+			"type": [
+				"LinkedResource"
+			]
+		}
+	],
+	"uniqueResources": [
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_1_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_2_abbott.mp3",
+		"http://www.archive.org/download/flatland_rg_librivox/flatland_3_abbott.mp3",
+		"http://ia800704.us.archive.org/9/items/LibrivoxCdCoverArt12/Flatland_1109.jpg",
+		"https://w3c.github.io/publ-tests/audiobooks/manifest_processing/tests/toc.html"
+	]
+}</pre>
+					<ul>
+						<li class="warn">WARNING: Entries in the reading order should specify their duration.</li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</body>
+</html>

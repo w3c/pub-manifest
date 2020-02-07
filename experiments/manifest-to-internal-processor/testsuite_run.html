@@ -8,17 +8,17 @@
 		<script src="duration.js"></script>
 		<style>
 			body {
-				font-family: Arial,sans-serif;
+				font-family: Arial, sans-serif;
 				font-size: 62.5%;
-				background-color: rgb(245,245,245);
+				background-color: rgb(245, 245, 245);
 			}
 			h1 {
 				font-size: 1.6rem;
 			}
 			h2 {
 				font-size: 0.9rem;
-				background-color: rgb(0,0,90);
-				color: rgb(255,255,255);
+				background-color: rgb(0, 0, 90);
+				color: rgb(255, 255, 255);
 				padding: 0.3rem;
 				margin: -0.3rem -0.3rem 0 -0.3rem;
 			}
@@ -27,43 +27,48 @@
 				padding: 0.3rem;
 				margin-top: 1rem;
 			}
-			p,li {
+			p,
+			li {
 				font-size: 1rem;
 				max-width: 60rem;
 			}
 			pre {
 				font-size: 0.8rem;
-				background-color: rgb(255,255,250);
+				background-color: rgb(255, 255, 250);
 			}
 			li {
 				padding: 0.3rem;
 				border-bottom: 0.1rem solid lightgrey;
 			}
 			.warn {
-				background-color: rgb(255,255,240);
+				background-color: rgb(255, 255, 240);
 			}
 			.error {
-				background-color: rgb(255,200,200);
+				background-color: rgb(255, 200, 200);
 			}
 			.valid {
-				background-color: rgb(144,238,144);
+				background-color: rgb(144, 238, 144);
 			}
 			pre {
 				height: 10rem;
 				overflow: scroll;
 			}
 			a {
-				color: rgb(255,215,0);
-			}
-		</style>
+				color: rgb(255, 215, 0);
+			}</style>
 	</head>
 	<body>
 		<section id="test-suite">
 			<h1>Publication Manifest Test Suite Results</h1>
-			
+
+			<p>This page is a developer tool for dynamically running the test suite to check against the latest test
+				suite. Please do not open for casual viewing. See the <a href="testsuite_results.html">results page</a>
+				for the latest results of running the processor.</p>
+
+
 			<div id="results"></div>
 		</section>
-		
+
 		<script src="manifestProcessor.js"></script>
 		<script src="testsuite.js"></script>
 		<script>
