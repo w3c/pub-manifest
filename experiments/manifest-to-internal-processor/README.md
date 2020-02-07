@@ -10,11 +10,11 @@ The manifest processor code is contained in the [manifestProcessor.js](manifestP
 
 ## Implementations
 
-- [JSON testing tool](index.html) &#8212; Interactive tool that returns the result of processing a JSON manifest.
-- [Publication testing tool](linked.html) &#8212; Basic setup for testing an HTML page with a linked or embedded manifest.
+- [JSON testing tool](https://w3c.github.com/pub-manifest/experiments/manifest-to-internal-processor/index.html) &#8212; Interactive tool that returns the result of processing a JSON manifest.
+- [Publication testing tool](https://w3c.github.com/pub-manifest/experiments/manifest-to-internal-processor/linked.html) &#8212; Basic setup for testing an HTML page with a linked or embedded manifest.
 
 ## Test Suite Results
 
-The [automated results of running the Publication Manifest and Audiobooks test suites](testsuite_results.html) against the processor are available for review. Note that the tests are not ordered within the document due the nature of the AJAX calls involved.
+The [automated results of running the Publication Manifest and Audiobooks test suites](https://w3c.github.com/pub-manifest/experiments/manifest-to-internal-processor/testsuite_results.html) against the processor are available for review. Note that the tests are not ordered within the document due the nature of the AJAX calls involved.
 
 Please **do not open** the testsuite_run.html file. This page dynamically re-runs the test suite tests each time it is accessed.
