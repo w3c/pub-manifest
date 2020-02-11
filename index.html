@@ -3081,7 +3081,12 @@
 								any invalid data is removed from the final representation.</p>
 						</details>
 					</li>
-
+					
+					<li id="processing-extension">
+						<p>If a <a>profile</a> specifies additional processing functions that need to be run, those
+							steps are executed at this point.</p>
+					</li>
+					
 					<li id="processing-defaults">
 						<p>Set <var>processed</var> to the result of running <a>add default values</a>, when successful,
 							given <var>processed</var> and <var>document</var>, when specified. Otherwise, terminate
@@ -3091,11 +3096,6 @@
 							<p>This step checks if any information missing from the manifest can be obtained from the
 								HTML document that links to the document, or from other sources.</p>
 						</details>
-					</li>
-
-					<li id="processing-extension">
-						<p>If a <a>profile</a> specifies additional processing functions that need to be run, those
-							steps are executed at this point.</p>
 					</li>
 
 					<li id="processing-end">
