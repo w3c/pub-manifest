@@ -1361,7 +1361,7 @@ var manifestProcessor = (function() {
 		
 		if (!processed.hasOwnProperty('name')) {
 		
-			var title = doc.title;
+			var title = doc ? doc.title : '';
 			
 			processed.name = {};
 			
@@ -1380,13 +1380,12 @@ var manifestProcessor = (function() {
 				processed.name.language = 'en';
 				processed.name.direction = 'ltr';
 			}
-			
 		}
 		
 		// step 2 -- add linking document to the reading order
 		
 		if (!processed.hasOwnProperty('readingOrder')) {
-			if (doc.location.href) {
+			if (doc && doc.location.href) {
 				processed.readingOrder = [{
 					"url": doc.location.href
 				}];
@@ -1404,7 +1403,7 @@ var manifestProcessor = (function() {
 		
 		// step 4 -- check linking document in resources
 		
-		if (!processed.uniqueResources.has(doc.location.href)) {
+		if (doc && doc.location.href && !processed.uniqueResources.has(doc.location.href)) {
 			console.error('The page that links to the manifest must be a publication resource.');
 		}
 		
