@@ -2134,12 +2134,14 @@
 							unexpected results in user agents (e.g., links to the resource might not resolve to the
 							right instance in the reading order).</p>
 
+						<p>The default reading order MAY be omitted when a <a>digital publication</a> consists only of
+							the resource that <a href="#manifest-link">links to the manifest</a>. When the default
+							reading order is absent, user agents MUST include an entry for the linking resource when
+							compiling the <a>internal representation</a>. See <a href="#add-default-values"></a> for
+							more information.</p>
+
 						<p>The default reading order MUST include at least one resource after <a
-								href="#manifest-processing">processing of the manifest</a>. Depending on the <a
-								href="#manifest-discovery">discovery method</a> a <a>profile</a> uses, the default
-							reading order might not need to be explicitly specified in the manifest (i.e., a default
-							document might be automatically included). See <a href="#add-default-values"></a> for more
-							information.</p>
+								href="#manifest-processing">processing of the manifest</a>.</p>
 
 						<pre class="example" title="Expressing the reading order as a simple list of URLs.">{
     …
@@ -2821,6 +2823,9 @@
     &lt;/script&gt;
 </pre>
 
+				<p>The resource that links to the manifest MUST be included in either the <a
+						href="#default-reading-order">default reading order</a> or the <a href="#resource-list">resource
+						list</a>.</p>
 			</section>
 
 			<section id="manifest-embed">
@@ -3077,6 +3082,11 @@
 						</details>
 					</li>
 
+					<li id="processing-extension">
+						<p>If a <a>profile</a> specifies additional processing functions that need to be run, those
+							steps are executed at this point.</p>
+					</li>
+
 					<li id="processing-defaults">
 						<p>Set <var>processed</var> to the result of running <a>add default values</a>, when successful,
 							given <var>processed</var> and <var>document</var>, when specified. Otherwise, terminate
@@ -3086,11 +3096,6 @@
 							<p>This step checks if any information missing from the manifest can be obtained from the
 								HTML document that links to the document, or from other sources.</p>
 						</details>
-					</li>
-
-					<li id="processing-extension">
-						<p>If a <a>profile</a> specifies additional processing functions that need to be run, those
-							steps are executed at this point.</p>
 					</li>
 
 					<li id="processing-end">
@@ -4260,8 +4265,8 @@
 						</li>
 
 						<li id="processing-defaults-reading-order">
-							<p>(<a href="#default-reading-order"></a>) If <var>data["readingOrder"]</var> is not
-								set:</p>
+							<p>(<a href="#default-reading-order"></a> and <a href="#manifest-link"></a>) If
+									<var>data["readingOrder"]</var> is not set:</p>
 							<ul>
 								<li>
 									<p>if either <var>document</var> or <a data-cite="!dom#concept-document-url"
@@ -4284,7 +4289,7 @@
 							</ul>
 							<details>
 								<summary>Explanation</summary>
-								<p> If the Digital Publication consists only of the referencing document, the default
+								<p>If the Digital Publication consists only of the referencing document, the default
 									reading order can be omitted; it will consist, automatically, of that single
 									resource. </p>
 							</details>
@@ -4293,6 +4298,19 @@
 						<li id="processing-defaults-extension">
 							<p>If a <a>profile</a> specifies default values the user agent has to generate, those steps
 								are executed at this point.</p>
+						</li>
+
+						<li id="processing-defaults-linking-resource">
+							<p>(<a href="#manifest-link"></a>) If <a data-cite="!dom#concept-document-url"
+										><var>document.URL</var></a> is set and <var>data["uniqueResource"]</var> does
+								not <a href="https://infra.spec.whatwg.org/#list-contain">contain</a>
+								<var>document.URL</var>, <a>validation error</a>.</p>
+							<details>
+								<summary>Explanation</summary>
+								<p>If the page that links to the manifest is not listed as a unique resource of the
+									publication after processing core and extension default value rules, an error is
+									raised as it has to be a publication resource.</p>
+							</details>
 						</li>
 
 						<li>
