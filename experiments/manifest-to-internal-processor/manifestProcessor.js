@@ -397,7 +397,43 @@ var manifestProcessor = (function() {
 					console.warn('No table of contents found in the publication.');
 				}
 			}
-		
+			
+			// step 2 - check durations
+			
+			var resourceDuration = 0;
+			
+			for (var e = 0; e < data['readingOrder'].length; e++) {
+				if (data['readingOrder'][e].hasOwnProperty('duration')) {
+					try {
+						var dur = new Duration(data['readingOrder'][e]['duration']);
+						resourceDuration += dur.inSeconds();
+					}
+					catch (e) {
+						console.warn('Problem parsing duration ' + data['readingOrder'][e]['duration']);
+					}
+				}
+				else {
+					console.warn('Entries in the reading order should specify their duration.');
+				}
+			}
+			
+			if (data.hasOwnProperty('duration')) {
+				var totalDuration;
+				try { 
+					var tdur = new Duration(data['duration']);
+					totalDuration = tdur.inSeconds();
+					
+					if (totalDuration != resourceDuration) {
+						console.warn('Total duration ' + totalDuration + ' does not equal the sum of the resource durations ' + resourceDuration);
+					}
+				}
+				catch (e) {
+					console.warn('Something bad happened parsing the total duration ' + data['duration']);
+				}
+			}
+			else {
+				console.warn('Total duration not specified. Cannot verify the sum duration of the individual resources.');
+			}
 		}
 		
 		// step 9 - add html defaults
@@ -785,57 +821,12 @@ var manifestProcessor = (function() {
 								}
 							}
 						}
-						
-						// check that duration is set on reading order resources
-						if (reslist[n] == 'readingOrder') {
-							if (!resource[p].hasOwnProperty('duration')) {
-								console.warn('Entries in the reading order should specify their duration.');
-							}
-						}
 					}
 				}
 			}
 			
 			if (!cover) {
 				console.warn('A resource designated as the cover was not found.');
-			}
-			
-			// step 4 - durations
-			
-			var resourceDuration = 0;
-			
-			if (data.hasOwnProperty('duration') && duration.test(data['duration'])) {
-				
-				var totalDuration;
-				
-				try { 
-					var tdur = new Duration(data['duration']);
-					totalDuration = tdur.inSeconds();
-				}
-				catch (e) {
-					console.warn('Something bad happened parsing the total duration ' + data['duration']);
-				}
-				
-				var resourceDuration = 0;
-				
-				for (var e = 0; e < data['readingOrder'].length; e++) {
-					if (data['readingOrder'][e].hasOwnProperty('duration')) {
-						try {
-							var dur = new Duration(data['readingOrder'][e]['duration']);
-							resourceDuration += dur.inSeconds();
-						}
-						catch (e) {
-							console.warn('Problem parsing duration ' + data['readingOrder'][e]['duration']);
-						}
-					}
-				}
-				
-				if (totalDuration != resourceDuration) {
-					console.warn('Total duration ' + totalDuration + ' does not equal the sum of the resource durations ' + resourceDuration);
-				}
-			}
-			else {
-				console.warn('Total duration not specified. Cannot verify the sum duration of the individual resources.');
 			}
 		}
 		
