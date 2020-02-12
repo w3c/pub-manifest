@@ -402,14 +402,14 @@ var manifestProcessor = (function() {
 			
 			var resourceDuration = 0;
 			
-			for (var e = 0; e < data['readingOrder'].length; e++) {
-				if (data['readingOrder'][e].hasOwnProperty('duration')) {
+			for (var e = 0; e < processed['readingOrder'].length; e++) {
+				if (processed['readingOrder'][e].hasOwnProperty('duration')) {
 					try {
-						var dur = new Duration(data['readingOrder'][e]['duration']);
+						var dur = new Duration(processed['readingOrder'][e]['duration']);
 						resourceDuration += dur.inSeconds();
 					}
 					catch (e) {
-						console.warn('Problem parsing duration ' + data['readingOrder'][e]['duration']);
+						console.warn('Problem parsing duration ' + processed['readingOrder'][e]['duration']);
 					}
 				}
 				else {
@@ -417,10 +417,10 @@ var manifestProcessor = (function() {
 				}
 			}
 			
-			if (data.hasOwnProperty('duration')) {
+			if (processed.hasOwnProperty('duration')) {
 				var totalDuration;
 				try { 
-					var tdur = new Duration(data['duration']);
+					var tdur = new Duration(processed['duration']);
 					totalDuration = tdur.inSeconds();
 					
 					if (totalDuration != resourceDuration) {
@@ -428,7 +428,7 @@ var manifestProcessor = (function() {
 					}
 				}
 				catch (e) {
-					console.warn('Something bad happened parsing the total duration ' + data['duration']);
+					console.warn('Something bad happened parsing the total duration ' + processed['duration']);
 				}
 			}
 			else {
