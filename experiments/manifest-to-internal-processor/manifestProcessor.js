@@ -374,17 +374,7 @@ var manifestProcessor = (function() {
 			return null;
 		}
 		
-		// step 8 - add html defaults
-		
-		try {
-			processed = addHTMLDefaults(processed, doc);
-		}
-		catch(e) {
-			console.error('Terminating processing.');
-			return null;
-		}
-		
-		// step 9 - profile extensions
+		// step 8 - profile extensions
 		
 		if (processed['profile'] == 'https://www.w3.org/TR/audiobooks/') {
 			
@@ -408,6 +398,16 @@ var manifestProcessor = (function() {
 				}
 			}
 		
+		}
+		
+		// step 9 - add html defaults
+		
+		try {
+			processed = addHTMLDefaults(processed, doc);
+		}
+		catch(e) {
+			console.error('Terminating processing.');
+			return null;
 		}
 		
 		// non-spec steps to make valid json output
@@ -1366,7 +1366,7 @@ var manifestProcessor = (function() {
 
 	function addHTMLDefaults(processed, doc) {
 		
-		// add html title if name is missing
+		// step 1 -- add html title if name is missing
 		
 		if (!processed.hasOwnProperty('name')) {
 		
@@ -1392,16 +1392,29 @@ var manifestProcessor = (function() {
 			
 		}
 		
+		// step 2 -- add linking document to the reading order
+		
 		if (!processed.hasOwnProperty('readingOrder')) {
 			if (doc.location.href) {
 				processed.readingOrder = [{
 					"url": doc.location.href
 				}];
+				processed.uniqueResources.add(doc.location.href)
 			}
 			else {
 				console.error('No reading order. Document URL could not be determined.');
 				throw new Error();
 			}
+		}
+		
+		// step 3 -- extension steps
+		
+		// none currently
+		
+		// step 4 -- check linking document in resources
+		
+		if (!processed.uniqueResources.has(doc.location.href)) {
+			console.error('The page that links to the manifest must be a publication resource.');
 		}
 		
 		return processed;
