@@ -3081,12 +3081,12 @@
 								any invalid data is removed from the final representation.</p>
 						</details>
 					</li>
-					
+
 					<li id="processing-extension">
 						<p>If a <a>profile</a> specifies additional processing functions that need to be run, those
 							steps are executed at this point.</p>
 					</li>
-					
+
 					<li id="processing-defaults">
 						<p>Set <var>processed</var> to the result of running <a>add default values</a>, when successful,
 							given <var>processed</var> and <var>document</var>, when specified. Otherwise, terminate
@@ -4287,12 +4287,9 @@
 											<var>data["uniqueResources"]</var>.</p>
 								</li>
 							</ul>
-							<p>Otherwise, if <var>data["uniqueResource"]</var> does not <a
-									href="https://infra.spec.whatwg.org/#list-contain">contain</a>
-								<var>document.URL</var>, <a>validation error</a>.</p>
 							<details>
 								<summary>Explanation</summary>
-								<p> If the Digital Publication consists only of the referencing document, the default
+								<p>If the Digital Publication consists only of the referencing document, the default
 									reading order can be omitted; it will consist, automatically, of that single
 									resource. </p>
 							</details>
@@ -4301,6 +4298,18 @@
 						<li id="processing-defaults-extension">
 							<p>If a <a>profile</a> specifies default values the user agent has to generate, those steps
 								are executed at this point.</p>
+						</li>
+
+						<li id="processing-defaults-linking-resource">
+							<p>(<a href="#manifest-link"></a>) If <var>data["uniqueResource"]</var> does not <a
+									href="https://infra.spec.whatwg.org/#list-contain">contain</a>
+								<var>document.URL</var>, <a>validation error</a>.</p>
+							<details>
+								<summary>Explanation</summary>
+								<p>If the page that links to the manifest is not listed as a unique resource of the
+									publication after processing core and extension default value rules, an error is
+									raised as it has to be a publication resource.</p>
+							</details>
 						</li>
 
 						<li>
