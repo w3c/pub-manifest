@@ -70,9 +70,13 @@ function create_manifest(config) {
     // =====================================================================
     let manifest = {
         "@context"             : ["https://schema.org", "https://www.w3.org/ns/pub-context"],
-        "type"                : "TechArticle",
+        "type"                 : "TechArticle",
         "accessMode"           : ["textual", "diagramOnVisual"],
-        "accessModeSufficient" : ["textual"],
+        "accessModeSufficient" : [{
+            "type"            : "ItemList",
+            "itemListElement" : ["textual"]
+        }],
+        "conformsTo"           : "https://www.w3.org/TR/pub-manifest/",
 
         "resources"            : [{
             "type"            : "LinkedResource",
@@ -85,6 +89,10 @@ function create_manifest(config) {
             "rel"             : "stylesheet",
             "encodingFormat"  : "text/css",
             "description"     : "Generic CSS file for W3C TR documents"                   	
+        },{
+            "type"            : "LinkedResource",
+            "url"             : "#",
+            "rel"             : "contents"
         }],
 
         "links"                : [{
