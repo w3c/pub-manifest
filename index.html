@@ -11,56 +11,50 @@
 		<link href="https://unpkg.com/reqlist/lib/reqlist.css" class="removeOnSave" rel="stylesheet" type="text/css" />
 		<link href="common/css/common.css" rel="stylesheet" type="text/css" />
 		<script class="remove">
-			// <![CDATA[
+<![CDATA[
 			var respecConfig = {
-				preProcess: [
-					prepare_reqlist
-				],
-				postProcess: [
-					create_manifest,
-					convert_dfn_to_link,
-					add_reqlist_button
-				],
+				preProcess:[
+				prepare_reqlist],
+				postProcess:[
+				create_manifest,
+				convert_dfn_to_link,
+				add_reqlist_button],
 				wg: "Publishing Working Group",
 				specStatus: "ED",
 				shortName: "pub-manifest",
 				previousPublishDate: "2020-01-28",
 				previousMaturity: "CR",
 				implementationReportURI: "https://www.w3.org/publishing/groups/publ-wg/implementation/results.html",
-				crEnd : "2020-03-31",
+				crEnd: "2020-03-31",
 				edDraftURI: "https://w3c.github.io/pub-manifest/",
-				editors: [
-					{
-						"name": "Matt Garrish",
-						"company": "DAISY Consortium",
-						"companyURL": "https://daisy.org",
-						"w3cid": 51655
-					},
-					{
-						"name": "Ivan Herman",
-						"url": "https://www.w3.org/People/Ivan/",
-						"company": "W3C",
-						"w3cid": 7382,
-						"orcid": "0000-0003-0782-2704",
-						"companyURL": "https://www.w3.org",
-					}
-				],
+				editors:[ {
+					"name": "Matt Garrish",
+					"company": "DAISY Consortium",
+					"companyURL": "https://daisy.org",
+					"w3cid": 51655
+				}, {
+					"name": "Ivan Herman",
+					"url": "https://www.w3.org/People/Ivan/",
+					"company": "W3C",
+					"w3cid": 7382,
+					"orcid": "0000-0003-0782-2704",
+					"companyURL": "https://www.w3.org",
+				}],
 				processVersion: 2018,
 				includePermalinks: false,
-				permalinkEdge:     true,
-				permalinkHide:     false,
-				pluralize:         true,
-				diffTool:          "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
-				wgURI:             "https://www.w3.org/publishing/groups/publ-wg/",
-				wgPublicList:      "public-publ-wg",
-				wgPatentURI:       "https://www.w3.org/2004/01/pp-impl/100074/status",
-				github:			 {
+				permalinkEdge: true,
+				permalinkHide: false,
+				pluralize: true,
+				diffTool: "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+				wgURI: "https://www.w3.org/publishing/groups/publ-wg/",
+				wgPublicList: "public-publ-wg",
+				wgPatentURI: "https://www.w3.org/2004/01/pp-impl/100074/status",
+				github: {
 					repoURL: "https://github.com/w3c/pub-manifest/",
 					branch: "master"
 				},
 				localBiblio: localBiblio
-			};
-			// ]]>
+			};//]]>
 	  </script>
 		<style>
 			var {
@@ -5239,23 +5233,42 @@ dictionary LocalizableString {
 		<section id="change-log">
 			<h2>Change Log</h2>
 
-			<section>
-				<h3>Changes since Candidate Recommendation</h3>
-				<p>The following substantive changes have been made since the last release:</p>
+			<section id="change-log-latest">
+				<h3>Substantive changes since <a href="https://www.w3.org/TR/2020/CR-pub-manifest-20200128/">last version</a></h3>
+
+				<ul>
+					<li>12-Feb-2020: The prose requirements for the resource that links to the manifest to be a
+						publication resource and to be automatically added to the reading order (when one is not
+						present) were restored to align with the algorithm steps. See <a
+							href="https://github.com/w3c/pub-manifest/issues/198">issue 198</a>.</li>
+					<li>12-Feb-2020: The table of contents algorithm was fixed to capture branches without a title, not
+						just those without any text content. See <a
+							href="https://github.com/w3c/pub-manifest/issues/195">issue 195</a>.</li>
+					<li>07-Feb-2020: Clarified that rel values are case insensitive and must be compared as such. See <a
+							href="https://github.com/w3c/pub-manifest/issues/196">issue 196</a>.</li>
+					<li>04-Feb-2020: The note about registering the publication rel value has been removed as it is now
+						officially registered with IANA. See <a href="https://github.com/w3c/pub-manifest/issues/194"
+							>pull request 194</a>.</li>
+				</ul>
+			</section>
+
+			<section id="change-log-older">
+				<h3>Other substantive changes since Candidate Recommendation</h3>
 				<ul>
 					<li>28-Jan-2020: Reverted to using only role=doc-toc to identify the table of contents due to
-						problems with using fragments identifiers. See issue <a
-							href="https://github.com/w3c/pub-manifest/issues/176">176</a>.</li>
+						problems with using fragments identifiers. See <a
+							href="https://github.com/w3c/pub-manifest/issues/176">issue 176</a>.</li>
 					<li>28-Jan-2020: Clarified that visual hiding does not affect the selection of the table of
-						contents. See issue <a href="https://github.com/w3c/pub-manifest/issues/176">176</a>.</li>
+						contents. See <a href="https://github.com/w3c/pub-manifest/issues/176">issue 176</a>.</li>
 					<li>28-Jan-2020: Added an extension point for profiles to add processing requirements for the
-						context. See issue <a href="https://github.com/w3c/pub-manifest/issues/186">186</a>.</li>
+						context. See <a href="https://github.com/w3c/pub-manifest/issues/186">issue 186</a>.</li>
 					<li>27-Jan-2020: The table of contents processing algorithm has been updated to fix several bugs and
-						editorial issues in the expected outcomes. See issues <a
-							href="https://github.com/w3c/pub-manifest/issues/177">177</a> and <a
-							href="https://github.com/w3c/pub-manifest/issues/179">179</a>, as well as pull requests <a
-							href="https://github.com/w3c/pub-manifest/pull/180">180</a> and <a
-							href="https://github.com/w3c/pub-manifest/pull/182">182</a> for more details.</li>
+						editorial issues in the expected outcomes. See <a
+							href="https://github.com/w3c/pub-manifest/issues/177">issue 177</a> and <a
+							href="https://github.com/w3c/pub-manifest/issues/179">issue 179</a>, as well as <a
+							href="https://github.com/w3c/pub-manifest/pull/180">pull request 180</a> and <a
+							href="https://github.com/w3c/pub-manifest/pull/182">pull request 182</a> for more
+						details.</li>
 				</ul>
 				<p>For a complete list of issues addressed, refer to the <a
 						href="https://github.com/w3c/pub-manifest/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc"
