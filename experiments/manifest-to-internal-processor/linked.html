@@ -73,54 +73,56 @@
 		<pre id="toc"></pre>
 		
 		<script src="manifestProcessor.js"></script>
-		<script src="tocProcessor.js"></script>
 		
 		<script>
 			var manifest_link = document.querySelector('link[rel="publication"]');
 			var manifest_view = document.getElementById('manifest-view');
 			manifest_view.href = manifest_link.href;
 			
-			var issues = document.getElementById('issues');
+			var issues_list = document.getElementById('issues');
 			
-			manifestProcessor.processManifest()
-				.then(function(processed) {
+			manifestProcessor.processManifest();
+			
+			function initPublication() {
 				
-					if (processed.internal_rep) {
-						
-						document.getElementById('internalRepresentation').textContent = JSON.stringify(processed.internal_rep, '', '\t');
-						
-						tocProcessor.processTOC(processed.internal_rep);
-						
-						if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
+				var processed = manifestProcessor.getInternalRep();
+				var issues = manifestProcessor.getIssues();
+				
+				if (processed) {
+					
+					document.getElementById('internalRepresentation').textContent = JSON.stringify(processed, '', '\t');
+					document.getElementById('toc').textContent = manifestProcessor.getTOC();
+					
+					if (issues.warnings.length == 0 && issues.errors.length == 0) {
+						var li = document.createElement('li');
+							li.setAttribute('class', 'valid');
+							li.appendChild(document.createTextNode('Manifest validated successfully.'));
+						issues_list.appendChild(li);
+					}
+					
+					else {
+						for (var i = 0; i < issues.errors.length; i++) {
 							var li = document.createElement('li');
-								li.setAttribute('class', 'valid');
-								li.appendChild(document.createTextNode('Manifest validated successfully.'));
-							issues.appendChild(li);
+								li.setAttribute('class', 'error');
+								li.appendChild(document.createTextNode("ERROR: " + issues.errors[i]));
+							issues_list.appendChild(li);
 						}
 						
-						else {
-							for (var i = 0; i < processed.issues.errors.length; i++) {
-								var li = document.createElement('li');
-									li.setAttribute('class', 'error');
-									li.appendChild(document.createTextNode("ERROR: " + processed.issues.errors[i]));
-								issues.appendChild(li);
-							}
-							
-							for (var i = 0; i < processed.issues.warnings.length; i++) {
-								var li = document.createElement('li');
-									li.setAttribute('class', 'warn');
-									li.appendChild(document.createTextNode("WARNING: " + processed.issues.warnings[i]));
-								issues.appendChild(li);
-							}
+						for (var i = 0; i < issues.warnings.length; i++) {
+							var li = document.createElement('li');
+								li.setAttribute('class', 'warn');
+								li.appendChild(document.createTextNode("WARNING: " + issues.warnings[i]));
+							issues_list.appendChild(li);
 						}
 					}
-				})
-				.catch(function(err) {
+				}
+				else {
 					var li = document.createElement('li');
 						li.setAttribute('class', 'error');
-						li.appendChild(document.createTextNode(err));
-					issues.appendChild(li);
-				});
+						li.appendChild(document.createTextNode("ERROR: Failed to process manifest successfully."));
+					issues_list.appendChild(li);
+				}
+			}
 		</script>
 	</body>
 </html>
