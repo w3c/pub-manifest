@@ -11,7 +11,7 @@ The manifest processor code is contained in the [manifestProcessor.js](manifestP
 ## Implementations
 
 - [JSON testing tool](https://w3c.github.com/pub-manifest/experiments/manifest-to-internal-processor/index.html) &#8212; Interactive tool that returns the result of processing a JSON manifest.
-- [Publication testing tool](https://w3c.github.com/pub-manifest/experiments/manifest-to-internal-processor/linked.html) &#8212; Basic setup for testing an HTML page with a linked or embedded manifest.
+- [Publication testing tool](https://w3c.github.com/pub-manifest/experiments/manifest-to-internal-processor/linked.html) &#8212; Basic setup for testing an HTML page with a linked or embedded manifest and with support for toc processing.
 
 ## Test Suite Results
 

@@ -56,6 +56,10 @@
 		
 		<p>An <a href="index.html">interactive version</a> is also available.</p>
 		
+		<nav role="doc-toc">
+			<!-- alternate location for toc -->
+		</nav>
+		
 		<h2>Result of Processing <a id="manifest-view">Manifest</a>:</h2>
 		
 		<ul id="issues"></ul>
@@ -64,7 +68,13 @@
 		
 		<pre id="internalRepresentation"></pre>
 
+		<h2>Table of Contents:</h2>
+		
+		<pre id="toc"></pre>
+		
 		<script src="manifestProcessor.js"></script>
+		<script src="tocProcessor.js"></script>
+		
 		<script>
 			var manifest_link = document.querySelector('link[rel="publication"]');
 			var manifest_view = document.getElementById('manifest-view');
@@ -76,7 +86,10 @@
 				.then(function(processed) {
 				
 					if (processed.internal_rep) {
+						
 						document.getElementById('internalRepresentation').textContent = JSON.stringify(processed.internal_rep, '', '\t');
+						
+						tocProcessor.processTOC(processed.internal_rep);
 						
 						if (processed.issues.warnings.length == 0 && processed.issues.errors.length == 0) {
 							var li = document.createElement('li');

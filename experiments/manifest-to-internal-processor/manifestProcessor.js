@@ -1495,9 +1495,6 @@ var manifestProcessor = (function() {
 		}
 		return null;
 	}
-	
-	
-	
 
 
 	return {
