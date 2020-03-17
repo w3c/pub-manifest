@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="generator" content="ReSpec 25.1.0" />
+		<meta name="generator" content="ReSpec 25.4.1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<style>
 			/* --- EXAMPLES --- */
@@ -98,16 +98,6 @@
 				bottom: 2px;
 				border: none;
 				display: inline-block;
-			}
-			
-			.issue a.respec-label-dark {
-				color: #fff;
-				background-color: #000;
-			}
-			
-			.issue a.respec-label-light {
-				color: #000;
-				background-color: #fff;
 			}</style>
 		<style>
 			/* dfn popup panel that list all local references to a dfn */
@@ -178,7 +168,6 @@
 			}</style>
 
 		<title>Publication Manifest</title>
-
 
 
 
@@ -275,7 +264,7 @@
 			}
 			
 			code {
-				color: #c83500;
+				color: #c63501;
 			}
 			
 			th code {
@@ -488,7 +477,7 @@
 		<link rel="canonical" href="https://www.w3.org/TR/pub-manifest/" />
 		<style>
 			/*
-Atom One Light by Daniel Gamage
+Adapted from Atom One Light by Daniel Gamage for ReSpec, with better color contrast
 Original One Light Syntax theme from https://github.com/atom/one-light-syntax
 base:    #fafafa
 mono-1:  #383a42
@@ -514,7 +503,7 @@ hue-6-2: #c18401
 			
 			.hljs-comment,
 			.hljs-quote {
-				color: #a0a1a7;
+				color: #717277;
 				font-style: italic;
 			}
 			
@@ -529,11 +518,12 @@ hue-6-2: #c18401
 			.hljs-selector-tag,
 			.hljs-deletion,
 			.hljs-subst {
-				color: #e45649;
+				color: #ca4706;
+				font-weight: bold;
 			}
 			
 			.hljs-literal {
-				color: #0184bb;
+				color: #0b76c5;
 			}
 			
 			.hljs-string,
@@ -541,12 +531,12 @@ hue-6-2: #c18401
 			.hljs-addition,
 			.hljs-attribute,
 			.hljs-meta-string {
-				color: #50a14f;
+				color: #42803C;
 			}
 			
 			.hljs-built_in,
 			.hljs-class .hljs-title {
-				color: #c18401;
+				color: #9a6a01;
 			}
 			
 			.hljs-attr,
@@ -566,7 +556,7 @@ hue-6-2: #c18401
 			.hljs-meta,
 			.hljs-selector-id,
 			.hljs-title {
-				color: #4078f2;
+				color: #336ae3;
 			}
 			
 			.hljs-emphasis {
@@ -626,106 +616,18 @@ hue-6-2: #c18401
 			var[data-type]:hover::before {
 				opacity: 1;
 			}</style>
-		<link rel="publication" href="#pub_manifest" />
-		<script type="application/ld+json" id="pub_manifest">{
-    "@context": [
-        "https://schema.org",
-        "https://www.w3.org/ns/pub-context"
-    ],
-    "type": "TechArticle",
-    "accessMode": [
-        "textual",
-        "diagramOnVisual"
-    ],
-    "accessModeSufficient": [
-        "textual"
-    ],
-    "resources": [
-        {
-            "type": "LinkedResource",
-            "url": "https://www.w3.org/StyleSheets/TR/2016/logos/W3C",
-            "encodingFormat": "image/svg+xml",
-            "description": "W3C Logo"
-        },
-        {
-            "type": "LinkedResource",
-            "url": "https://www.w3.org/StyleSheets/TR/2016/base.css",
-            "rel": "stylesheet",
-            "encodingFormat": "text/css",
-            "description": "Generic CSS file for W3C TR documents"
-        },
-        {
-            "type": "LinkedResource",
-            "url": "https://www.w3.org/StyleSheets/TR/2016/W3C-CR",
-            "rel": "stylesheet",
-            "encodingFormat": "text/css",
-            "description": "CSS file depending on the status of the document"
-        },
-        {
-            "type": "LinkedResource",
-            "url": "https://www.w3.org/StyleSheets/TR/2016/logos/CR",
-            "encodingFormat": "image/svg+xml",
-            "description": "Sidebar logo reflecting the status of the document"
-        }
-    ],
-    "links": [
-        {
-            "type": "LinkedResource",
-            "url": "https://www.w3.org/Consortium/Legal/privacy-statement-20140324",
-            "encodingFormat": "text/html",
-            "rel": "privacy-policy"
-        },
-        {
-            "type": "LinkedResource",
-            "url": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document",
-            "encodingFormat": "text/html",
-            "rel": "license describedby"
-        },
-        {
-            "type": "LinkedResource",
-            "url": "http://www.w3.org/Consortium/Legal/ipr-notice#Copyright",
-            "encodingFormat": "text/html",
-            "rel": "copyright"
-        }
-    ],
-    "id": "https://www.w3.org/TR/pub-manifest/",
-    "url": "https://www.w3.org/TR/2020/CR-pub-manifest-20200128/",
-    "datePublished": "2020-01-28",
-    "editor": [
-        {
-            "type": "Person",
-            "name": "Matt Garrish",
-            "affiliation": {
-                "type": "Organization",
-                "name": "DAISY Consortium",
-                "url": "https://daisy.org"
-            }
-        },
-        {
-            "type": "Person",
-            "name": "Ivan Herman",
-            "id": "https://www.w3.org/People/Ivan/",
-            "affiliation": {
-                "type": "Organization",
-                "name": "W3C",
-                "url": "https://www.w3.org"
-            }
-        }
-    ]
-}</script>
 		<script id="initialUserConfig" type="application/json">{
   "preProcess": [
     null
   ],
   "postProcess": [
     null,
-    null,
     null
   ],
   "wg": "Publishing Working Group",
-  "specStatus": "CR",
+  "specStatus": "WD",
   "shortName": "pub-manifest",
-  "previousPublishDate": "2019-12-05",
+  "previousPublishDate": "2020-01-28",
   "previousMaturity": "CR",
   "implementationReportURI": "https://www.w3.org/publishing/groups/publ-wg/implementation/results.html",
   "crEnd": "2020-03-31",
@@ -887,24 +789,24 @@ hue-6-2: #c18401
       "id": "mfrel"
     }
   },
-  "publishDate": "2020-01-28",
-  "publishISODate": "2020-01-28T00:00:00.000Z",
-  "generatedSubtitle": "Candidate Recommendation 28 January 2020"
+  "publishDate": "2020-03-17",
+  "publishISODate": "2020-03-17T00:00:00.000Z",
+  "generatedSubtitle": "Working Draft 17 March 2020"
 }</script>
-		<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-CR" />
+		<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WD" />
 	</head>
 	<body class="h-entry"><div class="head">
 			<a class="logo" href="https://www.w3.org/"><img alt="W3C"
 					src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72" height="48" /></a>
-			<h1 id="title" class="title p-name">Publication Manifest</h1>
+			<h1 id="title" class="title">Publication Manifest</h1>
 
-			<h2> W3C Candidate Recommendation <time class="dt-published" datetime="2020-01-28">28 January 2020</time>
+			<h2> W3C Working Draft <time class="dt-published" datetime="2020-03-17">17 March 2020</time>
 			</h2>
 			<dl>
 				<dt>This version:</dt>
 				<dd>
-					<a class="u-url" href="https://www.w3.org/TR/2020/CR-pub-manifest-20200128/"
-						>https://www.w3.org/TR/2020/CR-pub-manifest-20200128/</a>
+					<a class="u-url" href="https://www.w3.org/TR/2020/WD-pub-manifest-20200317/"
+						>https://www.w3.org/TR/2020/WD-pub-manifest-20200317/</a>
 				</dd>
 				<dt>Latest published version:</dt>
 				<dd>
@@ -920,8 +822,8 @@ hue-6-2: #c18401
 				</dd>
 
 				<dt>Previous version:</dt>
-				<dd><a href="https://www.w3.org/TR/2019/CR-pub-manifest-20191205/"
-						>https://www.w3.org/TR/2019/CR-pub-manifest-20191205/</a></dd>
+				<dd><a href="https://www.w3.org/TR/2020/CR-pub-manifest-20200128/"
+						>https://www.w3.org/TR/2020/CR-pub-manifest-20200128/</a></dd>
 
 				<dt>Editors:</dt>
 				<dd class="p-author h-card vcard" data-editor-id="51655"><span class="p-name fn">Matt Garrish</span> (<a
@@ -991,25 +893,19 @@ hue-6-2: #c18401
 						href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical
 						reports index</a> at https://www.w3.org/TR/.</em></p>
 			<p> This document was published by the <a href="https://www.w3.org/publishing/groups/publ-wg/">Publishing
-					Working Group</a> as a Candidate Recommendation. This document is intended to become a <abbr
+					Working Group</a> as a Working Draft. This document is intended to become a <abbr
 					title="World Wide Web Consortium">W3C</abbr> Recommendation. </p>
 			<p>
 				<a href="https://github.com/w3c/pub-manifest/issues/">GitHub Issues</a> are preferred for discussion of
 				this specification. Alternatively, you can send comments to our mailing list. Please send them to <a
 					href="mailto:public-publ-wg@w3.org">public-publ-wg@w3.org</a> (<a
 					href="https://lists.w3.org/Archives/Public/public-publ-wg/">archives</a>). </p>
-			<p>
-				<abbr title="World Wide Web Consortium">W3C</abbr> publishes a Candidate Recommendation to indicate that
-				the document is believed to be stable and to encourage implementation by the developer community. This
-				Candidate Recommendation is expected to advance to Proposed Recommendation no earlier than 31 March
-				2020. </p>
 			<p> Please see the Working Group's <a
 					href="https://www.w3.org/publishing/groups/publ-wg/implementation/results.html">implementation
 					report</a>. </p>
-			<p> Publication as a Candidate Recommendation does not imply endorsement by the <abbr
-					title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be
-				updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document
-				as other than work in progress. </p>
+			<p> Publication as a Working Draft does not imply endorsement by the <abbr title="World Wide Web Consortium"
+					>W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other
+				documents at any time. It is inappropriate to cite this document as other than work in progress. </p>
 			<p> This document was produced by a group operating under the <a
 					href="https://www.w3.org/Consortium/Patent-Policy/"><abbr title="World Wide Web Consortium"
 						>W3C</abbr> Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a
@@ -1023,8 +919,7 @@ hue-6-2: #c18401
 			<p> This document is governed by the <a id="w3c_process_revision"
 					href="https://www.w3.org/2019/Process-20190301/">1 March 2019 <abbr
 						title="World Wide Web Consortium">W3C</abbr> Process Document</a>. </p>
-		</section><nav id="toc" role="doc-toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol
-				class="toc">
+		</section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc">
 				<li class="tocline"><a class="tocxref" href="#intro"><bdi class="secno">1. </bdi>Introduction</a><ol
 						class="toc">
 						<li class="tocline"><a class="tocxref" href="#scope"><bdi class="secno">1.1 </bdi>Scope</a></li>
@@ -1231,8 +1126,11 @@ hue-6-2: #c18401
 					</ol></li>
 				<li class="tocline"><a class="tocxref" href="#change-log"><bdi class="secno">D. </bdi>Change Log</a><ol
 						class="toc">
-						<li class="tocline"><a class="tocxref" href="#changes-since-candidate-recommendation"><bdi
-									class="secno">D.1 </bdi>Changes since Candidate Recommendation</a></li>
+						<li class="tocline"><a class="tocxref" href="#change-log-latest"><bdi class="secno">D.1
+								</bdi>Substantive changes since the <span class="formerLink">previous
+							version</span></a></li>
+						<li class="tocline"><a class="tocxref" href="#change-log-older"><bdi class="secno">D.2
+								</bdi>Other substantive changes since Candidate Recommendation</a></li>
 					</ol></li>
 				<li class="tocline"><a class="tocxref" href="#iana-consideration"><bdi class="secno">E. </bdi>IANA
 						considerations</a><ol class="toc">
@@ -1596,8 +1494,8 @@ hue-6-2: #c18401
 						value <em class="rfc2119" title="MUST">MUST</em> be expressed as an [<cite><a class="bibref"
 								data-link-type="biblio" href="#bib-ecmascript" title="ECMAScript Language Specification"
 								>ecmascript</a></cite>]&#160;<a
-							href="https://tc39.es/ecma262/#sec-terms-and-definitions-boolean-value">Boolean value</a>
-							(<code>true</code> or <code>false</code>).</p>
+							href="https://tc39.github.io/ecma262/#sec-terms-and-definitions-boolean-value">Boolean
+							value</a> (<code>true</code> or <code>false</code>).</p>
 				</section>
 
 				<section id="explicit-implied-objects">
@@ -2046,6 +1944,11 @@ hue-6-2: #c18401
 											title="OPTIONAL">OPTIONAL</em>.</td>
 									<td>
 										<p>One or more <a href="#manifest-rel">relations</a>.</p>
+										<p>Keywords are <a href="https://infra.spec.whatwg.org/#ascii-case-insensitive"
+												>ASCII case-insensitive</a> [<cite><a class="bibref"
+													data-link-type="biblio" href="#bib-infra" title="Infra Standard"
+													>infra</a></cite>] and <em class="rfc2119" title="MUST">MUST</em> be
+											compared as such.</p>
 									</td>
 									<td>
 										<a href="#value-array">Array</a> of <a href="#value-literal">Literals</a>
@@ -3923,13 +3826,17 @@ hue-6-2: #c18401
 							the reading order, as this can lead to unexpected results in user agents (e.g., links to the
 							resource might not resolve to the right instance in the reading order).</p>
 
-						<p>The default reading order <em class="rfc2119" title="MUST">MUST</em> include at least one
-							resource after <a href="#manifest-processing">processing of the manifest</a>. Depending on
-							the <a href="#manifest-discovery">discovery method</a> a <a href="#dfn-profiles"
-								class="internalDFN" data-link-type="dfn">profile</a> uses, the default reading order
-							might not need to be explicitly specified in the manifest (i.e., a default document might be
-							automatically included). See <a href="#add-default-values" class="sec-ref">§&#160;<bdi
+						<p>The default reading order <em class="rfc2119" title="MAY">MAY</em> be omitted when a <a
+								href="#dfn-digital-publications" class="internalDFN" data-link-type="dfn">digital
+								publication</a> consists only of the resource that <a href="#manifest-link">links to the
+								manifest</a>. When the default reading order is absent, user agents <em class="rfc2119"
+								title="MUST">MUST</em> include an entry for the linking resource when compiling the <a
+								href="#dfn-internal-representation" class="internalDFN" data-link-type="dfn">internal
+								representation</a>. See <a href="#add-default-values" class="sec-ref">§&#160;<bdi
 									class="secno">7.4.3 </bdi>Add Default Values</a> for more information.</p>
+
+						<p>The default reading order <em class="rfc2119" title="MUST">MUST</em> include at least one
+							resource after <a href="#manifest-processing">processing of the manifest</a>.</p>
 
 						<div class="example" id="example-30-expressing-the-reading-order-as-a-simple-list-of-urls">
 							<div class="marker">
@@ -4924,6 +4831,9 @@ hue-6-2: #c18401
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				</div>
 
+				<p>The resource that links to the manifest <em class="rfc2119" title="MUST">MUST</em> be included in
+					either the <a href="#default-reading-order">default reading order</a> or the <a
+						href="#resource-list">resource list</a>.</p>
 			</section>
 
 			<section id="manifest-embed">
@@ -5255,6 +5165,12 @@ hue-6-2: #c18401
 						</details>
 					</li>
 
+					<li id="processing-extension">
+						<p>If a <a href="#dfn-profiles" class="internalDFN" data-link-type="dfn">profile</a> specifies
+							additional processing functions that need to be run, those steps are executed at this
+							point.</p>
+					</li>
+
 					<li id="processing-defaults">
 						<p>Set <var>processed</var> to the result of running <a href="#dfn-add-default-values"
 								class="internalDFN" data-link-type="dfn">add default values</a>, when successful, given
@@ -5265,12 +5181,6 @@ hue-6-2: #c18401
 							<p>This step checks if any information missing from the manifest can be obtained from the
 								HTML document that links to the document, or from other sources.</p>
 						</details>
-					</li>
-
-					<li id="processing-extension">
-						<p>If a <a href="#dfn-profiles" class="internalDFN" data-link-type="dfn">profile</a> specifies
-							additional processing functions that need to be run, those steps are executed at this
-							point.</p>
 					</li>
 
 					<li id="processing-end">
@@ -6021,10 +5931,10 @@ hue-6-2: #c18401
 								<li id="links-check-struct-rel">
 									<p>if <var>link["rel"]</var>
 										<a href="https://infra.spec.whatwg.org/#list-contain">contains</a> any of the
-										values "<code>contents</code>", "<code>pagelist</code>" or "<code>cover</code>",
-											<a href="#dfn-validation-errors" class="internalDFN" data-link-type="dfn"
-											>validation error</a>, <a href="https://infra.spec.whatwg.org/#list-remove"
-											>remove</a>
+										case-insensitive values "<code>contents</code>", "<code>pagelist</code>" or
+											"<code>cover</code>", <a href="#dfn-validation-errors" class="internalDFN"
+											data-link-type="dfn">validation error</a>, <a
+											href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 										<var>link</var> from <var>data["links"]</var>.</p>
 								</li>
 							</ol>
@@ -6054,25 +5964,25 @@ hue-6-2: #c18401
 									<p>If more than one <a href="https://infra.spec.whatwg.org/#list-item">item</a> in
 											<var>resources</var> has a <var>rel</var>
 										<a href="https://infra.spec.whatwg.org/#map-entry">entry</a> that <a
-											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the value
-											"<code>contents</code>", <a href="#dfn-validation-errors"
+											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+										case-insensitive value "<code>contents</code>", <a href="#dfn-validation-errors"
 											class="internalDFN" data-link-type="dfn">validation error</a>.</p>
 								</li>
 								<li id="rel-check-pagelist">
 									<p>If more than one <a href="https://infra.spec.whatwg.org/#list-item">item</a> in
 											<var>resources</var> has a <var>rel</var>
 										<a href="https://infra.spec.whatwg.org/#map-entry">entry</a> that <a
-											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the value
-											"<code>pagelist</code>", <a href="#dfn-validation-errors"
+											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+										case-insensitive value "<code>pagelist</code>", <a href="#dfn-validation-errors"
 											class="internalDFN" data-link-type="dfn">validation error</a>.</p>
 								</li>
 								<li id="rel-check-covers">
 									<p>If more than one <a href="https://infra.spec.whatwg.org/#list-item">item</a> in
 											<var>resources</var> has a <var>rel</var>
 										<a href="https://infra.spec.whatwg.org/#map-entry">entry</a> that <a
-											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the value
-											"<code>cover</code>", <a href="#dfn-validation-errors" class="internalDFN"
-											data-link-type="dfn">validation error</a>.</p>
+											href="https://infra.spec.whatwg.org/#list-contain">contains</a> the
+										case-insensitive value "<code>cover</code>", <a href="#dfn-validation-errors"
+											class="internalDFN" data-link-type="dfn">validation error</a>.</p>
 									<p>If the cover(s) have an <var>encodingFormat</var>
 										<a href="https://infra.spec.whatwg.org/#map-entry">entry</a> that specifies an
 										image media type (<code>image/*</code>), and do not have a <var>name</var>
@@ -6658,7 +6568,9 @@ hue-6-2: #c18401
 
 						<li id="processing-defaults-reading-order">
 							<p>(<a href="#default-reading-order" class="sec-ref">§&#160;<bdi class="secno">4.7.2.1
-									</bdi>Default Reading Order</a>) If <var>data["readingOrder"]</var> is not set:</p>
+									</bdi>Default Reading Order</a> and <a href="#manifest-link" class="sec-ref"
+										>§&#160;<bdi class="secno">6.1 </bdi>Linking</a>) If
+									<var>data["readingOrder"]</var> is not set:</p>
 							<ul>
 								<li>
 									<p>if either <var>document</var> or <a
@@ -6684,7 +6596,7 @@ hue-6-2: #c18401
 							</ul>
 							<details>
 								<summary>Explanation</summary>
-								<p> If the Digital Publication consists only of the referencing document, the default
+								<p>If the Digital Publication consists only of the referencing document, the default
 									reading order can be omitted; it will consist, automatically, of that single
 									resource. </p>
 							</details>
@@ -6694,6 +6606,21 @@ hue-6-2: #c18401
 							<p>If a <a href="#dfn-profiles" class="internalDFN" data-link-type="dfn">profile</a>
 								specifies default values the user agent has to generate, those steps are executed at
 								this point.</p>
+						</li>
+
+						<li id="processing-defaults-linking-resource">
+							<p>(<a href="#manifest-link" class="sec-ref">§&#160;<bdi class="secno">6.1
+								</bdi>Linking</a>) If <a href="https://dom.spec.whatwg.org/#concept-document-url"
+										><var>document.URL</var></a> is set and <var>data["uniqueResource"]</var> does
+								not <a href="https://infra.spec.whatwg.org/#list-contain">contain</a>
+								<var>document.URL</var>, <a href="#dfn-validation-errors" class="internalDFN"
+									data-link-type="dfn">validation error</a>.</p>
+							<details>
+								<summary>Explanation</summary>
+								<p>If the page that links to the manifest is not listed as a unique resource of the
+									publication after processing core and extension default value rules, an error is
+									raised as it has to be a publication resource.</p>
+							</details>
 						</li>
 
 						<li>
@@ -7538,7 +7465,9 @@ enum TextDirection {
 												href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 									</li>
 									<li>
-										<p>If <var>current_toc_node["name"]</var> is an empty string:</p>
+										<p>If <var>current_toc_node["name"]</var> is <a
+												href="https://infra.spec.whatwg.org/#nulls">null</a> or an empty
+											string:</p>
 										<ol>
 											<li>if <var>current_toc_node["entries"]</var> is not <a
 													href="https://infra.spec.whatwg.org/#nulls">null</a>, set
@@ -7758,25 +7687,47 @@ enum TextDirection {
 			<h2 id="d-change-log"><bdi class="secno">D. </bdi>Change Log<a class="self-link" aria-label="§"
 					href="#change-log"></a></h2>
 
-			<section id="changes-since-candidate-recommendation">
-				<h3 id="d-1-changes-since-candidate-recommendation"><bdi class="secno">D.1 </bdi>Changes since Candidate
-						Recommendation<a class="self-link" aria-label="§" href="#changes-since-candidate-recommendation"
-					></a></h3>
-				<p>The following substantive changes have been made since the last release:</p>
+			<section id="change-log-latest">
+				<h3 id="d-1-substantive-changes-since-the-previous-version"><bdi class="secno">D.1 </bdi>Substantive
+					changes since the <a href="https://www.w3.org/TR/2020/CR-pub-manifest-20200128/">previous
+						version</a><a class="self-link" aria-label="§" href="#change-log-latest"></a></h3>
+
+				<ul>
+					<li>12-Feb-2020: The prose requirements for the resource that links to the manifest to be a
+						publication resource and to be automatically added to the reading order (when one is not
+						present) were restored to align with the algorithm steps. An additional check was also included
+						in the algorithm to warn if the linking resource is not a publication resource. See <a
+							href="https://github.com/w3c/pub-manifest/issues/198">issue 198</a>.</li>
+					<li>12-Feb-2020: The table of contents algorithm was fixed to capture branches without a title, not
+						just those without any text content. See <a
+							href="https://github.com/w3c/pub-manifest/issues/195">issue 195</a>.</li>
+					<li>07-Feb-2020: Clarified that rel values are case insensitive and must be compared as such. See <a
+							href="https://github.com/w3c/pub-manifest/issues/196">issue 196</a>.</li>
+					<li>04-Feb-2020: The note about registering the publication rel value has been removed as it is now
+						officially registered with IANA. See <a href="https://github.com/w3c/pub-manifest/pull/194">pull
+							request 194</a>.</li>
+				</ul>
+			</section>
+
+			<section id="change-log-older">
+				<h3 id="d-2-other-substantive-changes-since-candidate-recommendation"><bdi class="secno">D.2 </bdi>Other
+					substantive changes since Candidate Recommendation<a class="self-link" aria-label="§"
+						href="#change-log-older"></a></h3>
 				<ul>
 					<li>28-Jan-2020: Reverted to using only role=doc-toc to identify the table of contents due to
-						problems with using fragments identifiers. See issue <a
-							href="https://github.com/w3c/pub-manifest/issues/176">176</a>.</li>
+						problems with using fragments identifiers. See <a
+							href="https://github.com/w3c/pub-manifest/issues/176">issue 176</a>.</li>
 					<li>28-Jan-2020: Clarified that visual hiding does not affect the selection of the table of
-						contents. See issue <a href="https://github.com/w3c/pub-manifest/issues/176">176</a>.</li>
+						contents. See <a href="https://github.com/w3c/pub-manifest/issues/176">issue 176</a>.</li>
 					<li>28-Jan-2020: Added an extension point for profiles to add processing requirements for the
-						context. See issue <a href="https://github.com/w3c/pub-manifest/issues/186">186</a>.</li>
+						context. See <a href="https://github.com/w3c/pub-manifest/issues/186">issue 186</a>.</li>
 					<li>27-Jan-2020: The table of contents processing algorithm has been updated to fix several bugs and
-						editorial issues in the expected outcomes. See issues <a
-							href="https://github.com/w3c/pub-manifest/issues/177">177</a> and <a
-							href="https://github.com/w3c/pub-manifest/issues/179">179</a>, as well as pull requests <a
-							href="https://github.com/w3c/pub-manifest/pull/180">180</a> and <a
-							href="https://github.com/w3c/pub-manifest/pull/182">182</a> for more details.</li>
+						editorial issues in the expected outcomes. See <a
+							href="https://github.com/w3c/pub-manifest/issues/177">issue 177</a> and <a
+							href="https://github.com/w3c/pub-manifest/issues/179">issue 179</a>, as well as <a
+							href="https://github.com/w3c/pub-manifest/pull/180">pull request 180</a> and <a
+							href="https://github.com/w3c/pub-manifest/pull/182">pull request 182</a> for more
+						details.</li>
 				</ul>
 				<p>For a complete list of issues addressed, refer to the <a
 						href="https://github.com/w3c/pub-manifest/issues?q=is%3Aissue+is%3Aclosed+sort%3Aupdated-desc"
@@ -7792,13 +7743,6 @@ enum TextDirection {
 				<h3 id="e-1-link-relation-type-registration"><bdi class="secno">E.1 </bdi>Link relation type
 						registration<a class="self-link" aria-label="§" href="#link-relation-type-registration"
 					></a></h3>
-				<div class="note" role="note" id="issue-container-generatedID-35">
-					<div role="heading" class="note-title marker" id="h-note-30" aria-level="4">
-						<span>Note</span>
-					</div>
-					<p class=""> A request to register the <code>publication</code> link relation type will be submitted
-						to IANA. </p>
-				</div>
 				<dl>
 					<dt>Relation Name:</dt>
 					<dd>publication</dd>
@@ -7891,8 +7835,7 @@ enum TextDirection {
             <span class="hljs-attr">"encodingFormat"</span>: <span class="hljs-string">"application/vnd.ms-opentype"</span>
         }
     ]
-}
-</code></pre>
+}</code></pre>
 				</div>
 			</section>
 
@@ -7975,8 +7918,7 @@ enum TextDirection {
     ...
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
 				</div>
 			</section>
 
@@ -7986,8 +7928,8 @@ enum TextDirection {
 
 				<p>The following example shows a manifest that conforms to the <a
 						href="https://www.w3.org/TR/audiobooks/">Audiobooks profile</a> [<cite><a class="bibref"
-							data-link-type="biblio" href="#bib-audiobooks"
-							title="Audiobook Profile for Web Publications">audiobooks</a></cite>].</p>
+							data-link-type="biblio" href="#bib-audiobooks" title="Audiobooks"
+					>audiobooks</a></cite>].</p>
 
 				<p>A <a href="https://w3c.github.io/pub-manifest/experiments/audiobook/flatland-canonical.json">JSON
 						encoding of the internal representation</a> of this manifest is also available.</p>
@@ -8095,8 +8037,7 @@ enum TextDirection {
       <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Part 2, Sections 21 - 22"</span>
     }
   ]
-}
-</code></pre>
+}</code></pre>
 				</div>
 			</section>
 		</section>
@@ -8589,10 +8530,10 @@ enum TextDirection {
 						Phillips; M. Davis. IETF. September 2009. IETF Best Current Practice. URL: <a
 							href="https://tools.ietf.org/html/bcp47">https://tools.ietf.org/html/bcp47</a></dd>
 					<dt id="bib-bibo">[bibo]</dt>
-					<dd><a href="http://www.bibliontology.com/specification.html"><cite>Bibliographic Ontology
+					<dd><a href="http://bibliontology.com/specification.html"><cite>Bibliographic Ontology
 								Specification</cite></a>. Bruce D'Arcus; Frédérick Giasson. Structured Dynamics LLC. 11
-						May 2016. URL: <a href="http://bibliographic-ontology.org/specification"
-							>http://bibliographic-ontology.org/specification</a></dd>
+						May 2016. URL: <a href="http://bibliontology.com/specification.html"
+							>http://bibliontology.com/specification.html</a></dd>
 					<dt id="bib-bibtex">[bibtex]</dt>
 					<dd><a href="http://www.bibtex.org/Format/"><cite>BibTeX Format Description</cite></a>. URL: <a
 							href="http://www.bibtex.org/Format/">http://www.bibtex.org/Format/</a></dd>
@@ -8621,8 +8562,9 @@ enum TextDirection {
 						December 2017. W3C Recommendation. URL: <a href="https://www.w3.org/TR/dpub-aria-1.0/"
 							>https://www.w3.org/TR/dpub-aria-1.0/</a></dd>
 					<dt id="bib-ecmascript">[ecmascript]</dt>
-					<dd><a href="https://tc39.es/ecma262/"><cite>ECMAScript Language Specification</cite></a>. Ecma
-						International. URL: <a href="https://tc39.es/ecma262/">https://tc39.es/ecma262/</a></dd>
+					<dd><a href="https://tc39.github.io/ecma262/"><cite>ECMAScript Language Specification</cite></a>.
+						Ecma International. URL: <a href="https://tc39.github.io/ecma262/"
+							>https://tc39.github.io/ecma262/</a></dd>
 					<dt id="bib-foaf">[foaf]</dt>
 					<dd><a href="http://xmlns.com/foaf/spec"><cite>FOAF Vocabulary Specification 0.99 (Paddington
 								Edition)</cite></a>. Dan Brickley; Libby Miller. FOAF project. 14 January 2014. URL: <a
@@ -8654,7 +8596,7 @@ enum TextDirection {
 							>https://tools.ietf.org/html/rfc4627</a></dd>
 					<dt id="bib-json-ld11">[json-ld11]</dt>
 					<dd><a href="https://www.w3.org/TR/json-ld11/"><cite>JSON-LD 1.1</cite></a>. Gregg Kellogg;
-						Pierre-Antoine Champin; Dave Longley. W3C. 18 October 2019. W3C Working Draft. URL: <a
+						Pierre-Antoine Champin. W3C. 5 August 2019. W3C Working Draft. URL: <a
 							href="https://www.w3.org/TR/json-ld11/">https://www.w3.org/TR/json-ld11/</a></dd>
 					<dt id="bib-mfrel">[mfrel]</dt>
 					<dd><a href="http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions"
@@ -8708,8 +8650,8 @@ enum TextDirection {
 						class="self-link" aria-label="§" href="#informative-references"></a></h3>
 				<dl class="bibliography">
 					<dt id="bib-audiobooks">[audiobooks]</dt>
-					<dd><a href="https://www.w3.org/TR/audiobooks/"><cite>Audiobook Profile for Web
-							Publications</cite></a>. Wendy Reid. W3C. 20 June 2019. W3C Working Draft. URL: <a
+					<dd><a href="https://www.w3.org/TR/audiobooks/"><cite>Audiobooks</cite></a>. Wendy Reid; Matt
+						Garrish. W3C. 28 January 2020. W3C Candidate Recommendation. URL: <a
 							href="https://www.w3.org/TR/audiobooks/">https://www.w3.org/TR/audiobooks/</a></dd>
 					<dt id="bib-ecma-404">[ecma-404]</dt>
 					<dd><a href="https://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"><cite>The
