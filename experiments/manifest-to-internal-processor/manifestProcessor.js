@@ -129,6 +129,7 @@ var manifestProcessor = (function() {
 		
 		_issues.warnings = [];
 		_issues.errors = [];
+		console.clear();
 		
 		if (!init) {
 			init = {};
