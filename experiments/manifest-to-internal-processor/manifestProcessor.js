@@ -127,6 +127,9 @@ var manifestProcessor = (function() {
 	
 	function processManifest(init) {
 		
+		_issues.warnings = [];
+		_issues.errors = [];
+		
 		if (!init) {
 			init = {};
 		}
