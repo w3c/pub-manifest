@@ -5237,9 +5237,18 @@ dictionary LocalizableString {
 			<h2>Change Log</h2>
 
 			<section id="change-log-latest">
-				<h3>Substantive changes since the <a href="https://www.w3.org/TR/2020/CR-pub-manifest-20200128/"
+				<h3>Substantive changes since the <a href="https://www.w3.org/TR/2020/CR-pub-manifest-20200317/"
 						>previous version</a></h3>
 
+				<ul>
+					<li>15-Apr-2020: Removed the bullet from the LocalizableString definition allowing an array of
+						values, as this creates an invalid nesting of arrays when paired with the value categories. See
+							<a href="https://github.com/w3c/pub-manifest/issues/205">issue 205</a>.</li>
+				</ul>
+			</section>
+
+			<section id="change-log-older">
+				<h3>Other substantive changes since Candidate Recommendation</h3>
 				<ul>
 					<li>12-Feb-2020: The prose requirements for the resource that links to the manifest to be a
 						publication resource and to be automatically added to the reading order (when one is not
@@ -5254,12 +5263,6 @@ dictionary LocalizableString {
 					<li>04-Feb-2020: The note about registering the publication rel value has been removed as it is now
 						officially registered with IANA. See <a href="https://github.com/w3c/pub-manifest/pull/194">pull
 							request 194</a>.</li>
-				</ul>
-			</section>
-
-			<section id="change-log-older">
-				<h3>Other substantive changes since Candidate Recommendation</h3>
-				<ul>
 					<li>28-Jan-2020: Reverted to using only role=doc-toc to identify the table of contents due to
 						problems with using fragments identifiers. See <a
 							href="https://github.com/w3c/pub-manifest/issues/176">issue 176</a>.</li>
