@@ -361,8 +361,8 @@
 							as its value, the value MUST be expressed as one of:</p>
 
 						<ul>
-							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a>
-								value; or</li>
+							<li>a [[!json]] <a href="https://tools.ietf.org/html/rfc4627#section-2.5">string</a> value;
+								or</li>
 							<li>a <a><code>LocalizableString</code></a>.</li>
 						</ul>
 
@@ -4376,7 +4376,7 @@
 				depending on the nature of the <a>digital publication</a> format.</p>
 		</section>
 		<section id="app-internal-rep-data-model" class="appendix informative">
-			<h2>Internal Representation Data Models</h2>
+			<h2>Internal Representation Data Model</h2>
 
 			<p>The manifest includes a number of authoring conveniences, such as default values, the ability to use
 				strings where objects would normally be required, and the automatic compilation of information from
@@ -4385,22 +4385,17 @@
 				conveniences and results in a consistent data set for user agents (the <a>internal representation</a>),
 				but this set is not easily visualized from the processing algorithm.</p>
 
-			<p>This appendix provides informative abstract data models that describe the resulting data structure. The
-				choice of representations is only for illustrative purposes. User agents are not required to use the
-				associated technologies.</p>
+			<p>This appendix provides an informative abstract data model using [[WebIDL]] that describes the resulting
+				data structure. This definition expresses the expected names, datatypes, and possible restrictions for
+				each member of the manifest after <a href="#manifest-processing">processing</a>.</p>
 
-			<section id="webidl">
-				<h3>WebIDL</h3>
+			<p class="note">The choice of WebIDL is only for illustrative purposes. This specification does not define
+				an API for exposing the manifest data.</p>
 
-				<p>This definition expresses the expected names, datatypes, and possible restrictions for each member of
-					the manifest after <a href="#manifest-processing">processing</a> using [[WebIDL]].</p>
+			<section id="webidl-wpm">
+				<h3>The <code>PublicationManifest</code> Dictionary</h3>
 
-				<p class="note">This specification does not define an API for exposing the manifest data.</p>
-
-				<section id="webidl-wpm">
-					<h4>The <code>PublicationManifest</code> Dictionary</h4>
-
-					<pre id="wpm">
+				<pre id="wpm">
 dictionary PublicationManifest {
              sequence&lt;DOMString>         type = "CreativeWork";
     required DOMString                   profile;
@@ -4443,10 +4438,10 @@ enum TextDirection {
     "rtl"
 };
 </pre>
-					<section id="LinkedResource">
-						<h3>The <code>LinkedResource</code> Dictionary</h3>
+				<section id="LinkedResource">
+					<h4>The <code>LinkedResource</code> Dictionary</h4>
 
-						<pre>
+					<pre>
 dictionary LinkedResource {
     required DOMString                   url;
              DOMString                   encodingFormat;
@@ -4457,12 +4452,12 @@ dictionary LinkedResource {
              DOMString                   duration;
              sequence&lt;LinkedResource>    alternate;
 };</pre>
-					</section>
+				</section>
 
-					<section id="Entity">
-						<h3>The <code>Entity</code> Dictionary</h3>
+				<section id="Entity">
+					<h4>The <code>Entity</code> Dictionary</h4>
 
-						<pre>
+					<pre>
 dictionary Entity {
              sequence&lt;DOMString>         type;
     required sequence&lt;LocalizableString> name;
@@ -4471,19 +4466,18 @@ dictionary Entity {
              sequence&lt;DOMString>         identifier;
 };
 </pre>
-					</section>
+				</section>
 
-					<section id="LocalizableString">
-						<h3>The <code>LocalizableString</code> Dictionary</h3>
+				<section id="LocalizableString">
+					<h4>The <code>LocalizableString</code> Dictionary</h4>
 
-						<pre>
+					<pre>
 dictionary LocalizableString {
     required DOMString                   value;
              DOMString                   language;
              TextDirection               direction;
 };
 </pre>
-					</section>
 				</section>
 			</section>
 		</section>
