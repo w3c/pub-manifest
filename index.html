@@ -3693,6 +3693,9 @@
 									list. It then sets <var>data['uniqueResources']</var> the union of these two sets,
 									which represents the complete list of unique resources within the <a
 										href="#publication-resources">bounds of the publication</a>.</p>
+								<p>This step also warns if either the <var>readingOrder</var> or <var>resources</var>
+									contains dupliate resource declarations. The validation errors are emitted as part
+									of obtaining the unique URLs from each list.</p>
 							</details>
 						</li>
 
