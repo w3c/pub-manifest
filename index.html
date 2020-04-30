@@ -1568,7 +1568,14 @@
 									<td id="creator">
 										<code>creator</code>
 									</td>
-									<td>The creator of the publication.</td>
+									<td>
+										<p>The creator of the publication.</p>
+										<p>Use of this property might lead to inconsistent results in user agents. It is
+											marked as a synonym for <a href="#author">author</a> in [[schema.org]], but
+											there is no guidance on which takes precedence or how to combine them. It is
+											advised to use only one or the other, with preference given to the more
+											specific author property.</p>
+									</td>
 									<td>One or more <a href="https://schema.org/Person"><code>Person</code></a> and/or
 											<a href="https://schema.org/Organization"
 										><code>Organization</code></a>.</td>
@@ -5238,6 +5245,9 @@ dictionary LocalizableString {
 						>previous version</a></h3>
 
 				<ul>
+					<li>30-Apr-2020: Noted the issue with the author and creator properties being synonyms in
+						schema.org. See <a href="https://github.com/w3c/pub-manifest/issues/203#issuecomment-614004609"
+							>issue 203</a>.</li>
 					<li>16-Apr-2020: Changed the recommendation that a privacy policy and accessibility report be
 						resources of a publication to best practice to match with the examples where these are listed as
 						links. Adding as links should not generate warnings. See <a
