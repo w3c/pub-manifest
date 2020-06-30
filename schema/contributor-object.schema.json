@@ -11,7 +11,7 @@
             "$ref": "url.schema.json"
         },
         "type": {
-            "anyOf": [
+            "oneOf": [
                 {
                     "type": "string",
                     "enum": [
