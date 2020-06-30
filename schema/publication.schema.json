@@ -57,14 +57,7 @@
             "uniqueItems": true
         },
         "accessModeSufficient": {
-            "type": [
-                "string",
-                "array"
-            ],
-            "items": {
-                "type": "string"
-            },
-            "uniqueItems": true
+        	"$ref": "ItemList.schema.json"
         },
         "accessibilityFeature": {
             "type": [
@@ -77,7 +70,10 @@
             "uniqueItems": true
         },
         "accessibilityHazard": {
-            "type": "array",
+            "type": [
+            	"string",
+            	"array"
+            ],
             "items": {
                 "type": "string"
             },
