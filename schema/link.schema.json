@@ -57,18 +57,7 @@
             "pattern": "^P(?!$)((\\d+Y)|(\\d+\\.\\d+Y$))?((\\d+M)|(\\d+\\.\\d+M$))?((\\d+W)|(\\d+\\.\\d+W$))?((\\d+D)|(\\d+\\.\\d+D$))?(T(?=\\d)((\\d+H)|(\\d+\\.\\d+H$))?((\\d+M)|(\\d+\\.\\d+M$))?(\\d+(\\.\\d+)?S)?)??$"
         },
         "alternate": {
-            "type": "array",
-            "items": {
-                "anyOf": [
-                    {
-                        "$ref": "url.schema.json"
-                    },
-                    {
-                        "$ref": "link.schema.json"
-                    }
-                ]
-            },
-            "uniqueItems": true
+        	"$ref": "resource.categorization.schema.json"
         }
     },
     "required": [

@@ -1,0 +1,48 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "context.schema.json",
+	"title": "Publication Contexts",
+	"type": "array",
+	"items": [
+		{
+			"const": "https://schema.org"
+		},
+		{
+			"const": "https://www.w3.org/ns/pub-context"
+		}
+	],
+	"additionalItems": {
+		"anyOf": [
+			{
+				"type": "string"
+			},
+			{
+				"type": "object",
+				"properties": {
+					"language": {
+						"$ref": "bcp.schema.json"
+					}
+				},
+				"required": ["language"]
+			},
+			{
+				"type": "object",
+				"properties": {
+					"direction": {
+						"type": "string",
+						"enum": ["ltr", "rtl"]
+					}
+				},
+				"required": ["direction"]
+			},
+			{
+				"type": "object",
+				"properties": {
+					"language": false,
+					"direction": false
+				}
+			}
+		]
+	},
+	"uniqueItems": true
+}
