@@ -21,7 +21,8 @@
 				"properties": {
 					"language": {
 						"$ref": "bcp.schema.json"
-					}
+					},
+					"direction": false
 				},
 				"required": ["language"]
 			},
@@ -31,9 +32,23 @@
 					"direction": {
 						"type": "string",
 						"enum": ["ltr", "rtl"]
-					}
+					},
+					"language": false
 				},
 				"required": ["direction"]
+			},
+			{
+				"type": "object",
+				"properties": {
+					"language": {
+						"$ref": "bcp.schema.json"
+					},
+					"direction": {
+						"type": "string",
+						"enum": ["ltr", "rtl"]
+					}
+				},
+				"required": ["language", "direction"]
 			},
 			{
 				"type": "object",
