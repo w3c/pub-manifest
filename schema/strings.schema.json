@@ -1,0 +1,13 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "strings.schema.json",
+	"title": "Unique strings",
+	"type": [
+		"string",
+		"array"
+	],
+	"items": {
+		"type": "string"
+	},
+	"uniqueItems": true
+}

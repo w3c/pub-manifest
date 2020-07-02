@@ -1,0 +1,19 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "urls.schema.json",
+	"title": "URLs",
+	"oneOf": [
+		{
+			"type": "string",
+			"format": "uri-reference"
+		},
+		{
+			"type": "array",
+			"items": {
+				"type": "string",
+				"format": "uri-reference"
+			},
+			"uniqueItems": true
+		}
+	]
+}
