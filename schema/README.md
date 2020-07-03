@@ -10,7 +10,7 @@ The schema is updated to newer drafts as broad support in validators becomes ava
 
 The schema consists of a primary schema file `publication.schema.json` and several component files, each of which encapsulates tests specific to an area of validation. These component files are located in the `module` subdirectory.
 
-Only the primary schema file needs to be specified for validation, as the other component files are automatically imported.
+In some cases, it may be possible to validate without downloading the physical schemas (i.e., if the validator can retrieve the schemas automatically). In these cases, only the URL `https://w3c.github.io/pub-manifest/schema/publication.schema.json` needs to be specified.
 
 ## Validators
 
