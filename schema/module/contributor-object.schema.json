@@ -1,14 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "contributor-object.schema.json",
+    "$id": "https://w3c.github.io/pub-manifest/schema/module/contributor-object.schema.json",
     "title": "Contributor Object",
     "type": "object",
     "properties": {
         "name": {
-            "$ref": "localizable.schema.json"
+            "$ref": "https://w3c.github.io/pub-manifest/schema/module/localizable.schema.json"
         },
         "id": {
-            "$ref": "url.schema.json"
+            "$ref": "https://w3c.github.io/pub-manifest/schema/module/url.schema.json"
         },
         "type": {
             "oneOf": [
@@ -35,7 +35,7 @@
             ]
         },
         "url": {
-        	"$ref": "url.schema.json" 
+        	"$ref": "https://w3c.github.io/pub-manifest/schema/module/url.schema.json" 
         },
         "identifier": {
         	"type": "array",

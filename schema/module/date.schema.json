@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "date.schema.json",
+	"$id": "https://w3c.github.io/pub-manifest/schema/module/date.schema.json",
 	"title": "Dates",
 	"type": "string",
 	"anyOf": [

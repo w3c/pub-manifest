@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "contributor.schema.json",
+    "$id": "https://w3c.github.io/pub-manifest/schema/module/contributor.schema.json",
     "title": "Contributor",
     "anyOf": [
         {
@@ -14,14 +14,14 @@
                         "type": "string"
                     },
                     {
-                        "$ref": "contributor-object.schema.json"
+                        "$ref": "https://w3c.github.io/pub-manifest/schema/module/contributor-object.schema.json"
                     }
                 ]
             },
             "uniqueItems": true
         },
         {
-            "$ref": "contributor-object.schema.json"
+            "$ref": "https://w3c.github.io/pub-manifest/schema/module/contributor-object.schema.json"
         }
     ]
 }

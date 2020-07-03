@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "localizable.schema.json",
+    "$id": "https://w3c.github.io/pub-manifest/schema/module/localizable.schema.json",
     "title": "Localizable String or Object",
     "anyOf": [
         {
@@ -14,14 +14,14 @@
                         "type": "string"
                     },
                     {
-                        "$ref": "localizable-object.schema.json"
+                        "$ref": "https://w3c.github.io/pub-manifest/schema/module/localizable-object.schema.json"
                     }
                 ]
             },
             "uniqueItems": true
         },
         {
-            "$ref": "localizable-object.schema.json"
+            "$ref": "https://w3c.github.io/pub-manifest/schema/module/localizable-object.schema.json"
         }
     ]
 }
