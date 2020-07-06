@@ -14,8 +14,7 @@
 			],
 			"items": {
 				"type": "string"
-			},
-			"uniqueItems": true
+			}
 		},
 		"conformsTo" : {
 			"oneOf": [

@@ -53,8 +53,7 @@
             "type": "string"
         },
         "duration": {
-            "type": "string",
-            "pattern": "^P(?!$)((\\d+Y)|(\\d+\\.\\d+Y$))?((\\d+M)|(\\d+\\.\\d+M$))?((\\d+W)|(\\d+\\.\\d+W$))?((\\d+D)|(\\d+\\.\\d+D$))?(T(?=\\d)((\\d+H)|(\\d+\\.\\d+H$))?((\\d+M)|(\\d+\\.\\d+M$))?(\\d+(\\.\\d+)?S)?)??$"
+        	"$ref": "https://w3c.github.io/pub-manifest/schema/module/duration.schema.json"
         },
         "alternate": {
         	"$ref": "https://w3c.github.io/pub-manifest/schema/module/resource.categorization.schema.json"

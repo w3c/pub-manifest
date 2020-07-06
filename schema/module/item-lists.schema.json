@@ -10,8 +10,7 @@
 			"type": "array",
 			"items": {
 				"$ref": "https://w3c.github.io/pub-manifest/schema/module/ItemList.schema.json"
-			},
-			"uniqueItems": true
+			}
 		}
 	]
 }

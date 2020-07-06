@@ -8,6 +8,5 @@
 	],
 	"items": {
 		"type": "string"
-	},
-	"uniqueItems": true
+	}
 }

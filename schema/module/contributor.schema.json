@@ -17,8 +17,7 @@
                         "$ref": "https://w3c.github.io/pub-manifest/schema/module/contributor-object.schema.json"
                     }
                 ]
-            },
-            "uniqueItems": true
+            }
         },
         {
             "$ref": "https://w3c.github.io/pub-manifest/schema/module/contributor-object.schema.json"
