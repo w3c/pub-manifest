@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "https://www.w3.org/ns/pub-manifest/schema/module/urls.schema.json",
+	"$id": "https://www.w3.org/ns/pub-schema/manifest/module/urls.schema.json",
 	"title": "URLs",
 	"oneOf": [
 		{

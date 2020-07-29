@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "https://www.w3.org/ns/pub-manifest/schema/module/context.schema.json",
+	"$id": "https://www.w3.org/ns/pub-schema/manifest/module/context.schema.json",
 	"title": "Publication Contexts",
 	"type": "array",
 	"items": [
@@ -20,7 +20,7 @@
 				"type": "object",
 				"properties": {
 					"language": {
-						"$ref": "https://www.w3.org/ns/pub-manifest/schema/module/bcp.schema.json"
+						"$ref": "https://www.w3.org/ns/pub-schema/manifest/module/bcp.schema.json"
 					},
 					"direction": false
 				},
@@ -41,7 +41,7 @@
 				"type": "object",
 				"properties": {
 					"language": {
-						"$ref": "https://www.w3.org/ns/pub-manifest/schema/module/bcp.schema.json"
+						"$ref": "https://www.w3.org/ns/pub-schema/manifest/module/bcp.schema.json"
 					},
 					"direction": {
 						"type": "string",
