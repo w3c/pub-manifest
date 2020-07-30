@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://w3c.github.io/pub-manifest/schema/module/localizable-object.schema.json",
+    "$id": "https://www.w3.org/ns/pub-schema/manifest/module/localizable-object.schema.json",
     "title": "Localizable String Object",
     "type": "object",
     "properties": {
@@ -8,7 +8,7 @@
             "type": "string"
         },
         "language": {
-            "$ref": "https://w3c.github.io/pub-manifest/schema/module/bcp.schema.json"
+            "$ref": "https://www.w3.org/ns/pub-schema/manifest/module/bcp.schema.json"
         }
     },
     "required": [

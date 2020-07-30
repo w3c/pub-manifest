@@ -1,15 +1,15 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
-	"$id": "https://w3c.github.io/pub-manifest/schema/module/item-lists.schema.json",
+	"$id": "https://www.w3.org/ns/pub-schema/manifest/module/item-lists.schema.json",
 	"title": "Lists of ItemList",
 	"oneOf": [
 		{
-			"$ref": "https://w3c.github.io/pub-manifest/schema/module/ItemList.schema.json"
+			"$ref": "https://www.w3.org/ns/pub-schema/manifest/module/ItemList.schema.json"
 		},
 		{
 			"type": "array",
 			"items": {
-				"$ref": "https://w3c.github.io/pub-manifest/schema/module/ItemList.schema.json"
+				"$ref": "https://www.w3.org/ns/pub-schema/manifest/module/ItemList.schema.json"
 			}
 		}
 	]
