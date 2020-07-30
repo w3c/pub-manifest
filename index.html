@@ -10,61 +10,56 @@
 		<link href="https://unpkg.com/reqlist/lib/reqlist.css" class="removeOnSave" rel="stylesheet" type="text/css" />
 		<link href="common/css/common.css" rel="stylesheet" type="text/css" />
 		<script class="remove">
-			// <![CDATA[
+			//<![CDATA[
 			var respecConfig = {
-				preProcess: [
-					prepare_reqlist
-				],
-				postProcess: [
-					convert_dfn_to_link,
-					add_reqlist_button
-				],
+				preProcess:[
+				prepare_reqlist],
+				postProcess:[
+				convert_dfn_to_link,
+				add_reqlist_button],
 				wg: "Publishing Working Group",
 				specStatus: "ED",
 				shortName: "pub-manifest",
 				previousPublishDate: "2020-03-17",
 				previousMaturity: "CR",
 				implementationReportURI: "https://www.w3.org/publishing/groups/publ-wg/implementation/results.html",
-				crEnd : "2020-03-31",
+				crEnd: "2020-03-31",
 				edDraftURI: "https://w3c.github.io/pub-manifest/",
-				editors: [
-					{
-						"name": "Matt Garrish",
-						"company": "DAISY Consortium",
-						"companyURL": "https://daisy.org",
-						"w3cid": 51655
-					},
-					{
-						"name": "Ivan Herman",
-						"url": "https://www.w3.org/People/Ivan/",
-						"company": "W3C",
-						"w3cid": 7382,
-						"orcid": "0000-0003-0782-2704",
-						"companyURL": "https://www.w3.org",
-					}
-				],
+				editors:[ {
+					"name": "Matt Garrish",
+					"company": "DAISY Consortium",
+					"companyURL": "https://daisy.org",
+					"w3cid": 51655
+				}, {
+					"name": "Ivan Herman",
+					"url": "https://www.w3.org/People/Ivan/",
+					"company": "W3C",
+					"w3cid": 7382,
+					"orcid": "0000-0003-0782-2704",
+					"companyURL": "https://www.w3.org",
+				}],
 				processVersion: 2018,
 				includePermalinks: false,
-				permalinkEdge:     true,
-				permalinkHide:     false,
-				pluralize:         true,
-				diffTool:          "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
-				wgURI:             "https://www.w3.org/publishing/groups/publ-wg/",
-				wgPublicList:      "public-publ-wg",
-				wgPatentURI:       "https://www.w3.org/2004/01/pp-impl/100074/status",
-				wgId:              "100074",
-				github:			 {
+				permalinkEdge: true,
+				permalinkHide: false,
+				pluralize: true,
+				diffTool: "http://www.aptest.com/standards/htmldiff/htmldiff.pl",
+				wgURI: "https://www.w3.org/publishing/groups/publ-wg/",
+				wgPublicList: "public-publ-wg",
+				wgPatentURI: "https://www.w3.org/2004/01/pp-impl/100074/status",
+				wgId: "100074",
+				github: {
 					repoURL: "https://github.com/w3c/pub-manifest/",
 					branch: "master"
 				},
 				localBiblio: localBiblio
-			};
-			// ]]>
+			};//]]>
 	  </script>
 		<style>
 			var {
 				color: brown;
 			}
+			
 			code.json {
 				color: teal;
 			}</style>
@@ -134,10 +129,10 @@
 					</dd>
 				</dl>
 
-				<p>The <a>manifest</a> also identifies key resources of a digital publication through the use of link
-					relations. These relations are defined in the <a href="#linkedresource-rel"><code>rel</code>
-						property</a> of <a><code>LinkedResource</code></a> objects (i.e., the JSON objects that
-					represent each resource in the default reading order, resource list, and links sections).</p>
+				<p>The <a>manifest</a> also identifies key resources of a digital publication using link relations.
+					These relations are defined in the <a href="#linkedresource-rel"><code>rel</code> property</a> of
+							<a><code>LinkedResource</code></a> objects (i.e., the JSON objects that represent each
+					resource in the default reading order, resource list, and links sections).</p>
 
 				<p>The types of resources these relations identify are categorized as follows:</p>
 
@@ -174,15 +169,14 @@
 						href="https://www.w3.org/ns/pub-schema/manifest/"
 					>https://www.w3.org/ns/pub-schema/manifest/</a>.</p>
 
-				<p>The publication manifest also has a number of authoring flexibilities and compact authoring
-					expressions. For example, it is not always required that object types be explicitly authored, as
-					these are automatically generated during processing when missing (see <a
-						href="#explicit-implied-objects"></a> for more information). An <a>internal representation</a>
-					of the manifest data is defined separately; see <a href="#app-internal-rep-data-model"></a> for
-					further details.</p>
+				<p>The publication manifest also has several authoring flexibilities and compact authoring expressions.
+					For example, it is not always required that object types be explicitly authored, as these are
+					automatically generated during processing when missing (see <a href="#explicit-implied-objects"></a>
+					for more information). An <a>internal representation</a> of the manifest data is defined separately;
+					see <a href="#app-internal-rep-data-model"></a> for further details.</p>
 
-				<p>As a consequence, a user agent does not have to be a full JSON-LD processor. User agents only need to
-					be able to read the manifest's specific shape and internalize the data.</p>
+				<p>Consequently, a user agent does not have to be a full JSON-LD processor. User agents only need to be
+					able to read the manifest's specific shape and internalize the data.</p>
 			</section>
 
 			<section id="manifest-schemaorg" class="informative">
@@ -190,8 +184,8 @@
 
 				<p>Manifest properties, in particular those categorized as <a href="#descriptive-properties">descriptive
 						properties</a>, are primarily drawn from <a href="https://schema.org">Schema.org</a> and its <a
-						href="https://schema.org/docs/schemas.html">hosted extensions</a>&#160;[[schema.org]]. As a
-					consequence, these properties inherit their syntax and semantics from Schema.org, making manifest
+						href="https://schema.org/docs/schemas.html">hosted extensions</a>&#160;[[schema.org]].
+					Consequently, these properties inherit their syntax and semantics from Schema.org, making manifest
 					authoring compatible with Schema.org authoring.</p>
 
 				<p>When a manifest item corresponds to a Schema.org property, its <a href="#manifest-properties"
@@ -199,10 +193,9 @@
 						href="https://schema.org/CreativeWork">CreativeWork</a> or <a href="https://schema.org/Book"
 						>Book</a>) in parentheses.</p>
 
-				<p>Schema.org additionally includes a large number of properties that, though relevant for publishing,
-					are not mentioned in this specification. These properties can be used in a manifest as this document
-					defines only the minimal set of manifest items (see <a href="#extensibility-manifest-properties"
-					></a>).</p>
+				<p>Schema.org additionally includes a many properties that, though relevant for publishing, are not
+					mentioned in this specification. These properties can be used in a manifest as this document defines
+					only the minimal set of manifest items (see <a href="#extensibility-manifest-properties"></a>).</p>
 
 				<p>When using additional Schema.org properties, ensure that they are valid for the <a
 						href="#publication-types">type of publication</a> specified in the manifest. Properties are
@@ -264,7 +257,7 @@
 						in this specification to describe their <a>bounds</a> and content. These formats can extend the
 						core definition in this specification with profile-specific terms and/or new requirements.</p>
 					<p>Although profiles can differ in their structural and content requirements, such variances are
-						restricted to maintain a high degree of predictabibility between formats. (See <a
+						restricted to maintain a high degree of predictability between formats. (See <a
 							href="#extensions"></a>.)</p>
 				</dd>
 			</dl>
@@ -422,7 +415,7 @@
 							</tbody>
 						</table>
 
-						<p>The meaning of the base direction values are:</p>
+						<p>The meanings of the base direction values are:</p>
 
 						<ul>
 							<li><code>ltr</code>: indicates that the textual value is explicitly directionally set to
@@ -879,7 +872,7 @@
 					<h4>Identifiers</h4>
 
 					<p>Identifiers are used to refer to a <a>digital publication</a> and the <a href="#value-entity"
-							>entities</a> reponsible for its creation in a persistent and unambiguous manner. <abbr
+							>entities</a> responsible for its creation in a persistent and unambiguous manner. <abbr
 							title="Uniform Resource Locators">URLs</abbr>, <abbr title="Uniform Resource Names"
 							>URNs</abbr>, <abbr title="Digital Object Identifiers">DOIs</abbr>, <abbr
 							title="International Standard Book Numbers">ISBNs</abbr>, and <abbr
@@ -950,7 +943,7 @@
 				<p><a>Profiles</a> of this specification MAY require additional context URLs, but such URLs MUST be
 					ordered after these two components.</p>
 
-				<p>The context can be extended by including additional paramaters &#8212; such as the <a
+				<p>The context can be extended by including additional parameters &#8212; such as the <a
 						href="#manifest-context">global language and direction declarations</a> &#8212; in an object
 					following the publication context.</p>
 
@@ -1099,12 +1092,9 @@
     ]
 }
 </pre>
+						<p>The extra base direction setting for the Arabic title (i.e., <span lang="ar" dir="rtl">HTML و
+								CSS: تصميم و إنشاء مواقع الويب</span>) is necessary to yield the correct display:</p>
 					</aside>
-					<div class="note">
-						<p>The extra base direction setting for the Arabic title is necessary to yield the correct
-							display, i.e.,:</p>
-						<p lang="ar" dir="rtl">HTML و CSS: تصميم و إنشاء مواقع الويب</p>
-					</div>
 
 					<p> The possible values of the <a
 							href="https://w3c.github.io/json-ld-syntax/#syntax-tokens-and-keywords"
@@ -1367,7 +1357,7 @@
 								report</a> can also be provided if more information is needed than can be expressed by
 							these properties.</p>
 
-						<pre class="example" title="Setting accessiblity metadata for a publication that provides alternative text and long descriptions appropriate for each image, enabling it to be read in purely textual form.">{
+						<pre class="example" title="Setting accessibility metadata for a publication that provides alternative text and long descriptions appropriate for each image, enabling it to be read in purely textual form.">{
     …
     "accessMode"              : ["textual", "visual"],
     "accessibilityFeature"    : ["alternativeText", "longDescription"]
@@ -1799,7 +1789,7 @@
 }</pre>
 
 						<p class="note"> The <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">relevant
-								Wikiepedia page</a> gives a concise description of the ISO duration syntax. </p>
+								Wikipedia page</a> gives a concise description of the ISO duration syntax. </p>
 					</section>
 
 					<section id="last-modification-date">
@@ -2350,7 +2340,7 @@
 								href="#default-reading-order">default reading order</a> or <a href="#resource-list"
 								>resource list</a>.</p>
 
-						<p>User agents MAY ignore linked resources, and are not required to take them offline with a
+						<p>User agents MAY ignore linked resources and are not required to take them offline with a
 							publication. These resources SHOULD NOT be included when packaging a publication.</p>
 
 					</section>
@@ -2406,7 +2396,7 @@
     …
 }</pre>
 						<p class="ednote">The <code>application/onix+xml</code> MIME type has not yet been registered by
-							IANA at the time of writing this document, and is included in the example for illustrative
+							IANA at the time of writing this document and is included in the example for illustrative
 							purposes only.</p>
 					</section>
 
@@ -2438,10 +2428,10 @@
 }</pre>
 
 						<p>The <a href="https://schema.org/docs/jsonldcontext.json">Schema.org context file</a>
-							[[schema.org]] defines a number of prefixes for commonly used vocabularies, such as the
-							Dublin Core Terms (`dcterms`) [[dcterms]] and Element Set (`dc`) [[dc11]], the FOAF
-							vocabulary (`foaf`) [[foaf]], and the Bibliographic Ontology (`bibo`) [[bibo]]. Properties
-							from these vocabularies can be used without their prefixes having to be declared.</p>
+							[[schema.org]] defines several prefixes for commonly used vocabularies, such as the Dublin
+							Core Terms (`dcterms`) [[dcterms]] and Element Set (`dc`) [[dc11]], the FOAF vocabulary
+							(`foaf`) [[foaf]], and the Bibliographic Ontology (`bibo`) [[bibo]]. Properties from these
+							vocabularies can be used without their prefixes having to be declared.</p>
 
 						<pre class="example" title="Extending the basic data using the Schema.org 'copyrightYear' and 'copyrightHolder' terms.">{
     …
@@ -2477,7 +2467,7 @@
 						<p>The link to the cover MUST NOT be specified in the <a href="#links">links list</a>.</p>
 
 						<p class="ednote">The <code>cover</code> term is not currently registered in the IANA link
-							relations but the Working Group expects to add it.</p>
+							relations, but the Working Group expects to add it.</p>
 
 						<pre class="example" title="Identifying an HTML cover page.">{
     …
@@ -2684,7 +2674,7 @@
 
 						<p>Not all <a>digital publications</a> will be available to all users (e.g., they might be
 							restricted to registered users of a site). In such cases, the publisher might wish to
-							provide a preview of the content in order to entice users to access the full version.</p>
+							provide a preview of the content to entice users to access the full version.</p>
 
 						<p>A <dfn data-lt="preview">preview</dfn> is identified using the <code>preview</code> link
 							relation&#160;[[!iana-link-relations]].</p>
@@ -2730,8 +2720,8 @@
 							if no information is collected, such a declaration increases the trust users have in the
 							content.</p>
 
-						<p>A link to a privacy policy can be included in the manifest for this purposes. It is helpful
-							to include the privacy policy as a resource of the publication so that it is available, for
+						<p>A link to a privacy policy can be included in the manifest for this purpose. It is helpful to
+							include the privacy policy as a resource of the publication so that it is available, for
 							example, when a publication is read offline.</p>
 
 						<p>A <dfn data-lt="privacyPolicy">privacy policy</dfn> is identified using the
@@ -2762,13 +2752,13 @@
 						following ways:</p>
 
 					<ul>
-						<li>through the use of relations defined in a relation vocabulary (e.g., the <a
+						<li>using relations defined in a relation vocabulary (e.g., the <a
 								href="https://www.iana.org/assignments/link-relations/link-relations.xhtml">IANA link
 								registry</a>&#160;[[iana-link-relations]] and <a
 								href="http://microformats.org/wiki/existing-rel-values">microformats existing rel
 								values</a> [[mfrel]]); or</li>
-						<li>through the use of <a href="https://tools.ietf.org/html/rfc8288#section-2.1.2">extension
-								relation types</a>&#160;[[!rfc8288]].</li>
+						<li>using <a href="https://tools.ietf.org/html/rfc8288#section-2.1.2">extension relation
+								types</a>&#160;[[!rfc8288]].</li>
 					</ul>
 				</section>
 			</section>
@@ -2790,9 +2780,9 @@
 			<p>This specification does not place any restrictions on publication resources, but <a>profiles</a> of this
 				specification MAY restrict both the content type and location of resources.</p>
 
-			<p>User agents MAY opt to process and render resources differently depending on whether or not they are
-				within the bounds of a digital publication (e.g., exclude external resources from an offline or packaged
-				version of a publication).</p>
+			<p>User agents MAY opt to process and render resources differently depending on whether they are within the
+				bounds of a digital publication (e.g., exclude external resources from an offline or packaged version of
+				a publication).</p>
 		</section>
 		<section id="manifest-discovery">
 			<h2>Manifest Discovery</h2>
@@ -2806,12 +2796,12 @@
 					<li>
 						<p>An HTTP <code>Link</code> header field&#160;[[!rfc5988]] with its <code>rel</code> parameter
 							set to the value "<code>publication</code>".</p>
-						<pre class="example">Link: &lt;https://example.com/webpub/manifest>; rel=publication</pre>
+						<pre class="example">Link: &lt;https://example.com/pub/manifest>; rel=publication</pre>
 					</li>
 					<li>
 						<p>A <code>link</code> element&#160;[[!html]] with its <code>rel</code> attribute set to the
 							value "<code>publication</code>".</p>
-						<pre class="example">&lt;link href="https://example.com/webpub/manifest" rel="publication"/></pre>
+						<pre class="example">&lt;link href="https://example.com/pub/manifest" rel="publication"/></pre>
 					</li>
 				</ul>
 
@@ -2859,8 +2849,8 @@
 				<h3>Other Discovery Methods</h3>
 
 				<p><a>Digital publication</a> formats MAY define alternative methods of discovering a manifest that do
-					no involve linking to, or embedding, a manifest (e.g., that manifest could be discovered through the
-					use of a restricted name and/or location). This specification does not add any restrictions on such
+					no involve linking to, or embedding, a manifest (e.g., that manifest could be discovered using a
+					restricted name and/or location). This specification does not add any restrictions on such
 					methods.</p>
 			</section>
 		</section>
@@ -2873,7 +2863,7 @@
 				<h3>Introduction</h3>
 
 				<p>Although a <a>digital publication</a>'s manifest is authored as [[json-ld11]], the steps for
-					processing a manifest decribed in this section detail how a user agent transforms the manifest into
+					processing a manifest described in this section detail how a user agent transforms the manifest into
 					its <a>internal representation</a> of the data. The algorithm describes the process using the
 					terminology and data types defined in [[infra]], and, if successful results in an [[infra]] <a
 						href="https://infra.spec.whatwg.org/#ordered-map">map</a> of the data being returned.</p>
@@ -2897,7 +2887,7 @@
 				</ul>
 
 				<p>User agents SHOULD expose both validation and fatal errors, but this specification does not prescribe
-					the manner in which this is done.</p>
+					the way this is done.</p>
 
 				<p>For validation errors, user agents SHOULD differentiate the severity of the error (i.e., whether a
 					required or recommended practice has been violated).</p>
@@ -3153,9 +3143,9 @@
 								«&#160;<var>value</var>&#160;».</p>
 							<details>
 								<summary>Explanation</summary>
-								<p>A number of terms require their values to be arrays, but, for the sake of
-									convenience, authors are allowed to use a single value instead of a one element
-									array. For example,</p>
+								<p>Various terms require their values to be arrays, but, for the sake of convenience,
+									authors are allowed to use a single value instead of a one element array. For
+									example,</p>
 								<pre class="example">{
     …
     "name"   : "Et dukkehjem",
@@ -3521,7 +3511,7 @@
 							</ol>
 							<details>
 								<summary>Explanation</summary>
-								<p>In order to ensure that all the properties in the manifest get processed, this step
+								<p>To ensure that all the properties in the manifest get processed, this step
 									recursively checks <var>normalized</var> for additional map entries to process. If
 										<var>normalized</var> is a list, each item is inspected to determine if it is a
 									map that can be processed.</p>
@@ -3890,8 +3880,8 @@
 								</ol>
 								<details>
 									<summary>Explanation</summary>
-									<p>In order to ensure that all the properties in the manifest get processed, this
-										step recursively checks each entry for additional map entries to process. If the
+									<p>To ensure that all the properties in the manifest get processed, this step
+										recursively checks each entry for additional map entries to process. If the
 										value is a list, each item is inspected to determine if it is a map that can be
 										processed.</p>
 									<p>Its placement also ensures that all subproperties are checked first, so that the
@@ -4339,7 +4329,7 @@
 				specific needs while also providing a common base for user agents that need to process the profiles
 				(i.e., minimizing the differences between each profile and simplifying interoperability).</p>
 
-			<p>In order for a profile to be compatible with this specification, the following conditions MUST be met: </p>
+			<p>For a profile to be compatible with this specification, the following conditions MUST be met: </p>
 
 			<ol>
 				<li>It MUST adhere to the requirements for constructing a manifest as defined in <a href="#manifest"
@@ -4391,9 +4381,9 @@
 		<section id="app-internal-rep-data-model" class="appendix informative">
 			<h2>Internal Representation Data Model</h2>
 
-			<p>The manifest includes a number of authoring conveniences, such as default values, the ability to use
-				strings where objects would normally be required, and the automatic compilation of information from
-				other sources (e.g., for the <a href="#pub-title">title</a> and <a href="#default-reading-order">reading
+			<p>The manifest includes several authoring conveniences, such as default values, the ability to use strings
+				where objects would normally be required, and the automatic compilation of information from other
+				sources (e.g., for the <a href="#pub-title">title</a> and <a href="#default-reading-order">reading
 					order</a>). The <a href="#manifest-processing">processing of the manifest</a> normalizes these
 				conveniences and results in a consistent data set for user agents (the <a>internal representation</a>),
 				but this set is not easily visualized from the processing algorithm.</p>
@@ -4674,7 +4664,7 @@ dictionary LocalizableString {
 								href="https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2">sectioning
 								content elements</a> and <a
 								href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root">sectioning
-								root elements</a>. The reason they are ignored is because they can defined their own
+								root elements</a>. The reason they are ignored is because they can define their own
 							outlines (i.e., they can represent embedded content that is self-contained and not
 							necessarily related to the structure of content links).</p>
 						<p>Any element that has its <a
@@ -4798,7 +4788,7 @@ dictionary LocalizableString {
 				<p class="note">This algorithm is not defined in purely event driven terms, as inspecting all descendant
 					nodes is not always necessary to obtain the needed information from the DOM. In some cases, an
 					element, and all its descendants, is skipped immediately after it is processed on <em>enter</em>. An
-					event approach could be applied, but would require modifying the algorithm to process/ignore the
+					event approach could be applied but would require modifying the algorithm to process/ignore the
 					skipped nodes.</p>
 
 
