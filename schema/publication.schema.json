@@ -119,6 +119,7 @@
 	},
 	"required": [
 		"@context",
-		"conformsTo"
+		"conformsTo",
+		"readingOrder"
 	]
 }
