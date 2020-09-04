@@ -731,7 +731,7 @@
 										<code>duration</code>
 									</td>
 									<td>Overall duration of a time-based media resource. OPTIONAL</td>
-									<td>Duration value as defined by&#160;[[!iso8601]].</td>
+									<td>Duration value as defined by&#160;[[!iso8601-1]].</td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -981,10 +981,9 @@
 
 					<p>The global language and base direction declarations for natural language manifest properties are
 						set in the <a href="#manifest-context">context</a> using the <a
-							href="https://www.w3.org/TR/json-ld/#syntax-tokens-and-keywords"
-								><code>language</code></a> and <a
-									href="https://www.w3.org/TR/json-ld/#syntax-tokens-and-keywords"
-								><code>direction</code></a> keywords&#160;[[!json-ld11]], respectively. These values are
+							href="https://www.w3.org/TR/json-ld/#syntax-tokens-and-keywords"><code>language</code></a>
+						and <a href="https://www.w3.org/TR/json-ld/#syntax-tokens-and-keywords"
+							><code>direction</code></a> keywords&#160;[[!json-ld11]], respectively. These values are
 						used to expand simple string values into <a href="#value-localizable-string">localizable
 							strings</a> during the <a href="#manifest-processing">processing of the manifest</a>, as
 						well as to provide a language and the base direction for localizable strings that omit one.</p>
@@ -1764,7 +1763,7 @@
 										<code>duration</code>
 									</td>
 									<td>Overall duration of a time-based publication.</td>
-									<td>Duration value as defined by&#160;[[!iso8601]].</td>
+									<td>Duration value as defined by&#160;[[!iso8601-1]].</td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -1816,7 +1815,7 @@
 									<td>A <a href="https://schema.org/Date"><code>Date</code></a> or <a
 											href="https://schema.org/DateTime"><code>DateTime</code></a>
 										value&#160;[[!schema.org]], both expressed in ISO 8601 Date, or Date Time
-										formats, respectively&#160;[[!iso8601]].</td>
+										formats, respectively&#160;[[!iso8601-1]].</td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -1864,7 +1863,7 @@
 									<td>Creation date of the publication.</td>
 									<td>A <a href="https://schema.org/Date"><code>Date</code></a> or <a
 											href="https://schema.org/DateTime"><code>DateTime</code></a>, both expressed
-										in ISO 8601 Date, or Date Time formats, respectively&#160;[[!iso8601]].</td>
+										in ISO 8601 Date, or Date Time formats, respectively&#160;[[!iso8601-1]].</td>
 									<td>
 										<a href="#value-literal">Literal</a>
 									</td>
@@ -3615,21 +3614,21 @@
 
 						<li id="validate-duration">
 							<p>(<a href="#duration"></a>) If <var>data["duration"]</var> is set and is not a valid
-								duration value, per&#160;[[!iso8601]], <a>validation error</a>, <a
+								duration value, per&#160;[[!iso8601-1]], <a>validation error</a>, <a
 									href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 								<var>data["duration"]</var>.</p>
 						</li>
 
 						<li id="validate-last-mod">
 							<p>(<a href="#last-modification-date"></a>) If <var>data["dateModified"]</var> is set and is
-								not a valid date or date-time per&#160;[[!iso8601]], <a>validation error</a>, <a
+								not a valid date or date-time per&#160;[[!iso8601-1]], <a>validation error</a>, <a
 									href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 								<var>data["dateModified"]</var>.</p>
 						</li>
 
 						<li id="validate-pub-date">
 							<p>(<a href="#publication-date"></a>) If <var>data["datePublished"]</var> is set and is not
-								a valid date or date-time per&#160;[[!iso8601]], <a>validation error</a>, <a
+								a valid date or date-time per&#160;[[!iso8601-1]], <a>validation error</a>, <a
 									href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 								<var>data["datePublished"]</var>.</p>
 						</li>
@@ -3969,9 +3968,9 @@
 									</li>
 									<li>
 										<p>if <a href="#linkedresource-duration"><var>resource["duration"]</var></a> is
-											set and is not a valid duration value, per&#160;[[!iso8601]], <a>validation
-												error</a>, <a href="https://infra.spec.whatwg.org/#map-remove"
-												>remove</a>
+											set and is not a valid duration value, per&#160;[[!iso8601-1]],
+												<a>validation error</a>, <a
+												href="https://infra.spec.whatwg.org/#map-remove">remove</a>
 											<var>resource["duration"]</var>.</p>
 									</li>
 								</ul>
