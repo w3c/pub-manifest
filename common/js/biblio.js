@@ -131,5 +131,13 @@ var localBiblio = {
     "mfrel": {
     	"title": "Microformats Wiki: existing rel values. Microformats.",
     	"href": "http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions"
+    },
+    "iso8601-1": {
+        "href": "https://www.iso.org/standard/70907.html",
+        "publisher": "International Organization for Standardization (ISO)",
+        "date": "2019",
+        "status": "ISO 8601-1:2019",
+        "title": "Date and time — Representations for information interchange — Part 1: Basic rules. ISO 8601-1:2019.",
+        "isoNumber": "ISO 8601-1:2019"
     }
 }
