@@ -2954,7 +2954,7 @@
 					</li>
 
 					<li id="processing-context">
-						<p>(<a href="#manifest-context"></a>) If <var>manifest["context"]</var> is not set to a <a
+						<p>(<a href="#manifest-context"></a>) If <var>manifest["@context"]</var> is not set to a <a
 								href="https://infra.spec.whatwg.org/#list">list</a>, or the first and second <a
 								href="https://infra.spec.whatwg.org/#list-item">items</a> in
 								<var>manifest["@context"]</var> are not the <a
@@ -3473,7 +3473,7 @@
 													href="#processing-normalize">normalize data</a>, when successful,
 												given <var>key</var>, <var>keyValue</var>, <var>lang</var>,
 													<var>dir</var>, <var>base</var> and using
-													<var>keyValue["type"]</var> as the context. If failure is returned,
+													<var>item["type"]</var> as the context. If failure is returned,
 													<a href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 												<var>key</var> from <var>item</var>.</p>
 										</li>
@@ -3487,14 +3487,14 @@
 											href="https://infra.spec.whatwg.org/#ordered-map">map</a>:</p>
 									<ol>
 										<li>
-											<p>if <var>item["type"]</var> is set and includes a <a>recognized type</a>,
+											<p>if <var>normalized["type"]</var> is set and includes a <a>recognized type</a>,
 													<a href="https://infra.spec.whatwg.org/#map-iterate">for each</a>
 												<var>key</var> → <var>keyValue</var> of <var>normalized</var>, set
 													<var>key</var> to the result of running <a
 													href="#processing-normalize">normalize data</a>, when successful,
 												given <var>key</var>, <var>keyValue</var>, <var>lang</var>,
 													<var>dir</var>, <var>base</var> and using
-													<var>keyValue["type"]</var> as the context. If failure is returned,
+													<var>normalized["type"]</var> as the context. If failure is returned,
 													<a href="https://infra.spec.whatwg.org/#list-remove">remove</a>
 												<var>key</var> from <var>normalized</var>.</p>
 										</li>
