@@ -4970,7 +4970,7 @@ dictionary LocalizableString {
 												<var>branches</var> and set <var>current_toc_node</var> to it.</p>
 									</li>
 									<li>
-										<p>Otherwise, if <var>toc.entries</var> contains an empty <a
+										<p>Otherwise, if <var>toc["entries"]</var> contains an empty <a
 												href="https://infra.spec.whatwg.org/#list">list</a>, set it to <a
 												href="https://infra.spec.whatwg.org/#nulls">null</a>.</p>
 									</li>
@@ -4979,7 +4979,7 @@ dictionary LocalizableString {
 									<summary>Explanation</summary>
 									<p>This step resets <var>current_toc_node</var> back to the parent object after all
 										of its child branches have been processed.</p>
-									<p>If there are no branches in the stack, the <var>toc.entries</var> is set to null
+									<p>If there are no branches in the stack, the <var>toc["entries"]</var> is set to null
 										if it doesn't contain any items (to avoid processing any further lists at the
 										root level).</p>
 								</details>
