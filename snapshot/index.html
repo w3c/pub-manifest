@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="generator" content="ReSpec 25.16.5" />
+		<meta name="generator" content="ReSpec 25.18.1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<style>
 			span.example-title {
@@ -156,20 +156,33 @@
 				color: #333
 			}
 			
-			.dfn-panel a.self-link {
-				font-weight: 700
+			.dfn-panel > div {
+				display: flex
 			}
 			
-			.dfn-panel .dfn-exported {
-				float: right;
+			.dfn-panel a.self-link {
+				font-weight: 700;
+				margin-right: auto
+			}
+			
+			.dfn-panel .marker {
 				padding: .1em;
+				margin-left: .5em;
 				border-radius: .2em;
 				text-align: center;
 				white-space: nowrap;
 				font-size: 90%;
+				color: #040b1c
+			}
+			
+			.dfn-panel .marker.dfn-exported {
 				background: #d1edfd;
-				color: #040b1c;
 				box-shadow: 0 0 0 .125em #1ca5f940
+			}
+			
+			.dfn-panel .marker.idl-block {
+				background: #8ccbf2;
+				box-shadow: 0 0 0 .125em #0670b161
 			}
 			
 			.dfn-panel a:not(:hover) {
@@ -370,14 +383,13 @@
 				margin-bottom: 0
 			}
 			
-			#issue-summary > ul,
-			.respec-dfn-list {
+			#issue-summary > ul {
 				column-count: 2
 			}
 			
-			#issue-summary li,
-			.respec-dfn-list li {
-				list-style: none
+			#issue-summary li {
+				list-style: none;
+				display: inline-block
 			}
 			
 			details.respec-tests-details {
@@ -617,10 +629,10 @@
     null
   ],
   "group": "publishing",
-  "specStatus": "PR",
+  "specStatus": "REC",
   "prEnd": "2020-10-30",
   "shortName": "pub-manifest",
-  "previousPublishDate": "2020-09-14",
+  "previousPublishDate": "2020-10-01",
   "previousMaturity": "CR",
   "implementationReportURI": "https://www.w3.org/publishing/groups/publ-wg/implementation/results.html",
   "crEnd": "2020-03-31",
@@ -782,32 +794,36 @@
       "id": "mfrel"
     }
   },
-  "publishDate": "2020-10-01",
-  "publishISODate": "2020-10-01T00:00:00.000Z",
-  "generatedSubtitle": "Proposed Recommendation 01 October 2020"
+  "publishDate": "2020-11-10",
+  "publishISODate": "2020-11-10T00:00:00.000Z",
+  "generatedSubtitle": "Recommendation 10 November 2020"
 }</script>
-		<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-PR" />
+		<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-REC" />
 	</head>
-	<body class="h-entry"><div class="head">
-			<a class="logo" href="https://www.w3.org/"><img alt="W3C" width="72" height="48"
-					src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" /></a>
+	<body class="h-entry">
+		<div class="head">
+			<a class="logo" href="https://www.w3.org/">
+				<img alt="W3C" width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" />
+			</a>
 			<h1 id="title" class="title">Publication Manifest</h1>
 
-			<h2> W3C Proposed Recommendation <time class="dt-published" datetime="2020-10-01">01 October 2020</time>
+			<h2> W3C Recommendation <time class="dt-published" datetime="2020-11-10">10 November 2020</time>
 			</h2>
 
 			<dl>
 				<dt>This version:</dt>
 				<dd>
-					<a class="u-url" href="https://www.w3.org/TR/2020/PR-pub-manifest-20201001/"
-						>https://www.w3.org/TR/2020/PR-pub-manifest-20201001/</a>
+					<a class="u-url" href="https://www.w3.org/TR/2020/REC-pub-manifest-20201110/"
+						>https://www.w3.org/TR/2020/REC-pub-manifest-20201110/</a>
 				</dd>
 				<dt>Latest published version:</dt>
 				<dd>
 					<a href="https://www.w3.org/TR/pub-manifest/">https://www.w3.org/TR/pub-manifest/</a>
 				</dd>
 				<dt>Latest editor's draft:</dt>
-				<dd><a href="https://w3c.github.io/pub-manifest/">https://w3c.github.io/pub-manifest/</a></dd>
+				<dd>
+					<a href="https://w3c.github.io/pub-manifest/">https://w3c.github.io/pub-manifest/</a>
+				</dd>
 
 				<dt>Implementation report:</dt>
 				<dd>
@@ -816,8 +832,10 @@
 				</dd>
 
 				<dt>Previous version:</dt>
-				<dd><a href="https://www.w3.org/TR/2020/CR-pub-manifest-20200914/"
-						>https://www.w3.org/TR/2020/CR-pub-manifest-20200914/</a></dd>
+				<dd>
+					<a href="https://www.w3.org/TR/2020/CR-pub-manifest-20201001/"
+						>https://www.w3.org/TR/2020/CR-pub-manifest-20201001/</a>
+				</dd>
 
 				<dt>Editors:</dt>
 				<dd class="p-author h-card vcard" data-editor-id="51655"><span class="p-name fn">Matt Garrish</span> (<a
@@ -855,7 +873,8 @@
 			</dl>
 			<p> Please check the <a href="https://w3c.github.io/pub-manifest/errata/"><strong>errata</strong></a> for
 				any errors or issues reported since publication. </p>
-
+			<p> See also <a href="http://www.w3.org/2003/03/Translations/byTechnology?technology=pub-manifest">
+					<strong>translations</strong></a>. </p>
 
 			<p class="copyright">
 				<a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2020 <a
@@ -882,273 +901,466 @@
 		</section>
 		<section id="sotd" class="introductory">
 			<h2>Status of This Document</h2>
-			<p><em>This section describes the status of this document at the time of its publication. Other documents
+			<p>
+				<em>This section describes the status of this document at the time of its publication. Other documents
 					may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr>
 					publications and the latest revision of this technical report can be found in the <a
 						href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical
-						reports index</a> at https://www.w3.org/TR/.</em></p>
+						reports index</a> at https://www.w3.org/TR/.</em>
+			</p>
 			<p> This document was published by the <a href="https://www.w3.org/publishing/groups/publ-wg/">Publishing
-					Working Group</a> as a Proposed Recommendation. This document is intended to become a <abbr
-					title="World Wide Web Consortium">W3C</abbr> Recommendation. </p>
+					Working Group</a> as a Recommendation. </p>
 			<p>
 				<a href="https://github.com/w3c/pub-manifest/issues/">GitHub Issues</a> are preferred for discussion of
 				this specification. Alternatively, you can send comments to our mailing list. Please send them to <a
 					href="mailto:public-publ-wg@w3.org">public-publ-wg@w3.org</a> (<a
 					href="https://lists.w3.org/Archives/Public/public-publ-wg/">archives</a>). </p>
-			<p> Publication as a Proposed Recommendation does not imply endorsement by the <abbr
-					title="World Wide Web Consortium">W3C</abbr> Membership. </p>
-			<p>This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is
-				inappropriate to cite this document as other than work in progress.</p>
-			<p>Future updates to this specification may incorporate <a
-					href="https://www.w3.org/2020/Process-20200915/#allow-new-features">new features</a>.</p>
-			<p> The <abbr title="World Wide Web Consortium">W3C</abbr> Membership and other interested parties are
-				invited to review the document and send comments through 30 October 2020. Advisory Committee
-				Representatives should consult their <a href="https://www.w3.org/2002/09/wbs/myQuestionnaires">WBS
-					questionnaires</a>. Note that substantive technical comments were expected during the Candidate
-				Recommendation review period that ended 31 March 2020.</p>
+			<p> A <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation is a specification that, after
+				extensive consensus-building, has received the endorsement of the <abbr
+					title="World Wide Web Consortium">W3C</abbr> and its Members. <abbr
+					title="World Wide Web Consortium">W3C</abbr> recommends the wide deployment of this specification as
+				a standard for the Web. Future updates to this Recommendation may incorporate <a
+					href="https://www.w3.org/2020/Process-20200915/#allow-new-features">new features</a>. </p>
 			<p> This document was produced by a group operating under the <a
-					href="https://www.w3.org/Consortium/Patent-Policy/"><abbr title="World Wide Web Consortium"
-						>W3C</abbr> Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a
-					rel="disclosure" href="https://www.w3.org/2004/01/pp-impl/100074/status">public list of any patent
-					disclosures</a> made in connection with the deliverables of the group; that page also includes
-				instructions for disclosing a patent. An individual who has actual knowledge of a patent which the
-				individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential"
-					>Essential Claim(s)</a> must disclose the information in accordance with <a
-					href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the <abbr
+					href="https://www.w3.org/Consortium/Patent-Policy-20170801/">1 August 2017 <abbr
+						title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. <abbr
+					title="World Wide Web Consortium">W3C</abbr> maintains a <a rel="disclosure"
+					href="https://www.w3.org/2004/01/pp-impl/100074/status">public list of any patent disclosures</a>
+				made in connection with the deliverables of the group; that page also includes instructions for
+				disclosing a patent. An individual who has actual knowledge of a patent which the individual believes
+				contains <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/#def-essential">Essential
+					Claim(s)</a> must disclose the information in accordance with <a
+					href="https://www.w3.org/Consortium/Patent-Policy-20170801/#sec-Disclosure">section 6 of the <abbr
 						title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. </p>
 			<p> This document is governed by the <a id="w3c_process_revision"
 					href="https://www.w3.org/2020/Process-20200915/">15 September 2020 <abbr
 						title="World Wide Web Consortium">W3C</abbr> Process Document</a>. </p>
-		</section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc">
-				<li class="tocline"><a class="tocxref" href="#intro"><bdi class="secno">1. </bdi>Introduction</a><ol
-						class="toc">
-						<li class="tocline"><a class="tocxref" href="#scope"><bdi class="secno">1.1 </bdi>Scope</a></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-format"><bdi class="secno">1.2
-								</bdi>Manifest Format</a></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-jsonld"><bdi class="secno">1.3
-								</bdi>JSON-LD Authoring and Processing</a></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-schemaorg"><bdi class="secno">1.4
-								</bdi>Relationship to Schema.org</a></li>
-					</ol></li>
-				<li class="tocline"><a class="tocxref" href="#terminology"><bdi class="secno">2.
-					</bdi>Terminology</a></li>
-				<li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">3.
-					</bdi>Conformance</a></li>
-				<li class="tocline"><a class="tocxref" href="#manifest"><bdi class="secno">4. </bdi>Publication
-						Manifest</a><ol class="toc">
-						<li class="tocline"><a class="tocxref" href="#manifest-requirements"><bdi class="secno">4.1
-								</bdi>Requirements</a></li>
-						<li class="tocline"><a class="tocxref" href="#properties-value-categories"><bdi class="secno"
-									>4.2 </bdi>Value Categories</a><ol class="toc">
-								<li class="tocline"><a class="tocxref" href="#value-literal"><bdi class="secno">4.2.1
-										</bdi>Literals</a></li>
-								<li class="tocline"><a class="tocxref" href="#value-number"><bdi class="secno">4.2.2
-										</bdi>Numbers</a></li>
-								<li class="tocline"><a class="tocxref" href="#value-boolean"><bdi class="secno">4.2.3
-										</bdi>Booleans</a></li>
-								<li class="tocline"><a class="tocxref" href="#explicit-implied-objects"><bdi
-											class="secno">4.2.4 </bdi>Explicit and Implied Objects</a><ol class="toc">
-										<li class="tocline"><a class="tocxref" href="#value-localizable-string"><bdi
-													class="secno">4.2.4.1 </bdi>Localizable Strings</a></li>
-										<li class="tocline"><a class="tocxref" href="#value-entity"><bdi class="secno"
-													>4.2.4.2 </bdi>Entities</a></li>
-										<li class="tocline"><a class="tocxref" href="#value-linked-resource"><bdi
-													class="secno">4.2.4.3 </bdi>Linked Resources</a></li>
-										<li class="tocline"><a class="tocxref" href="#value-object"><bdi class="secno"
-													>4.2.4.4 </bdi>Objects</a></li>
-									</ol></li>
-								<li class="tocline"><a class="tocxref" href="#value-url"><bdi class="secno">4.2.5
-											</bdi><abbr title="Uniform Resource Locators">URLs</abbr></a></li>
-								<li class="tocline"><a class="tocxref" href="#value-id"><bdi class="secno">4.2.6
-										</bdi>Identifiers</a></li>
-								<li class="tocline"><a class="tocxref" href="#value-array"><bdi class="secno">4.2.7
-										</bdi>Arrays</a></li>
-							</ol></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-context"><bdi class="secno">4.3
-								</bdi>Manifest Contexts</a></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-lang-dir"><bdi class="secno">4.4
-								</bdi>Manifest Language and Direction</a><ol class="toc">
-								<li class="tocline"><a class="tocxref" href="#manifest-lang-dir-global"><bdi
-											class="secno">4.4.1 </bdi>Global Declarations</a></li>
-								<li class="tocline"><a class="tocxref" href="#manifest-lang-dir-local"><bdi
-											class="secno">4.4.2 </bdi>Item-Specific Declarations</a></li>
-							</ol></li>
-						<li class="tocline"><a class="tocxref" href="#publication-types"><bdi class="secno">4.5
-								</bdi>Publication Types</a></li>
-						<li class="tocline"><a class="tocxref" href="#profile-conformance"><bdi class="secno">4.6
-								</bdi>Profile Conformance</a></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-properties"><bdi class="secno">4.7
-								</bdi>Properties</a><ol class="toc">
-								<li class="tocline"><a class="tocxref" href="#descriptive-properties"><bdi class="secno"
-											>4.7.1 </bdi>Descriptive Properties</a><ol class="toc">
-										<li class="tocline"><a class="tocxref" href="#abridged"><bdi class="secno"
-													>4.7.1.1 </bdi>Abridged</a></li>
-										<li class="tocline"><a class="tocxref" href="#accessibility"><bdi class="secno"
-													>4.7.1.2 </bdi>Accessibility</a></li>
-										<li class="tocline"><a class="tocxref" href="#address"><bdi class="secno"
-													>4.7.1.3 </bdi>Address</a></li>
-										<li class="tocline"><a class="tocxref" href="#canonical-identifier"><bdi
-													class="secno">4.7.1.4 </bdi>Canonical Identifier</a></li>
-										<li class="tocline"><a class="tocxref" href="#creators"><bdi class="secno"
-													>4.7.1.5 </bdi>Creators</a></li>
-										<li class="tocline"><a class="tocxref" href="#duration"><bdi class="secno"
-													>4.7.1.6 </bdi>Duration</a></li>
-										<li class="tocline"><a class="tocxref" href="#last-modification-date"><bdi
-													class="secno">4.7.1.7 </bdi>Last Modification Date</a></li>
-										<li class="tocline"><a class="tocxref" href="#publication-date"><bdi
-													class="secno">4.7.1.8 </bdi>Publication Date</a></li>
-										<li class="tocline"><a class="tocxref" href="#inLanguage"><bdi class="secno"
-													>4.7.1.9 </bdi>Publication Language</a></li>
-										<li class="tocline"><a class="tocxref" href="#reading-progression-direction"
-													><bdi class="secno">4.7.1.10 </bdi>Reading Progression
-											Direction</a></li>
-										<li class="tocline"><a class="tocxref" href="#pub-title"><bdi class="secno"
-													>4.7.1.11 </bdi>Title</a></li>
-									</ol></li>
-								<li class="tocline"><a class="tocxref" href="#resource-categorization-properties"><bdi
-											class="secno">4.7.2 </bdi>Resource Categorization Properties</a><ol
-										class="toc">
-										<li class="tocline"><a class="tocxref" href="#default-reading-order"><bdi
-													class="secno">4.7.2.1 </bdi>Default Reading Order</a></li>
-										<li class="tocline"><a class="tocxref" href="#resource-list"><bdi class="secno"
-													>4.7.2.2 </bdi>Resource List</a></li>
-										<li class="tocline"><a class="tocxref" href="#links"><bdi class="secno">4.7.2.3
-												</bdi>Links</a></li>
-									</ol></li>
-								<li class="tocline"><a class="tocxref" href="#extensibility"><bdi class="secno">4.7.3
-										</bdi>Extensibility</a><ol class="toc">
-										<li class="tocline"><a class="tocxref" href="#extensibility-linked-records"><bdi
-													class="secno">4.7.3.1 </bdi>Linked records</a></li>
-										<li class="tocline"><a class="tocxref" href="#extensibility-manifest-properties"
-													><bdi class="secno">4.7.3.2 </bdi>Additional Manifest
-											Properties</a></li>
-									</ol></li>
-							</ol></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-rel"><bdi class="secno">4.8
-								</bdi>Resource Relations</a><ol class="toc">
-								<li class="tocline"><a class="tocxref" href="#structural-rel"><bdi class="secno">4.8.1
-										</bdi>Structural Resources</a><ol class="toc">
-										<li class="tocline"><a class="tocxref" href="#cover"><bdi class="secno">4.8.1.1
-												</bdi>Cover</a></li>
-										<li class="tocline"><a class="tocxref" href="#page-list"><bdi class="secno"
-													>4.8.1.2 </bdi>Page List</a></li>
-										<li class="tocline"><a class="tocxref" href="#contents"><bdi class="secno"
-													>4.8.1.3 </bdi>Table of Contents</a></li>
-									</ol></li>
-								<li class="tocline"><a class="tocxref" href="#informative-rel"><bdi class="secno">4.8.2
-										</bdi>Informative Resources</a><ol class="toc">
-										<li class="tocline"><a class="tocxref" href="#accessibility-report"><bdi
-													class="secno">4.8.2.1 </bdi>Accessibility Report</a></li>
-										<li class="tocline"><a class="tocxref" href="#preview"><bdi class="secno"
-													>4.8.2.2 </bdi>Preview</a></li>
-										<li class="tocline"><a class="tocxref" href="#privacy-policy"><bdi class="secno"
-													>4.8.2.3 </bdi>Privacy Policy</a></li>
-									</ol></li>
-								<li class="tocline"><a class="tocxref" href="#rel-extensions"><bdi class="secno">4.8.3
-										</bdi>Extensions</a></li>
-							</ol></li>
-					</ol></li>
-				<li class="tocline"><a class="tocxref" href="#publication-resources"><bdi class="secno">5.
-						</bdi>Publication Resources</a></li>
-				<li class="tocline"><a class="tocxref" href="#manifest-discovery"><bdi class="secno">6. </bdi>Manifest
-						Discovery</a><ol class="toc">
-						<li class="tocline"><a class="tocxref" href="#manifest-link"><bdi class="secno">6.1
-								</bdi>Linking</a></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-embed"><bdi class="secno">6.2
-								</bdi>Embedding</a></li>
-						<li class="tocline"><a class="tocxref" href="#manifest-other-discovery"><bdi class="secno">6.3
-								</bdi>Other Discovery Methods</a></li>
-					</ol></li>
-				<li class="tocline"><a class="tocxref" href="#manifest-processing"><bdi class="secno">7.
-						</bdi>Processing a Manifest</a><ol class="toc">
-						<li class="tocline"><a class="tocxref" href="#processing-intro"><bdi class="secno">7.1
-								</bdi>Introduction</a></li>
-						<li class="tocline"><a class="tocxref" href="#processing-errors"><bdi class="secno">7.2
-								</bdi>Error Handling</a></li>
-						<li class="tocline"><a class="tocxref" href="#processing-contexts"><bdi class="secno">7.3
-								</bdi>Processing Contexts</a></li>
-						<li class="tocline"><a class="tocxref" href="#processing-algorithm"><bdi class="secno">7.4
-								</bdi>Generate the Internal Representation</a><ol class="toc">
-								<li class="tocline"><a class="tocxref" href="#normalize-data"><bdi class="secno">7.4.1
-										</bdi>Normalize Data</a><ol class="toc">
-										<li class="tocline"><a class="tocxref" href="#convert-absolute-url"><bdi
-													class="secno">7.4.1.1 </bdi>Convert to Absolute URL</a></li>
-									</ol></li>
-								<li class="tocline"><a class="tocxref" href="#validate-data"><bdi class="secno">7.4.2
-										</bdi>Data Validation</a><ol class="toc">
-										<li class="tocline"><a class="tocxref" href="#global-data-checks"><bdi
-													class="secno">7.4.2.1 </bdi>Global Data Checks</a></li>
-										<li class="tocline"><a class="tocxref" href="#verify-value-category"><bdi
-													class="secno">7.4.2.2 </bdi>Verify Value Category</a></li>
-										<li class="tocline"><a class="tocxref" href="#get-unique-urls"><bdi
-													class="secno">7.4.2.3 </bdi>Get Unique <abbr
-													title="Uniform Resource Locators">URLs</abbr></a></li>
-										<li class="tocline"><a class="tocxref" href="#remove-empty-arrays"><bdi
-													class="secno">7.4.2.4 </bdi>Remove Empty Arrays</a></li>
-									</ol></li>
-								<li class="tocline"><a class="tocxref" href="#add-default-values"><bdi class="secno"
-											>7.4.3 </bdi>Add Default Values</a></li>
-							</ol></li>
-					</ol></li>
-				<li class="tocline"><a class="tocxref" href="#extensions"><bdi class="secno">8. </bdi>Modular
-						Extensions</a></li>
-				<li class="tocline"><a class="tocxref" href="#security-privacy"><bdi class="secno">9. </bdi>Security and
-						Privacy Considerations</a></li>
-				<li class="tocline"><a class="tocxref" href="#app-internal-rep-data-model"><bdi class="secno">A.
-						</bdi>Internal Representation Data Model</a><ol class="toc">
-						<li class="tocline"><a class="tocxref" href="#webidl-wpm"><bdi class="secno">A.1 </bdi>The
-									<code>PublicationManifest</code> Dictionary</a><ol class="toc">
-								<li class="tocline"><a class="tocxref" href="#LinkedResource"><bdi class="secno">A.1.1
-										</bdi>The <code>LinkedResource</code> Dictionary</a></li>
-								<li class="tocline"><a class="tocxref" href="#Entity"><bdi class="secno">A.1.2 </bdi>The
-											<code>Entity</code> Dictionary</a></li>
-								<li class="tocline"><a class="tocxref" href="#LocalizableString"><bdi class="secno"
-											>A.1.3 </bdi>The <code>LocalizableString</code> Dictionary</a></li>
-							</ol></li>
-					</ol></li>
-				<li class="tocline"><a class="tocxref" href="#app-select-alternate"><bdi class="secno">B.
-						</bdi>Selecting an Alternate Resource</a></li>
-				<li class="tocline"><a class="tocxref" href="#app-toc-structure"><bdi class="secno">C.
-						</bdi>Machine-Processable Table of Contents</a><ol class="toc">
-						<li class="tocline"><a class="tocxref" href="#app-toc-html-intro"><bdi class="secno">C.1
-								</bdi>Introduction</a></li>
-						<li class="tocline"><a class="tocxref" href="#app-toc-html"><bdi class="secno">C.2 </bdi>HTML
-								Structure</a><ol class="toc">
-								<li class="tocline"><a class="tocxref" href="#app-toc-html-examples"><bdi class="secno"
-											>C.2.1 </bdi>Examples</a></li>
-							</ol></li>
-						<li class="tocline"><a class="tocxref" href="#app-toc-ua"><bdi class="secno">C.3 </bdi>User
-								Agent Processing</a></li>
-					</ol></li>
-				<li class="tocline"><a class="tocxref" href="#change-log"><bdi class="secno">D. </bdi>Change
-					Log</a></li>
-				<li class="tocline"><a class="tocxref" href="#iana-consideration"><bdi class="secno">E. </bdi>IANA
-						considerations</a><ol class="toc">
-						<li class="tocline"><a class="tocxref" href="#link-relation-type-registration"><bdi
-									class="secno">E.1 </bdi>Link relation type registration</a></li>
-					</ol></li>
-				<li class="tocline"><a class="tocxref" href="#app-manifest-examples"><bdi class="secno">F.
-						</bdi>Manifest Examples</a><ol class="toc">
-						<li class="tocline"><a class="tocxref" href="#basic-manifest"><bdi class="secno">F.1 </bdi>Basic
-								Manifest</a></li>
-						<li class="tocline"><a class="tocxref" href="#single-document-publication"><bdi class="secno"
-									>F.2 </bdi>Single-Document Publication</a></li>
-						<li class="tocline"><a class="tocxref" href="#audiobook"><bdi class="secno">F.3
-								</bdi>Audiobook</a></li>
-					</ol></li>
-				<li class="tocline"><a class="tocxref" href="#app-properties-index"><bdi class="secno">G.
-						</bdi>Properties Index</a></li>
-				<li class="tocline"><a class="tocxref" href="#app-rel-index"><bdi class="secno">H. </bdi>Resource
-						Relations Index</a></li>
-				<li class="tocline"><a class="tocxref" href="#ack"><bdi class="secno">I. </bdi>Acknowledgements</a></li>
-				<li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">J. </bdi>References</a><ol
-						class="toc">
-						<li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">J.1
-								</bdi>Normative references</a></li>
-						<li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">J.2
-								</bdi>Informative references</a></li>
-					</ol></li>
-			</ol></nav>
+		</section>
+		<nav id="toc">
+			<h2 class="introductory" id="table-of-contents">Table of Contents</h2>
+			<ol class="toc">
+				<li class="tocline">
+					<a class="tocxref" href="#intro"><bdi class="secno">1. </bdi>Introduction</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#scope"><bdi class="secno">1.1 </bdi>Scope</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-format"><bdi class="secno">1.2 </bdi>Manifest Format</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-jsonld"><bdi class="secno">1.3 </bdi>JSON-LD Authoring
+								and Processing</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-schemaorg"><bdi class="secno">1.4 </bdi>Relationship to
+								Schema.org</a>
+						</li>
+					</ol>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#terminology"><bdi class="secno">2. </bdi>Terminology</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#conformance"><bdi class="secno">3. </bdi>Conformance</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#manifest"><bdi class="secno">4. </bdi>Publication Manifest</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-requirements"><bdi class="secno">4.1
+								</bdi>Requirements</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#properties-value-categories"><bdi class="secno">4.2 </bdi>Value
+								Categories</a>
+							<ol class="toc">
+								<li class="tocline">
+									<a class="tocxref" href="#value-literal"><bdi class="secno">4.2.1 </bdi>Literals</a>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#value-number"><bdi class="secno">4.2.2 </bdi>Numbers</a>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#value-boolean"><bdi class="secno">4.2.3 </bdi>Booleans</a>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#explicit-implied-objects"><bdi class="secno">4.2.4
+										</bdi>Explicit and Implied Objects</a>
+									<ol class="toc">
+										<li class="tocline">
+											<a class="tocxref" href="#value-localizable-string"><bdi class="secno"
+													>4.2.4.1 </bdi>Localizable Strings</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#value-entity"><bdi class="secno">4.2.4.2
+												</bdi>Entities</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#value-linked-resource"><bdi class="secno">4.2.4.3
+												</bdi>Linked Resources</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#value-object"><bdi class="secno">4.2.4.4
+												</bdi>Objects</a>
+										</li>
+									</ol>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#value-url">
+										<bdi class="secno">4.2.5 </bdi>
+										<abbr title="Uniform Resource Locators">URLs</abbr>
+									</a>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#value-id"><bdi class="secno">4.2.6 </bdi>Identifiers</a>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#value-array"><bdi class="secno">4.2.7 </bdi>Arrays</a>
+								</li>
+							</ol>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-context"><bdi class="secno">4.3 </bdi>Manifest
+								Contexts</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-lang-dir"><bdi class="secno">4.4 </bdi>Manifest Language
+								and Direction</a>
+							<ol class="toc">
+								<li class="tocline">
+									<a class="tocxref" href="#manifest-lang-dir-global"><bdi class="secno">4.4.1
+										</bdi>Global Declarations</a>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#manifest-lang-dir-local"><bdi class="secno">4.4.2
+										</bdi>Item-Specific Declarations</a>
+								</li>
+							</ol>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#publication-types"><bdi class="secno">4.5 </bdi>Publication
+								Types</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#profile-conformance"><bdi class="secno">4.6 </bdi>Profile
+								Conformance</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-properties"><bdi class="secno">4.7 </bdi>Properties</a>
+							<ol class="toc">
+								<li class="tocline">
+									<a class="tocxref" href="#descriptive-properties"><bdi class="secno">4.7.1
+										</bdi>Descriptive Properties</a>
+									<ol class="toc">
+										<li class="tocline">
+											<a class="tocxref" href="#abridged"><bdi class="secno">4.7.1.1
+												</bdi>Abridged</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#accessibility"><bdi class="secno">4.7.1.2
+												</bdi>Accessibility</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#address"><bdi class="secno">4.7.1.3
+												</bdi>Address</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#canonical-identifier"><bdi class="secno">4.7.1.4
+												</bdi>Canonical Identifier</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#creators"><bdi class="secno">4.7.1.5
+												</bdi>Creators</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#duration"><bdi class="secno">4.7.1.6
+												</bdi>Duration</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#last-modification-date"><bdi class="secno">4.7.1.7
+												</bdi>Last Modification Date</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#publication-date"><bdi class="secno">4.7.1.8
+												</bdi>Publication Date</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#inLanguage"><bdi class="secno">4.7.1.9
+												</bdi>Publication Language</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#reading-progression-direction"><bdi class="secno"
+													>4.7.1.10 </bdi>Reading Progression Direction</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#pub-title"><bdi class="secno">4.7.1.11
+												</bdi>Title</a>
+										</li>
+									</ol>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#resource-categorization-properties"><bdi class="secno"
+											>4.7.2 </bdi>Resource Categorization Properties</a>
+									<ol class="toc">
+										<li class="tocline">
+											<a class="tocxref" href="#default-reading-order"><bdi class="secno">4.7.2.1
+												</bdi>Default Reading Order</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#resource-list"><bdi class="secno">4.7.2.2
+												</bdi>Resource List</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#links"><bdi class="secno">4.7.2.3 </bdi>Links</a>
+										</li>
+									</ol>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#extensibility"><bdi class="secno">4.7.3
+										</bdi>Extensibility</a>
+									<ol class="toc">
+										<li class="tocline">
+											<a class="tocxref" href="#extensibility-linked-records"><bdi class="secno"
+													>4.7.3.1 </bdi>Linked records</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#extensibility-manifest-properties"><bdi
+													class="secno">4.7.3.2 </bdi>Additional Manifest Properties</a>
+										</li>
+									</ol>
+								</li>
+							</ol>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-rel"><bdi class="secno">4.8 </bdi>Resource Relations</a>
+							<ol class="toc">
+								<li class="tocline">
+									<a class="tocxref" href="#structural-rel"><bdi class="secno">4.8.1 </bdi>Structural
+										Resources</a>
+									<ol class="toc">
+										<li class="tocline">
+											<a class="tocxref" href="#cover"><bdi class="secno">4.8.1.1 </bdi>Cover</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#page-list"><bdi class="secno">4.8.1.2 </bdi>Page
+												List</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#contents"><bdi class="secno">4.8.1.3 </bdi>Table
+												of Contents</a>
+										</li>
+									</ol>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#informative-rel"><bdi class="secno">4.8.2
+										</bdi>Informative Resources</a>
+									<ol class="toc">
+										<li class="tocline">
+											<a class="tocxref" href="#accessibility-report"><bdi class="secno">4.8.2.1
+												</bdi>Accessibility Report</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#preview"><bdi class="secno">4.8.2.2
+												</bdi>Preview</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#privacy-policy"><bdi class="secno">4.8.2.3
+												</bdi>Privacy Policy</a>
+										</li>
+									</ol>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#rel-extensions"><bdi class="secno">4.8.3
+										</bdi>Extensions</a>
+								</li>
+							</ol>
+						</li>
+					</ol>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#publication-resources"><bdi class="secno">5. </bdi>Publication
+						Resources</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#manifest-discovery"><bdi class="secno">6. </bdi>Manifest Discovery</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-link"><bdi class="secno">6.1 </bdi>Linking</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-embed"><bdi class="secno">6.2 </bdi>Embedding</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#manifest-other-discovery"><bdi class="secno">6.3 </bdi>Other
+								Discovery Methods</a>
+						</li>
+					</ol>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#manifest-processing"><bdi class="secno">7. </bdi>Processing a Manifest</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#processing-intro"><bdi class="secno">7.1 </bdi>Introduction</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#processing-errors"><bdi class="secno">7.2 </bdi>Error Handling</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#processing-contexts"><bdi class="secno">7.3 </bdi>Processing
+								Contexts</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#processing-algorithm"><bdi class="secno">7.4 </bdi>Generate the
+								Internal Representation</a>
+							<ol class="toc">
+								<li class="tocline">
+									<a class="tocxref" href="#normalize-data"><bdi class="secno">7.4.1 </bdi>Normalize
+										Data</a>
+									<ol class="toc">
+										<li class="tocline">
+											<a class="tocxref" href="#convert-absolute-url"><bdi class="secno">7.4.1.1
+												</bdi>Convert to Absolute URL</a>
+										</li>
+									</ol>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#validate-data"><bdi class="secno">7.4.2 </bdi>Data
+										Validation</a>
+									<ol class="toc">
+										<li class="tocline">
+											<a class="tocxref" href="#global-data-checks"><bdi class="secno">7.4.2.1
+												</bdi>Global Data Checks</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#verify-value-category"><bdi class="secno">7.4.2.2
+												</bdi>Verify Value Category</a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#get-unique-urls"><bdi class="secno">7.4.2.3
+												</bdi>Get Unique <abbr title="Uniform Resource Locators">URLs</abbr></a>
+										</li>
+										<li class="tocline">
+											<a class="tocxref" href="#remove-empty-arrays"><bdi class="secno">7.4.2.4
+												</bdi>Remove Empty Arrays</a>
+										</li>
+									</ol>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#add-default-values"><bdi class="secno">7.4.3 </bdi>Add
+										Default Values</a>
+								</li>
+							</ol>
+						</li>
+					</ol>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#extensions"><bdi class="secno">8. </bdi>Modular Extensions</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#security-privacy"><bdi class="secno">9. </bdi>Security and Privacy
+						Considerations</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#app-internal-rep-data-model"><bdi class="secno">A. </bdi>Internal
+						Representation Data Model</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#webidl-wpm"><bdi class="secno">A.1 </bdi>The
+									<code>PublicationManifest</code> Dictionary</a>
+							<ol class="toc">
+								<li class="tocline">
+									<a class="tocxref" href="#LinkedResource"><bdi class="secno">A.1.1 </bdi>The
+											<code>LinkedResource</code> Dictionary</a>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#Entity"><bdi class="secno">A.1.2 </bdi>The
+											<code>Entity</code> Dictionary</a>
+								</li>
+								<li class="tocline">
+									<a class="tocxref" href="#LocalizableString"><bdi class="secno">A.1.3 </bdi>The
+											<code>LocalizableString</code> Dictionary</a>
+								</li>
+							</ol>
+						</li>
+					</ol>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#app-select-alternate"><bdi class="secno">B. </bdi>Selecting an Alternate
+						Resource</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#app-toc-structure"><bdi class="secno">C. </bdi>Machine-Processable Table
+						of Contents</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#app-toc-html-intro"><bdi class="secno">C.1 </bdi>Introduction</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#app-toc-html"><bdi class="secno">C.2 </bdi>HTML Structure</a>
+							<ol class="toc">
+								<li class="tocline">
+									<a class="tocxref" href="#app-toc-html-examples"><bdi class="secno">C.2.1
+										</bdi>Examples</a>
+								</li>
+							</ol>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#app-toc-ua"><bdi class="secno">C.3 </bdi>User Agent Processing</a>
+						</li>
+					</ol>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#change-log"><bdi class="secno">D. </bdi>Change Log</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#iana-consideration"><bdi class="secno">E. </bdi>IANA considerations</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#link-relation-type-registration"><bdi class="secno">E.1 </bdi>Link
+								relation type registration</a>
+						</li>
+					</ol>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#app-manifest-examples"><bdi class="secno">F. </bdi>Manifest Examples</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#basic-manifest"><bdi class="secno">F.1 </bdi>Basic Manifest</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#single-document-publication"><bdi class="secno">F.2
+								</bdi>Single-Document Publication</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#audiobook"><bdi class="secno">F.3 </bdi>Audiobook</a>
+						</li>
+					</ol>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#app-properties-index"><bdi class="secno">G. </bdi>Properties Index</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#app-rel-index"><bdi class="secno">H. </bdi>Resource Relations Index</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#ack"><bdi class="secno">I. </bdi>Acknowledgements</a>
+				</li>
+				<li class="tocline">
+					<a class="tocxref" href="#references"><bdi class="secno">J. </bdi>References</a>
+					<ol class="toc">
+						<li class="tocline">
+							<a class="tocxref" href="#normative-references"><bdi class="secno">J.1 </bdi>Normative
+								references</a>
+						</li>
+						<li class="tocline">
+							<a class="tocxref" href="#informative-references"><bdi class="secno">J.2 </bdi>Informative
+								references</a>
+						</li>
+					</ol>
+				</li>
+			</ol>
+		</nav>
 		<section id="intro">
 			<h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction<a class="self-link" aria-label="§"
 					href="#intro"></a></h2>
@@ -1174,7 +1386,9 @@
 			<section id="manifest-format" class="informative">
 				<h3 id="x1-2-manifest-format"><bdi class="secno">1.2 </bdi>Manifest Format<a class="self-link"
 						aria-label="§" href="#manifest-format"></a></h3>
-				<p><em>This section is non-normative.</em></p>
+				<p>
+					<em>This section is non-normative.</em>
+				</p>
 
 				<p>A <a href="#dfn-digital-publications" class="internalDFN" data-link-type="dfn"
 						id="ref-for-dfn-digital-publications-1">digital publication</a> is described by its <a
@@ -1286,7 +1500,9 @@
 			<section id="manifest-schemaorg" class="informative">
 				<h3 id="x1-4-relationship-to-schema-org"><bdi class="secno">1.4 </bdi>Relationship to Schema.org<a
 						class="self-link" aria-label="§" href="#manifest-schemaorg"></a></h3>
-				<p><em>This section is non-normative.</em></p>
+				<p>
+					<em>This section is non-normative.</em>
+				</p>
 
 				<p>Manifest properties, in particular those categorized as <a href="#descriptive-properties">descriptive
 						properties</a>, are primarily drawn from <a href="https://schema.org">Schema.org</a> and its <a
@@ -1414,10 +1630,14 @@
 
 				<ul>
 					<li>
-						<a href="#manifest-context"><code>context</code></a>
+						<a href="#manifest-context">
+							<code>context</code>
+						</a>
 					</li>
 					<li>
-						<a href="#profile-conformance"><code>conformsTo</code></a>
+						<a href="#profile-conformance">
+							<code>conformsTo</code>
+						</a>
 					</li>
 				</ul>
 
@@ -1425,10 +1645,14 @@
 
 				<ul>
 					<li>
-						<a href="#publication-types"><code>type</code></a>
+						<a href="#publication-types">
+							<code>type</code>
+						</a>
 					</li>
 					<li>
-						<a href="#canonical-identifier"><code>id</code></a>
+						<a href="#canonical-identifier">
+							<code>id</code>
+						</a>
 					</li>
 				</ul>
 
@@ -1558,7 +1782,9 @@
 									</td>
 									<td>The value of the localizable string. <em class="rfc2119">REQUIRED</em>.</td>
 									<td>Text.</td>
-									<td><a href="#value-literal">Literal</a></td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
 									<td>(None)</td>
 								</tr>
 								<tr>
@@ -1570,7 +1796,9 @@
 											tag</a>&#160;[<cite><a class="bibref" data-link-type="biblio"
 												href="#bib-bcp47" title="Tags for Identifying Languages"
 											>bcp47</a></cite>].</td>
-									<td><a href="#value-literal">Literal</a></td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
 									<td>(None)</td>
 								</tr>
 								<tr>
@@ -1579,7 +1807,9 @@
 									</td>
 									<td>The base direction of the value. <em class="rfc2119">OPTIONAL</em>.</td>
 									<td><code>ltr</code> or <code>rtl</code></td>
-									<td><a href="#value-literal">Literal</a></td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
 									<td>(None)</td>
 								</tr>
 							</tbody>
@@ -1947,7 +2177,8 @@
 									</td>
 									<td>A cryptographic hashing of the resource that allows its integrity to be
 										verified. <em class="rfc2119">OPTIONAL</em>.</td>
-									<td><p>One or more whitespace-separated sets of <a
+									<td>
+										<p>One or more whitespace-separated sets of <a
 												href="https://www.w3.org/TR/SRI/#dfn-integrity-metadata">integrity
 												metadata</a>&#160;[<cite><a class="bibref" data-link-type="biblio"
 													href="#bib-sri" title="Subresource Integrity">sri</a></cite>]. The
@@ -2122,8 +2353,11 @@
 				</section>
 
 				<section id="value-url">
-					<h4 id="x4-2-5-urls"><bdi class="secno">4.2.5 </bdi><abbr title="Uniform Resource Locators"
-							>URLs</abbr><a class="self-link" aria-label="§" href="#value-url"></a></h4>
+					<h4 id="x4-2-5-urls">
+						<bdi class="secno">4.2.5 </bdi>
+						<abbr title="Uniform Resource Locators">URLs</abbr>
+						<a class="self-link" aria-label="§" href="#value-url"></a>
+					</h4>
 
 					<p><dfn data-lt="URL|URLs" data-plurals="url" id="dfn-url"><abbr title="Uniform Resource Locators"
 								>URLs</abbr></dfn> are used to identify resources associated with a <a
@@ -2608,9 +2842,11 @@
 										data-link-type="biblio" href="#bib-url" title="URL Standard"
 								>url</a></cite>].</td>
 							<td><a href="#value-array">Array</a> of <a href="#value-literal">Literals</a></td>
-							<td><a
+							<td>
+								<a
 									href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/conformsTo"
-									>conformsTo</a></td>
+									>conformsTo</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -2679,7 +2915,9 @@
 									</td>
 									<td>Indicates whether the book is an abridged edition.</td>
 									<td>Either <code>true</code> or <code>false</code>.</td>
-									<td><a href="#value-boolean">Boolean</a></td>
+									<td>
+										<a href="#value-boolean">Boolean</a>
+									</td>
 									<td>
 										<a href="https://schema.org/abridged"><code>abridged</code></a> (<a
 											href="https://schema.org/Book">Book</a>) </td>
@@ -2950,7 +3188,9 @@
 									<td>Preferred version of the publication.</td>
 									<td>A URL record&#160;[<cite><a class="bibref" data-link-type="biblio"
 												href="#bib-url" title="URL Standard">url</a></cite>].</td>
-									<td><a href="#value-id">Identifier</a></td>
+									<td>
+										<a href="#value-id">Identifier</a>
+									</td>
 									<td>(None)</td>
 								</tr>
 							</tbody>
@@ -4881,13 +5121,17 @@
 			<h2 id="x7-processing-a-manifest"><bdi class="secno">7. </bdi>Processing a Manifest<a class="self-link"
 					aria-label="§" href="#manifest-processing"></a></h2>
 
-			<p><em>This section depends on the Infra Standard [<cite><a class="bibref" data-link-type="biblio"
-							href="#bib-infra" title="Infra Standard">infra</a></cite>].</em></p>
+			<p>
+				<em>This section depends on the Infra Standard [<cite><a class="bibref" data-link-type="biblio"
+							href="#bib-infra" title="Infra Standard">infra</a></cite>].</em>
+			</p>
 
 			<section id="processing-intro" class="informative">
 				<h3 id="x7-1-introduction"><bdi class="secno">7.1 </bdi>Introduction<a class="self-link" aria-label="§"
 						href="#processing-intro"></a></h3>
-				<p><em>This section is non-normative.</em></p>
+				<p>
+					<em>This section is non-normative.</em>
+				</p>
 
 				<p>Although a <a href="#dfn-digital-publications" class="internalDFN" data-link-type="dfn"
 						id="ref-for-dfn-digital-publications-34">digital publication</a>'s manifest is authored as
@@ -6754,7 +6998,9 @@
 		<section id="app-internal-rep-data-model" class="appendix informative">
 			<h2 id="a-internal-representation-data-model"><bdi class="secno">A. </bdi>Internal Representation Data
 					Model<a class="self-link" aria-label="§" href="#app-internal-rep-data-model"></a></h2>
-			<p><em>This section is non-normative.</em></p>
+			<p>
+				<em>This section is non-normative.</em>
+			</p>
 
 			<p>The manifest includes several authoring conveniences, such as default values, the ability to use strings
 				where objects would normally be required, and the automatic compilation of information from other
@@ -6871,8 +7117,10 @@ enum TextDirection {
 			<h2 id="b-selecting-an-alternate-resource"><bdi class="secno">B. </bdi>Selecting an Alternate Resource<a
 					class="self-link" aria-label="§" href="#app-select-alternate"></a></h2>
 
-			<p><em>This appendix depends on the Infra Standard [<cite><a class="bibref" data-link-type="biblio"
-							href="#bib-infra" title="Infra Standard">infra</a></cite>].</em></p>
+			<p>
+				<em>This appendix depends on the Infra Standard [<cite><a class="bibref" data-link-type="biblio"
+							href="#bib-infra" title="Infra Standard">infra</a></cite>].</em>
+			</p>
 
 			<p>To <dfn id="dfn-select-an-alternate-resource">select an alternate resource</dfn> for a <a
 					href="#dfn-linkedresources" class="internalDFN" data-link-type="dfn"
@@ -6941,7 +7189,9 @@ enum TextDirection {
 			<section id="app-toc-html-intro" class="informative">
 				<h3 id="c-1-introduction"><bdi class="secno">C.1 </bdi>Introduction<a class="self-link" aria-label="§"
 						href="#app-toc-html-intro"></a></h3>
-				<p><em>This section is non-normative.</em></p>
+				<p>
+					<em>This section is non-normative.</em>
+				</p>
 
 				<p>To facilitate navigation within pages and across sites, HTML uses the <a
 						href="https://html.spec.whatwg.org/multipage/sections.html#the-nav-element"><code>nav</code>
@@ -7095,7 +7345,9 @@ enum TextDirection {
 				<section id="app-toc-html-examples" class="informative">
 					<h4 id="c-2-1-examples"><bdi class="secno">C.2.1 </bdi>Examples<a class="self-link" aria-label="§"
 							href="#app-toc-html-examples"></a></h4>
-					<p><em>This section is non-normative.</em></p>
+					<p>
+						<em>This section is non-normative.</em>
+					</p>
 
 					<aside class="example" id="example-65-a-basic-multi-level-table-of-contents">
 						<div class="marker">
@@ -7206,8 +7458,10 @@ enum TextDirection {
 				<h3 id="c-3-user-agent-processing"><bdi class="secno">C.3 </bdi>User Agent Processing<a
 						class="self-link" aria-label="§" href="#app-toc-ua"></a></h3>
 
-				<p><em>This section depends on the Infra Standard [<cite><a class="bibref" data-link-type="biblio"
-								href="#bib-infra" title="Infra Standard">infra</a></cite>].</em></p>
+				<p>
+					<em>This section depends on the Infra Standard [<cite><a class="bibref" data-link-type="biblio"
+								href="#bib-infra" title="Infra Standard">infra</a></cite>].</em>
+				</p>
 
 				<p>This section defines an algorithm for extracting a table of contents from a <code>nav</code> element.
 					It is defined in terms of a walk over the nodes of a DOM tree, in <a
@@ -7702,8 +7956,8 @@ enum TextDirection {
 								</p>
 								<details>
 									<summary>Explanation</summary>
-									<p>For all other elements, this steps allows their descendant elements to continue
-										to be processed.</p>
+									<p>For all other elements, this step allows their descendant elements to continue to
+										be processed.</p>
 								</details>
 							</li>
 						</ol>
@@ -7785,7 +8039,9 @@ enum TextDirection {
 		<section id="iana-consideration" class="appendix informative">
 			<h2 id="e-iana-considerations"><bdi class="secno">E. </bdi>IANA considerations<a class="self-link"
 					aria-label="§" href="#iana-consideration"></a></h2>
-			<p><em>This section is non-normative.</em></p>
+			<p>
+				<em>This section is non-normative.</em>
+			</p>
 
 			<section id="link-relation-type-registration">
 				<h3 id="e-1-link-relation-type-registration"><bdi class="secno">E.1 </bdi>Link relation type
@@ -7800,7 +8056,9 @@ enum TextDirection {
 						about a publication, such as informative metadata, a list of resources, and a default reading
 						order. </dd>
 					<dt>Reference:</dt>
-					<dd><a href="https://www.w3.org/TR/pub-manifest/">https://www.w3.org/TR/pub-manifest</a></dd>
+					<dd>
+						<a href="https://www.w3.org/TR/pub-manifest/">https://www.w3.org/TR/pub-manifest</a>
+					</dd>
 					<dt>Notes:</dt>
 					<dd>Please refer to the steps in <a href="#manifest-discovery" class="sec-ref">§&#160;<bdi
 								class="secno">6. </bdi>Manifest Discovery</a> for details on how to access, and <a
@@ -7815,7 +8073,9 @@ enum TextDirection {
 		<section id="app-manifest-examples" class="appendix informative">
 			<h2 id="f-manifest-examples"><bdi class="secno">F. </bdi>Manifest Examples<a class="self-link"
 					aria-label="§" href="#app-manifest-examples"></a></h2>
-			<p><em>This section is non-normative.</em></p>
+			<p>
+				<em>This section is non-normative.</em>
+			</p>
 
 			<section id="basic-manifest">
 				<h3 id="f-1-basic-manifest"><bdi class="secno">F.1 </bdi>Basic Manifest<a class="self-link"
@@ -8093,7 +8353,9 @@ enum TextDirection {
 		<section id="app-properties-index" class="appendix informative">
 			<h2 id="g-properties-index"><bdi class="secno">G. </bdi>Properties Index<a class="self-link" aria-label="§"
 					href="#app-properties-index"></a></h2>
-			<p><em>This section is non-normative.</em></p>
+			<p>
+				<em>This section is non-normative.</em>
+			</p>
 
 			<p>The following table identifies where manifest properties are defined and extended.</p>
 
@@ -8255,8 +8517,10 @@ enum TextDirection {
 						<td>
 							<code>id</code>
 						</td>
-						<td><a href="#canonical-identifier" class="sec-ref">§&#160;<bdi class="secno">4.7.1.4
-								</bdi>Canonical Identifier</a></td>
+						<td>
+							<a href="#canonical-identifier" class="sec-ref">§&#160;<bdi class="secno">4.7.1.4
+								</bdi>Canonical Identifier</a>
+						</td>
 					</tr>
 					<tr>
 						<td>
@@ -8388,7 +8652,9 @@ enum TextDirection {
 						<td>
 							<code>url</code>
 						</td>
-						<td><a href="#address" class="sec-ref">§&#160;<bdi class="secno">4.7.1.3 </bdi>Address</a></td>
+						<td>
+							<a href="#address" class="sec-ref">§&#160;<bdi class="secno">4.7.1.3 </bdi>Address</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -8396,7 +8662,9 @@ enum TextDirection {
 		<section id="app-rel-index" class="appendix informative">
 			<h2 id="h-resource-relations-index"><bdi class="secno">H. </bdi>Resource Relations Index<a class="self-link"
 					aria-label="§" href="#app-rel-index"></a></h2>
-			<p><em>This section is non-normative.</em></p>
+			<p>
+				<em>This section is non-normative.</em>
+			</p>
 
 			<p>The following table identifies where the use of resource relations is defined.</p>
 
@@ -8465,7 +8733,9 @@ enum TextDirection {
 		<section id="ack" class="appendix informative">
 			<h2 id="i-acknowledgements"><bdi class="secno">I. </bdi>Acknowledgements<a class="self-link" aria-label="§"
 					href="#ack"></a></h2>
-			<p><em>This section is non-normative.</em></p>
+			<p>
+				<em>This section is non-normative.</em>
+			</p>
 			<p>The editors would like to thank the members of the Publishing Working Group for their contributions to
 				this specification:</p>
 
@@ -8562,6 +8832,9 @@ enum TextDirection {
 					>Digital Publishing Interest Group</a> for all the hard work they did paving the road for this
 				specification. </p>
 		</section>
+
+
+
 		<section id="references" class="appendix">
 			<h2 id="j-references"><bdi class="secno">J. </bdi>References<a class="self-link" aria-label="§"
 					href="#references"></a></h2>
@@ -8736,9 +9009,13 @@ enum TextDirection {
 							>https://www.w3.org/wiki/WebSchemas/Accessibility</a></dd>
 				</dl>
 			</section>
-		</section><p role="navigation" id="back-to-top">
-			<a href="#title"><abbr title="Back to Top">↑</abbr></a>
-		</p><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-bounds">
+		</section>
+		<p role="navigation" id="back-to-top">
+			<a href="#title">
+				<abbr title="Back to Top">↑</abbr>
+			</a>
+		</p>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-bounds">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-bounds">Permalink</a>
@@ -8759,7 +9036,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-bounds-4">7.4.2 Data Validation</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-digital-publications">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-digital-publications">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-digital-publications">Permalink</a>
@@ -8874,7 +9152,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-digital-publications-38">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-internal-representation">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-internal-representation">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-internal-representation">Permalink</a>
@@ -8904,7 +9183,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-internal-representation-7">A. Internal Representation Data Model</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-manifests">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-manifests">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-manifests">Permalink</a>
@@ -8934,7 +9214,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-manifests-9">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-profiles">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-profiles">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-profiles">Permalink</a>
@@ -8993,7 +9274,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-profiles-18">B. Selecting an Alternate Resource</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-localizablestrings">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-localizablestrings">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-localizablestrings">Permalink</a>
@@ -9011,7 +9293,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-localizablestrings-3">7.4.2.1 Global Data Checks</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-entities">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-entities">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-entities">Permalink</a>
@@ -9023,7 +9306,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-entities-1">4.2.4.2 Entities</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-linkedresources">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-linkedresources">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-linkedresources">Permalink</a>
@@ -9065,7 +9349,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-linkedresources-13">B. Selecting an Alternate Resource</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-url">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-url">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-url">Permalink</a>
@@ -9091,7 +9376,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-url-7">4.7.2.3 Links</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-base-url">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-base-url">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-base-url">Permalink</a>
@@ -9106,7 +9392,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-base-url-2">7.4.1 Normalize Data</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-publication-context">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-publication-context">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-publication-context">Permalink</a>
@@ -9118,7 +9405,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-publication-context-1">4.4.1 Global Declarations</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-language">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-language">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-language">Permalink</a>
@@ -9130,7 +9418,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-language-1">4.7.1.9 Publication Language</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-base-direction">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-base-direction">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-base-direction">Permalink</a>
@@ -9140,7 +9429,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-publication-type">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-publication-type">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-publication-type">Permalink</a>
@@ -9150,7 +9440,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-address">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-address">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-address">Permalink</a>
@@ -9160,7 +9451,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-canonical-identifier">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-canonical-identifier">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-canonical-identifier">Permalink</a>
@@ -9170,7 +9462,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-creator">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-creator">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-creator">Permalink</a>
@@ -9180,7 +9473,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-global-duration">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-global-duration">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-global-duration">Permalink</a>
@@ -9190,7 +9484,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-last-modification-date">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-last-modification-date">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-last-modification-date">Permalink</a>
@@ -9200,7 +9495,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-publication-date">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-publication-date">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-publication-date">Permalink</a>
@@ -9210,7 +9506,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-progressiondirection">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-progressiondirection">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-progressiondirection">Permalink</a>
@@ -9220,7 +9517,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-default-reading-order">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-default-reading-order">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-default-reading-order">Permalink</a>
@@ -9242,7 +9540,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-default-reading-order-5">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-resource-list">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-resource-list">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-resource-list">Permalink</a>
@@ -9254,7 +9553,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-resource-list-1">4.7.2 Resource Categorization Properties</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-links">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-links">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-links">Permalink</a>
@@ -9269,7 +9569,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-links-2">5. Publication Resources</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-cover">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-cover">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-cover">Permalink</a>
@@ -9279,7 +9580,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-toc">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-toc">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-toc">Permalink</a>
@@ -9289,7 +9591,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-preview">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-preview">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-preview">Permalink</a>
@@ -9299,7 +9602,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-privacypolicy">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-privacypolicy">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-privacypolicy">Permalink</a>
@@ -9309,7 +9613,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-validation-errors">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-validation-errors">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-validation-errors">Permalink</a>
@@ -9374,7 +9679,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-validation-errors-40">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-fatal-errors">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-fatal-errors">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-fatal-errors">Permalink</a>
@@ -9391,7 +9697,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-fatal-errors-4">7.4.3 Add Default Values</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-context">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-context">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-context">Permalink</a>
@@ -9409,7 +9716,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-context-3">7.4.2.2 Verify Value Category</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-recognized-types">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-recognized-types">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-recognized-types">Permalink</a>
@@ -9426,7 +9734,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-recognized-types-4">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-processing-algorithm">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-processing-algorithm">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-processing-algorithm">Permalink</a>
@@ -9441,7 +9750,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-processing-algorithm-2">7.3 Processing Contexts</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-normalize-data">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-normalize-data">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-normalize-data">Permalink</a>
@@ -9456,7 +9766,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-normalize-data-2">7.4 Generate the Internal Representation</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-convert-to-absolute-url">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-convert-to-absolute-url">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-convert-to-absolute-url">Permalink</a>
@@ -9469,7 +9780,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-convert-to-absolute-url-2">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-data-validation">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-data-validation">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-data-validation">Permalink</a>
@@ -9481,7 +9793,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-data-validation-1">7.4 Generate the Internal Representation</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-global-data-checks">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-global-data-checks">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-global-data-checks">Permalink</a>
@@ -9497,7 +9810,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-global-data-checks-3">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-verify-value-category">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-verify-value-category">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-verify-value-category">Permalink</a>
@@ -9513,7 +9827,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-verify-value-category-3">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-get-unique-urls">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-get-unique-urls">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-get-unique-urls">Permalink</a>
@@ -9526,7 +9841,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-get-unique-urls-2">(2)</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-remove-empty-arrays">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-remove-empty-arrays">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-remove-empty-arrays">Permalink</a>
@@ -9541,7 +9857,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-remove-empty-arrays-2">7.4.2.4 Remove Empty Arrays</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-add-default-values">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-add-default-values">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-add-default-values">Permalink</a>
@@ -9553,7 +9870,8 @@ enum TextDirection {
 					<a href="#ref-for-dfn-add-default-values-1">7.4 Generate the Internal Representation</a>
 				</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-select-an-alternate-resource">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-select-an-alternate-resource">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-select-an-alternate-resource">Permalink</a>
@@ -9563,7 +9881,8 @@ enum TextDirection {
 			<ul>
 				<li>Not referenced in this document.</li>
 			</ul>
-		</aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-list-element">
+		</aside>
+		<aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-list-element">
 			<span class="caret"></span>
 			<div>
 				<a class="self-link" href="#dfn-list-element">Permalink</a>
@@ -9576,138 +9895,119 @@ enum TextDirection {
 					<a href="#ref-for-dfn-list-element-2">(2)</a>
 				</li>
 			</ul>
-		</aside><script id="respec-dfn-panel">
-			//<![CDATA[
-			(() => {
-				// @ts-check
-				if (document.respecIsReady) {
-					document.respecIsReady.then(dfnPanel);
-				} else {
-					dfnPanel();
-				}
-				
-				function dfnPanel() {
-					/** @type {HTMLElement} */
-					let panel;
-					document.body.addEventListener("click", event => {
-						if (!(event.target instanceof HTMLElement)) return;
-						
-						/** @type {HTMLElement} */
-						const el = event.target;
-						
-						const action = deriveAction(el);
-						switch (action) {
-							case "show": {
-								if (panel) hidePanel(panel);
-								/** @type {HTMLElement} */
-								const dfn = el.closest("dfn, .index-term");
-								panel = document.getElementById(`dfn - panel - for - $ {
-									dfn.id
-								}
-								`);
-								displayPanel(dfn, panel, {
-									x: event.clientX, y: event.clientY
-								});
-								break;
-							}
-							case "dock": {
-								panel.style.left = null;
-								panel.style.top = null;
-								panel.classList.add("docked");
-								break;
-							}
-							case "hide": {
-								hidePanel(panel);
-								break;
-							}
-						}
-					});
-				}
-				
-				/** @param {HTMLElement} clickTarget */
-				function deriveAction(clickTarget) {
-					const hitALink = ! ! clickTarget.closest("a");
-					if (clickTarget.closest("dfn, .index-term")) {
-						return hitALink ? null: "show";
-					}
-					if (clickTarget.closest(".dfn-panel")) {
-						if (hitALink) {
-							const clickedSelfLink = clickTarget.classList.contains("self-link");
-							return clickedSelfLink ? "hide": "dock";
-						}
-						const panel = clickTarget.closest(".dfn-panel");
-						return panel.classList.contains("docked") ? "hide": null;
-					}
-					if (document.querySelector(".dfn-panel:not([hidden])")) {
-						return "hide";
-					}
-					return null;
-				}
-				
-				/**
-				 * @param {HTMLElement} dfn
-				 * @param {HTMLElement} panel
-				 * @param {{ x: number, y: number }} clickPosition
-				 */
-				function displayPanel(dfn, panel, {
-					x, y
-				}) {
-					panel.hidden = false;
-					// distance (px) between edge of panel and the pointing triangle (caret)
-					const MARGIN = 20;
-					
-					const dfnRects = dfn.getClientRects();
-					// Find the `top` offset when the `dfn` can be spread across multiple lines
-					let closestTop = 0;
-					let minDiff = Infinity;
-					for (const rect of dfnRects) {
-						const {
-							top, bottom
-						} = rect;
-						const diffFromClickY = Math.abs((top + bottom) / 2 - y);
-						if (diffFromClickY < minDiff) {
-							minDiff = diffFromClickY;
-							closestTop = top;
-						}
-					}
-					
-					const top = window.scrollY + closestTop + dfnRects[0].height;
-					const left = x - MARGIN;
-					panel.style.left = `$ {
-						left
-					}
-					px`;
-					panel.style.top = `$ {
-						top
-					}
-					px`;
-					
-					// Find if the panel is flowing out of the window
-					const panelRect = panel.getBoundingClientRect();
-					const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
-					if (panelRect.right > SCREEN_WIDTH) {
-						const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
-						const newCaretOffset = left - newLeft;
-						panel.style.left = `$ {
-							newLeft
-						}
-						px`;
-						/** @type {HTMLElement} */
-						const caret = panel.querySelector(".caret");
-						caret.style.left = `$ {
-							newCaretOffset
-						}
-						px`;
-					}
-				}
-				
-				/** @param {HTMLElement} panel */
-				function hidePanel(panel) {
-					panel.hidden = true;
-					panel.classList.remove("docked");
-				}
-			})()//]]>
-		</script>
+		</aside>
+		<script id="respec-dfn-panel">
+    	// <![CDATA[
+    	(() => {
+// @ts-check
+if (document.respecIsReady) {
+  document.respecIsReady.then(dfnPanel);
+} else {
+  dfnPanel();
+}
+
+function dfnPanel() {
+  /** @type {HTMLElement} */
+  let panel;
+  document.body.addEventListener("click", event => {
+    if (!(event.target instanceof HTMLElement)) return;
+
+    /** @type {HTMLElement} */
+    const el = event.target;
+
+    const action = deriveAction(el);
+    switch (action) {
+      case "show": {
+        if (panel) hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = el.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        displayPanel(dfn, panel, { x: event.clientX, y: event.clientY });
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        break;
+      }
+    }
+  });
+}
+
+/** @param {HTMLElement} clickTarget */
+function deriveAction(clickTarget) {
+  const hitALink = !!clickTarget.closest("a");
+  if (clickTarget.closest("dfn, .index-term")) {
+    return hitALink ? null : "show";
+  }
+  if (clickTarget.closest(".dfn-panel")) {
+    if (hitALink) {
+      const clickedSelfLink = clickTarget.classList.contains("self-link");
+      return clickedSelfLink ? "hide" : "dock";
+    }
+    const panel = clickTarget.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : null;
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return null;
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()
+// ]]>
+</script>
 		<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
 	</body>
 </html>
