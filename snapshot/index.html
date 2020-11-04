@@ -1849,7 +1849,7 @@
 								<span class="example-title">: Set the language and the base direction of a string</span>
 							</div>
 							<pre aria-busy="false"><code class="hljs json">{
-    <span class="hljs-attr">"value"</span>     : <span class="hljs-string">"HTML היא שפת סימון."</span>,
+    <span class="hljs-attr">"value"</span>     : <span class="hljs-string">"<bdo dir="ltr">HTML היא שפת סימון.</bdo>"</span>,
     <span class="hljs-attr">"language"</span>  : <span class="hljs-string">"he"</span>,
     <span class="hljs-attr">"direction"</span> : <span class="hljs-string">"rtl"</span>
 }</code></pre>
@@ -1859,15 +1859,18 @@
 								<span>Note</span>
 							</div>
 							<div class="">
-								<p> If the base direction value were not set in the last example, the text would be
+								<p>If the base direction value were not set in the last example, the text would be
 									displayed, following the Unicode Bidirectional Algorithm&#160;[<cite><a
 											class="bibref" data-link-type="biblio" href="#bib-bidi"
 											title="Unicode Bidirectional Algorithm">bidi</a></cite>] and due to the
 									presence of a Latin character starting the string, as: </p>
 								<p dir="ltr">HTML היא שפת סימון.</p>
-								<p> However, that would be incorrect. The extra <code>direction</code> value is
-									necessary to control the display to yield: </p>
+								<p>However, that would be incorrect. The extra <code>direction</code> value is necessary
+									to control the display to yield: </p>
 								<p dir="rtl">HTML היא שפת סימון.</p>
+								<p>(Note that the <var>value</var> field in the example represents the text as it is
+									stored in memory, hence the discrepancy between it and the two renderings depicted
+									here.)</p>
 								<p>See also the [<cite><a class="bibref" data-link-type="biblio" href="#bib-string-meta"
 											title="Requirements for Language and Direction Metadata in Data Formats"
 											>string-meta</a></cite>] document for further explanations and examples.</p>
