@@ -499,7 +499,7 @@
 				publications, serialized in [json-ld11], to enable interoperability between publishing formats while
 				accommodating variances in the information that needs to be expressed." />
 		<link rel="canonical" href="https://www.w3.org/TR/pub-manifest/" />
-		<style type="text/css">
+		<style>
 			.hljs {
 				display: block;
 				overflow-x: auto;
@@ -794,6 +794,12 @@
       "id": "mfrel"
     }
   },
+  "alternateFormats": [
+    {
+      "uri": "pub-manifest.epub",
+      "label": "EPUB"
+    }
+  ],
   "publishDate": "2020-11-10",
   "publishISODate": "2020-11-10T00:00:00.000Z",
   "generatedSubtitle": "Recommendation 10 November 2020"
@@ -875,7 +881,9 @@
 				any errors or issues reported since publication. </p>
 			<p> See also <a href="http://www.w3.org/2003/03/Translations/byTechnology?technology=pub-manifest">
 					<strong>translations</strong></a>. </p>
-
+			<p> This document is also available in this non-normative format: <a rel="alternate"
+					href="pub-manifest.epub">EPUB</a>
+			</p>
 			<p class="copyright">
 				<a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2020 <a
 					href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a
@@ -1456,8 +1464,8 @@
 					</dt>
 					<dd>
 						<p>Structural resources are key meta structures of the publication, such as the <a href="#cover"
-								>cover image</a>, <a href="#table-of-contents">table of contents</a>, and <a
-								href="#page-list">page list</a>.</p>
+								>cover image</a>, <a href="#contents">table of contents</a>, and <a href="#page-list"
+								>page list</a>.</p>
 					</dd>
 				</dl>
 			</section>
@@ -1849,7 +1857,7 @@
 								<span class="example-title">: Set the language and the base direction of a string</span>
 							</div>
 							<pre aria-busy="false"><code class="hljs json">{
-    <span class="hljs-attr">"value"</span>     : <span class="hljs-string">"HTML היא שפת סימון."</span>,
+    <span class="hljs-attr">"value"</span>     : <span class="hljs-string">"<bdo dir="ltr">HTML היא שפת סימון.</bdo>"</span>,
     <span class="hljs-attr">"language"</span>  : <span class="hljs-string">"he"</span>,
     <span class="hljs-attr">"direction"</span> : <span class="hljs-string">"rtl"</span>
 }</code></pre>
@@ -1868,13 +1876,15 @@
 								<p> However, that would be incorrect. The extra <code>direction</code> value is
 									necessary to control the display to yield: </p>
 								<p dir="rtl">HTML היא שפת סימון.</p>
+								<p>Note that the <var>value</var> field in the example represents the text as it is
+									stored in memory, hence the discrepancy between it and the two renderings depicted
+									here. Text editors might also display the JSON value differently (e.g., using the
+									Unicode Bidirectional Algorithm only).</p>
 								<p>See also the [<cite><a class="bibref" data-link-type="biblio" href="#bib-string-meta"
 											title="Requirements for Language and Direction Metadata in Data Formats"
 											>string-meta</a></cite>] document for further explanations and examples.</p>
 							</div>
 						</div>
-
-
 					</section>
 
 					<section id="value-entity">
@@ -3973,8 +3983,8 @@
 							class="internalDFN" data-link-type="dfn" id="ref-for-dfn-links-1">links</a>, as defined in
 						this section. These lists contain references to <a href="#informative-rel">informative
 							resources</a> like the <a href="#privacy-policy">privacy policy</a>, and <a
-							href="#structural-rel">structural resources</a> like the <a href="#table-of-contents">table
-							of contents</a>.</p>
+							href="#structural-rel">structural resources</a> like the <a href="#contents">table of
+							contents</a>.</p>
 
 					<div class="note" role="note" id="issue-container-generatedID-16">
 						<div role="heading" class="note-title marker" id="h-note-16" aria-level="5">
@@ -7253,7 +7263,7 @@ enum TextDirection {
 					users.</p>
 
 				<p>The manifest <em class="rfc2119">SHOULD</em>
-					<a href="#table-of-contents">identify the resource</a> that contains the table of contents.</p>
+					<a href="#contents">identify the resource</a> that contains the table of contents.</p>
 
 				<p>Although the content model of the <code>nav</code> element is not restricted, user agents will only
 					be able to extract a usable table of contents when the following markup guidelines are followed:</p>
@@ -8917,7 +8927,7 @@ enum TextDirection {
 							>https://tools.ietf.org/html/rfc4627</a></dd>
 					<dt id="bib-json-ld11">[json-ld11]</dt>
 					<dd><a href="https://www.w3.org/TR/json-ld11/"><cite>JSON-LD 1.1</cite></a>. Gregg Kellogg;
-						Pierre-Antoine Champin; Dave Longley. W3C. 7 May 2020. W3C Proposed Recommendation. URL: <a
+						Pierre-Antoine Champin; Dave Longley. W3C. 16 July 2020. W3C Recommendation. URL: <a
 							href="https://www.w3.org/TR/json-ld11/">https://www.w3.org/TR/json-ld11/</a></dd>
 					<dt id="bib-mfrel">[mfrel]</dt>
 					<dd><a href="http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions"
@@ -8972,7 +8982,7 @@ enum TextDirection {
 				<dl class="bibliography">
 					<dt id="bib-audiobooks">[audiobooks]</dt>
 					<dd><a href="https://www.w3.org/TR/audiobooks/"><cite>Audiobooks</cite></a>. Wendy Reid; Matt
-						Garrish. W3C. 17 March 2020. W3C Candidate Recommendation. URL: <a
+						Garrish. W3C. 10 November 2020. W3C Recommendation. URL: <a
 							href="https://www.w3.org/TR/audiobooks/">https://www.w3.org/TR/audiobooks/</a></dd>
 					<dt id="bib-ecma-404">[ecma-404]</dt>
 					<dd><a href="https://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"><cite>The

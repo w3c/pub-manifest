@@ -49,7 +49,11 @@
 					repoURL: "https://github.com/w3c/pub-manifest/",
 					branch: "master"
 				},
-				localBiblio: localBiblio
+				localBiblio: localBiblio,
+				alternateFormats: [{
+				    "uri": "pub-manifest.epub",
+				    "label": "EPUB"
+				}]
 			};//]]>
 	  </script>
 		<style>
@@ -148,8 +152,8 @@
 					</dt>
 					<dd>
 						<p>Structural resources are key meta structures of the publication, such as the <a href="#cover"
-								>cover image</a>, <a href="#table-of-contents">table of contents</a>, and <a
-								href="#page-list">page list</a>.</p>
+								>cover image</a>, <a href="#contents">table of contents</a>, and <a href="#page-list"
+								>page list</a>.</p>
 					</dd>
 				</dl>
 			</section>
@@ -272,10 +276,14 @@
 
 				<ul>
 					<li>
-						<a href="#manifest-context"><code>context</code></a>
+						<a href="#manifest-context">
+							<code>context</code>
+						</a>
 					</li>
 					<li>
-						<a href="#profile-conformance"><code>conformsTo</code></a>
+						<a href="#profile-conformance">
+							<code>conformsTo</code>
+						</a>
 					</li>
 				</ul>
 
@@ -283,10 +291,14 @@
 
 				<ul>
 					<li>
-						<a href="#publication-types"><code>type</code></a>
+						<a href="#publication-types">
+							<code>type</code>
+						</a>
 					</li>
 					<li>
-						<a href="#canonical-identifier"><code>id</code></a>
+						<a href="#canonical-identifier">
+							<code>id</code>
+						</a>
 					</li>
 				</ul>
 
@@ -387,7 +399,9 @@
 									</td>
 									<td>The value of the localizable string. REQUIRED.</td>
 									<td>Text.</td>
-									<td><a href="#value-literal">Literal</a></td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
 									<td>(None)</td>
 								</tr>
 								<tr>
@@ -397,7 +411,9 @@
 									<td>The language of the value. OPTIONAL.</td>
 									<td>A <a href="https://tools.ietf.org/html/bcp47#section-2.2.9">well-formed language
 											tag</a>&#160;[[!bcp47]].</td>
-									<td><a href="#value-literal">Literal</a></td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
 									<td>(None)</td>
 								</tr>
 								<tr>
@@ -406,7 +422,9 @@
 									</td>
 									<td>The base direction of the value. OPTIONAL.</td>
 									<td><code>ltr</code> or <code>rtl</code></td>
-									<td><a href="#value-literal">Literal</a></td>
+									<td>
+										<a href="#value-literal">Literal</a>
+									</td>
 									<td>(None)</td>
 								</tr>
 							</tbody>
@@ -446,10 +464,12 @@
 							<p> However, that would be incorrect. The extra <code>direction</code> value is necessary to
 								control the display to yield: </p>
 							<p dir="rtl">HTML היא שפת סימון.</p>
+							<p>Note that the <var>value</var> field in the example represents the text as it is stored
+								in memory, hence the discrepancy between it and the two renderings depicted here. Text
+								editors might also display the JSON value differently (e.g., using the Unicode
+								Bidirectional Algorithm only).</p>
 							<p>See also the [[string-meta]] document for further explanations and examples.</p>
 						</div>
-
-
 					</section>
 
 					<section id="value-entity">
@@ -708,7 +728,8 @@
 									</td>
 									<td>A cryptographic hashing of the resource that allows its integrity to be
 										verified. OPTIONAL.</td>
-									<td><p>One or more whitespace-separated sets of <a
+									<td>
+										<p>One or more whitespace-separated sets of <a
 												href="https://www.w3.org/TR/SRI/#dfn-integrity-metadata">integrity
 												metadata</a>&#160;[[!sri]]. The value MUST conform to the <a
 												href="https://www.w3.org/TR/SRI/#the-integrity-attribute">metadata
@@ -1182,9 +1203,11 @@
 							<td>An <a href="https://url.spec.whatwg.org/#absolute-url-with-fragment-string"
 									>absolute-URL-with-fragment string</a>&#160;[[!url]].</td>
 							<td><a href="#value-array">Array</a> of <a href="#value-literal">Literals</a></td>
-							<td><a
+							<td>
+								<a
 									href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/conformsTo"
-									>conformsTo</a></td>
+									>conformsTo</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -1230,7 +1253,9 @@
 									</td>
 									<td>Indicates whether the book is an abridged edition.</td>
 									<td>Either <code>true</code> or <code>false</code>.</td>
-									<td><a href="#value-boolean">Boolean</a></td>
+									<td>
+										<a href="#value-boolean">Boolean</a>
+									</td>
 									<td>
 										<a href="https://schema.org/abridged"><code>abridged</code></a> (<a
 											href="https://schema.org/Book">Book</a>) </td>
@@ -1438,7 +1463,9 @@
 									</td>
 									<td>Preferred version of the publication.</td>
 									<td>A URL record&#160;[[!url]].</td>
-									<td><a href="#value-id">Identifier</a></td>
+									<td>
+										<a href="#value-id">Identifier</a>
+									</td>
 									<td>(None)</td>
 								</tr>
 							</tbody>
@@ -2057,7 +2084,7 @@
 							list</a>, and the <a>links</a>, as defined in this section. These lists contain references
 						to <a href="#informative-rel">informative resources</a> like the <a href="#privacy-policy"
 							>privacy policy</a>, and <a href="#structural-rel">structural resources</a> like the <a
-							href="#table-of-contents">table of contents</a>.</p>
+							href="#contents">table of contents</a>.</p>
 
 					<p class="note">It is not necessary to include a reference to the manifest in any of these
 						lists.</p>
@@ -2851,7 +2878,9 @@
 		<section id="manifest-processing">
 			<h2>Processing a Manifest</h2>
 
-			<p><em>This section depends on the Infra Standard [[!infra]].</em></p>
+			<p>
+				<em>This section depends on the Infra Standard [[!infra]].</em>
+			</p>
 
 			<section id="processing-intro" class="informative">
 				<h3>Introduction</h3>
@@ -4482,7 +4511,9 @@ dictionary LocalizableString {
 		<section id="app-select-alternate" class="appendix">
 			<h3>Selecting an Alternate Resource</h3>
 
-			<p><em>This appendix depends on the Infra Standard [[!infra]].</em></p>
+			<p>
+				<em>This appendix depends on the Infra Standard [[!infra]].</em>
+			</p>
 
 			<p>To <dfn>select an alternate resource</dfn> for a <a><code>LinkedResource</code></a>
 				<var>resource</var>, run the following steps.</p>
@@ -4592,7 +4623,7 @@ dictionary LocalizableString {
 					in <a href="https://dom.spec.whatwg.org/#concept-tree-order">document tree order</a>&#160;[[!dom]]
 					with that <code>role</code> value. The element MAY be hidden from users.</p>
 
-				<p>The manifest SHOULD <a href="#table-of-contents">identify the resource</a> that contains the table of
+				<p>The manifest SHOULD <a href="#contents">identify the resource</a> that contains the table of
 					contents.</p>
 
 				<p>Although the content model of the <code>nav</code> element is not restricted, user agents will only
@@ -4770,7 +4801,9 @@ dictionary LocalizableString {
 			<section id="app-toc-ua">
 				<h3>User Agent Processing</h3>
 
-				<p><em>This section depends on the Infra Standard [[!infra]].</em></p>
+				<p>
+					<em>This section depends on the Infra Standard [[!infra]].</em>
+				</p>
 
 				<p>This section defines an algorithm for extracting a table of contents from a <code>nav</code> element.
 					It is defined in terms of a walk over the nodes of a DOM tree, in <a
@@ -5203,8 +5236,8 @@ dictionary LocalizableString {
 								</p>
 								<details>
 									<summary>Explanation</summary>
-									<p>For all other elements, this step allows their descendant elements to continue
-										to be processed.</p>
+									<p>For all other elements, this step allows their descendant elements to continue to
+										be processed.</p>
 								</details>
 							</li>
 						</ol>
@@ -5293,7 +5326,9 @@ dictionary LocalizableString {
 					<dd>Links to a publication <a>manifest</a>. A manifest represents structured information about a
 						publication, such as informative metadata, a list of resources, and a default reading order. </dd>
 					<dt>Reference:</dt>
-					<dd><a href="https://www.w3.org/TR/pub-manifest/">https://www.w3.org/TR/pub-manifest</a></dd>
+					<dd>
+						<a href="https://www.w3.org/TR/pub-manifest/">https://www.w3.org/TR/pub-manifest</a>
+					</dd>
 					<dt>Notes:</dt>
 					<dd>Please refer to the steps in <a href="#manifest-discovery"></a> for details on how to access,
 						and <a href="#manifest-processing"></a> on how to process a <a>manifest</a>.</dd>
@@ -5497,7 +5532,9 @@ dictionary LocalizableString {
 						<td>
 							<code>id</code>
 						</td>
-						<td><a href="#canonical-identifier"></a></td>
+						<td>
+							<a href="#canonical-identifier"></a>
+						</td>
 					</tr>
 					<tr>
 						<td>
@@ -5623,7 +5660,9 @@ dictionary LocalizableString {
 						<td>
 							<code>url</code>
 						</td>
-						<td><a href="#address"></a></td>
+						<td>
+							<a href="#address"></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
