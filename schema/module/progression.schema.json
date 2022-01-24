@@ -1,0 +1,8 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://www.w3.org/ns/pub-schema/manifest/module/progression.schema.json",
+	"title": "Progression direction",
+	"type": "string",
+	"enum": ["ltr", "rtl"],
+	"default": "ltr"
+}

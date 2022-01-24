@@ -86,6 +86,9 @@
 		"readBy": {
 			"$ref": "https://www.w3.org/ns/pub-schema/manifest/module/contributor.schema.json"
 		},
+		"readingProgression": {
+			"$ref": "https://www.w3.org/ns/pub-schema/manifest/module/progression.schema.json"
+		},
 		"translator": {
 			"$ref": "https://www.w3.org/ns/pub-schema/manifest/module/contributor.schema.json"
 		},
