@@ -22,7 +22,6 @@
 				previousMaturity: "PR",
 				implementationReportURI: "https://www.w3.org/publishing/groups/publ-wg/implementation/results.html",
 				crEnd: "2020-03-31",
-				updateableRec: true,
 				edDraftURI: "https://w3c.github.io/pub-manifest/",
 				errata: "https://w3c.github.io/pub-manifest/errata/",
 				editors:[ {
@@ -72,7 +71,7 @@
 				publications, serialized in [[json-ld11]], to enable interoperability between publishing formats while
 				accommodating variances in the information that needs to be expressed.</p>
 		</section>
-		<section id="sotd"></section>
+		<section id="sotd" class="updateable-rec"></section>
 		<section id="intro">
 			<h2>Introduction</h2>
 
@@ -4688,11 +4687,11 @@ dictionary LocalizableString {
 						<p>A small set of elements are ignored when the parsing table of contents to avoid
 							misinterpretation. These are the [[!html]]&#160;<a
 								href="https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2">sectioning
-								content elements</a> and <a
-								href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root">sectioning
-								root elements</a>. The reason they are ignored is because they can define their own
-							outlines (i.e., they can represent embedded content that is self-contained and not
-							necessarily related to the structure of content links).</p>
+								content elements</a> and what were previously defined as <dfn>sectioning root</dfn>
+							elements &#8212; the [[html]] [^blockquote^], [^body^], [^details^], [^dialog^],
+							[^fieldset^], [^figure^], and [^td^] elements. The reason they are ignored is because they
+							can define their own outlines (i.e., they can represent embedded content that is
+							self-contained and not necessarily related to the structure of content links).</p>
 						<p>Any element that has its <a
 								href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
 									><code>hidden</code> attribute</a> set is also skipped, since hidden elements are
@@ -5012,9 +5011,9 @@ dictionary LocalizableString {
 									<summary>Explanation</summary>
 									<p>This step resets <var>current_toc_node</var> back to the parent object after all
 										of its child branches have been processed.</p>
-									<p>If there are no branches in the stack, the <var>toc["entries"]</var> is set to null
-										if it doesn't contain any items (to avoid processing any further lists at the
-										root level).</p>
+									<p>If there are no branches in the stack, the <var>toc["entries"]</var> is set to
+										null if it doesn't contain any items (to avoid processing any further lists at
+										the root level).</p>
 								</details>
 							</li>
 
@@ -5213,9 +5212,8 @@ dictionary LocalizableString {
 								<p>
 									<strong>When entering a <a
 											href="https://html.spec.whatwg.org/multipage/dom.html#sectioning-content-2"
-											>sectioning content</a> element, a <a
-											href="https://html.spec.whatwg.org/multipage/sections.html#sectioning-root"
-											>sectioning root</a> element, or an element with a <a
+											>sectioning content</a> element, a [=sectioning root=] element, or an
+										element with a <a
 											href="https://html.spec.whatwg.org/multipage/interaction.html#the-hidden-attribute"
 											>hidden</a> attribute:</strong>
 								</p>
